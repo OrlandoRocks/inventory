@@ -1,0 +1,30 @@
+en:
+  offices:
+    index:
+      title: Offices
+      resource: the office
+      name: Name
+      description: Description
+      department: Department
+      user: User
+      one: Office
+      other: Offices
+      new_office: New office
+    form:
+      title: Offices
+      resource: the office
+      name: Name
+      description: Description
+      department: Department
+      user: User
+      back: Go to offices
+      resource: office
+    edit:
+      title: Edit Office
+    new:
+      title: New Office
+    show:
+      back: Go to offices
+      delete_confirmation: Are you sure you want to delete the office
+  breadcrumbs:
+    permissions: Offices

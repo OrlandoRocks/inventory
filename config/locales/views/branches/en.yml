@@ -1,0 +1,36 @@
+en:
+  companies:
+    index:
+      title: Roles
+      resource: the role
+      name: Name
+      description: Description
+      key: Key
+      scope: Scope
+      one: Role
+      other: Roles
+      permissions: Permissions
+      new_role: New role
+    form:
+      title: Role
+      role_key: Role key
+      resource: role
+      back: Go to roles
+      name: Name
+      description: Description
+      key: Key
+    new:
+      title: New role
+    edit:
+      title: Edit role
+    show:
+      key: Key
+      description: Description
+      back: Go to roles
+      delete_confirmation: Are you sure you want to delete the role
+    role_permissions:
+      save_permissions: Save permissions
+      back: Go to roles
+
+  breadcrumbs:
+    roles: Roles

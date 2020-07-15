@@ -1,0 +1,37 @@
+es:
+  sub_categories:
+    index:
+      title: Lista de Subcategorías
+      resource: la Subcategoría
+      name: Subcategoría
+      description: Descripción
+      status: Estatus
+      category: Categoría / Compañía
+      one: Sub Categoría
+      other: Sub Categorías
+      company_id: Compañía
+      permissions: Permisos
+      new_sub_category: Nueva Subcategoría
+    form:
+      title: Subcategorías
+      resource: Subcategoría
+      back: Ir a Subcategorías
+      name: Nombre
+      description: Descripción
+      status: Estatus
+      category: Subcategoría
+    new:
+      title: Nueva Subcategoría
+    edit:
+      title: Editar Subcategoría
+    show:
+      name: Nombre
+      description: Descripción
+      back: Ir a Subcategorías
+      delete_confirmation: Estas seguro que deseas eliminar la Subcategoría
+    branch_permissions:
+      save_permissions: Guardar gategoria
+      back: Ir a Sub Categorías
+
+  breadcrumbs:
+    branches: Sub Categorías

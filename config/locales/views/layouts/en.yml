@@ -1,0 +1,26 @@
+en:
+  layouts:
+    header:
+      language: Language
+      select_lang: Select language
+      change_lang: Español
+    footer:
+      rights: All rights reserved.
+    account_dropdown:
+      profile: Profile
+      log_out: Log out
+    side_menu:
+      new_role: New role
+      roles: Roles
+      new_permission: New permission
+      pemissions: Permissions
+      users: Users
+      new_user: New user
+      new_employee: New employee
+      work_articles: Work articles
+      new_work_article: New work article
+      employees: Employees
+    control_side_bar:
+      skins: Skins
+      home: Home
+      stats: Stats

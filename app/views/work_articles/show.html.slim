@@ -1,0 +1,18 @@
+section.content
+  .row
+    .col-xs-12
+      .box.box-primary
+        .box-header.with-border
+          h1.box-title
+            = @work_article.name
+        .box-body
+          strong = t('.name')
+          p.text-muted
+            = @work_article.name
+        .box-footer
+          = link_to edit_work_article_path(@work_article), class: 'btn btn-primary btn-flat', title: t('helpers.edit') do
+            i.fa.fa-pencil-square-o
+            =< t('helpers.edit')
+            = link_to work_articles_path, class: 'btn btn-default btn-flat' do
+              i.fa.fa-list
+              =< t('.back')

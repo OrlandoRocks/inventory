@@ -1,0 +1,14 @@
+en:
+  activerecord:
+    attributes:
+      users_work_article:
+        user_id: User
+        work_article_id: Work Article
+  reception_status:
+    good: Good state
+    not_very_good: Not very good state
+    bad: Bad state
+  delivery_status:
+    ds_good: Good state
+    ds_not_very_good: Not very good state
+    ds_bad: Bad state

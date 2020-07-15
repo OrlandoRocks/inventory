@@ -1,0 +1,108 @@
+section.content
+  .row
+    .col-xs-12
+      .box.box-primary
+        .box-header.with-border
+          .row
+            .col-xs-6.col-md-8.col-lg-9
+              h3.box-title
+                = t('.title')
+            .col-xs-6.col-md-4.col-lg-3
+              .box-tools.pull-right
+                = search_form_for @search_users, url: url_for(controller: 'users/registrations', action: 'index') do |f|
+                  .input-group.input-group-sm.search
+                    /= f.text_field :username_or_email_or_first_name_or_last_name_or_maiden_name_or_role_name_or_employee_number_cont,
+                            class: 'form-control', placeholder: t('helpers.search')
+                    = f.text_field :email_or_first_name_or_last_name_or_maiden_name_or_role_name_or_employee_number_cont,
+                      class: 'form-control', placeholder: t('helpers.search')
+                    .input-group-btn
+                      button [class="btn btn-default" type="submit"]
+                        i [class="fa fa-search"]
+                = link_to new_user_path, class: 'btn btn-sm btn-flat btn-success', title: t('.new_user') do
+                  i.fa.fa-plus
+                  span.hidden-xs
+                    =< t('.new_user')
+                .tools
+                  button [type="button" class="btn btn-default btn-box-tool dropdown-toggle" data-toggle="dropdown" aria-expanded="false"]
+                    i.fa.fa-cog
+                  ul [class="dropdown-menu dropdown-menu-right" role="menu"]
+                    li
+                      a [href="#"]
+                        i.fa.fa-file-excel-o
+                        = t('helpers.export_excel')
+                    li = link_to "<i class='fa fa-trash'></i> #{t 'helpers.dump_destroy'}".html_safe, '#'
+        .box-body
+          .dataTables_wrapper
+            .row
+              .col-sm-12
+                .table-responsive
+                  table.table.table-bordered.table-hover.dataTable
+                    thead
+                      tr
+                        /th.table-checkbox
+                          .checkbox.icheck
+                            input [type="checkbox" class="icheck-me" data-skin="square" data-color="blue"]
+                        /th.sorting_asc aria-sort="ascending"
+                        th = t('.employee_number')
+                        /th = t('.email')
+                        th = t('.role')
+                        th = t('.company')
+                        th = t('.branch')
+                        th = t('.department')
+                        th = t('.first_name')
+                        /th = t('.last_name')
+                        /th = t('.maiden_name')
+                        th = t('.articles_assign')
+                        th.actions_header
+                          = t('.actions')
+                    tbody
+                      - @users.each do |user|
+                        tr.show_actions
+                          /td.table-checkbox
+                            .checkbox.icheck
+                              input [type="checkbox" class="icheck-me" data-skin="square" data-color="blue"]
+                          td = user.employee_number
+                          td = user.role_name
+                          /td = user.try(:branch).try(:departments).first.try(:name)
+                          /td = user.com
+                          td = search_company_user(user)
+                          td = search_branch_user(user)
+                          td = search_department_user(user)
+                          /td = user.role.key.eql?('empleado_sin_acceso')? 'SIN ACCESO': user.email
+                          td = user.full_name
+                          /td = user.last_name
+                          /td = user.maiden_name
+
+                          td
+                            = link_to "#{t('.articles_assign')}"' <i class="fa fa-file-pdf-o"></i>'.html_safe,
+                                    reports_items_user_path(nombre_reporte: 'items_user', titulo_reporte: "Lista de control de artículos asignados a un empleado.", user_id: user.id, format: :pdf),
+                                    class: 'btn btn-xs btn-success btn-flat', title: t('helpers.show')
+                          td
+                            .actions
+                              - if has_policy(User, %w(show), 'Users::Registration')
+                                - unless user.god? or user.admin?
+                                  = link_to 'Asignar artículos <i class="fa fa-search"></i>'.html_safe, user_path(user),
+                                      class: 'btn btn-xs btn-success btn-flat', title: t('helpers.show')
+                              /- if has_policy(User, %w(assign_work_articles), 'Users::Registration')
+                              /- if user.try(:department)
+                                = link_to 'Asignar artículos <i class="fa fa-dropbox"></i>'.html_safe, departments_employee_items_path(user.department_id,user.id),
+                                        class: 'btn btn-xs btn-success btn-flat', title: t('helpers.assign_work_articles')
+                              - if has_policy(User, %w(edit_user), 'Users::Registration')
+                                = link_to '<i class="fa fa-edit"></i>'.html_safe, edit_user_path(user),
+                                      class: 'btn btn-xs btn-primary btn-flat', title: t('helpers.edit')
+                              - if has_policy(User, %w(change_password), 'Users::Registration')
+                                = link_to '<i class="fa fa-key"></i>'.html_safe, change_password_path(user),
+                                      class: 'btn btn-xs btn-warning btn-flat', title: t('helpers.edit_password')
+                              - if has_policy(User, %w(destroy), 'Users::Registration')
+                                = link_to '<i class="fa fa-trash-o"></i>'.html_safe, '#', title: t('helpers.destroy'),
+                                        class: 'btn btn-xs btn-danger btn-flat btn-destroy',
+                                        data: {:'resource' => :users, :'resource-id' => user.id,
+                                              :'resource-message' => t('questions.destroy', resource: t('.resource'),
+                                                                  name: user.full_name)}
+            .row
+              .col-sm-5
+                .dataTables_info
+                  = pluralize(@users.count, t('.one'), t('.other'))
+              .col-sm-7
+                .dataTables_paginate.paging_simple_numbers
+                  = custom_paginator(@users)

@@ -1,0 +1,19 @@
+- @title = t('.resend_confirmation')
+.login-box
+  .login-logo
+    b 
+      = t('.template')
+  .login-box-body
+    p.login-box-msg
+      = t('.resend_instructions')
+    = form_for(resource, as: resource_name, url: confirmation_path(resource_name),
+            layout: :horizontal, html: { method: :post }, validate: true) do |f|
+      .form-group.has-feedback
+        /! = devise_error_messages!
+        = f.email_field :email, autofocus: true, class: 'form-control', placeholder: t('.email')
+        span.glyphicon.glyphicon-envelope.form-control-feedback
+
+      = f.submit t('.resend_instructions'), class: 'btn bg-purple btn-block btn-flat'
+
+    p.text-right
+      = render partial: 'users/shared/links'

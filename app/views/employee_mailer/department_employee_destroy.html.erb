@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+  <h2>Se ha eliminado al Empleado <%= "#{@employee.first_name} #{@employee.last_name}" %> con los siguientes artículos:</h2>
+  <h3>Artículos: </h3>
+  <ul>
+
+
+    <% @items.each do |item|%>
+      <li>
+        <%= item %>
+      </li>
+    <% end %>
+  </ul>
+
+  <p>NOTA: Estos artículos fuerón automaticamente asignados a:
+     <strong><%="#{@manager.try(:full_name)}" %> </strong> </p>
+  </body>
+</html>

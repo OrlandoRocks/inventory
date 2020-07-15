@@ -1,0 +1,8 @@
+es:
+  users:
+    confirmations:
+      new:
+        resend_confirmation: Reenviar confirmación
+        template: Plantilla
+        resend_instructions: Reenviar instrucciones de confirmación
+        email: Correo

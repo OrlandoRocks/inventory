@@ -1,0 +1,117 @@
+es:
+  departments:
+    index:
+#Origin
+#      title: Departamentos
+#      resource: el departamento
+#      name: Nombre
+#      description: Descripción
+#      branch: Sucursal
+#      manager_id: Coordinador
+#      one: Departamento
+#      other: Departamento
+#      new_employee: Nuevo empleado
+#      new_department: Nuevo departamento
+      title: Sucursales
+      resource: la sucursal
+      name: Nombre de la sucursal
+      description: Descripción
+      branch: Departamento
+      manager_id: Coordinador
+      one: Sucursal
+      other: Sucursales
+      new_employee: Nuevo empleado
+      new_department: Nueva sucursal
+    form:
+#Origin
+#      title: departamento
+#      role: Rol
+#      back: Ir a departamentos
+#      resource: departamento
+#      name: Nombre
+#      description: Descripción
+#      code: Código
+#      sequence: Consecutivo
+#      controller: Controlador
+      title: Sucursal
+      role: Rol
+      back: Ir a sucursales
+      resource: sucursal
+      name: Nombre
+      description: Descripción
+      code: Código
+      sequence: Consecutivo
+      controller: Controlador
+    edit:
+      #title: Editar departamento #Origin
+      title: Editar sucursal
+    new:
+      #title: Nuevo departamento #Origin
+      title: Nueva sucursal
+    show:
+      description: Descripción
+      #branch: Sucursal #Origin
+      branch: Departamento
+      manager: Coordinador
+      back: Ir a departamentos
+      delete_confirmation: Estas seguro que deseas eliminar la sucursal
+      new_employee: Nuevo empleado
+      employees_count: Empleados
+      items_count: Artículos
+      items_value: Valor
+      manager_value: Coordinador
+      employees_table_title: Empleados responsables pertenecientes a la sucursal
+      email: Correo electrónico
+      actions: Acciones
+      one: Empleado
+      other: Empleados
+      first_name: Nombre
+      last_name: Apellido paterno
+      maiden_name: Apellido materno
+      username: Nombre de usuario
+      #department: Departamento #Origin
+      department: Sucursal
+      role: Rol
+      report: Reporte
+      articles_assign: Artículos asignados
+      resource: el empleado
+      items: Artículos
+      info: Información general de la sucursal
+      company: Compañia
+      #branch: Sucursal #Origin
+      branch: Departamento
+    employee_items:
+      title: Artículos asignados
+      title_unassigned: Lista de artículos sin asignar
+      one: Articulo
+      other: Articulos
+      title: Articulos
+      name: Nombre
+      code: Código
+      description: Descripción
+      model: Modelo
+      price: Precio
+      serial_number: Numero de Serie
+      department: Sucursal
+      employee: Artículos asignados al empleado con número
+      name_employee: con nombre
+      of: perteneciente a la sucursal
+      user: Usuario
+      brand: Marca
+      status_item: Estatus del Artículo
+      assigned_to: Asignado a
+      close: Cerrar
+      unassign: Desasignar
+      assign: Asignar
+      back: Regresar a sucursales
+      info: Sucursal
+      company: Compañia
+      branch: Sucursal
+      deparmento: Sucursal
+      manager: Coordinador
+      assigned_to: Asignado a
+      resource: empleado
+      title_assign_work_articles: Asignar artículos de trabajo
+      work_articles: Artículos de trabajo
+  breadcrumbs:
+    permissions: sucursales

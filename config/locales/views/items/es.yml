@@ -1,0 +1,264 @@
+es:
+  items:
+      index:
+        title: Artículos
+        resource: el artículo
+        code: Código
+        name: Nombre del artículo
+        description: Descripción
+        model: Modelo
+        serial_number: Numero de Serie
+        purchased_date: Fecha de Compra
+        in_service_date: Fecha de entrega
+        time_unit_service: Unidad
+        time_quantity_service: Mantenimiento cada
+        price: Valor de Adquisición
+        time_unit_depreciation: Unidad de tiempo
+        time_quantity_depreciation: Depreciación cada
+        sub_category: Sub Categoría
+        provider: Proveedor
+        branch: Departamento
+        department: Sucursal
+        user: Usuario
+        brand: Marca
+        status_item: Estatus del Artículo
+        one: Artículo
+        other: Articulos
+        permissions: Permisos
+        new_item: Nuevo Artículo
+        next_maintenances: Siguientes mantenimientos
+      items_import:
+        title: Importar archivo csv para artículos
+        code: Código
+        name: Nombre
+        description: Descripcion
+        model: Modelo
+        price: Precio
+        branch: Sucursal
+        department: Sucursal
+      reporter:
+        title: Reporteador de artículos
+        resource: el artículo
+        name: Nombre
+        description: Descripción
+        model: Modelo
+        serial_number: Numero de Serie
+        purchased_date: Fecha de Compra
+        in_service_date: Fecha de entrega
+        time_unit_service: Unidad
+        time_quantity_service: Mantenimiento cada
+        price: Valor de Adquisición
+        time_unit_depreciation: Unidad de tiempo
+        time_quantity_depreciation: Depreciación cada
+        f_category: Filtro por Categoría
+        category: Categoría
+        sub_category: Sub Categoría
+        f_sub_category: Filtro por Sub Categoría
+        f_provider: Filtro por Proveedor
+        provider: Proveedor
+        f_branch: Filtro por Departamento
+        branch: Sucursal
+        f_department: Filtro por Sucursal
+        department: Departamento
+        user: Usuario
+        f_brand: Filtro por Marca
+        brand: Marca
+        code: Código
+        f_status_item: Filtro por Estatus
+        status_item: Estatus del Artículo
+        f_responsible: Filtro por Responsable
+        responsible: Responsable
+        one: Artículo
+        other: Articulos
+        permissions: Permisos
+        new_item: Nuevo Artículo
+        next_maintenances: Siguientes mantenimientos
+        search: Buscar...
+      list_items_reporter:
+        title: Reporteador de artículos
+        resource: el artículo
+        name: Nombre
+        description: Descripción
+        model: Modelo
+        serial_number: Numero de Serie
+        purchased_date: Fecha de Compra
+        in_service_date: Fecha de Uso
+        time_unit_service: Unidad
+        time_quantity_service: Mantenimiento cada
+        price: Valor de Adquisición
+        time_unit_depreciation: Unidad de tiempo
+        time_quantity_depreciation: Depreciación cada
+        f_category: Filtro por Categoría
+        category: Categoría
+        sub_category: Sub Categoría
+        f_sub_category: Filtro por Sub Categoría
+        f_provider: Filtro por Proveedor
+        provider: Proveedor
+        f_branch: Filtro por Departamento
+        branch: Sucursal
+        f_department: Filtro por Sucursal
+        department: Departamento
+        user: Usuario
+        f_brand: Filtro por Marca
+        brand: Marca
+        code: Código
+        f_status_item: Filtro por Estatus
+        status_item: Estatus del Artículo
+        one: Artículo
+        other: Articulos
+        permissions: Permisos
+        new_item: Nuevo Artículo
+        next_maintenances: Siguientes mantenimientos
+        search: Buscar...
+        responsible: Responsable
+        acquisition_value: Total del Valor de Adquisión
+      next_maintenances:
+        title: LISTA DE MANTENIMIENTOS PROXIMOS A REALIZAR
+        resource: el artículo
+        name: Nombre
+        description: Descripción
+        model: Modelo
+        serial_number: Numero de Serie
+        purchased_date: Fecha de Compra
+        in_service_date: Fecha de Uso
+        time_unit_service: Unidad
+        time_quantity_service: Mantenimiento cada
+        price: Valor de Adquisición
+        time_unit_depreciation: Unidad de tiempo
+        time_quantity_depreciation: Depreciación cada
+        sub_category: Sub Categoría
+        provider: Proveedor
+        department: Departamento
+        user: Usuario
+        brand: Marca
+        status_item: Estatus del Artículo
+        maintenance_date: Fecha de siguiente mantenimiento
+        maintenance_date_in_words: 'Siguiente mantenimiento en:'
+        one: Artículo
+        other: Articulos
+        permissions: Permisos
+        new_item: Nuevo Artículo
+      form:
+        title: Articulos
+        resource: el artículo
+        name: Nombre
+        code: Código
+        branch: Sucursal
+        description: Descripción
+        model: Modelo
+        serial_number: Numero de Serie
+        purchased_date: Fecha de Compra
+        in_service_date: Fecha de Uso
+        time_unit_service: Unidad de tiempo
+        time_quantity_service: Mantenimiento cada
+        price: Valor de Adquisición
+        time_unit_depreciation: Unidad de tiempo
+        time_quantity_depreciation: Depreciación cada
+        category: Categoría
+        sub_category: Sub Categoría
+        provider: Proveedor
+        branch: Departamento
+        department: Sucursal
+        user: Usuario responsable
+        brand: Marca
+        status_item: Estatus del Artículo
+      new:
+        title: Nuevo Artículo
+      edit:
+        title: Editar Artículo
+      show:
+        title: Articulos
+        resource: el artículo
+        name: Nombre
+        code: Código
+        description: Descripción
+        model: Modelo
+        serial_number: Numero de Serie
+        purchased_date: Fecha de Compra
+        in_service_date: Fecha de Uso
+        time_unit_service: Unidad de tiempo
+        time_quantity_service: Mantenimiento cada
+        price: Valor de Adquisición
+        time_unit_depreciation: Unidad de tiempo
+        time_quantity_depreciation: Depreciación cada
+        category: Categoría
+        sub_category: Sub Categoría
+        provider: Proveedor
+        department: Departamento
+        user: Usuario
+        brand_id: Marca
+        file: Archivo
+        files:
+          file: Archivo
+          description: Descripción
+          item: Artículo
+          file_type: Tipo de Archivo
+          date_file: Fecha del archivo
+          photo: Fotografia
+          assignment_signature: Hoja de asignación
+          invoice: Factura
+          guarantee_policy: Poliza de garantia
+          other: Otro
+          0: Fotografia
+          assignment_signature: Hoja de asignación
+          invoice: Factura
+          guarantee_policy: Poliza de garantia
+          other: Otro
+        maintenance: Mantenimiento
+        maintenance_done: Mantenimiento realizado
+        maintenances:
+          item: Artículo
+          file: Archivo
+          maintenance: Tipo de Mantenimiento
+          description: Descripción
+          price: Precio
+          provider: Proveedor
+          date_mmto: Fecha del Mmto.
+        audit:
+          create: Creación
+          update: Actualización
+          by: por
+          create_mesage: Se Creó el Artículo
+          maintenance_mesage: A maintenance was uploaded
+          file_mesage: A file was uploaded
+          change: Se cambio
+          user_id: Usuario
+          brand_id: Marca
+          department_id: Departamento
+          sub_category_id: Sub categoría
+          status_item_id: Estatus
+          provider_id: Proveedor
+          model: Modelo
+          price: Valor de adquisición
+          serial_number: Número de serie
+          in_service_date: Fecha de entrega
+          purchased_date: Fecha de compra
+          description: Descripción
+          name: Nombre
+          from: de
+          to: a
+          nil: Campo Vacio
+        time_units:
+          0: Dia
+          1: Mes
+          2: Año
+        file_type:
+          0: Foto
+          1: Firma de Asignación
+          2: Factura
+          3: Politica de Garantia
+          4: Otro
+        add_file: Agrega archivo
+        add_maintenance: Agregar mantenimiento
+        description: Descripción
+        title:  Agregar Documentacion para el Artículo
+        back: ir a Articulos
+        delete_confirmation: ¿Estas seguro que deseas eliminar este artículo?
+      file_type:
+        photo: Fotografia
+        assignment_signature: Hoja de asignación
+        invoice: Factura
+        guarantee_policy: Poliza de garantia
+        other: Otro
+  breadcrumbs:
+    items: Articulos

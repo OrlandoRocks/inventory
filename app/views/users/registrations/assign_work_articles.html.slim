@@ -1,0 +1,45 @@
+section.content
+  .row#work-articles-assigned
+    .col-xs-12
+      .box.box-primary
+        .box-header.with-border
+          .row
+            .col-xs-6.col-md-8.col-lg-9
+              h3.box-title
+                = t('.title')
+            .col-xs-6.col-md-4.col-lg-3
+              .box-tools.pull-right
+                = search_form_for @search_users_work_articles,
+                        url: url_for(controller: 'users/registrations', action: 'search_work_articles', id: @user.id, search_type: 'assigned'),
+                        id: 'search-work-articles-assigned' do |f|
+                  .input-group.input-group-sm.search
+                    = f.text_field :work_article_name_cont,
+                            class: 'form-control', placeholder: t('helpers.search')
+                    .input-group-btn
+                      button#search-work-articles-assigned [class="btn btn-default" type="submit"]
+                        i [class="fa fa-search"]
+        .box-body#content-work-articles-assigned
+        .box-footer
+          = link_to employees_path, class: 'btn btn-default btn-flat' do
+            i.fa.fa-list
+            =< t('.back')
+  .row#work-articles
+    .col-xs-12
+      .box.box-primary
+        .box-header.with-border
+          .row
+            .col-xs-6.col-md-8.col-lg-9
+              h3.box-title
+                = t('.title_assign_work_articles')
+            .col-xs-6.col-md-4.col-lg-3
+              .box-tools.pull-right
+                = search_form_for @search_work_articles,
+                        url: url_for(controller: 'users/registrations', action: 'search_work_articles', id: @user.id, search_type: 'not_assigned'),
+                        id: 'search-work-articles' do |f|
+                  .input-group.input-group-sm.search
+                    = f.text_field :name_cont,
+                            class: 'form-control', placeholder: t('helpers.search')
+                    .input-group-btn
+                      button#search-work-articles [class="btn btn-default" type="submit"]
+                        i [class="fa fa-search"]
+        .box-body#content-work-articles

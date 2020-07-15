@@ -1,0 +1,74 @@
+section.content
+  .row
+    .col-xs-12
+      .box.box-primary
+        .box-header.with-border
+          .row
+            .col-xs-6.col-md-8.col-lg-8
+              h3.box-title
+                = t('.title')
+            .col-xs-6.col-md-4.col-lg-4
+              .box-tools.pull-right
+                = search_form_for @search_departments do |f|
+                  .input-group.input-group-sm.search
+                    = f.text_field :name_or_description_or_branch_name_or_manager_first_name_or_manager_last_name_or_manager_maiden_name_cont, class: 'form-control',
+                            placeholder: t('helpers.search')
+                    .input-group-btn
+                      button [class="btn btn-default" type="submit"]
+                        i [class="fa fa-search"]
+                = link_to new_department_path, class: 'btn btn-sm btn-flat btn-success', title: t('.new_department') do
+                  i.fa.fa-plus
+                  span.hidden-xs
+                    =< t('.new_department')
+                //.tools
+                  button [type="button" class="btn btn-default btn-box-tool dropdown-toggle" data-toggle="dropdown" aria-expanded="false"]
+                    i.fa.fa-cog
+                  ul [class="dropdown-menu dropdown-menu-right" role="menu"]
+                    li
+                      a [href="#"]
+                        i.fa.fa-file-excel-o
+                        = t('helpers.export_excel')
+                    li = link_to "<i class='fa fa-file-pdf-o'></i> #{t 'helpers.export_pdf'}".html_safe, reports_rols_path(nombre_reporte: 'rols', titulo_reporte: "Reporte de Usuarios.", format: :pdf)
+                    li = link_to "<i class='fa fa-trash'></i> #{t 'helpers.dump_destroy'}".html_safe, '#'
+          .box-body
+            .dataTables_wrapper
+              .row
+                .col-sm-12
+                  .table-responsive
+                    table.table.table-bordered.table-hover.dataTable
+                      thead
+                        tr
+                          th = t('.branch')
+                          th = t('.name')
+                          / th = t('.description')
+                          th = t('.manager_id')
+                          th.actions_header
+                            = t('helpers.actions')
+                      tbody
+                        - @departments.each do |department|
+                          tr.show_actions
+                            td = department.branch_name
+                            td = department.name
+                            / td = department.description
+                            td = department.manager_id.nil?? 'SIN ASIGNAR' : department.manager_full_name
+                            td
+                              .actions
+                                = link_to 'Nuevo empleado  <i class="fa fa-user"></i>'.html_safe, new_employee_department_path(department_id: department.id), title: t('.new_employee'),
+                                      class: 'btn btn-xs btn-info btn-flat'
+                                = link_item 'Ver detalle <i class="fa fa-search"></i>'.html_safe, department_path(department), title: t('helpers.show'),
+                                        class: 'btn btn-xs btn-success btn-flat'
+                                = link_item 'Editar <i class="fa fa-edit"></i>'.html_safe, edit_department_path(department),
+                                        class: 'btn btn-xs btn-primary btn-flat', title: t('helpers.edit')
+                                - if has_policy(Department, %w(destroy))
+                                  = link_to 'Eliminar <i class="fa fa-trash-o"></i>'.html_safe, '#', title: t('helpers.destroy'),
+                                          class: 'btn btn-xs btn-danger btn-flat btn-destroy',
+                                          data: {'resource' => :roles, 'resource-id' => department.id,
+                                                  'resource-message' => t('questions.destroy', resource: t('.resource'),
+                                                          name: department.name)}
+              .row
+                .col-sm-5
+                  .dataTables_info
+                    = pluralize(@departments.count, t('.one'), t('.other'))
+                .col-sm-7
+                  .dataTables_paginate.paging_simple_numbers
+                    = custom_paginator(@departments)

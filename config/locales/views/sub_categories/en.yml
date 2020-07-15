@@ -1,0 +1,38 @@
+en:
+  sub_categories:
+    index:
+      title: Sub Categories
+      resource: the Sub Category
+      name: Name
+      description: Description
+      status: Status
+      category: Category
+      one: Sub Category
+      other: Sub Categories
+      permissions: Permissions
+      new_sub_category: New Sub Category
+    form:
+      title: Categories
+      resource: Sub Category
+      back: Ir a categories
+      name: Name
+      description: Description
+      status: Status
+      category: Category
+    new:
+      title: New Sub Category
+    edit:
+      title: Edit Sub Category
+    show:
+      name: Dame
+      description: Description
+      status: Status
+      category: Category
+      back: Go to categories
+      delete_confirmation: Are you sure you want to delete the Sub Category
+    role_permissions:
+      save_permissions: Save permissions
+      back: Go to sub categories
+
+  breadcrumbs:
+    sub_categories: Sub Categories

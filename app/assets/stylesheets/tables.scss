@@ -1,0 +1,70 @@
+.table-checkbox {
+  width: 21px;
+  div.checkbox {
+    margin: 0;
+  }
+}
+
+td.table-checkbox > .icheck:first-child {
+  margin-left: 8px;
+}
+
+th.actions_header, tr.show_actions:last-child {
+  width: 150px;
+}
+
+div.actions {
+  display: none;
+  text-align: center;
+  .btn.btn-xs {
+    margin-right: 2px;
+  }
+}
+
+.show_actions:hover .actions {
+  display: block;
+}
+.dataTables_wrapper {
+  margin-top: 10px;
+}
+
+div.dataTables_paginate {
+  float: right;
+  margin: 0;
+  white-space: nowrap;
+}
+
+div.dataTables_info {
+  padding-top: 8px;
+  white-space: nowrap;
+}
+
+/*Box tools and search box*/
+.box-tools {
+  display: flex;
+  margin-top: 5px;
+  .input-group {
+    width: 150px;
+  }
+  .search {
+    .form-control, .input-group-btn > .btn {
+      border-radius: 0;
+    }
+  }
+  .tools {
+    position: relative;
+    margin-left: 3px;
+    .btn {
+      border-radius: 0;
+      i {
+        padding: 3px 5px;
+      }
+    }
+  }
+}
+
+.box-tools {
+  .form-control, .input-group-btn > button {
+    border-radius: 0 !important;
+  }
+}

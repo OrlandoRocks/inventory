@@ -1,0 +1,36 @@
+es:
+  categories:
+    index:
+      title: Categorías
+      resource: la categoría
+      name: Nombre
+      description: Descripción
+      status: Estatus
+      company: Compañia
+      one: Categoría
+      other: Categorías
+      permissions: Permisos
+      new_category: Nueva categoría
+    form:
+      title: Categorías
+      resource: Categoría
+      back: Ir a categorías
+      name: Nombre
+      description: Descripción
+      status: Estatus
+      company: Compañia
+    new:
+      title: Nueva categoría
+    edit:
+      title: Editar categoría
+    show:
+      name: Nombre
+      description: Descripción
+      back: Ir a categorías
+      delete_confirmation: Estas seguro que deseas eliminar la categoría
+    branch_permissions:
+      save_permissions: Guardar gategoría
+      back: Ir a categorías
+
+  breadcrumbs:
+    branches: Categorías

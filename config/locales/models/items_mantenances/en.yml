@@ -1,0 +1,26 @@
+en:
+  activerecord:
+    attributes:
+      items_maintenance:
+        name: Name
+        code: Code
+        description: Descripción
+        model: Modelo
+        serial_number: Numero de Serie
+        purchased_date: Fecha de Compra
+        in_service_date: Fecha de Uso
+        time_unit_service: Unidad de Tiempo del Servicio
+        time_quantity_service: Cantidad de Tiempo del Servicio
+        price: Valor de Adquisición
+        time_unit_depreciation: Unidad de Tiempo de Depreciación
+        time_quantity_depreciation: Cantidad de Tiempo de Depreciación
+        sub_category_id: Subcategoría
+        provider_id: Proveedor
+        department_id: Departamento
+        user: Usuario
+        brand_id: Marca
+        status_item_id: Estatus del Articulo
+  time_units:
+    day: Day(s)
+    month: Month(s)
+    year: Year(s)

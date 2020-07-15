@@ -1,0 +1,18 @@
+en:
+  activerecord:
+    attributes:
+      user:
+        email: Email
+        password: Password
+        password_confirmation: Password confirmation
+        current_password: Current password
+        username: Username
+        name: Name
+        first_name: First name
+        last_name: Last name
+        maiden_name: Mother maiden name
+        role_id: Role
+        company: Compañia
+        branch: Sucursal
+        department_id: Departamento
+        received_file: Received File

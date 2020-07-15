@@ -1,0 +1,168 @@
+section.content
+  .row
+    .col-xs-6
+      .box.box-primary
+        .box-header.with-border
+          h3.box-title
+            =>  t('.info')
+            strong = @department.name
+        .box-body
+          strong = t('.company')
+          p.text-muted
+            = @department.branch.try(:company).try(:name)
+
+          ol
+            strong = t('.branch')
+            p.text-muted
+              = @department.branch_name if @department.branch.present?
+            ol
+              strong = t('.department')
+              p.text-muted
+                = @department.name
+              strong = t('.manager')
+              p.text-muted
+                = @department.manager_full_name
+        .box-footer
+          = link_to edit_department_path(@department), class: 'btn btn-primary btn-flat', title: t('helpers.edit') do
+            i.fa.fa-pencil-square-o
+            =< t('helpers.edit')
+            = link_to departments_path, class: 'btn btn-default btn-flat' do
+              i.fa.fa-list
+              =< t('.back')
+
+
+
+
+
+    .col-md-6
+      /! Widget: user widget style 1
+      .box.box-widget.widget-user
+        /! Add the bg color to the header using any of the bg-* classes
+        .widget-user-header.bg-aqua-active
+          h3.widget-user-username  = @department.manager_full_name
+          h5.widget-user-desc = t('.manager_value')
+        .widget-user-image
+          /= image_tag "avatar_male.png", class:'img.profile-user-img.img-responsive.img-circle' , alt: 'Coordinador'
+          / img.profile-user-img.img-responsive.img-circle alt=('Coordinador') src="#{@department.try(:manager).present?? @department.try(:manager).avatar().to_s : image_path("avatar_male.png")}"  /
+          /image_tag @department.manager.present?? = @department.manager.avatar(:thumb).to_s : "assets/images/avatar_male.png"
+          /img.img-circle alt=("Coordinador")  src=( @department.manager.present?? @department.manager.avatar(:thumb).to_s : "assets/images/avatar_male.png" )
+          /7img.profile-user-img.img-responsive.img-circle alt=("Avatar") src=("<%= @item.image_url(:thumb).to_s %>")
+        .box-footer
+          .row
+
+          .row
+            .col-sm-4.border-right
+              .description-block
+                h5.description-header = @department.employees.count if @department.employees.present?
+                span.description-text = t ('.employees_count')
+            /! /.description-block
+            /! /.col
+            .col-sm-4.border-right
+              .description-block
+                h5.description-header = @department.items.count if @department.items.present?
+                span.description-text = t ('.items_count')
+            /! /.description-block
+            /! /.col
+            .col-sm-4
+              .description-block
+                h5.description-header = "$#{@department.items.sum(:price)}"
+                span.description-text = t('.items_value')
+      /! /.description-block
+      /! /.col
+      /! /.row
+      /! /.widget-user
+
+
+
+
+section.content
+  .row
+    .col-xs-12
+      .box.box-primary
+        .box-header.with-border
+          .row
+            .col-xs-6.col-md-8.col-lg-9
+              h3.box-title
+                =>  t('.employees_table_title')
+                strong = @department.name
+            .col-xs-6.col-md-2.col-lg-3
+              .pull-right
+                = link_to new_employee_department_path(department_id: @department.id), class: 'btn btn-sm btn-flat btn-success', title: t('.new_employee') do
+                  i.fa.fa-plus
+                  span.hidden-xs
+                    =< t('.new_employee')
+
+
+        .box-body
+          //
+            .row
+            .col-xs-12
+              .pull-left
+                = link_to new_user_path(department_id: @department.id), class: 'btn btn-sm btn-flat btn-success', title: t('.new_employee') do
+                  i.fa.fa-plus
+                  span.hidden-xs
+                    =< t('.new_employee')
+
+              .pull-right
+                .btn-tools
+                  button [type="button" class="btn btn-sm btn-flat btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"]
+                    i.fa.fa-cog
+                  ul [class="dropdown-menu dropdown-menu-right" role="menu"]
+                    li
+                      a [href="#"]
+                        i.fa.fa-file-excel-o
+                        = t('helpers.export_excel')
+                    li = link_to "<i class='fa fa-trash'></i> #{t 'helpers.dump_destroy'}".html_safe, '#'
+
+          .dataTables_wrapper
+            .row
+              .col-sm-12
+                .table-responsive
+                  table.table.table-bordered.table-hover.dataTable
+                    thead
+                      tr
+                        th = t('.first_name')
+                        th = t('.last_name')
+                        th = t('.maiden_name')
+                        th = t('.role')
+                        th = t('.report')
+                        th.actions_header
+                          = t('.actions')
+                    tbody
+                      - @employees.each do |user|
+                        tr.show_actions
+                          /td.table-checkbox
+                            .checkbox.icheck
+                              input [type="checkbox" class="icheck-me" data-skin="square" data-color="blue"]
+                          /td = user.email
+                          td = user.first_name
+                          td = user.last_name
+                          td = user.maiden_name
+                          td = user.role_name
+                          td
+                            - if user.items.count > 0
+                              = link_to "#{t('.articles_assign')}" ' <i class="fa fa-file-pdf-o"></i>'.html_safe,
+                                      reports_items_user_path(nombre_reporte: 'items_user', titulo_reporte: "Lista de control de artículos asignados a un empleado.", user_id: user.id, format: :pdf),
+                                      class: 'btn btn-xs btn-success btn-flat', title: t('helpers.show')
+                            -else
+                              = 'SIN ARTÍCULOS ASIGNADOS'
+
+                          td
+                            .actions
+                              - if has_policy(Department, %w(employee_items))
+                                = link_to 'Artículos <i class="fa fa-dropbox"></i>'.html_safe, departments_employee_items_path(@department, user),
+                                      class: 'btn btn-xs btn-success btn-flat', title: t('.items')
+                              - if has_policy(User, %w(edit_user), 'Users::Registration')
+                                = link_to '<i class="fa fa-edit"></i>'.html_safe, edit_user_path(user),
+                                      class: 'btn btn-xs btn-primary btn-flat', title: t('helpers.edit')
+                              - if has_policy(User, %w(destroy), 'Users::Registration')
+                                = link_to '<i class="fa fa-trash-o"></i>'.html_safe, destroy_department_employee_path(@department, user), method: :delete, title: t('helpers.destroy'),
+                                        class: 'btn btn-xs btn-danger btn-flat btn-destroy',
+                                        data: {:'resource' => :users, :'resource-id' => user.id,
+                                                :'resource-message' => t('questions.destroy', resource: t('.resource'),
+                                                        name: user.email)}
+
+            .row
+              .col-sm-5
+                .dataTables_info
+                  = pluralize(@employees.count, t('.one'), t('.other'))

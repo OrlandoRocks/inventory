@@ -1,0 +1,23 @@
+es:
+  activerecord:
+    attributes:
+      user:
+        employee_number: Número de empleado
+        email: Correo electrónico
+        password: Contraseña
+        password_confirmation: Confirmar contraseña
+        current_password: Contraseña actual
+        username: Nombre de usuario
+        first_name: Nombre
+        last_name: Apellido paterno
+        maiden_name: Apellido materno
+        role_id: Rol
+        company: Compañia
+        current_company: Compañia
+        boss: Jefe inmediato
+        #branch: Sucursal     # Origin
+        branch: Departamento
+        department_id: Sucursal
+        received_file: Archivo Recibido
+        avatar: Imágen de Perfil
+        resource: usuario

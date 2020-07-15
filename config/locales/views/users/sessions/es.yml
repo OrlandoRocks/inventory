@@ -1,0 +1,10 @@
+es:
+  users:
+    sessions:
+      new:
+        template: Administración de Activos TORSACORP
+        sign_in: Iniciar sesión
+        email: Correo
+        employee_number: Numero de Empleado
+        password: Contraseña
+        remember: Recuérdame

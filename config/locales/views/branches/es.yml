@@ -1,0 +1,56 @@
+es:
+  branches:
+    index:
+      #title: Sucursales #Origin
+      title: Departamentos #Origin
+      #resource: la sucursal
+      resource: el departamento
+      name: Nombre
+      description: Descripción
+      state: Estado
+      city: Ciudad
+      company: Nombre de la compañia
+      key: Llave
+      scope: Alcance
+      manager: Gerente
+#      one: Sucursal #Origin
+#      other: Sucursales #Origin
+      one: Departamento #Origin
+      other: Departamentos #Origin
+      permissions: Permisos
+      new_branch: Nuevo departamento
+    form:
+#      name: Sucursales #Origin
+#      title: Sucursales  #Origin
+      name: Departamentos
+      title: Departamentos
+#      resource: Sucursal #Origin
+#      back: Ir a sucursales #Origin
+      resource: Departamento
+      back: Ir a departamentos
+      name: Nombre
+      description: Descripción
+      code: Código
+      city: Ciudad
+      company: Compañia
+      manager: Gerente
+    new:
+      #title: Nueva sucursal #Origin
+      title: Nuevo departamento
+    edit:
+      #title: Editar sucursal
+      title: Editar departamento #Origin
+    show:
+      key: Llave
+      description: Descripción
+      back: Ir a Departamentos
+      #delete_confirmation: Estas seguro que deseas eliminar la sucursal #Origin
+      delete_confirmation: Estas seguro que deseas eliminar el departamento
+    branch_permissions:
+      #save_permissions: Guardar sucursal #Origin
+      #back: Ir a sucursales #Origin
+      save_permissions: Guardar departamento
+      back: Ir a departamentos
+  breadcrumbs:
+    #branches: Sucursales
+    branches: Departamentos

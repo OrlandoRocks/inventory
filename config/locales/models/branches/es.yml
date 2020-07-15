@@ -1,0 +1,12 @@
+es:
+  activerecord:
+    attributes:
+      branch:
+        name: Nombre
+        description: Descripción
+        state: Estado
+        city: Ciudad
+        company: Compañia
+        manager_id: Gerente
+        #code: Código sucursal # Origin
+        code: Código departamento # Origin

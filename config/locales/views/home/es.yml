@@ -1,0 +1,151 @@
+es:
+  home:
+    index:
+      articles: Lista de articulos
+      resource: el departamento
+      name: Nombre
+      description: Descripción
+      branch: Departamento
+      manager_id: Coordinador
+      one: Departamento
+      other: Departamento
+      new_employee: Nuevo empleado
+      new_department: Nueva sucursal
+      title: Reporteador de artículos
+      resource: el artículo
+      name: Nombre
+      description: Descripción
+      model: Modelo
+      serial_number: Numero de Serie
+      purchased_date: Fecha de Compra
+      in_service_date: Fecha de Uso
+      time_unit_service: Unidad
+      time_quantity_service: Mantenimiento cada
+      price: Valor de Adquisición
+      time_unit_depreciation: Unidad de tiempo
+      time_quantity_depreciation: Depreciación cada
+      f_category: Filtro por Categoría
+      category: Categoría
+      sub_category: Sub Categoría
+      f_sub_category: Filtro por Sub Categoría
+      f_provider: Filtro por Proveedor
+      provider: Proveedor
+      f_branch: Filtro por Departamento
+      branch: Sucursal
+      f_department: Filtro por Sucursal
+      department: Sucursal
+      user: Usuario
+      f_brand: Filtro por Marca
+      brand: Marca
+      employee_number: Número de Empleado
+      code: Código
+      f_status_item: Filtro por Estatus
+      status_item: Estatus del Artículo
+      f_responsible: Filtro por Responsable
+      f_orden: Ordenar por
+      modal_titulo: Empresa
+      select_company: Seleccionar Empresa
+      responsible: Responsable
+      f_maintenance_date: Filtro por Fecha de Mantenimiento
+      maintenance_date: Fecha de Mantenimiento
+      one: Artículo
+      other: Articulos
+      permissions: Permisos
+      new_item: Nuevo Artículo
+      next_maintenances: Siguientes mantenimientos
+      search: Buscar...
+    list_items_reporter:
+      title: Reporteador de artículos
+      resource: el artículo
+      name: Nombre
+      description: Descripción
+      model: Modelo
+      serial_number: Numero de Serie
+      purchased_date: Fecha de Compra
+      in_service_date: Fecha de Uso
+      time_unit_service: Unidad
+      time_quantity_service: Mantenimiento cada
+      price: Valor de Adquisición
+      time_unit_depreciation: Unidad de tiempo
+      time_quantity_depreciation: Depreciación cada
+      f_category: Filtro por Categoría
+      category: Categoría
+      sub_category: Sub Categoría
+      f_sub_category: Filtro por Sub Categoría
+      f_provider: Filtro por Proveedor
+      provider: Proveedor
+      f_branch: Filtro por departamento
+      branch: Departamento
+      f_department: Filtro por Sucursal
+      department: Sucursal
+      user: Usuario
+      f_brand: Filtro por Marca
+      brand: Marca
+      code: Codigo
+      f_status_item: Filtro por Estatus
+      status_item: Estatus del Artículo
+      one: Artículo
+      other: Articulos
+      permissions: Permisos
+      new_item: Nuevo Artículo
+      next_maintenances: Siguientes mantenimientos
+      search: Buscar...
+      responsible: Responsable
+      role: Perfil
+      employee_number: Núm. Empleado
+      acquisition_value: Total del Valor de Adquisión
+    form:
+      title: departamento
+      role: Rol
+      back: Ir a departamentos
+      resource: departamento
+      name: Nombre
+      description: Descripción
+      controller: Controlador
+    edit:
+      title: Editar departamento
+    new:
+      title: Nuevo departamento
+    show:
+      description: Descripción
+      branch: Departamento
+      manager: Coordinador
+      back: Ir a departamentos
+      delete_confirmation: Estas seguro que deseas eliminar el departamento
+      new_employee: Nuevo empleado
+      employees_table_title: Empleados
+      email: Correo electrónico
+      actions: Acciones
+      one: Empleado
+      other: Empleados
+      first_name: Nombre
+      last_name: Apellido paterno
+      maiden_name: Apellido materno
+      username: Nombre de usuario
+      department: Sucursal
+      role: Rol
+      resource: el empleado
+      items: Artículos
+      info: Información general de la sucursal
+      company: Compañia
+      branch: Departamento
+    employee_items:
+      title: Artículos para
+      title_unassigned: Lista general de articulos
+      one: Articulo
+      other: Articulos
+      title: Articulos
+      name: Nombre
+      description: Descripción
+      model: Modelo
+      price: Precio
+      serial_number: Numero de Serie
+      department: Sucursal
+      user: Usuario
+      brand: Marca
+      status_item: Estatus del Artículo
+      close: Cerrar
+      unassign: Desasignar
+      assign: Asignar
+  breadcrumbs:
+    permissions: departamentos

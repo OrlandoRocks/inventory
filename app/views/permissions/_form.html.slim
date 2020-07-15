@@ -1,0 +1,36 @@
+= form_for(permission, role: 'form', html: {class: 'form-horizontal'}, validate: true) do |f|
+  .box-body
+    .row.form-group
+      = f.label :name, class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.text_field :name, autofocus: true, class: 'form-control', placeholder: t('.name')
+    .row.form-group
+      = f.label :description, class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.text_area :description, class: 'form-control', placeholder: t('.description')
+    .row.form-group
+      = f.label :controller, class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.select :controller, controllers.sort.collect { |c| [c.underscore.titleize, c] },
+              {include_blank: t('helpers.select.prompt')}, class: 'form-control',
+              data: {url: get_controller_actions_url}
+    .row.form-group
+      = f.label :action, class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.select :action, actions.sort.collect { |a| [a.titleize, a] },
+              {include_blank: t('helpers.select.prompt')}, class: 'form-control'
+    .row.form-group
+      label class="col-sm-2 control-label" = t('.role')
+      .col-sm-10
+        = collection_check_boxes(:permission, :role_ids, Role.all.order(:id), :id, :name) do |b|
+          .col-xs-12.col-sm-6.col-md-3.checkboxes
+            .check-container
+              = b.label {b.check_box(class: 'icheck-me', 'data-skin': 'square', 'data-color': 'blue')}
+              .description
+                =< b.text
+  .box-footer
+    = f.button "<i class='fa fa-floppy-o'></i> #{t('helpers.submit.submit', model: t('.resource'))}".html_safe,
+            class: 'btn btn-primary btn-flat', type: 'submit'
+    = link_to permissions_path, class: 'btn btn-default btn-flat' do
+      i.fa.fa-list
+      =< t('.back')

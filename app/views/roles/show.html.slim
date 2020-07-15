@@ -1,0 +1,21 @@
+section.content
+  .row
+    .col-xs-12
+      .box.box-primary
+        .box-header.with-border
+          h3.box-title
+            = @role.name
+        .box-body
+          strong = t('.key')
+          p.text-muted
+            = @role.key
+          strong = t('.description')
+          p.text-muted
+            = @role.description
+        .box-footer
+          = link_to edit_role_path(@role), class: 'btn btn-primary btn-flat', title: t('helpers.edit') do
+            i.fa.fa-pencil-square-o
+            =< t('helpers.edit')
+          = link_to roles_path, class: 'btn btn-default btn-flat' do
+            i.fa.fa-list
+            =< t('.back')

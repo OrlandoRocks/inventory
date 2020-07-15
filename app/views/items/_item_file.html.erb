@@ -1,0 +1,223 @@
+<!-- Inicio del tab de archivos-->
+<div class="active tab-pane" id="activity">
+  <!-- Post -->
+  <div class="post">
+    <div class="user-block">
+      <!--<img class="img-circle img-bordered-sm" src="../../dist/img/user1-128x128.jpg" alt="user image">-->
+                        <span class="username">
+                          <a href="#"> <%= t('.title') %></a>
+                          <a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>
+                        </span>
+      <span class="description">Archivos del tipo: Foto,Firma asignación,Factura, Poliza y otros.</span>
+    </div>
+    <!-- /.user-block -->
+    <p>
+      Descripción para definir cuales tipos de archivos se pueden subir.
+    </p>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box-body">
+          <div class="row form-group">
+            <div class="col-sm-12">
+              <button id="add_file" class="fa fa-file btn btn-primary btn-block btn-sm" href="" ng-click="show()" type="button"><%= t(".add_file") %></button>
+            </div>
+          </div>
+          <section class="content">
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="box box-success">
+                  <div class="box-body">
+                    <div class="dataTables_wrapper">
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <div class="table-responsive">
+                            <table class="table table-bordered table-hover dataTable">
+                              <thead>
+                              <tr>
+                                <th><%= t('.files.file_type') %></th>
+                                <th><%= t('.files.description') %></th>
+                                <th><%= t('.file') %></th>
+                                <th><%= t('.files.date_file') %></th>
+                              </tr>
+                              </thead>
+                              <tbody ng-repeat="file in item_files_data">
+                              <tr class="show_actions">
+                                <td>{{file.file_type}}</td>
+                                <td>{{file.description}}</td>
+                                <td>
+                                  <div class="estatus">
+                                    <div class="estatus-body">
+                                      <a href= '{{file.file.file["url"]}}' target="_blank" class="link-hover">
+                                                                     <span data-hover="{{file.file_name}}" class="estatus-default">
+                                                                          <i class="fa fa-lightbulb-o"></i> {{file.file_name}}
+                                                            </span>
+                                      </a>
+                                    </div>
+                                  </div>
+                                </td>
+                                <td>{{ file.created_at | date:"dd/MM/yyyy" }}</td>
+                              </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <div class="row form-group">
+            <div class="col-sm-12">
+              <button id="add_maintenance" class="fa fa-file btn btn-primary btn-block btn-sm" href="" ng-click="show_maintenance()" type="button"><%= t(".add_maintenance") %></button>
+            </div>
+          </div>
+          <section class="content">
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="box box-success">
+                  <div class="box-body">
+                    <div class="dataTables_wrapper">
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <div class="table-responsive">
+                            <table class="table table-bordered table-hover dataTable">
+                              <thead>
+                              <tr>
+                                <th><%= t('.maintenances.maintenance') %></th>
+                                <th><%= t('.maintenances.description') %></th>
+                                <th><%= t('.maintenances.price') %></th>
+                                <th><%= t('.maintenances.provider') %></th>
+                                <th><%= t('.maintenance') %></th>
+                              </tr>
+                              </thead>
+                              <tbody ng-repeat="maintenance in item_maintenances_data">
+                              <tr class="show_actions">
+                                <td>{{maintenance.maintenance}}</td>
+                                <td>{{maintenance.description}}</td>
+                                <td>{{maintenance.price}}</td>
+                                <td>{{maintenance.provider}}</td>
+                                <td>
+                                  <div class="estatus">
+                                    <div class="estatus-body">
+                                      <a href= '{{maintenance.file.file["url"]}}' target="_blank" class="link-hover">
+                                                                   <span data-hover="{{maintenance.file_name}}" class="estatus-default">
+                                                                        <i class="fa fa-lightbulb-o"></i> {{maintenance.file_name}}
+                                                          </span>
+                                      </a>
+                                    </div>
+                                  </div>
+                                </td>
+                              </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+      </div>
+    </div>
+
+    <script id="modal.html" type="text/ng-template">
+      <div class="modal modal-fullscreen modal-fullscreen-default">
+        <div class="modal-dialog">
+          <div class="modal-content form-horizontal">
+            <div class="modal-header">
+              <button aria-hidden="true" class="close" data-dismiss="modal" ng-click="close(Cancel)" type="button"> ×</button>
+              <h4 class="modal-title">
+                Agregar <%= t('.file').capitalize %>
+              </h4>
+            </div>
+            <div class="form-group floating-label-form-group">
+              <label class="col-md-3 control-label"><%= t('.files.description') %>:</label>
+              <div class="col-md-8">
+                <%= text_area_tag 'descripcion', '', class: "form-control label-float", placeholder: t('.files.description'), "ng-model" => "description" %>
+              </div>
+            </div>
+            <div class="form-group floating-label-form-group">
+              <label class="col-md-3 control-label"><%= t('.files.file_type') %>:</label>
+              <div class="col-md-8">
+                <%= select_tag "file_type", options_for_select(Item.file_types.map { |k,e| [I18n.t(".files.#{k}"),e]}),
+                               prompt: t('helpers.select.prompt'), class: 'form-control label-float', "ng-model" => "file_type" %>
+              </div>
+
+            </div>
+            <div class="form-group floating-label-form-group">
+              <label class="col-md-3 control-label"><%= t('.file') %>:</label>
+              <div class="col-md-8">
+                <input type="file" ngf-select ngf-max-height="1000" ngf-max-size="2MB"  ng-model="file" name="file" >
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-primary" data-dismiss="modal" ng-click="uploadFiles(file)" type="button"> Agregar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </script>
+
+    <script id="modal2.html" type="text/ng-template">
+      <div class="modal modal-fullscreen modal-fullscreen-default">
+        <div class="modal-dialog">
+          <div class="modal-content form-horizontal">
+            <div class="modal-header">
+              <button aria-hidden="true" class="close" data-dismiss="modal" ng-click="close(Cancel)" type="button"> ×</button>
+              <h4 class="modal-title">
+                Agregar <%= t('.maintenance').capitalize %>
+              </h4>
+            </div>
+
+            <div class="form-group floating-label-form-group">
+              <label class="col-md-3 control-label"><%= t('.maintenances.maintenance') %>:</label>
+              <div class="col-md-8">
+                <%= select_tag "file_type", options_from_collection_for_select(Maintenance.all, :id, :name),
+                               prompt: t('helpers.select.prompt'), class: 'form-control label-float', "ng-model" => "maintenance" %>
+              </div>
+            </div>
+            <div class="form-group floating-label-form-group">
+              <label class="col-md-3 control-label"><%= t('.maintenances.description') %>:</label>
+              <div class="col-md-8">
+                <%= text_area_tag 'descripcion', '', class: "form-control label-float", placeholder: t('.maintenances.description'), "ng-model" => "description" %>
+              </div>
+            </div>
+            <div class="form-group floating-label-form-group">
+              <label class="col-md-3 control-label"><%= t('.maintenances.price') %>:</label>
+              <div class="col-md-8">
+                <%= text_field_tag 'price',nil, class: 'form-control', placeholder: t('.maintenances.price'), "ng-model" => 'price' %>
+              </div>
+            </div>
+            <div class="form-group floating-label-form-group">
+              <label class="col-md-3 control-label"><%= t('.maintenances.provider') %>:</label>
+              <div class="col-md-8">
+                <%= select_tag 'provider', options_from_collection_for_select(Provider.all, :id, :name),
+                               prompt: t('helpers.select.prompt'), class: 'form-control label-float', "ng-model" => "provider" %>
+                <%#= text_field_tag 'provider', nil, class: 'form-control', placeholder: t('.maintenances.provider'), "ng-model" => 'provider' %>
+              </div>
+            </div>
+
+            <div class="form-group floating-label-form-group">
+              <label class="col-md-3 control-label"><%= t('.file') %>:</label>
+              <div class="col-md-8">
+                <input type="file" ngf-select ngf-max-height="1000" ngf-max-size="2MB"  ng-model="file" name="file" >
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <button class="btn btn-primary" data-dismiss="modal" ng-click="uploadFiles(file)" type="button"> Agregar</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </script>
+  </div>
+</div>

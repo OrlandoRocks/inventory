@@ -1,0 +1,7 @@
+es:
+  activerecord:
+    attributes:
+      status_item:
+        name: Nombre
+        description: Descripción
+        status: Estatus

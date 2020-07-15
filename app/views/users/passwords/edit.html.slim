@@ -1,0 +1,35 @@
+.login-box
+  .login-logo
+    b = t('.template')
+  .login-box-body
+    p.login-box-msg
+      = t('.change_password')
+    = form_for(resource, as: resource_name, url: password_path(resource_name), html: {method: :put},
+               validate: true) do |f|
+
+      /! = devise_error_messages!
+
+      = f.hidden_field :reset_password_token
+
+      - if @minimum_password_length
+        em
+          | (#{@minimum_password_length} characters minimum)
+        br
+
+      .form-group.has-feedback
+        = f.password_field :password, autofocus: true, autocomplete: 'off', placeholder: t('.new_password'),
+                id: 'Password'
+                class: 'form-control'
+        span.glyphicon.glyphicon-lock.form-control-feedback
+      .form-group.has-feedback
+        = f.password_field :password_confirmation, autocomplete: 'off', placeholder: t('.password_confirmation'),
+                class: 'form-control'
+        span.glyphicon.glyphicon-lock.form-control-feedback
+      .progress
+        #StrengthProgressBar.progress-bar
+      .row
+        .col-xs-12.pull-right
+          = f.submit t('.send_instructions'), class: 'btn bg-purple btn-block btn-flat'
+
+      p.text-right
+        = render partial: 'users/shared/links'

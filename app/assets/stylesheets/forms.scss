@@ -1,0 +1,37 @@
+textarea {
+  resize: vertical;
+}
+
+.box-footer {
+  .btn {
+    margin: 5px 5px 5px 0;
+  }
+  :last-child {
+    margin: 0;
+  }
+}
+
+.checkbox {
+  margin: 0;
+}
+
+.checkboxes {
+  padding-left: 0;
+}
+
+.check-container {
+  display: -webkit-box;
+  display: flex;
+  margin-bottom: 8px;
+  .description {
+    margin: 0 5px 0 5px;
+    width: 90%;
+  }
+  div.checker, div.checker span, div.checker input {
+    width: 0px !important;
+  }
+}
+
+.permissions-description {
+  margin: 0px 5px 0 3px;
+}

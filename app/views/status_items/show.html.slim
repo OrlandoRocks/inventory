@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @status_item.name
+p
+  strong Description:
+  = @status_item.description
+p
+  strong Status:
+  = @status_item.status
+
+= link_to 'Edit', edit_status_item_path(@status_item)
+'|
+= link_to 'Back', status_items_path

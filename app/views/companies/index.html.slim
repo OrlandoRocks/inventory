@@ -1,0 +1,78 @@
+section.content
+  .row
+    .col-xs-12
+      .box.box-primary
+        .box-header.with-border
+          .row
+            .col-xs-6.col-md-8.col-lg-8
+              h3.box-title
+                = t('.title')
+            .col-xs-6.col-md-4.col-lg-4
+              .box-tools.pull-right
+                = search_form_for @search_companies do |f|
+                  .input-group.input-group-sm.search
+                    = f.text_field :name_or_description_or_address_or_phone_or_email_or_user_first_name_or_user_last_name_or_user_maiden_name_cont, class: 'form-control',
+                            placeholder: t('helpers.search')
+                    .input-group-btn
+                      button [class="btn btn-default" type="submit"]
+                        i [class="fa fa-search"]
+                = link_to new_company_path, class: 'btn btn-sm btn-flat btn-success', title: t('.new_company') do
+                  i.fa.fa-plus
+                  span.hidden-xs
+                    =< t('.new_company')
+
+
+
+            .box-body
+              .dataTables_wrapper
+                .row
+                  .col-sm-12
+                    .table-responsive
+                      table.table.table-bordered.table-hover.dataTable
+                        thead
+                          tr
+                            /th.table-checkbox
+                              .checkbox.icheck
+                                input [type="checkbox" class="icheck-me" data-skin="square" data-color="blue"]
+                            th = t('.name')
+                            / th = t('.description')
+                            /th = t('.logo')
+                            th = t('.manager')
+                            th = t('.address')
+                            th = t('.phone')
+                            th = t('.email')
+                            th.actions_header
+                              = t('helpers.actions')
+                          tbody
+                            - @companies.each do |company|
+                              tr.show_actions
+                                /td.table-checkbox
+                                  .checkbox.icheck
+                                    input [type="checkbox" class="icheck-me" data-skin="square" data-color="blue"]
+                                td = company.name
+                                / td = company.description
+                                /td = image_tag(company.logo.small.url) if company.logo.small.url.present?
+                                td = company.user.try(:full_name)
+                                td = company.address
+                                td = company.phone
+                                td = company.email
+                                td
+                                  .actions
+                                    /= link_item '<i class="fa fa-search"></i>'.html_safe, company_path(company),
+                                            class: 'btn btn-xs btn-success btn-flat', title: t('helpers.show')
+                                    = link_item '<i class="fa fa-edit"></i>'.html_safe, edit_company_path(company),
+                                            class: 'btn btn-xs btn-primary btn-flat', title: t('helpers.edit')
+                                    - if has_policy(Company, %w(destroy))
+                                      = link_to '<i class="fa fa-trash-o"></i>'.html_safe, '#', title: t('helpers.destroy'),
+                                              class: 'btn btn-xs btn-danger btn-flat btn-destroy',
+                                              data: {'resource' => :companies, 'resource-id' => company.id,
+                                                      'resource-message' => t('questions.destroy', resource: t('.resource'),
+                                                              name: company.name)}
+          .row
+            .col-sm-5
+              .dataTables_info
+                = pluralize(@companies.count, t('.one'), t('.other'))
+            .col-sm-7
+              .dataTables_paginate.paging_simple_numbers
+                = custom_paginator(@companies)
+

@@ -1,0 +1,9 @@
+.content-wrapper
+  / Content Header (Page header)
+  section.content-header
+    h3
+    ol.breadcrumb
+      li
+        i.fa.fa-dashboard
+        = render_breadcrumbs tag: :li, separator: '<i class="fa fa-angle-right" style="padding: 0 5px;"></i>'.html_safe
+  = yield

@@ -1,0 +1,258 @@
+
+section.content-header
+  h1
+    | Información general de inventario
+    small V 1.0
+
+
+/section.content ng-controller="homeController" ng-init="init(#{current_user.current_company.eql?(0) ? '0' : @current_company.nil? ? 'null' : @current_company.to_json}, #{current_user.god? or current_user.admin?})"
+section.content
+    .row
+      /! ./col
+      .col-lg-3.col-xs-6
+        /! small box
+        .small-box.bg-blue
+          .inner
+            h3 = @branches_count
+            p Departamentos
+          .icon
+            i.fa.fa-home
+          a.small-box-footer href="/branches"
+            | Departamentos
+            i.fa.fa-arrow-circle-right
+
+      .col-lg-3.col-xs-6
+        /! small box
+        .small-box.bg-aqua
+          .inner
+            h3 = @departments_count
+            p Sucursales
+          .icon
+            i.fa.fa-cubes
+          a.small-box-footer href="/departments"
+            | Sucursales
+            i.fa.fa-arrow-circle-right
+        /! ./col
+      .col-lg-3.col-xs-6
+        /! small box
+        .small-box.bg-green
+          .inner
+            h3 = @items_count
+            p Artículos
+          .icon
+            i.fa.fa-tag
+          a.small-box-footer href="/"
+            | Artículos
+            i.fa.fa-arrow-circle-right
+      /! ./col
+      .col-lg-3.col-xs-6
+        /! small box
+        .small-box.bg-yellow
+          .inner
+            h3 = @users_count
+            p Usuarios registrados
+          .icon
+            i.fa.fa-users
+          a.small-box-footer href="/users"
+            | Usuarios en el sistema
+            i.fa.fa-arrow-circle-right
+    .row
+      .col-md-12
+        .box
+            .box-header.with-border
+              .row
+                .col-xs-6
+                  h3.box-title  Reporteador de artículos
+                  = @search_save
+                .col-xs-6
+                  .box-tools.pull-right
+              = search_form_for(@search_items, url: authenticated_root_path, id: 'home_form') do |f|
+                /.row
+
+                /! Ini Brand
+                .col-md-4
+                  .box.box-warning.box-solid
+                    .box-header.with-border
+                      h3.box-title = t('.f_branch')
+                      .box-tools.pull-right
+                        button.btn.btn-box-tool data-widget="collapse" type="button"
+                          i.fa.fa-minus
+                    .box-body style=('display: block;')
+                      = f.collection_select :branch_id_in, policy_scope(Branch), :id, :name, {prompt: false},
+                              {class: 'form-control select2', multiple: 'multiple', data: {placeholder: t('.branch')}}
+                /! End Brand
+
+                /! Ini Brand
+                .col-md-4
+                  .box.box-warning.box-solid
+                    .box-header.with-border
+                      h3.box-title = t('.f_department')
+                      .box-tools.pull-right
+                        button.btn.btn-box-tool data-widget="collapse" type="button"
+                          i.fa.fa-minus
+                    .box-body style=('display: block;')
+                      = f.select(:department_id_in,
+                              grouped_options_for_select(policy_scope(Branch).order(:name).map{ |b| [b.name, b.departments.order(:id).map{ |d| [d.name, d.id] }] }, selected: params[:q] ? params[:q][:department_id_in] : nil),
+                              {prompt: false}, {class: 'form-control select2', multiple: 'multiple', data: {placeholder: t('.department')}})
+                /! End Brand
+
+                /! Ini Category
+                .col-md-4
+                  .box.box-warning.box-solid
+                    .box-header.with-border
+                      h3.box-title = t('.f_category')
+                      .box-tools.pull-right
+                        button.btn.btn-box-tool data-widget="collapse" type="button"
+                          i.fa.fa-minus
+                    .box-body style=('display: block;')
+                      = f.collection_select :sub_category_category_id_in, policy_scope(Category).order(:name), :id, :name, {prompt: false},
+                              {class: 'form-control select2', multiple: 'multiple', data: {placeholder: t('.category')}}
+                /! End SubCategory
+
+                /! Ini SubCategory
+                .col-md-4
+                  .box.box-warning.box-solid
+                    .box-header.with-border
+                      h3.box-title = t('.f_sub_category')
+                      .box-tools.pull-right
+                        button.btn.btn-box-tool data-widget="collapse" type="button"
+                          i.fa.fa-minus
+                    .box-body style=('display: block;')
+                      = f.select(:sub_category_id_in,
+                              grouped_options_for_select(policy_scope(Category).map{ |c| [c.name, c.sub_categories.order(:id).map{ |sc| [sc.name, sc.id] }] }, selected: params[:q] ? params[:q][:sub_category_id_in] : nil),
+                              {prompt: false}, {class: 'form-control select2', multiple: 'multiple', data: {placeholder: t('.sub_category')}})
+                /! End SubCategory
+
+                /! Ini Brand
+                .col-md-4
+                  .box.box-warning.box-solid
+                    .box-header.with-border
+                      h3.box-title = t('.f_brand')
+                      .box-tools.pull-right
+                        button.btn.btn-box-tool data-widget="collapse" type="button"
+                          i.fa.fa-minus
+                    .box-body style=('display: block;')
+                      = f.collection_select :brand_id_in, Brand.order(:name), :id, :name, {prompt: false},
+                              {class: 'form-control select2', multiple: 'multiple', data: {placeholder: t('.brand')}}
+                /! End Brand
+
+
+                /! Ini Provideer
+                /.col-md-4
+                  .box.box-warning.box-solid
+                    .box-header.with-border
+                      h3.box-title = t('.f_provider')
+                      .box-tools.pull-right
+                        button.btn.btn-box-tool data-widget="collapse" type="button"
+                          i.fa.fa-minus
+                    .box-body style=('display: block;')
+                      = f.collection_select :provider_id_in, Provider.order(:name), :id, :name, {prompt: false},
+                              {class: 'form-control select2', multiple: 'multiple', data: {placeholder: t('.provider')}}
+                /! End Brand
+
+                /! Ini Maintenance Date
+                /.col-md-4
+                  .box.box-warning.box-solid
+                    .box-header.with-border
+                      h3.box-title = t('.f_maintenance_date')
+                      .box-tools.pull-right
+                        button.btn.btn-box-tool data-widget="collapse" type="button"
+                          i.fa.fa-minus
+                    .box-body style=('display: block;')
+                      /= f.text_field :user_first_name_or_user_last_name_or_user_maiden_name_or_department_manager_first_name_or_department_manager_last_name_or_department_manager_maiden_name_or_branch_user_first_name_or_branch_user_last_name_or_branch_user_maiden_name_or_company_user_first_name_or_company_user_last_name_or_company_user_maiden_name_or_direct_branch_user_first_name_or_direct_branch_user_last_name_or_direct_branch_user_maiden_name_or_direct_company_user_first_name_or_direct_company_user_last_name_or_direct_company_user_maiden_name_cont, class: 'form-control', placeholder: t('.responsible')
+                      = text_field_tag :date_range, params[:date_range], class: 'form-control date-range', placeholder: t('.maintenance_date')
+                      = hidden_field_tag :start_date
+                      = hidden_field_tag :end_date
+                /! End Maintenance Date
+
+                /.row
+                /! Ini Status
+                .col-md-4
+                  .box.box-warning.box-solid
+                    .box-header.with-border
+                      h3.box-title = t('.f_status_item')
+                      .box-tools.pull-right
+                        button.btn.btn-box-tool data-widget="collapse" type="button"
+                          i.fa.fa-minus
+                    .box-body style=('display: block;')
+                      = f.collection_select :status_item_id_in, policy_scope(StatusItem), :id, :name, {prompt: false},
+                              {class: 'form-control select2', multiple: 'multiple', data: {placeholder: t('.status_item')}}
+                /! End Status
+
+                /! Ini Responsible Name
+                .col-md-4
+                  .box.box-warning.box-solid
+                    .box-header.with-border
+                      h3.box-title = t('.f_responsible')
+                      .box-tools.pull-right
+                        button.btn.btn-box-tool data-widget="collapse" type="button"
+                          i.fa.fa-minus
+                    .box-body style=('display: block;')
+                      = f.select(:user_id_in, options_for_select(@users.order(:first_name, :last_name, :maiden_name).map{ |u| ["#{u.full_name} - #{u.role_name}", u.id] }, selected: params[:q] ? params[:q][:department_id_in] : nil),
+                              {prompt: false}, {class: 'form-control select2', multiple: 'multiple', data: {placeholder: t('.responsible')}})
+                /! End Responsible Name
+                .col-md-12
+                  .box.box-success.box-solid
+                    .box-header.with-border
+                      h3.box-title = t('.f_orden')
+                      .box-tools.pull-right
+                        button.btn.btn-box-tool data-widget="collapse" type="button"
+                          i.fa.fa-minus
+                    .box-body style=('display: block;')
+                      select name='column' class="form-control select2"
+                        option value=""  Seleccionar orden...
+                        /option value="branch" selected='selected'
+                          = t('.branch')
+                        option value="department"
+                          = t('.department')
+                        option value="category"
+                          = t('.category')
+                        option value="code"
+                          = t('.code')
+                        option value="model"
+                          = t('.model')
+                        /option value="Responsable"  Responsable
+                        /option value="name"
+                        /  = t('.name')
+                        /option value="description"
+                        /  = t('.description')
+                        /option value="price"
+                        /  = t('.price')
+                        /option value="brand"
+                        /  = t('.brand')
+                        /option value="sub_category"
+                        /  = t('.sub_category')
+                        option value="NumEmpleado"
+                          = t('.employee_number')
+
+
+                .col-xs-12.col-md-12
+                  .input-group-btn
+                    button [class="btn btn-block btn-info btn-lg" type="submit"]
+                      i [class="fa fa-search"]
+                        = " #{t('.search')}"
+            .box-body
+              .dataTables_wrapper
+                .table-responsive#reporter-list
+                  = render 'home/list_items_reporter'
+
+      / script id='modal.html' type='text/ng-template'
+        .modal.modal-fullscreen
+          .modal-dialog
+            .modal-content.form-horizontal style="width: 900px"
+              .modal-header
+                button.close aria-hidden="true" data-dismiss="modal" type="button"  ×
+                h4.modal-title
+                  = t('.modal_titulo')
+              .box-body
+                .row.form-group
+                  label.col-md-3.control-label
+                    = t('.select_company')
+                    | :
+                  .col-md-6
+                    select.form-control ng-model='company_selected'
+                      option value=""  Seleccione Empresa
+                      option ng-repeat="company in companies" ng-value="company.id"
+                        | {{company.name}}
+              .modal-footer
+                button.btn.btn-primary data-dismiss="modal" ng-click="setUserCompany(#{current_user.id})" type="button" Aceptar

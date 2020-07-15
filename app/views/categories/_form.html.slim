@@ -1,0 +1,54 @@
+= form_for(category, category: 'form', html: {class: 'form-horizontal'}, validate: true) do |f|
+  - if @category.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(category.errors.count, "error")} prohibited this category from being saved:"
+      ul
+        - @category.errors.full_messages.each do |message|
+          li = message
+  .box-body
+    .row.form-group
+      = f.label :company_id, class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.collection_select :company_id, Company.all, :id, :name,
+                {prompt: t('helpers.select.prompt')}, {class: 'form-control'}
+    .row.form-group
+      = f.label :name, class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.text_field :name, class: 'form-control', placeholder: t('.name'), autofocus: true
+        = f.hidden_field :status, value: true
+    / .row.form-group
+      = f.label :description, class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.text_field :description, class: 'form-control', placeholder: t('.description')
+
+    /.row.form-group
+      = f.label :status, class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.check_box(:status)
+
+  .box-footer
+    = f.button "<i class='fa fa-floppy-o'></i> #{t('helpers.submit.submit', model: t('.resource'))}".html_safe,
+            class: 'btn btn-primary btn-flat', type: 'submit'
+    = link_to categories_path, class: 'btn btn-default btn-flat' do
+      i.fa.fa-list
+      =< t('.back')
+
+
+
+/= form_for @category do |f|
+/  - if @category.errors.any?
+/      h2 = "#{pluralize(@category.errors.count, "error")} prohibited this category from being saved:"
+/      ul
+/        - @category.errors.full_messages.each do |message|
+/          li = message
+/
+/  .field
+/    = f.label :name
+/    = f.text_field :name
+/  .field
+/    = f.label :description
+/    = f.text_area :description
+/  .field
+/    = f.label :status
+/    = f.check_box :status
+/  .actions = f.submit

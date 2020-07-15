@@ -1,0 +1,9 @@
+es:
+  activerecord:
+    attributes:
+      provider:
+        name: Nombre
+        description: Descripción
+        contact: Contacto
+        phone: Telefono
+        email: Correo electronico

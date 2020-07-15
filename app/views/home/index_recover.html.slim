@@ -1,0 +1,111 @@
+
+section.content-header
+  h1
+    | Información general de inventario
+    small V 1.0
+
+
+section.content
+    .row
+
+      /! ./col
+      .col-lg-3.col-xs-6
+        /! small box
+        .small-box.bg-blue
+          .inner
+            h3 = @branches_count
+            p Sucursales
+          .icon
+            i.fa.fa-home
+          a.small-box-footer href="/branches"
+            | Sucursales
+            i.fa.fa-arrow-circle-right
+
+      .col-lg-3.col-xs-6
+        /! small box
+        .small-box.bg-aqua
+          .inner
+            h3 = @items_count
+            p Artículos
+          .icon
+            i.fa.fa-tag
+          a.small-box-footer href="/items"
+            | Lista de articulos
+            i.fa.fa-arrow-circle-right
+        /! ./col
+      .col-lg-3.col-xs-6
+        /! small box
+        .small-box.bg-green
+          .inner
+            h3 = @work_articles
+            p Artículos de trabajo
+          .icon
+            i.fa.fa-gavel
+          a.small-box-footer href="/employees"
+            | Asignación de Arts. de trabajo
+            i.fa.fa-arrow-circle-right
+      /! ./col
+      .col-lg-3.col-xs-6
+        /! small box
+        .small-box.bg-yellow
+          .inner
+            h3 = @users
+            p Usuarios registrados
+          .icon
+            i.fa.fa-users
+          a.small-box-footer href="/users"
+            | Usuarios en el sistema
+            i.fa.fa-arrow-circle-right
+    .row
+      .col-md-12
+        .box
+            .box-header.with-border
+              .row
+                .col-xs-6
+                  h3.box-title Lista de Empresas
+                .col-xs-6
+                  .box-tools.pull-right
+                    = search_form_for @search_departments, url: authenticated_root_path do |f|
+                      .input-group.input-group-sm.search
+                        = f.text_field :name_or_branch_name_or_company_name_cont, class: 'form-control',
+                                placeholder: t('helpers.search')
+                        .input-group-btn
+                          button [class="btn btn-default" type="submit"]
+                            i [class="fa fa-search"]
+            .box-body
+              .row
+
+                .col-md-12
+                  p.text-center
+                    strong Empresas en las cuales se permiten crear empleados y asignación de articulos.
+                  .box
+                    .box-body.no-padding
+                      table.table.table-condensed
+                        tbody
+                          tr
+                            th Compañia
+                            th Sucursal
+                            th Departamento
+                            th style=("width: 40px")  Artículos
+                            th style=("width: 40px")  Empleados
+                            th Acciones
+
+
+                          - @departments.each do |department|
+                            tr
+                              td = department.branch.try(:company).try(:name)
+                              td = department.branch_name
+                              td = department.name
+                              td
+                                span.badge.bg-green = department.items.count
+                              td
+                                span.badge.bg-blue = department.employees.count
+                              td
+                                = link_item '<i class="fa fa-search"></i> Administrar'.html_safe, department_path(department), title: t('helpers.show'),
+                                        class: 'btn btn-xs btn-success btn-flat'
+
+
+
+                /! /.box-body
+
+

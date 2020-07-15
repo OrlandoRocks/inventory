@@ -1,0 +1,14 @@
+es:
+  users:
+    passwords:
+      new:
+        template: Plantilla
+        forgot_password: ¿Olvidaste tu contraseña?
+        send_instructions: Enviar instrucciones de restablecimiento
+        email: Correo
+      edit:
+        template: Plantilla
+        change_password: Cambia tu contraseña
+        new_password: Nueva contraseña
+        password_confirmation: Confirmar contraseña
+        send_instructions: Enviar instrucciones de restablecimiento

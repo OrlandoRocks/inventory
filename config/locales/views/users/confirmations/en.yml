@@ -1,0 +1,8 @@
+en:
+  users:
+    confirmations:
+      new:
+        resend_confirmation: Resend confirmation
+        template: Template
+        resend_instructions: Resend confirmation instructions
+        email: Email

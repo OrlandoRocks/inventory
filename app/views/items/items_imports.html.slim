@@ -1,0 +1,60 @@
+section.content
+  .row
+    .col-xs-12
+      .box.box-primary
+        .box-header.with-border
+          .row
+            .col-xs-6.col-md-8.col-lg-9
+              h3.box-title
+                = t('items.items_import.title')
+        .box-body
+          .dataTables_wrapper
+            .row
+              .col-sm-12
+                .table-responsive
+                  table.table.table-bordered.table-hover.dataTable
+                    div
+
+                      = form_tag import_items_path, multipart: true do
+                        = file_field_tag :file, class: 'btn btn-large btn-sucess'
+
+                        = submit_tag "Importar archivo CSV",class: 'btn btn-large btn-primary'
+
+                    thead
+                      tr
+                        th = 'Código'
+                        th = 'Nombre'
+                        th = 'Descripción'
+                        th = 'Modelo'
+                        th = 'Num. Serie'
+                        th = 'Estatus'
+                        th = 'Categoria'
+                        th = 'SubCategoria'
+                        th = 'Sucursal'
+                        th = 'Departamento'
+                        th = 'Sucursal'
+                        th = 'Responsable'
+                        th.actions_header
+                          = t('helpers.actions')
+                    tbody
+                      - @items.each do |item|
+                        tr.show_actions
+                          td = item.code
+                          td = item.name
+                          td = item.description
+                          td = item.model
+                          td =  "%.2f" % item.price if item.price.present?
+                          td = item.branch.present? ? item.branch.name : (item.direct_branch ? item.direct_branch.name : nil)
+                          td = item.department.name if item.department.present?
+                          td =
+                          td
+                            .actions
+                              = link_item '<i class="fa fa-edit"></i>'.html_safe, edit_item_path(item),
+                                      class: 'btn btn-xs btn-primary btn-flat', title: t('helpers.edit')
+                              - if has_policy(item, %w(destroy))
+                                = link_to '<i class="fa fa-trash-o"></i>'.html_safe, '#', title: t('helpers.destroy'),
+                                        class: 'btn btn-xs btn-danger btn-flat btn-destroy',
+                                        data: {'resource' => :items, 'resource-id' => item.id,
+                                                'resource-message' => t('questions.destroy', resource: t('.resource'),
+                                                        name: item.name)}
+

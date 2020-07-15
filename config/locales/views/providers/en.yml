@@ -1,0 +1,39 @@
+en:
+  providers:
+    index:
+      title: Providers
+      resource: the Provider
+      name: Name
+      description: Description
+      contact: Contact
+      phone: Phone
+      email: Email
+      one: Provider
+      other: Providers
+      permissions: Permissions
+      new_provider: New Provider
+    form:
+      title: Providers
+      resource: Provider
+      back: Ir a Providers
+      name: Name
+      description: Description
+      contact: Contact
+      phone: Phone
+      email: Email
+    new:
+      title: New Provider
+    edit:
+      title: Edit Provider
+    show:
+      name: Name
+      description: Description
+      status: Status
+      back: Go to Providers
+      delete_confirmation: Are you sure you want to delete the Provider
+    role_permissions:
+      save_permissions: Save permissions
+      back: Go to Providers
+
+  breadcrumbs:
+    providers: Providers

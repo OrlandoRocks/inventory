@@ -1,0 +1,5 @@
+<h2>Import artículos</h2>
+<%= form_tag items_import_tag, multipart: true do %>
+    <%= file_field_tag :file %>
+    <%= submit_tag "Import" %>
+<% end %>

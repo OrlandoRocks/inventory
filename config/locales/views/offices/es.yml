@@ -1,0 +1,31 @@
+es:
+  offices:
+    index:
+      title: Oficinas
+      resource: La oficina
+      name: Nombre
+      description: Descripcion
+      department: Departamento
+      user: Encargado
+      one: Oficina
+      other: Oficinas
+      new_office: Nueva Oficina
+    form:
+      title: Oficina
+      resource: La oficina
+      name: nombre
+      description: Descripcion
+      department: Departamento
+      user: Encargado
+      back: ir a Oficinas
+      resource: Oficina
+    edit:
+      title: Editar Oficina
+    new:
+      title: nueva Oficina
+    show:
+      back: Ir a Oficinas
+      delete_confirmation: Esta seguro de que desea eliminar la Oficina
+  breadcrumbs:
+    permissions: Oficinas
+    roles: Roles

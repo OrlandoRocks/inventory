@@ -1,0 +1,161 @@
+section.content ng-controller="itemController" ng-init="item=#{@item.new_record? ? 0 : @item.id}"
+  .row
+    .col-xs-12
+      .box.box-primary
+        .box-header.with-border
+          h3.box-title
+            = t('.title')
+        .box-body
+          .row.form-group
+            = label_tag "name", t(".add_file"), class: 'col-sm-2 control-label'
+            .col-md-4
+              button#add_file.fa.fa-eye.btn.btn-primary.btn-xs href="" ng-click="show()" type="button"  = t(".add_file")
+
+          section.content
+            .row
+              .col-xs-12
+                .box.box-success
+                  .box-body
+                    .dataTables_wrapper
+                      .row
+                        .col-sm-12
+                          .table-responsive
+                            table.table.table-bordered.table-hover.dataTable
+                              thead
+                                tr
+                                  th = t('.files.description')
+                                  th = t('.files.file_type')
+                                  th = t('.file')
+                              tbody ng-repeat='file in item_files_data'
+                                tr.show_actions
+                                  td
+                                    | {{file.description}}
+                                  td
+                                    | {{file.file_type}}
+                                  td
+                                    .estatus
+                                      .estatus-body
+                                        a.link-hover href="{{file.file['url']}}" target="_blank"
+                                          span.estatus-default data-hover="{{file.file_name}}"
+                                            i.fa.fa-lightbulb-o
+                                            | Ver Archivo
+
+
+          .row.form-group
+            = label_tag "maintenance", t(".add_maintenance"), class: 'col-sm-2 control-label'
+            .col-md-4
+              button#add_maintenance.fa.fa-eye.btn.btn-primary.btn-xs href="" ng-click="show_maintenance()" type="button"  = t(".add_maintenance")
+
+          section.content
+            .row
+              .col-xs-12
+                .box.box-success
+                  .box-body
+                    .dataTables_wrapper
+                      .row
+                        .col-sm-12
+                          .table-responsive
+                            table.table.table-bordered.table-hover.dataTable
+                              thead
+                                tr
+                                  th = t('.files.maintenance')
+                                  th = t('.files.description')
+                                  th = t('.files.price')
+                                  /th = t('.files.provider')
+                                  th = t('.file')
+                                  tbody ng-repeat='maintenance in item_maintenances_data'
+                                    tr.show_actions
+                                      td
+                                        | {{maintenance.maintenance}}
+                                      td
+                                        | {{maintenance.description}}
+                                      td
+                                        | {{maintenance.price}}
+                                      /td
+                                        | {{maintenance.provider}}
+                                      td
+                                        .estatus
+                                          .estatus-body
+                                            a.link-hover href="{{maintenance.file['url']}}" target="_blank"
+                                              span.estatus-default data-hover="{{maintenance.file_name}}"
+                                                i.fa.fa-lightbulb-o
+                                                | Ver Archivo
+
+
+
+  script id='modal.html' type='text/ng-template'
+    .modal.modal-fullscreen.modal-fullscreen-default
+      .modal-dialog
+        .modal-content.form-horizontal
+          .modal-header
+            button.close aria-hidden="true" data-dismiss="modal" ng-click="close(Cancel)" type="button"  ×
+            h4.modal-title
+              | Agregar #{t('.file').capitalize}
+          .form-group.floating-label-form-group
+            label.col-md-3.control-label
+              = t('.files.description')
+              | :
+            .col-md-8
+              = text_area_tag 'descripcion', '', class: "form-control label-float", placeholder: t('.files.description'), "ng-model" => "description"
+          .form-group.floating-label-form-group
+            label.col-md-3.control-label
+              = t('.files.file_type')
+              | :
+            .col-md-8
+              = select_tag "file_type", options_for_select(Item.file_types),
+                      prompt: t('helpers.select.prompt'), class: 'form-control label-float', "ng-model" => "file_type"
+          .form-group.floating-label-form-group
+            label.col-md-3.control-label
+              = t('.file')
+              | :
+            .col-md-8
+              = '<input type="file" ngf-select ngf-max-height="1000" ngf-max-size="2MB"  ng-model="file" name="file" >'.html_safe
+              /input name="file" ng-model="file" ngf-select="" ngf-max-height="1000" ngf-max-size="5MB" type="file"
+              | {{file}}
+          .modal-footer
+            button.btn.btn-primary data-dismiss="modal" ng-click="uploadFiles(file)" type="button"  Agregar
+
+
+
+  script id='modal2.html' type='text/ng-template'
+    .modal.modal-fullscreen.modal-fullscreen-default
+      .modal-dialog
+        .modal-content.form-horizontal
+          .modal-header
+            button.close aria-hidden="true" data-dismiss="modal" ng-click="close(Cancel)" type="button"  ×
+            h4.modal-title
+              | Agregar #{t('.maintenance').capitalize}
+          .form-group.floating-label-form-group
+            label.col-md-3.control-label
+              = t('.maintenance.maintenance')
+              | :
+            .col-md-8
+              = select_tag "file_type", options_from_collection_for_select(Maintenance.all, :id, :name),
+                      prompt: t('helpers.select.prompt'), class: 'form-control label-float', "ng-model" => "maintenance"
+          .form-group.floating-label-form-group
+            label.col-md-3.control-label
+              = t('.maintenance.description')
+              | :
+            .col-md-8
+              = text_area_tag 'descripcion', '', class: "form-control label-float", placeholder: t('.maintenances.description'), "ng-model" => "description"
+          .form-group.floating-label-form-group
+            label.col-md-3.control-label
+              = t('.maintenance.price')
+              | :
+            .col-md-8
+              = text_field_tag 'price',nil, class: 'form-control', placeholder: t('.maintenances.price'), "ng-model" => 'price'
+          .form-group.floating-label-form-group
+            label.col-md-3.control-label
+              = t('.maintenance.provider')
+              | :
+            .col-md-8
+              = text_field_tag 'provider', nil, class: 'form-control', placeholder: t('.maintenances.provider'), "ng-model" => 'provider'
+          .form-group.floating-label-form-group
+            label.col-md-3.control-label
+              = t('.file')
+              | :
+            .col-md-8
+              input name="file" ng-model="file" ngf-max-height="1000" ngf-max-size="5MB" ngf-select="" type="file"
+          .modal-footer
+            button.btn.btn-primary data-dismiss="modal" ng-click="uploadFiles(file)" type="button"  Agregar
+

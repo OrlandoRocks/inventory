@@ -1,0 +1,7 @@
+es:
+  activerecord:
+    attributes:
+      maintenance:
+        name: Nombre
+        descripti on: Descripción
+        status: Estatus

@@ -1,0 +1,22 @@
+li.dropdown.user.user-menu
+  / Menu Toggle Button
+  a.dropdown-toggle data-toggle='dropdown' href='#'
+    / The user image in the navbar
+    = image_tag current_user.avatar.url(:small), class: 'user-image',
+                onerror: "this.src='#{image_path 'user_image.png'}'"
+    / hidden-xs hides the username on small devices so only the image appears.
+    span.hidden-xs
+      = "#{current_user.try(:employee_number)} #{current_user.try(:full_name)}"
+  ul.dropdown-menu
+    / The user image in the menu
+    li.user-header
+      = image_tag current_user.avatar.url(:medium), class: 'img-circle',
+                  onerror: "this.src='#{image_path 'user_image.png'}'"
+      p
+        = "#{current_user.try(:employee_number)} #{current_user.try(:full_name)}"
+    / Menu Footer
+    li.user-footer
+      .pull-left
+        = link_to t('.profile'), edit_profile_path, class: 'btn btn-default btn-flat'
+      .pull-right
+        = link_to t('.log_out'), destroy_user_session_path, method: :delete, class: 'btn btn-default btn-flat'

@@ -1,0 +1,35 @@
+en:
+  maintenances:
+    index:
+      title: Maintenances
+      resource: the Maintenance
+      name: Name
+      description: Description
+      status: Status
+      one: Maintenance
+      other: Maintenances
+      permissions: Permissions
+      new_maintenance: New Maintenance
+    form:
+      title: Categories
+      resource: Maintenance
+      back: Ir a categories
+      name: Name
+      description: Description
+      status: Status
+    new:
+      title: New Maintenance
+    edit:
+      title: Edit Maintenance
+    show:
+      name: Dame
+      description: Description
+      status: Status
+      back: Go to categories
+      delete_confirmation: Are you sure you want to delete the Maintenance
+    role_permissions:
+      save_permissions: Save permissions
+      back: Go to Maintenances
+
+  breadcrumbs:
+    maintenances: Maintenances

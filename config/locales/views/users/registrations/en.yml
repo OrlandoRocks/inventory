@@ -1,0 +1,100 @@
+en:
+  users:
+    registrations:
+      new:
+        title: Template
+        sign_up: Sign up
+        email: Email
+        password: Password
+        confirmation: Password confirmation
+      edit:
+        title: Edit profile
+        email: Email
+        password: Password
+        password_confirmation: Password confirmation
+        current_password: Current password
+        waiting_confirmation: 'Currently waiting confirmation for:'
+        leave_blank:  (leave blank if you don't want to change it)
+        need_password:  (we need your current password to confirm your changes)
+        update: Update
+        cancel_account: Cancel my account
+        back: Back
+        unhappy: 'Unhappy?'
+        resource: user
+        resource_password: password
+        profile: profile
+        profile_image: profile image
+        need_image: You must select an image first
+        avatar: Avatar
+      index:
+        title: Users
+        resource: the user
+        email: E-mail
+        actions: Actions
+        one: User
+        other: Users
+        role: Role
+        first_name: First name
+        last_name: Last name
+        maiden_name: Mother maiden name
+        username: Username
+        new_user: New user
+      new_user:
+        title: New user
+        received_file: Archivo Recivido
+        resource: user
+        back: Go to users
+      edit_user:
+        resource: user
+        received_file: Archivo Recivido
+        title: Edit user
+        back: Go to users
+      show:
+        back: Go to users
+        email: E-mail
+        role: Role
+        first_name: First name
+        last_name: Last name
+        maiden_name: Mother maiden name
+        username: Username
+      change_password:
+        change_password: Change password
+        resource: password
+      employees_index:
+        title: Employees
+        resource: the employee
+        email: E-mail
+        actions: Actions
+        one: Employee
+        other: Employees
+        first_name: First name
+        last_name: Last name
+        maiden_name: Mother maiden name
+        username: Username
+        department: Department
+      assign_work_articles:
+        back: Go to employees
+        resource: employee
+        title: Work articles assigned
+        title_assign_work_articles: Assign work articles
+        work_articles: Work Articles
+      work_articles_table:
+        close: Close
+        save: Save
+        work_article:
+          actions: Actions
+          name: Name
+          one: Work Article
+          other: Work Articles
+      work_articles_assigned_table:
+        close: Close
+        remove: Remove
+        work_article:
+          actions: Actions
+          name: Name
+          reception_status: Reception status
+          one: Work Article
+          other: Work Articles
+  breadcrumbs:
+    users: Users
+    change_password: Change password %{username}

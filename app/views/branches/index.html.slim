@@ -1,0 +1,74 @@
+section.content
+  .row
+    .col-xs-12
+      .box.box-primary
+        .box-header.with-border
+          .row
+            .col-xs-6.col-md-8.col-lg-8
+              h3.box-title
+                = t('.title')
+            .col-xs-6.col-md-4.col-lg-4
+              .box-tools.pull-right
+                = search_form_for @search_branches do |f|
+                  .input-group.input-group-sm.search
+                    = f.text_field :name_or_description_or_company_name_or_city_name_or_state_name_or_user_first_name_or_user_last_name_or_user_maiden_name_cont, class: 'form-control',
+                            placeholder: t('helpers.search')
+                    .input-group-btn
+                      button [class="btn btn-default" type="submit"]
+                        i [class="fa fa-search"]
+                = link_to new_branch_path, class: 'btn btn-sm btn-flat btn-success', title: t('.new_branch') do
+                  i.fa.fa-plus
+                  span.hidden-xs
+                    =< t('.new_branch')
+
+
+            .box-body
+              .dataTables_wrapper
+                .row
+                  .col-sm-12
+                    .table-responsive
+                      table.table.table-bordered.table-hover.dataTable
+                        thead
+                          tr
+                            /th.table-checkbox
+                              .checkbox.icheck
+                                input [type="checkbox" class="icheck-me" data-skin="square" data-color="blue"]
+                            th = t('.company')
+                            th = t('.name')
+                            / th = t('.description')
+                            th = t('.state')
+                            th = t('.city')
+                            th = t('.manager')
+                            th.actions_header
+                              = t('helpers.actions')
+                          tbody
+                            - @branches.each do |branch|
+                              tr.show_actions
+                                /td.table-checkbox
+                                  .checkbox.icheck
+                                    input [type="checkbox" class="icheck-me" data-skin="square" data-color="blue"]
+                                td = branch.company.name if branch.company.present?
+                                td = branch.name
+                                / td = branch.description
+                                td = branch.state.name if branch.state.present?
+                                td = branch.city.name if branch.city.present?
+                                td = branch.user.present?? branch.user.try(:full_name) : 'SIN ASIGNAR'
+                                td
+                                  .actions
+                                    /= link_item '<i class="fa fa-search"></i>'.html_safe, branch_path(branch),
+                                    /        class: 'btn btn-xs btn-success btn-flat', title: t('helpers.show')
+                                    = link_item '<i class="fa fa-edit"></i>'.html_safe, edit_branch_path(branch),
+                                            class: 'btn btn-xs btn-primary btn-flat', title: t('helpers.edit')
+                                    - if has_policy(Branch, %w(destroy))
+                                      = link_to '<i class="fa fa-trash-o"></i>'.html_safe, '#', title: t('helpers.destroy'),
+                                              class: 'btn btn-xs btn-danger btn-flat btn-destroy',
+                                              data: {'resource' => :branches, 'resource-id' => branch.id,
+                                                      'resource-message' => t('questions.destroy', resource: t('.resource'),
+                                                              name: branch.name)}
+          .row
+            .col-sm-5
+              .dataTables_info
+                = pluralize(@branches.count, t('.one'), t('.other'))
+            .col-sm-7
+              .dataTables_paginate.paging_simple_numbers
+                = custom_paginator(@branches)

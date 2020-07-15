@@ -1,0 +1,28 @@
+= form_for(status_item, status_item: 'form', html: {class: 'form-horizontal'}, validate: true) do |f|
+  - if @status_item.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(status_item.errors.count, "error")} prohibited this status_item from being saved:"
+      ul
+        - @status_item.errors.full_messages.each do |message|
+          li = message
+  .box-body
+    .row.form-group
+      = f.label :name, class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.text_field :name, class: 'form-control', placeholder: t('.name'), autofocus: true
+    .row.form-group
+      = f.label :description, class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.text_field :description, class: 'form-control', placeholder: t('.description')
+
+      = f.hidden_field :status, value: true
+    /.row.form-group
+      = f.label :status, class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.check_box(:status)
+  .box-footer
+    = f.button "<i class='fa fa-floppy-o'></i> #{t('helpers.submit.submit', model: t('.resource'))}".html_safe,
+            class: 'btn btn-primary btn-flat', type: 'submit'
+    = link_to status_items_path, class: 'btn btn-default btn-flat' do
+      i.fa.fa-list
+      =< t('.back')

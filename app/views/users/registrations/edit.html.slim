@@ -1,0 +1,61 @@
+section.content
+  .row
+    .col-md-3
+      = form_for(@user, url: get_user_image_path(@user), html: { multipart: true }, validate: true) do |f|
+        .box.box-primary
+          .box-body.box-profile
+            = image_tag @user.avatar.url(:small), class: 'profile-user-img img-responsive img-circle',
+                        onerror: "this.src='#{image_path 'user_image.png'}'"
+            h3.profile-username.text-center
+              = current_user.email
+            .input-group
+              .input-group-btn
+                a#select_btn.btn.btn-primary.btn-flat
+                  = t('.avatar')
+              input#display_input.form-control [type="text" disabled]
+          .box-footer
+            = f.file_field :avatar, id: 'file_input', class: 'upload'
+            = f.hidden_field :avatar_cache
+            = f.submit t('.update'), class: 'btn btn-primary btn-flat'
+
+    .col-md-9
+      .nav-tabs-custom
+        ul.nav.nav-tabs
+          li.active
+            a [href="#edit" data-toggle="tab"]
+              = t('.title')
+          li
+            a [href="#password" data-toggle="tab"]
+              = t('helpers.password')
+        .tab-content
+          #edit.tab-pane.active
+            = form_for(@user, url: update_profile_path, html: {method: :put, class: 'form-horizontal'},
+                       validate: true) do |f|
+              /! = devise_error_messages!
+              .row.form-group
+                = f.label :email, class: 'col-sm-2 control-label'
+                .col-sm-10
+                  = f.email_field :email, autofocus: true, class: 'form-control'
+              .row.form-group
+                .col-xs-12
+                  = f.submit t('.update'), class: 'btn btn-primary btn-flat'
+          #password.tab-pane
+            = form_for(@user, url: update_password_path, html: {method: :put, class: 'form-horizontal'},
+                       validate: true) do |f|
+              .row.form-group
+                = f.label :password, class: 'col-sm-2 control-label'
+                .col-sm-10
+                  = f.password_field :password, autocomplete: 'off', class: 'form-control', id: 'Password'
+              .row.form-group
+                = f.label :password_confirmation, class: 'col-sm-2 control-label'
+                .col-sm-10
+                  = f.password_field :password_confirmation, autocomplete: 'off', class: 'form-control'
+              .progress.col-sm-offset-2
+                #StrengthProgressBar.progress-bar
+              .row.form-group
+                = f.label :current_password, class: 'col-sm-2 control-label'
+                .col-sm-10
+                  = f.password_field :current_password, autocomplete: 'off', class: 'form-control'
+              .row.form-group
+                .col-xs-12
+                  = f.submit t('helpers.submit.update', model: t('.resource')), class: 'btn btn-primary btn-flat'

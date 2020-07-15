@@ -1,0 +1,8 @@
+es:
+  activerecord:
+    attributes:
+      sub_category:
+        name: Nombre
+        description: Descripción
+        category: Categoría
+        status: Estatus

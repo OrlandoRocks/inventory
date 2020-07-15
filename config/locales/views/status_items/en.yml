@@ -1,0 +1,35 @@
+en:
+  status_items:
+    index:
+      title: Status Items
+      resource: the Status Item
+      name: Name
+      description: Description
+      status: Status
+      one: Status Item
+      other: Status Items
+      permissions: Permissions
+      new_status_item: New Status Item
+    form:
+      title: Categories
+      resource: Status Item
+      back: Ir a categories
+      name: Name
+      description: Description
+      status: Status
+    new:
+      title: New Status Item
+    edit:
+      title: Edit Status Item
+    show:
+      name: Dame
+      description: Description
+      status: Status
+      back: Go to categories
+      delete_confirmation: Are you sure you want to delete the Status Item
+    role_permissions:
+      save_permissions: Save permissions
+      back: Go to Status Items
+
+  breadcrumbs:
+    status_items: Status Items

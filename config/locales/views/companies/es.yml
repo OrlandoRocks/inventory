@@ -1,0 +1,44 @@
+es:
+  companies:
+    index:
+      title: Compañias
+      resource: la compañia
+      name: Nombre
+      description: Descripción
+      key: Llave
+      scope: Alcance
+      one: Compañia
+      other: Compañias
+      permissions: Permisos
+      new_company: Nueva compañia
+      manager:
+      adress: Dirección
+    form:
+      name: Nombre
+      title: Sucursal
+      description: Descripción
+      company: Compañia
+      city: Ciudad
+      resource: Compañias
+      back: Ir a compañias
+      manager: Director
+      address: Dirección
+      phone: Telefono
+      email: Correo electronico
+      user: Usuario
+      logo: logo
+    new:
+      title: Nueva compañia
+    edit:
+      title: Editar compañia
+    show:
+      key: Llave
+      description: Descripción
+      back: Ir a compañias
+      delete_confirmation: Estas seguro que deseas eliminar la compañia
+    company_permissions:
+      save_permissions: Guardar permisos
+      back: Ir a Compañias
+
+  breadcrumbs:
+    companies: Compañias

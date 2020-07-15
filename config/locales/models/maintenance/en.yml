@@ -1,0 +1,9 @@
+en:
+  activerecord:
+    attributes:
+      maintenance:
+        name: Name
+        description: Description
+        status: Status
+        key: Key
+        scope: Scope

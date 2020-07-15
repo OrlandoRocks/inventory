@@ -1,0 +1,179 @@
+aside.main-sidebar
+  section.sidebar
+    /! Sidebar Menu
+    ul.sidebar-menu
+      - if has_policy_catalogo
+        li.header MENU
+      - if has_policy_catalogo
+        - if has_policy(Item, %w(new index))
+          li.treeview
+            a href='#'
+              i.fa.fa-list
+              span = t('.items')
+              i.fa.fa-angle-left.pull-right
+            ul.treeview-menu
+              /li
+                = link_item "<i class='fa fa-circle-o'></i> #{t '.reporter'}".html_safe, reporter_path
+              /li
+                = link_item "<i class='fa fa-circle-o'></i> #{t '.maintenances'}".html_safe, items_next_maintenances_path
+              li
+                = link_item "<i class='fa fa-circle-o'></i> #{t '.new_item'}".html_safe, new_item_path
+              /li
+                = link_item "<i class='fa fa-circle-o'></i> #{t '.items'}".html_safe, items_path
+
+      /- if has_policy(WorkArticle, %w(new index))
+        li.treeview
+          a href='#'
+            i.fa.fa-gavel
+            span = t('.work_articles')
+            i.fa.fa-angle-left.pull-right
+          ul.treeview-menu
+            li
+              = link_item "<i class='fa fa-circle-o'></i> #{t '.new_work_article'}".html_safe, new_work_article_path
+            li
+              = link_item "<i class='fa fa-circle-o'></i> #{t '.work_articles'}".html_safe, work_articles_path
+
+      li.header LOCACIONES
+      - if has_policy(Company, %w(new index))
+        li.treeview
+          a href='#'
+            i.fa.fa-bank
+            span = t('.companies')
+            i.fa.fa-angle-left.pull-right
+          ul.treeview-menu
+            li
+              = link_item "<i class='fa fa-circle-o'></i> #{t '.new_company'}".html_safe, new_company_path
+            li
+              = link_item "<i class='fa fa-circle-o'></i> #{t '.companies'}".html_safe, companies_path
+
+
+      - if has_policy(Branch, %w(new index))
+        li.treeview
+          a href='#'
+            i.fa.fa-home
+            span = t('.branches')
+            i.fa.fa-angle-left.pull-right
+          ul.treeview-menu
+            li
+              = link_item "<i class='fa fa-circle-o'></i> #{t '.new_branch'}".html_safe, new_branch_path
+            li
+              = link_item "<i class='fa fa-circle-o'></i> #{t '.branches'}".html_safe, branches_path
+
+
+      - if has_policy(Department, %w(new index))
+        li.treeview
+          a href='#'
+            i.fa.fa-cubes
+            span = t('.departments')
+            i.fa.fa-angle-left.pull-right
+          ul.treeview-menu
+            li
+              = link_item "<i class='fa fa-circle-o'></i> #{t '.new_department'}".html_safe, new_department_path
+            li
+              = link_item "<i class='fa fa-circle-o'></i> #{t '.departments'}".html_safe, departments_path
+
+
+      - if has_policy_catalogo
+        li.header CATÁLOGOS
+      - if has_policy(Category, %w(new index))
+        li.treeview
+          a href='#'
+            i.fa.fa-minus
+            span = t('.categories')
+            i.fa.fa-angle-left.pull-right
+          ul.treeview-menu
+            li
+              = link_item "<i class='fa fa-circle-o'></i> #{t '.new_category'}".html_safe, new_category_path
+            li
+              = link_item "<i class='fa fa-circle-o'></i> #{t '.categories'}".html_safe, categories_path
+
+      - if has_policy(SubCategory, %w(new index))
+        li.treeview
+          a href='#'
+            i.fa.fa-map-signs
+            span = t('.sub_categories')
+            i.fa.fa-angle-left.pull-right
+          ul.treeview-menu
+            li
+              = link_item "<i class='fa fa-circle-o'></i> #{t '.new_sub_category'}".html_safe, new_sub_category_path
+            li
+              = link_item "<i class='fa fa-circle-o'></i> #{t '.sub_categories'}".html_safe, sub_categories_path
+
+      - if has_policy(StatusItem, %w(new index))
+        li.treeview
+          a href='#'
+            i.fa.fa-thumbs-o-up
+            span = t('.status_item')
+            i.fa.fa-angle-left.pull-right
+          ul.treeview-menu
+            li
+              = link_item "<i class='fa fa-circle-o'></i> #{t '.new_status_item'}".html_safe, new_status_item_path
+            li
+              = link_item "<i class='fa fa-circle-o'></i> #{t '.status_item'}".html_safe, status_items_path
+
+      - if has_policy(Brand, %w(new index))
+        li.treeview
+          a href='#'
+            i.fa.fa-registered
+            span = t('.brands')
+            i.fa.fa-angle-left.pull-right
+          ul.treeview-menu
+            li
+              = link_item "<i class='fa fa-circle-o'></i> #{t '.new_brand'}".html_safe, new_brand_path
+            li
+              = link_item "<i class='fa fa-circle-o'></i> #{t '.brands'}".html_safe, brands_path
+
+          /- if has_policy(Provider, %w(new index))
+              li.treeview
+                a href='#'
+                  i.fa.fa-male
+                  span = t('.providers')
+                  i.fa.fa-angle-left.pull-right
+                ul.treeview-menu
+                  li
+                    = link_item "<i class='fa fa-circle-o'></i> #{t '.new_provider'}".html_safe, new_provider_path
+                  li
+                    = link_item "<i class='fa fa-circle-o'></i> #{t '.providers'}".html_safe, providers_path
+
+
+
+      li.header ADMIN
+      - if has_policy(Role, %w(new index))
+      - if has_policy_catalogo
+        li.treeview
+          a href='#'
+            i.fa.fa-user-secret
+            span = t('.roles')
+            i.fa.fa-angle-left.pull-right
+          ul.treeview-menu
+            li
+              = link_item "<i class='fa fa-circle-o'></i> #{t '.new_role'}".html_safe, new_role_path
+            li
+              = link_item "<i class='fa fa-circle-o'></i> #{t '.roles'}".html_safe, roles_path
+      - if has_policy(Permission, %w(new index))
+        li.treeview
+          a href='#'
+            i.fa.fa-ban
+            span = t('.permissions')
+            i.fa.fa-angle-left.pull-right
+          ul.treeview-menu
+            li
+              = link_item "<i class='fa fa-circle-o'></i> #{t '.new_permission'}".html_safe, new_permission_path
+            li
+              = link_item "<i class='fa fa-circle-o'></i> #{t '.permissions'}".html_safe, permissions_path
+      li.treeview
+        a href='#'
+          i.fa.fa-user
+          span = t('.users')
+          i.fa.fa-angle-left.pull-right
+        ul.treeview-menu
+          li
+            - if has_policy(User, %w(index), 'Users::Registration')
+              = link_to "<i class='fa fa-circle-o'></i> #{t '.users'}".html_safe, user_registrations_path
+          li
+            - if has_policy(User, %w(new_user), 'Users::Registration')
+              = link_to "<i class='fa fa-circle-o'></i> #{t '.new_user'}".html_safe, new_user_path
+              = link_to "<i class='fa fa-circle-o'></i> #{t '.new_employee'}".html_safe, new_employee_path
+        /li
+          - if has_policy(User, %w(employees_index), 'Users::Registration')
+            = link_to "<i class='fa fa-circle-o'></i> #{t '.employees_asig'}".html_safe, employees_path

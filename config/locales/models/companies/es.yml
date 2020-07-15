@@ -1,0 +1,12 @@
+es:
+  activerecord:
+    attributes:
+      company:
+        name: Nombre
+        description: Descripción
+        logo: logo
+        manager: Coordinador
+        address: Dirección
+        phone: Telefono
+        email: Correo electronico
+        user: Director

@@ -1,0 +1,88 @@
+.row
+  .col-sm-3
+    .dataTables_info
+      h4
+        span.label.label-success
+          = "#{pluralize(@items.count, t('.one'), t('.other'))}"
+        = ' '
+        span.label.label-primary
+          = "#{"#{number_to_currency @total_price_items} #{t('.acquisition_value')}"}"
+  .col-sm-9
+    .dataTables_paginate.paging_simple_numbers
+      = custom_paginator(@items, { controller: 'items', action: 'reporter' })
+table.table.table-bordered.table-hover.dataTable
+  thead
+    tr
+      th.actions_header
+        = t('helpers.actions')
+      th = t('.code')
+      th = t('.employee_number')
+      th = t('.responsible')
+      th = t('.role')
+      th = t('.name')
+      th = t('.description')
+      th = t('.model')
+      th = t('.price')
+      th = t('.branch')
+      th = t('.department')
+      th = t('.brand')
+      th = t('.category')
+      th = t('.sub_category')
+      th = t('.status_item')
+  tbody
+    - @items.each do |item|
+      tr.show_actions
+        td
+          .actions
+            = link_item '<i class="fa fa-search"></i>'.html_safe, item_path(item), title: t('helpers.show'),
+                    class: 'btn btn-xs btn-success btn-flat'
+            = link_item '<i class="fa fa-edit"></i>'.html_safe, edit_item_path(item),
+                    class: 'btn btn-xs btn-primary btn-flat', title: t('helpers.edit')
+            /- if has_policy(item, %w(destroy))
+            /  = link_to '<i class="fa fa-trash-o"></i>'.html_safe, '#', title: t('helpers.destroy'),
+            /          class: 'btn btn-xs btn-danger btn-flat btn-destroy',
+            /          data: {'resource' => :items, 'resource-id' => item.id,
+            /                  'resource-message' => t('questions.destroy', resource: t('.resource'),
+            /                          name: item.name)}
+            /  = link_to '<i class="fa fa-file-pdf-o"></i> PDF'.html_safe, reports_item_path(nombre_reporte: 'item', titulo_reporte: "Ficha técnica del artículo.", format: :pdf, id: item),
+            /          class: 'btn btn-xs btn-success btn-flat'
+        td = item.code
+        /td = l(item.maintenance_date, format: :long) if item.maintenance_date
+        td = "#{item.user.try(:employee_number)}"
+        td = "#{item.user.try(:full_name)}"
+        td = "#{item.user.try(:role).try(:name)}"
+        td = item.name
+        td = item.description
+        td = item.model
+        td =  "%.2f" % item.price if item.price.present?
+
+        /td = item.try(:branch)
+        td = search_branch(item)
+        td = search_department(item)
+
+
+        /td = item.try(:user).try(:department).present? ? item.user.department.branch.name : ''
+        /td = item.try(:user).try(:department).present? ? item.user.department.name : ''
+        /td = item.try(:user).try(:departments).present? ? item.user.departments.last.branch.name : ''
+        /td = item.try(:user).try(:departments).present? ? item.user.departments.last.name : ''
+        /td = item.try(:user).try(:department).present? ? item.user.branch.name : ''
+        /td = item.try(:user).try(:department).present? ? item.user.department.name : ''
+        td = item.brand_name
+        /td = item.provider_name
+        td = item.category_name
+        td = item.sub_category_name
+        td = item.status_item_name
+
+.row
+  .col-sm-3
+    .dataTables_info
+      h4
+        span.label.label-success
+          = "#{pluralize(@items.count, t('.one'), t('.other'))}"
+        = ' '
+        span.label.label-primary
+          = "#{"#{number_to_currency @total_price_items} #{t('.acquisition_value')}"}"
+  .col-sm-9
+    .dataTables_paginate.paging_simple_numbers
+      = custom_paginator(@items, { controller: 'items', action: 'reporter' , order: 'branch' })
+      /= will_paginate @items, renderer: BootstrapPagination::Rails

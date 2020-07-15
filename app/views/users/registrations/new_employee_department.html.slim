@@ -1,0 +1,48 @@
+section.content ng-controller="userController" ng-init=("accessless = #{@role_accessless}")
+  .row
+    .col-xs-12
+      .box.box-primary
+        .box-header.with-border
+          h3.box-title
+            = t('.title')
+            = " de la sucursal #{ @boss_name.try(:name)}"
+        = form_for(@user, url: create_user_path(@user), html: {class: 'form-horizontal'}, validate: true) do |f|
+          .box-body
+            = f.hidden_field :department_id
+            = f.hidden_field :email, value: "#{rand(36**8).to_s(36)}@inventory.com"
+            = f.hidden_field :password , value: "0000_0000"
+            = f.hidden_field :password_confirmation , value: "0000_0000"
+            .row.form-group
+              = f.label :boss, class: 'col-sm-2 control-label'
+              .col-sm-10
+                = f.label @boss, class: 'control-label h2.page-header text-uppercase'
+            .row.form-group
+              = f.label :role_id, class: 'col-sm-2 control-label'
+              .col-sm-10
+                = f.label @roles.first.name, class: 'control-label h2.page-header text-uppercase'
+                = f.hidden_field :role_id, value: @role_accessless
+                  /= f.collection_select(:role_id, @roles, :id, :name,
+                        {prompt: false},
+                        {class: 'form-control'})
+            .row.form-group
+              = f.label :employee_number, class: 'col-sm-2 control-label'
+              .col-sm-10
+                = f.number_field :employee_number, class: 'form-control'
+            .row.form-group
+              = f.label :first_name, class: 'col-sm-2 control-label'
+              .col-sm-10
+                = f.text_field :first_name, class: 'form-control'
+            .row.form-group
+              = f.label :last_name, class: 'col-sm-2 control-label'
+              .col-sm-10
+                = f.text_field :last_name, class: 'form-control'
+            .row.form-group
+              = f.label :maiden_name, class: 'col-sm-2 control-label'
+              .col-sm-10
+                = f.email_field :maiden_name, class: 'form-control'
+          .box-footer
+            = f.button "<i class='fa fa-floppy-o'></i> #{t('helpers.submit.submit', model: t('.resource'))}".html_safe,
+                    class: 'btn btn-primary btn-flat', type: 'submit'
+            = link_to user_registrations_path, class: 'btn btn-default btn-flat' do
+              i.fa.fa-list
+              =< t('.back')

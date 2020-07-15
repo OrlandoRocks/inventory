@@ -1,0 +1,8 @@
+set :rvm_path, '/usr/local/rvm/scripts/rvm'
+set :rails_env, 'production'
+set :domain, '107.170.238.185'
+set :deploy_to, '/root/inventory'
+set :repository, 'git@gitlab.com:raul260290/inventory.git'
+set :branch, 'master'
+set :user, 'root'
+set :port, '22'

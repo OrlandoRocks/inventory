@@ -1,0 +1,30 @@
+= form_for(office, role: 'form', html: {class: 'form-horizontal'}, validate: true) do |f|
+  .box-body
+    .row.form-group
+      = f.label :name, class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.text_field :name, class: 'form-control', placeholder: t('.name'), autofocus: true
+    .row.form-group
+      = f.label :description, class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.text_field :description, class: 'form-control', placeholder: t('.description')
+    .row.form-group
+      = f.label :deparment, class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.collection_select :department, Department.all, :id, :name, {placeholder: t('.department')}, class: 'form-control'
+    .row.form-group
+      = f.label :user, class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.collection_select(:user, User.all, :id, :full_name,
+                {prompt: t('helpers.select.prompt')}, {class: 'form-control'})
+  .box-footer
+    = f.button "<i class='fa fa-floppy-o'></i> #{t('helpers.submit.submit', model: t('.resource'))}".html_safe,
+            class: 'btn btn-primary btn-flat', type: 'submit'
+    - if has_policy(Office, %w(index))
+      = link_to departments_path, class: 'btn btn-default btn-flat' do
+        i.fa.fa-list
+        =< t('.back')
+
+
+
+

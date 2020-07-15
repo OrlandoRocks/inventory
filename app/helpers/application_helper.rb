@@ -1,0 +1,103 @@
+module ApplicationHelper
+  def bootstrap_flash_class(flash_type)
+    {success: 'alert-success',
+     error: 'alert-danger',
+     alert: 'alert-warning',
+     notice: 'alert-info'
+    }[flash_type.to_sym] || flash_type.to_s
+  end
+
+  def page_title
+    @title || controller_name.gsub(/Controller/, "").humanize
+  end
+
+  def has_policy(record, actions, devise_controller = nil)
+    return true if current_user.god?
+    record = record.classify.constantize if record.is_a? String
+    actions.each { |query| return true if policy(record).send('general_policy', record, query, devise_controller) }
+    false
+  end
+
+  def has_policy_catalogo()
+    return true if (current_user.god? or current_user.admin?)
+  end
+
+  def has_policy_roles()
+    return true if (current_user.god? or current_user.admin?)
+  end
+
+  def collection_scope(user, scope)
+    policy_name = (scope.to_s + 'Policy').classify.constantize
+    policy_name::ScopeActions.new(user, scope).collection_scope
+  end
+
+  def current_translations
+    @translator = I18n.backend
+    @translator.load_translations
+    @translations = @translator.send(:translations)[I18n.locale][:messages]
+  end
+
+  def custom_paginator(resource, params = nil)
+    if params
+      will_paginate resource, renderer: BootstrapPagination::Rails,
+                    next_label: '<i class="fa fa-chevron-right"></i>'.html_safe,
+                    previous_label: '<i class="fa fa-chevron-left"></i>'.html_safe,
+                    params: params
+
+    else
+      will_paginate resource, renderer: BootstrapPagination::Rails,
+                    next_label: '<i class="fa fa-chevron-right"></i>'.html_safe,
+                    previous_label: '<i class="fa fa-chevron-left"></i>'.html_safe
+    end
+
+  end
+
+  def selected_company
+    if current_user.current_company.nil?
+      'SIN EMPRESA'
+    elsif current_user.current_company.equal?(0)
+      'TODAS LAS EMPRESAS'
+    else
+      @current_company = Company.find(current_user.current_company)
+      @current_company.name.upcase
+    end
+  end
+
+  def selected_company_id
+    if current_user.current_company.nil?
+      nil
+    elsif current_user.current_company.equal?(0)
+      0
+    else
+      current_user.current_company
+    end
+  end
+
+  def search_company_user user
+    if user.try(:companies).present?
+      Company.where(user_id: user.id).first.try(:name)
+    elsif user.try(:company).present?
+      user.try(:company).try(:name)
+    elsif user.role.key.eql? ('admin_sucursal')
+      user.try(:branches).try(:first).try(:company).try(:name)
+    end
+
+  end
+
+  def search_branch_user user
+    if user.role.key.eql? ('empleado_sin_acceso') or  user.role.key.eql? ('admin_departamento')
+      user.try(:department).try(:branch).try(:name)
+    elsif user.role.key.eql? ('admin_sucursal')
+      user.try(:branches).try(:first).try(:name)
+    end
+  end
+
+  def search_department_user user
+    if user.try(:departments).present?
+      user.departments.last.name
+    elsif user.try(:department).present?
+      user.department.name
+    end
+  end
+
+end

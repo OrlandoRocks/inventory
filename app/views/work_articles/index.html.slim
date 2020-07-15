@@ -1,0 +1,67 @@
+section.content
+  .row
+    .col-xs-12
+      .box.box-primary
+        .box-header.with-border
+          .row
+            .col-xs-6.col-md-8.col-lg-9
+              h3.box-title
+                = t('.title')
+            .col-xs-6.col-md-4.col-lg-3
+              .box-tools.pull-right
+                = search_form_for @search_work_articles, url: url_for(controller: 'work_articles', action: 'index') do |f|
+                  .input-group.input-group-sm.search
+                    = f.text_field :name_cont,
+                            class: 'form-control', placeholder: t('helpers.search')
+                    .input-group-btn
+                      button [class="btn btn-default" type="submit"]
+                        i [class="fa fa-search"]
+                .tools
+                  button [type="button" class="btn btn-default btn-box-tool dropdown-toggle" data-toggle="dropdown" aria-expanded="false"]
+                    i.fa.fa-cog
+                  ul [class="dropdown-menu dropdown-menu-right" role="menu"]
+                    li
+                      a [href="#"]
+                        i.fa.fa-file-excel-o
+                        = t('helpers.export_excel')
+                    li = link_to "<i class='fa fa-trash'></i> #{t 'helpers.dump_destroy'}".html_safe, '#'
+        .box-body
+          .dataTables_wrapper
+            .row
+              .col-sm-12
+                .table-responsive
+                  table.table.table-bordered.table-hover.dataTable
+                    thead
+                      tr
+                        th.table-checkbox
+                          .checkbox.icheck
+                            input [type="checkbox" class="icheck-me" data-skin="square" data-color="blue"]
+                        th = t('.name')
+                        th.actions_header
+                          = t('.actions')
+                    tbody
+                      - @work_articles.each do |work_article|
+                        tr.show_actions
+                          td.table-checkbox
+                            .checkbox.icheck
+                              input [type="checkbox" class="icheck-me" data-skin="square" data-color="blue"]
+                          td = work_article.name
+                          td
+                            .actions
+                              = link_item '<i class="fa fa-search"></i>'.html_safe, work_article_path(work_article),
+                                      class: 'btn btn-xs btn-success btn-flat', title: t('helpers.show')
+                              = link_item '<i class="fa fa-edit"></i>'.html_safe, edit_work_article_path(work_article),
+                                      class: 'btn btn-xs btn-primary btn-flat', title: t('helpers.edit')
+                              - if has_policy(WorkArticle, %w(destroy))
+                                = link_to '<i class="fa fa-trash-o"></i>'.html_safe, '#', title: t('helpers.destroy'),
+                                        class: 'btn btn-xs btn-danger btn-flat btn-destroy',
+                                        data: {:'resource' => :work_articles, :'resource-id' => work_article.id,
+                                :'resource-message' => t('questions.destroy', resource: t('.resource'),
+                                        name: work_article.name)}
+            .row
+              .col-sm-5
+                .dataTables_info
+                  = pluralize(@work_articles.count, t('.one'), t('.other'))
+              .col-sm-7
+                .dataTables_paginate.paging_simple_numbers
+                  = custom_paginator(@work_articles)

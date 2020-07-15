@@ -1,0 +1,14 @@
+en:
+  users:
+    passwords:
+      new:
+        template: Template
+        email: Email
+        forgot_password: Forgot your password?
+        send_instructions: Send me reset password instructions
+      edit:
+        template: Template
+        change_password: Change your password
+        new_password: New password
+        password_confirmation: Password confirmation
+        send_instructions: Send me reset password instructions

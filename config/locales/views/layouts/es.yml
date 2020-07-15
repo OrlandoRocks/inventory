@@ -1,0 +1,56 @@
+#Cambio de nombres 10 de agosto 2018
+# Annel y Carlos solicitan cambio de Nombre de:
+# Sucursal(branches) <--> Departamento(departament)
+
+
+es:
+  layouts:
+    header:
+      language: Idioma
+      select_lang: Seleccione idioma
+      change_lang: English
+      modal_titulo: Empresa
+      select_company: Seleccionar Empresa
+    footer:
+      rights: Todos los derechos reservados.
+    account_dropdown:
+      profile: Perfil
+      log_out: Cerrar sesión
+    side_menu:
+      new_role: Nuevo rol
+      roles: Roles
+      new_permission: Nuevo permiso
+      permissions: Permisos
+      users: Usuarios / Empleados
+      new_user: Nuevo usuario
+      new_employee: Nuevo Empleado
+      work_articles: Artículos de trabajo
+      new_work_article: Nuevo artículo de trabajo
+      new_item: Nuevo artículo
+      items: Articulos
+      employees: Empleados
+      employees_asig: Empleados responsables
+      companies: Compañias
+      new_company: Nueva compañia
+      #branches: Sucursales -- original
+      branches: Departamentos
+      new_branch: Nuevo departamento
+      #departments: Departamentos -- Original
+      departments: Sucursal
+      new_department: Nueva sucursal
+      providers: Proveedores
+      new_provider: Nuevo proveedor
+      brands: Marcas
+      new_brand: Nueva marca
+      categories: Categorías
+      new_category: Nueva categoría
+      sub_categories: Subcategorías
+      new_sub_category: Nueva Subcategoría
+      status_item: Estatus del artículo
+      new_status_item: Nuevo estatus de artículo
+      reporter: Reporteador
+      maintenances: Mantenimientos
+    control_side_bar:
+      skins: Carátulas
+      home: Inicio
+      stats: Estadísticas

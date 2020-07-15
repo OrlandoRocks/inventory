@@ -1,0 +1,19 @@
+.login-box
+  .login-logo
+    b = t('.template')
+  .login-box-body
+    p.login-box-msg
+      = t('.forgot_password')
+    = form_for(resource, as: resource_name, url: password_path(resource_name), layout: :horizontal,
+               validate: true) do |f|
+
+      /! = devise_error_messages!
+
+      .form-group.has-feedback
+        = f.email_field :email, autofocus: true, class: 'form-control', placeholder: t('.email')
+        span.glyphicon.glyphicon-envelope.form-control-feedback
+
+      = f.submit t('.send_instructions'), class: 'btn bg-purple btn-block btn-flat'
+
+      p.text-right
+        = render partial: 'users/shared/links'

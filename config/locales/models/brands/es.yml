@@ -1,0 +1,6 @@
+es:
+  activerecord:
+    attributes:
+      brand:
+        name: Nombre
+        description: Descripción

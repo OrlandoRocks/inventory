@@ -1,0 +1,18 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @office.name
+p
+  strong Description:
+  = @office.description
+p
+  strong Department:
+  = @office.department
+p
+  strong User:
+  = @office.user
+
+= link_to 'Edit', edit_office_path(@office)
+'|
+= link_to 'Back', offices_path

@@ -1,0 +1,16 @@
+es:
+  activerecord:
+    attributes:
+      users_work_article:
+        user_id: Usuario
+        work_article_id: Artículo de trabajo
+      delivery_status: Estado de devolución
+      reception_status: Estado de recepción
+  reception_statuses:
+    good: En buen estado
+    not_very_good: En estado regular
+    bad: En mal estado
+  delivery_statuses:
+    ds_good: En buen estado
+    ds_not_very_good: En estado regular
+    ds_bad: En mal estado

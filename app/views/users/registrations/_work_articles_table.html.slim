@@ -1,0 +1,51 @@
+.dataTables_wrapper
+  .row
+    .col-sm-12
+      .table-responsive
+        table.table.table-bordered.table-hover.dataTable
+          thead
+            tr
+              th.table-checkbox
+                .checkbox.icheck
+                  input [type="checkbox" class="icheck-me" data-skin="square" data-color="blue"]
+              th = t('.work_article.name')
+              th.actions_header
+                = t('.work_article.actions')
+          tbody
+            - @work_articles.each do |work_article|
+              tr.show_actions
+                td.table-checkbox
+                  .checkbox.icheck
+                    input [type="checkbox" class="icheck-me" data-skin="square" data-color="blue"]
+                td = work_article.name
+                td
+                  .actions
+                    - if has_policy(User, %w(add_work_article), 'Users::Registration')
+                      button.btn.btn-xs.btn-primary.btn-flat data-work-article-name="#{work_article.name}" data-work-article-id="#{work_article.id}" data-user-id="#{@user.id}" data-target="#modal-assign-work-article" data-toggle="modal" type="button" title="#{t('helpers.assign')}"
+                        i.fa.fa-arrow-up
+
+  .row
+    .col-sm-5
+      .dataTables_info
+        = pluralize(@work_articles.count, t('.work_article.one'), t('.work_article.other'))
+    .col-sm-7
+      .dataTables_paginate.paging_simple_numbers
+        = custom_paginator(@work_articles)
+
+/! Modal
+#modal-assign-work-article.modal.fade aria-labelledby="myModalLabel" role="dialog" tabindex="-1"
+  .modal-dialog role="document"
+    .modal-content
+      .modal-header
+        button.close aria-label="Close" data-dismiss="modal" type="button"
+          span aria-hidden="true"  &times;
+        h4#myModalLabel.modal-title
+      .modal-body
+        = form_tag(employee_add_work_article_path, method: 'POST', id: 'add-work-article')
+        = select_tag 'users_work_article[reception_status]',
+                options_for_select(UsersWorkArticle.reception_statuses.map{|k, e| [I18n.t("reception_statuses.#{k}"), k]})
+        = hidden_field_tag 'users_work_article[work_article_id]'
+        = hidden_field_tag 'users_work_article[user_id]'
+      .modal-footer
+        button.btn.btn-default data-dismiss="modal" type="button" = t('.close')
+        button.btn.btn-primary type="button" id="addWorkArticle" = t('.save')

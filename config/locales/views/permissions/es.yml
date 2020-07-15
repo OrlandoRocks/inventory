@@ -1,0 +1,29 @@
+es:
+  permissions:
+    index:
+      title: Permisos
+      resource: el permiso
+      name: Nombre
+      controller: Controlador
+      action: Actividades
+      one: Permiso
+      other: Permisos
+      new_permission: Nuevo permiso
+      description: Descripción
+    form:
+      title: Permiso
+      role: Rol
+      back: Ir a permisos
+      resource: permiso
+      name: Nombre
+      description: Descripción
+      controller: Controlador
+    edit:
+      title: Editar permiso
+    new:
+      title: Nuevo permiso
+    show:
+      back: Ir a permisos
+      delete_confirmation: Estas seguro que deseas eliminar el permiso
+  breadcrumbs:
+    permissions: Permisos

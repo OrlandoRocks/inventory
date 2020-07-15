@@ -1,0 +1,35 @@
+es:
+  maintenances:
+    index:
+      title: Mantenimientos
+      resource: El Mantenimiento
+      name: Nombre
+      description: Descripción
+      status: Estatus
+      category: categoría
+      one: Mantenimiento
+      other: Mantenimientos
+      permissions: Permisos
+      new_maintenance: Nuevo Mantenimiento
+    form:
+      title: Mantenimientos
+      resource: Mantenimiento
+      back: Ir a Mantenimientos
+      name: Nombre
+      description: Descripción
+      status: Estatus
+    new:
+      title: Nuevo Mantenimiento
+    edit:
+      title: Editar Mantenimiento
+    show:
+      name: Nombre
+      description: Descripción
+      back: Ir a Mantenimientos
+      delete_confirmation: Estas seguro que deseas eliminar la Mantenimiento
+    branch_permissions:
+      save_permissions: Guardar gategoria
+      back: Ir a Mantenimientos
+
+  breadcrumbs:
+    branches: Mantenimientos

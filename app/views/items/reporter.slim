@@ -1,0 +1,158 @@
+section.content
+  .row
+    .col-xs-12
+      .box.box-primary
+        .box-header.with-border
+          .row
+            .col-xs-6.col-md-8.col-lg-9
+              h3.box-title
+                = t('.title')
+                = @search_save
+            /.col-xs-6.col-md-4.col-lg-3
+            /  .box-tools.pull-right
+            /    = search_form_for @search_items do |f|
+            /      .input-group.input-group-sm.search
+            /        = f.text_field :name_or_description_cont, class: 'form-control',
+            /                placeholder: t('helpers.search')
+            /        .input-group-btn
+            /          button [class="btn btn-default" type="submit"]
+            /            i [class="fa fa-search"]
+            /    .tools
+            /      button [type="button" class="btn btn-default btn-box-tool dropdown-toggle" data-toggle="dropdown" aria-expanded="false"]
+            /        i.fa.fa-cog = t('helpers.actions')
+            /      ul [class="dropdown-menu dropdown-menu-right" item="menu"]
+            /        li = link_to "<i class='fa fa-file-excel-o'></i> #{t 'helpers.export_excel'}".html_safe, items_excel_path(q: params[:q], format: :xlsx)
+            /        li = link_to "<i class='fa fa-external-link-square'></i> #{t '.next_maintenances'}".html_safe, items_next_maintenances_path
+            /        li
+            /          a [href="#"]
+            /            i.fa.fa-file-excel-o
+            /            = t('helpers.export_excel')
+            /        /li = link_to "<i class='fa fa-file-pdf-o'></i> #{t 'helpers.export_pdf'}".html_safe, reports_rols_path(nombre_reporte: 'rols', titulo_reporte: "Reporte de Usuarios.", format: :pdf)
+            /        /li = link_to "<i class='fa fa-plus'></i> #{t 'helpers.new'}".html_safe, new_item_path
+            /        /li = link_to "<i class='fa fa-trash'></i> #{t 'helpers.dump_destroy'}".html_safe, '#'
+          .row
+            .box-tools.pull-right
+              = search_form_for(@search_items, url: reporter_path, id: 'reporter_form') do |f|
+                .row
+                /! Ini Brand
+                .col-md-3
+                  .box.box-warning.box-solid
+                    .box-header.with-border
+                      h3.box-title = t('.f_brand')
+                      .box-tools.pull-right
+                        button.btn.btn-box-tool data-widget="collapse" type="button"
+                          i.fa.fa-minus
+                    .box-body style=('display: block;')
+                        = f.collection_select :brand_id_in, Brand.order(:name), :id, :name, {prompt: false},
+                              {class: 'form-control select2', multiple: 'multiple', data: {placeholder: t('.brand')}}
+                  /! End Brand
+
+
+                /! Ini Provideer
+                .col-md-3
+                  .box.box-warning.box-solid
+                    .box-header.with-border
+                      h3.box-title = t('.f_provider')
+                      .box-tools.pull-right
+                        button.btn.btn-box-tool data-widget="collapse" type="button"
+                          i.fa.fa-minus
+                    .box-body style=('display: block;')
+                      = f.collection_select :provider_id_in, Provider.order(:name), :id, :name, {prompt: false},
+                              {class: 'form-control select2', multiple: 'multiple', data: {placeholder: t('.provider')}}
+                  /! End Brand
+
+
+                /! Ini SubCategory
+                .col-md-3
+                  .box.box-warning.box-solid
+                    .box-header.with-border
+                      h3.box-title = t('.f_category')
+                      .box-tools.pull-right
+                        button.btn.btn-box-tool data-widget="collapse" type="button"
+                          i.fa.fa-minus
+                    .box-body style=('display: block;')
+                      = f.collection_select :category_id_in, Category.order(:name), :id, :name, {prompt: false},
+                              {class: 'form-control select2', multiple: 'multiple', data: {placeholder: t('.category')}}
+                  /! End SubCategory
+
+                /! Ini SubCategory
+                .col-md-3
+                  .box.box-warning.box-solid
+                    .box-header.with-border
+                      h3.box-title = t('.f_sub_category')
+                      .box-tools.pull-right
+                        button.btn.btn-box-tool data-widget="collapse" type="button"
+                          i.fa.fa-minus
+                    .box-body style=('display: block;')
+                      = f.select(:sub_category_id_in,
+                              grouped_options_for_select(Category.all.map{ |c| [c.name, c.sub_categories.order(:id).map{ |sc| [sc.name, sc.id] }] }, selected: params[:q] ? params[:q][:sub_category_id_in] : nil),
+                              {prompt: false}, {class: 'form-control select2', multiple: 'multiple', data: {placeholder: t('.sub_category')}})
+                  /! End SubCategory
+
+
+
+                .row
+                /! Ini Status
+                .col-md-3
+                  .box.box-warning.box-solid
+                    .box-header.with-border
+                      h3.box-title = t('.f_status_item')
+                      .box-tools.pull-right
+                        button.btn.btn-box-tool data-widget="collapse" type="button"
+                          i.fa.fa-minus
+                    .box-body style=('display: block;')
+                      = f.collection_select :status_item_id_in, StatusItem.order(:name), :id, :name, {prompt: false},
+                              {class: 'form-control select2', multiple: 'multiple', data: {placeholder: t('.status_item')}}
+                  /! End Status
+                    
+                /! Ini Brand
+                .col-md-3
+                  .box.box-warning.box-solid
+                    .box-header.with-border
+                      h3.box-title = t('.f_branch')
+                      .box-tools.pull-right
+                        button.btn.btn-box-tool data-widget="collapse" type="button"
+                          i.fa.fa-minus
+                    .box-body style=('display: block;')
+                      = f.collection_select :branch_id_in, policy_scope(Branch).order(:name), :id, :name, {prompt: false},
+                              {class: 'form-control select2', multiple: 'multiple', data: {placeholder: t('.branch')}}
+                  /! End Brand
+
+                /! Ini Brand
+                .col-md-3
+                  .box.box-warning.box-solid
+                    .box-header.with-border
+                      h3.box-title = t('.f_department')
+                      .box-tools.pull-right
+                        button.btn.btn-box-tool data-widget="collapse" type="button"
+                          i.fa.fa-minus
+                    .box-body style=('display: block;')
+                      = f.select(:department_id_in,
+                              grouped_options_for_select(Branch.all.map{ |b| [b.name, b.departments.order(:id).map{ |d| [d.name, d.id] }] }, selected: params[:q] ? params[:q][:department_id_in] : nil),
+                              {prompt: false}, {class: 'form-control select2', multiple: 'multiple', data: {placeholder: t('.department')}})
+                  /! End Brand
+
+                /! Ini Responsible Name
+                .col-md-3
+                  .box.box-warning.box-solid
+                    .box-header.with-border
+                      h3.box-title = t('.f_responsible')
+                      .box-tools.pull-right
+                        button.btn.btn-box-tool data-widget="collapse" type="button"
+                          i.fa.fa-minus
+                    .box-body style=('display: block;')
+                      /= f.text_field :user_first_name_or_user_last_name_or_user_maiden_name_or_department_manager_first_name_or_department_manager_last_name_or_department_manager_maiden_name_or_branch_user_first_name_or_branch_user_last_name_or_branch_user_maiden_name_or_company_user_first_name_or_company_user_last_name_or_company_user_maiden_name_or_direct_branch_user_first_name_or_direct_branch_user_last_name_or_direct_branch_user_maiden_name_or_direct_company_user_first_name_or_direct_company_user_last_name_or_direct_company_user_maiden_name_cont, class: 'form-control', placeholder: t('.responsible')
+                      = f.text_field :direct_branch_user_first_name_or_direct_branch_user_last_name_or_direct_branch_user_maiden_name_or_direct_company_user_first_name_or_direct_company_user_last_name_or_direct_company_user_maiden_name_cont, class: 'form-control', placeholder: t('.responsible')
+                  /! End Responsible Name
+
+                .col-xs-12.col-md-12
+                  .input-group-btn
+                    button [class="btn btn-block btn-info btn-lg" type="submit"]
+                      i [class="fa fa-search"]
+                        = " #{t('.search')}"
+        .box-body
+          .dataTables_wrapper
+            .table-responsive#reporter-list
+              = render 'items/list_items_reporter'
+
+

@@ -1,0 +1,36 @@
+es:
+  brands:
+    index:
+      title: Marcas
+      resource: El Marca
+      name: Nombre
+      description: Descripción
+      status: Estatus
+      category: categoría
+      one: Marca
+      other: Marcas
+      permissions: Permisos
+      new_brand: Nuevo Marca
+    form:
+      title: Marcas
+      resource: Marca
+      back: Ir a Marcas
+      name: Nombre
+      description: Descripción
+      status: Estatus
+      category: Marca
+    new:
+      title: Nueva Marca
+    edit:
+      title: Editar Marca
+    show:
+      name: Nombre
+      description: Descripción
+      back: Ir a Marcas
+      delete_confirmation: Estas seguro que deseas eliminar la Marca
+    branch_permissions:
+      save_permissions: Guardar gategoria
+      back: Ir a Marcas
+
+  breadcrumbs:
+    brands: Marcas

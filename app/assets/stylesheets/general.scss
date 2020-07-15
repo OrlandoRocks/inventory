@@ -1,0 +1,78 @@
+// --------------Bootstrap-----------------------------
+@import 'bootstrap-sprockets';
+@import 'bootstrap';
+@import 'daterangepicker-bs3';
+// --------------Font Awesome--------------------------
+@import "font-awesome-sprockets";
+@import "font-awesome";
+
+/* Language Button */
+.language-btn, .first{
+  transition: 0.3s;
+}
+
+.language-btn{
+  height: 50px;
+  overflow: hidden;
+}
+
+.language-btn:hover .first{
+  margin-top: -50px;
+}
+
+.first{
+  margin-top: 0px;
+}
+
+/* Sweet Alert */
+.sweet-container {
+  .sweet-overlay {
+    z-index: 1030;
+  }
+  .show-sweet-alert, button {
+    border-radius: 0 !important;
+  }
+}
+
+.blockUI.blockOverlay {
+  z-index: 1080 !important;
+}
+
+.upload {
+  display: none !important;
+}
+
+/* Skins */
+.skin {
+  float:left;
+  width: 33.33333%;
+  padding: 5px;
+}
+
+.skin-anchor {
+  display: block;
+  box-shadow: 0 0 3px rgba(0,0,0,0.4);
+}
+
+.skin-span {
+  display:block;
+  float: left;
+  height: 7px;
+}
+
+/* Client Side Validation */
+.field_with_errors {
+  label {
+    color: #dd4b39;
+  }
+  .message {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: 'Source Sans Pro','Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-weight: 400;
+  }
+  .form-control {
+    border-color: #dd4b39;
+    box-shadow: none;
+  }
+}

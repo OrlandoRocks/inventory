@@ -1,0 +1,39 @@
+= form_for(sub_category, sub_category: 'form', html: {class: 'form-horizontal'}, validate: true) do |f|
+  - if @sub_category.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(sub_category.errors.count, "error")} prohibited this sub_category from being saved:"
+      ul
+        - @sub_category.errors.full_messages.each do |message|
+          li = message
+  .box-body
+    .row.form-group
+      = f.label :category, class: 'col-sm-2 control-label'
+      .col-sm-10
+        /= f.collection_select(:category_id, Category.all, :id, :name,
+                {prompt: t('helpers.select.prompt')}, {class: 'form-control'})
+        = f.select(:category_id, options_for_select(policy_scope(Category).map { |d| ["#{d.name} - #{d.company.try(:name).try(:upcase)}", d.id] }, @sub_category.category_id),
+                {prompt: t('helpers.select.prompt')}, {class: 'form-control'})
+    .row.form-group
+      = f.label :name, class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.text_field :name, class: 'form-control', placeholder: t('.name'), autofocus: true
+        = f.hidden_field :status, value: true
+    / .row.form-group
+      = f.label :description, class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.text_field :description, class: 'form-control', placeholder: t('.description')
+
+    /.row.form-group
+      = f.label :status, class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.check_box(:status)
+  .box-footer
+    = f.button "<i class='fa fa-floppy-o'></i> #{t('helpers.submit.submit', model: t('.resource'))}".html_safe,
+            class: 'btn btn-primary btn-flat', type: 'submit'
+    = link_to sub_categories_path, class: 'btn btn-default btn-flat' do
+      i.fa.fa-list
+      =< t('.back')
+
+
+
+

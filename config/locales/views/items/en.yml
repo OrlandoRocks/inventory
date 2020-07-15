@@ -1,0 +1,144 @@
+en:
+  items:
+    index:
+      title: Items
+      resource: the item
+      name: Name
+      description: Description
+      model: Model
+      serial_number: Serial Number
+      purchased_date: Purchased Date
+      in_service_date: In Service Date
+      time_unit_service: Time Unit Service
+      time_quantity_service: Time Quantity Service
+      price: Price
+      time_unit_depreciation: Time Unit Depreciation
+      time_quantity_depreciation: Time Quantity Depreciation
+      sub_category: Sub Category
+      provider: Provider
+      department: department
+      user: User
+      brand: Brand
+      status_item: Status Item
+      one: Item
+      other: Items
+      permissions: Permissions
+      new_item: New item
+      next_maintenances: Next maintenances
+    next_maintenances:
+      title: Next maintenances Items
+      resource: the item
+      name: Name
+      description: Description
+      model: Model
+      serial_number: Serial Number
+      purchased_date: Purchased Date
+      in_service_date: In Service Date
+      time_unit_service: Time Unit Service
+      time_quantity_service: Time Quantity Service
+      price: Price
+      time_unit_depreciation: Time Unit Depreciation
+      time_quantity_depreciation: Time Quantity Depreciation
+      sub_category: Sub Category
+      provider: Provider
+      department: department
+      user: User
+      brand: Brand
+      status_item: Status Item
+      one: Item
+      other: Items
+      permissions: Permissions
+      new_item: New item
+    form:
+      title: Item
+      resource: item
+      back: Go to items
+      provider_idname: Name
+      code: Code
+      description: Description
+      model: Model
+      serial_number: Serial Number
+      purchased_date: Purchased Date
+      in_service_date: In Service Date
+      time_unit_service: Time Unit Service
+      time_quantity_service: Time Quantity Service
+      price: Price
+      time_unit_depreciation: Time Unit Depreciation
+      time_quantity_depreciation: Time Quantity Depreciation
+      sub_category: Sub Category
+      provider: Provider
+      department: department
+      user: User
+      brand: Brand
+      status_item: Status Item
+
+    new:
+      title: New item
+    edit:
+      title: Edit item
+    show:
+      title: Item
+      resource: item
+      back: Go to items
+      provider_idname: Name
+      code: Code
+      description: Description
+      model: Model
+      serial_number: Serial Number
+      purchased_date: Purchased Date
+      in_service_date: In Service Date
+      time_unit_service: Time Unit Service
+      time_quantity_service: Time Quantity Service
+      price: Price
+      time_unit_depreciation: Time Unit Depreciation
+      time_quantity_depreciation: Time Quantity Depreciation
+      sub_category: Sub Category
+      provider: Provider
+      department: department
+      user: User
+      brand: Brand
+      status_item: Status Item
+      file: File
+      files:
+        file: File
+        description: Description
+        item: Item
+        file_type: File Type
+      maintenance: Maintenace
+      maintenances:
+        item: Item
+        file: File
+        maintenance: Maintenance
+        description: Description
+        price: Price
+        provider: Provider
+      audit:
+        create: Create
+        update: Update
+        by: by
+        create_mesage: The Item was Created
+        maintenance_mesage: A maintenance was uploaded
+        file_mesage: A file was uploaded
+        change:  It Change
+        from: from
+        to: to
+        nil: Empty value
+      time_units:
+        0: Day
+        1: Month
+        2: Year
+      file_type:
+        0: Photo
+        1: Assignment Signature
+        2: Invoice
+        3: Guarantee Policy
+        4: Other
+      add_file: Agregar Archivo
+      add_maintenance: Agregar Mantenimiento
+      description: Description
+      title: Add Items Documentation
+      back: Go to items
+      delete_confirmation: Are you sure you want to delete the item
+
+  breadcrumbs:
+    items: Items

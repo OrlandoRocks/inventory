@@ -1,0 +1,11 @@
+es:
+  activerecord:
+    attributes:
+      department:
+        name: Nombre
+        description: Descripción
+        #branch_id: Sucursal #Origin
+        branch_id: Departamento
+        manager_id: Coordinador
+        code: Código
+        sequence: Consecutivo

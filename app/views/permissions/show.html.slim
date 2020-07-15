@@ -1,0 +1,24 @@
+section.content
+  .row
+    .col-xs-12
+      .box.box-primary
+        .box-header.with-border
+          h1.box-title
+            = @permission.name
+        .box-body
+          strong = t('.description')
+          p.text-muted
+            = @permission.description
+          strong = t('.action')
+          p.text-muted
+            = @permission.action
+          strong = t('.controler')
+          p.text-muted
+            = @permission.controller
+        .box-footer
+          = link_to edit_permission_path(@permission), class: 'btn btn-primary btn-flat', title: t('helpers.edit') do
+            i.fa.fa-pencil-square-o
+            =< t('helpers.edit')
+            = link_to permissions_path, class: 'btn btn-default btn-flat' do
+              i.fa.fa-list
+              =< t('.back')

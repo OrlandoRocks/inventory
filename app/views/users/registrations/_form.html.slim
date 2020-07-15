@@ -1,0 +1,98 @@
+
+= form_for(user, url: user.new_record? ? create_user_path(user) : update_user_path(user), html: {class: 'form-horizontal'}, validate: true) do |f|
+  .box-body
+    = f.hidden_field :department_id
+    .row.form-group
+      = f.label :role_id, class: 'col-sm-2 control-label'
+      .col-sm-10
+        select.form-control name='user[role_id]' ng-change="set_role(user_type);company=''; branch_selected=''; department_selected='';" ng-model="user_type" ng-options=("role as role.name for role in roles track by role.id")
+          option value=""  Seleccione un Rol...
+
+        / = f.collection_select(:role_id, @roles, :id, :name,
+                {prompt: t('helpers.select.prompt')}, {class: 'form-control', "ng-model" => "user_type", "ng-change"=>"set_role(user_type);company=''; branch_selected=''; department_selected=''"})
+
+    .row.form-group ng-show="user_type.id!='' && level!=0"
+      = f.label :current_company, class: 'col-sm-2 control-label'
+      .col-sm-10
+        select.form-control ng-change="set_branches(company.id)" name='user[current_company]' ng-model="company" ng-options=("company as company.name for company in companies track by company.id")
+          option value=""  Seleccione una Compañia...
+        / = f.collection_select(:company, @companies, :id, :name,
+                {prompt: t('helpers.select.prompt')}, {selected: @companies.first, class: 'form-control', "ng-model" => "company", "ng-change" => "set_branches(company)"})
+    .row.form-group ng-show="company!='' && level>=2"
+      = f.label :branch, class: 'col-sm-2 control-label'
+      .col-sm-10
+        select.form-control ng-model='branch_selected' ng-change="set_department(branch_selected.id)" name='user[branch]' ng-options=("branch as branch.name for branch in branches track by branch.id")
+          option value=""  Seleccione Departamento
+          / option ng-repeat="branch in branches" ng-value="branch.id"
+            | {{branch.name}}
+    .row.form-group ng-show="branch_selected!='' && level>=3"
+      = f.label :department_id, class: 'col-sm-2 control-label'
+      .col-sm-10
+        select.form-control ng-model='department_selected' name='user[department]' ng-change="set_department_boss(department_selected.id)" ng-options=("department as department.name for department in departments track by department.id")
+          option value=""  Seleccione Sucursal
+        input type="hidden" name='user[department_id]' value='{{department_selected.id}}'
+          / option  ng-repeat="department in departments" ng-value="department.id"
+            | {{department.name}}
+
+    div ng-if="user_type.key == 'empleado_sin_acceso' "
+      = f.hidden_field :email, value: "#{rand(36 ** 8).to_s(36)}@inventory.com"
+      = f.hidden_field :password, value: "0000_0000"
+      = f.hidden_field :password_confirmation, value: "0000_0000"
+
+    .row.form-group ng-show="user_type!='' && level!=0"
+      = f.label :boss, class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.label "{{boss}}", class: 'control-label h2.page-header text-uppercase'
+    .row.form-group
+      = f.label :employee_number, class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.number_field :employee_number, class: 'form-control'
+    .row.form-group ng-if="user_type.key != 'empleado_sin_acceso' "
+      = f.label :email, class: 'col-sm-2 control-label'
+      /span.message-validator * obligatorio: Una dirección de correo válida
+      .col-sm-10
+        = f.text_field :email, class: 'form-control'
+    .row.form-group
+      = f.label :first_name, class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.text_field :first_name, class: 'form-control'
+    .row.form-group
+      = f.label :last_name, class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.text_field :last_name, class: 'form-control'
+    .row.form-group
+      = f.label :maiden_name, class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.email_field :maiden_name, class: 'form-control'
+    /.row.form-group
+      = f.label :avatar, class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.file_field(:avatar, class: 'form-control')
+    /.row.form-group
+      = f.label :received_file, class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.file_field(:received_file, class: 'form-control')
+    - if user.new_record?
+      .row.form-group ng-if="user_type.key != 'empleado_sin_acceso' "
+        = f.label :password, class: 'col-sm-2 control-label'
+        .col-sm-10
+          = f.password_field :password, class: 'form-control', autocomplete: 'off', id: 'Password'
+          input name="user[password]" ng-if="accessless==user_type" type="hidden" value="0000_0000"
+      .progress.col-sm-offset-2 ng-hide="accessless==user_type"
+        #StrengthProgressBar.progress-bar
+      .row.form-group ng-if="user_type.key != 'empleado_sin_acceso' "
+        = f.label :password_confirmation, class: 'col-sm-2 control-label'
+        .col-sm-10
+          = f.password_field :password_confirmation, class: 'form-control'
+          input name="user[password_confirmation]" ng-if="accessless==user_type.id" type="hidden" value="0000_0000"
+  .box-footer
+    /= f.button "<i class='fa fa-floppy-o'></i> Guardar Usuario".html_safe,
+      class: 'btn btn-primary btn-flat', type: 'submit'
+
+    button.btn.btn-primary ng-click="submit" ng-disabled="!user_type && !company"  style=("margin-left: 0;")
+      i.fa.fa-floppy-o
+      |  Guardar Usuario
+
+    = link_to user_registrations_path, class: 'btn btn-default btn-flat' do
+      i.fa.fa-list
+      =< t('.atras')

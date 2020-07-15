@@ -1,0 +1,21 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @provider.name
+p
+  strong Description:
+  = @provider.description
+p
+  strong Contact:
+  = @provider.contact
+p
+  strong Phone:
+  = @provider.phone
+p
+  strong Email:
+  = @provider.email
+
+= link_to 'Edit', edit_provider_path(@provider)
+'|
+= link_to 'Back', providers_path

@@ -1,0 +1,22 @@
+es:
+  work_articles:
+    index:
+      title: Artículos de trabajo
+      resource: artículo de trabajo
+      name: Nombre
+      actions: Acciones
+      one: Artículo de trabajo
+      other: Artículos de trabajo
+    form:
+      title: Artículo de trabajo
+      back: Ir a artículos de trabajo
+      resource: artículo de trabajo
+      name: Nombre
+      controller: Controlador
+    new:
+      title: Nuevo artículo de trabajo
+    edit:
+      title: Editar artículo de trabajo
+    show:
+      back: Ir a artículos de trabajo
+      name: Nombre

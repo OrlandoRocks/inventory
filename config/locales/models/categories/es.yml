@@ -1,0 +1,8 @@
+es:
+  activerecord:
+    attributes:
+      category:
+        name: Nombre
+        description: Descripción
+        status: Estatus
+        company_id: Compañia

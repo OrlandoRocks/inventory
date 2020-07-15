@@ -1,0 +1,108 @@
+header.main-header ng-controller="homeController" ng-init="init(#{current_user.current_company.eql?(0) ? '0' : @current_company.nil? ? 'null' : @current_company.to_json}, #{current_user.god? or current_user.admin?})"
+  / Logo
+  = link_to authenticated_root_path, class: 'logo' do
+    span.logo-mini
+      | TORSACORP
+    / logo for regular state and mobile devices
+    span.logo-lg
+      b
+        | TORSACORP
+  / Header Navbar
+  nav.navbar.navbar-static-top role='navigation'
+    / Sidebar toggle button
+    a.sidebar-toggle href='#' data-toggle='offcanvas' role='button'
+      span.sr-only Toggle navigation
+    / Navbar Right Menu
+    .navbar-custom-menu
+      ul.nav.navbar-nav
+        li.dropdown.notifications-menu
+          a.dropdown-toggle aria-expanded="false" data-toggle="dropdown" href="#"
+            i.fa.fa-bell-o
+            span.label.label-danger = "#{policy_scope(Item).count}"
+          ul.dropdown-menu
+            li.header ="Cuentas con #{policy_scope(Item).count} artículos."
+            li
+              /! inner menu: contains the actual data
+              ul.menu
+                li
+                  /a href="#/users/{current_user.id}"
+                  -if has_policy_catalogo
+                    a href="/users"
+                      i.fa.fa-users.text-aqua
+                      = "#{policy_scope(Item).count} artículos."
+                  -else
+                    a href=="/users/#{current_user.try(:id)}"
+                      i.fa.fa-users.text-aqua
+                      ="#{policy_scope(Item).count} artículos."
+                /li
+                  a href="#"
+                    i.fa.fa-warning.text-yellow
+                    | Very long description here that may not fit into the
+                    | page and may cause design problems
+                /li
+                  a href="#"
+                    i.fa.fa-users.text-red
+                    | 5 new members joined
+                /li
+                  a href="#"
+                    i.fa.fa-shopping-cart.text-green
+                    | 25 sales made
+                /li
+                  a href="#"
+                    i.fa.fa-user.text-red
+                    | You changed your username
+            /li.footer
+              a href="#"  View all
+        li.language-btn ng-click="show()"
+          a.first href="#"
+            /= "#{@current_company.name.nil? ? 'Sin Empresa' : @current_company.name}"
+            = "#{selected_company}"
+          a href="#"
+            | Seleccionar Empresa
+        / li.language-btn [title="#{t('.select_lang')}"]
+          - if I18n.locale == :es
+            a.first href="javascript:;"
+              i.fa.fa-flag.fa-lg
+              span.hidden-xs
+                =< t('.language')
+            = link_to set_language_english_path do
+              span.flag-icon.flag-icon-us
+              span.hidden-xs
+                =< t('.change_lang')
+          - else
+            a.first href="javascript:;"
+                i.fa.fa-flag.fa-lg
+                span.hidden-xs
+                  =< t('.language')
+            = link_to set_language_spanish_path do
+                span.flag-icon.flag-icon-es
+                span.hidden-xs
+                  =< t('.change_lang')
+        = render 'layouts/account_dropdown'
+        /li
+          a [href="javascript:;" data-toggle="control-sidebar"]
+            i.fa.fa-gears
+
+  script id='modal.html' type='text/ng-template'
+    .modal.modal-fullscreen
+      .modal-dialog
+        .modal-content.form-horizontal style="width: 900px"
+          .modal-header
+            button.close aria-hidden="true" data-dismiss="modal" type="button"  ×
+            h4.modal-title
+              = t('.modal_titulo')
+          .box-body
+            .row.form-group
+              label.col-md-3.control-label
+                = t('.select_company')
+                | :
+              .col-md-6
+                select.form-control ng-model='company_selected' ng-options=' company as company.name for company in companies track by company.id'
+                  option value=""  Seleccione Empresa
+                  / option value="0"  Todas las Empresa
+                  / - if current_user.god? or current_user.admin?
+
+                  / option ng-repeat="company in companies" ng-value="company.id"
+                    | {{company.name}}
+          .modal-footer
+            button.btn.btn-primary data-dismiss="modal" ng-click="setUserCompany(#{current_user.id})" type="button" Aceptar

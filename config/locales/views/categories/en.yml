@@ -1,0 +1,35 @@
+en:
+  categories:
+    index:
+      title: Categories
+      resource: the category
+      name: Name
+      description: Description
+      status: Status
+      one: Category
+      other: Categories
+      permissions: Permissions
+      new_category: New category
+    form:
+      title: Categories
+      resource: Category
+      back: Ir a categories
+      name: Name
+      description: Description
+      status: Status
+    new:
+      title: New Category
+    edit:
+      title: Edit category
+    show:
+      name: Name
+      description: Description
+      status: Status
+      back: Go to categories
+      delete_confirmation: Are you sure you want to delete the category
+    role_permissions:
+      save_permissions: Save permissions
+      back: Go to categories
+
+  breadcrumbs:
+    roles: Categories

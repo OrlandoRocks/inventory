@@ -1,0 +1,29 @@
+en:
+  permissions:
+    index:
+      title: Permissions
+      resource: the permission
+      name: Name
+      controller: Controller
+      action: Activities
+      one: Permission
+      other: Permissions
+      new_permission: New permission
+      description: Description
+    form:
+      title: Permission
+      role: Role
+      back: Go to permissions
+      resource: permission
+      name: Name
+      description: Description
+      controller: Controller
+    edit:
+      title: Edit permission
+    new:
+      title: New permission
+    show:
+      back: Go to permissions
+      delete_confirmation: Are you sure you want to delete the permission
+  breadcrumbs:
+    permissions: Permissions

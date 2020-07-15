@@ -1,0 +1,32 @@
+en:
+  brands:
+    index:
+      title: Brands
+      resource: the Brand
+      name: Name
+      description: Description
+      one: Brand
+      other: Brands
+      permissions: Permissions
+      new_brand: New Brand
+    form:
+      title: Categories
+      resource: Brand
+      back: Ir a categories
+      name: Name
+      description: Description
+    new:
+      title: New Brand
+    edit:
+      title: Edit Brand
+    show:
+      name: Dame
+      description: Description
+      back: Go to categories
+      delete_confirmation: Are you sure you want to delete the Brand
+    role_permissions:
+      save_permissions: Save permissions
+      back: Go to Brands
+
+  breadcrumbs:
+    brands: Brands

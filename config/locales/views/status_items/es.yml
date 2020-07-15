@@ -1,0 +1,36 @@
+es:
+  status_items:
+    index:
+      title: Estatus de los articulos
+      resource: El Estatus del artículo
+      name: Nombre
+      description: Descripción
+      status: Estatus
+      category: categoría
+      one: Estatus del artículo
+      other: Estatus del los articulos
+      permissions: Permisos
+      new_status_item: Nuevo estatus del artículo
+    form:
+      title: Estatus del artículo
+      resource: Estatus del artículo
+      back: Ir a Estatus de los articulos
+      name: Nombre
+      description: Descripción
+      status: Estatus
+      category: Estatus del Item
+    new:
+      title: Nuevo estatus del artículo
+    edit:
+      title: Editar Estatus del artículo
+    show:
+      name: Nombre
+      description: Descripción
+      back: Ir a Estatus de los articulos
+      delete_confirmation: Estas seguro que deseas eliminar la Estatus del artículo
+    branch_permissions:
+      save_permissions: Guardar gategoria
+      back: Ir a Estatus de los articulos
+
+  breadcrumbs:
+    branches: Estatus del los articulos

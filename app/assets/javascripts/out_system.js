@@ -1,0 +1,17 @@
+//= require jquery
+//= require jquery_ujs
+//= require bootstrap-sprockets
+//= require AdminLTE/datatables.min
+//= require AdminLTE/app
+//= require sweetalert2
+//= require zxcvbn
+//= require zxcvbn-bootstrap-strength-meter
+//= require passwords
+//= require rails.validations
+//= require icheck
+//= require icheck_initializer
+//= require toastr.min
+//= require jquery.blockUI
+//= require general
+//= require turbolinks
+//= require pace/pace

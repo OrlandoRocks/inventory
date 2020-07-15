@@ -1,0 +1,22 @@
+en:
+  work_articles:
+    index:
+      title: Work Articles
+      resource: work article
+      name: Name
+      actions: Actions
+      one: Work Article
+      other: Work Articles
+    form:
+      title: Work Article
+      back: Go to work articles
+      resource: work article
+      name: Name
+      controller: Controller
+    new:
+      title: New work article
+    edit:
+      title: Edit work article
+    show:
+      back: Go to work articles
+      name: Name

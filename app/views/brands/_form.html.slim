@@ -1,0 +1,22 @@
+= form_for(brand, brand: 'form', html: {class: 'form-horizontal'}, validate: true) do |f|
+  - if @brand.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(brand.errors.count, "error")} prohibited this brand from being saved:"
+      ul
+        - @brand.errors.full_messages.each do |message|
+          li = message
+  .box-body
+    .row.form-group
+      = f.label :name, class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.text_field :name, class: 'form-control', placeholder: t('.name'), autofocus: true
+    .row.form-group
+      = f.label :description, class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.text_field :description, class: 'form-control', placeholder: t('.description')
+  .box-footer
+    = f.button "<i class='fa fa-floppy-o'></i> #{t('helpers.submit.submit', model: t('.resource'))}".html_safe,
+            class: 'btn btn-primary btn-flat', type: 'submit'
+    = link_to brands_path, class: 'btn btn-default btn-flat' do
+      i.fa.fa-list
+      =< t('.back')

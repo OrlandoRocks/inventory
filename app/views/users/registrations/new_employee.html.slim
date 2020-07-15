@@ -1,0 +1,8 @@
+section.content ng-controller="userController" ng-init=("accessless = #{@role_accessless}; roles=#{@roles.to_json}; user_type=#{@roles.first.to_json};  companies=#{@companies.to_json}; set_role(user_type);")
+  .row
+    .col-xs-12
+      .box.box-primary
+        .box-header.with-border
+          h3.box-title
+            = 'Nuevo Empleado Responsable'
+        = render 'form', user: @user

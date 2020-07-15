@@ -1,0 +1,39 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyText
+  model: MyString
+  serial_number: MyString
+  purchased_date: 2016-12-08
+  in_service_date: 2016-12-08
+  time_unit_service: 1
+  time_quantity_service: 
+  price: 
+  time_unit_depreciation: 1
+  time_quantity_depreciation: 
+  sub_category_id: 
+  provider_id: 
+  department_id: 
+  user_id: 
+  brand_id: 
+  status_item_id: 
+
+two:
+  name: MyString
+  description: MyText
+  model: MyString
+  serial_number: MyString
+  purchased_date: 2016-12-08
+  in_service_date: 2016-12-08
+  time_unit_service: 1
+  time_quantity_service: 
+  price: 
+  time_unit_depreciation: 1
+  time_quantity_depreciation: 
+  sub_category_id: 
+  provider_id: 
+  department_id: 
+  user_id: 
+  brand_id: 
+  status_item_id: 

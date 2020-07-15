@@ -1,0 +1,41 @@
+es:
+  messages:
+    very_weak_password: Muy débil
+    weak_password: Débil
+    okay_password: Buena
+    strong_password: Fuerte
+    very_strong_password:  Muy fuerte
+    processing_message: Por favor espere...
+    ok: Ok
+    confirm: Confirmar
+    cancel: Cancelar
+    done: ¡Listo!
+    deleted: El recurso se eliminó correctamente
+    error: Error al eliminar
+    general_error: Ocurrió un error
+    try_again: Por favor, vuelva a intentarlo
+    profile_file_type: Debe subir un archivo con formato de imagen.
+    profile_file_size: El tamaño máximo permitido de la imagen es de 5MB.
+    add: Asignar
+    remove: Dar de baja
+    maintenance: Mantenimiento
+    date_format: 'DD/MM/YYYY'
+    sunday: Do
+    monday: Lu
+    tuesday: Ma
+    wednesday: Mi
+    thursday: Ju
+    friday: Vi
+    saturnday: Sa
+    january: Ene
+    february: Feb
+    march: Mar
+    april: Abr
+    may: May
+    june: Jun
+    july: Jul
+    august: Ago
+    september: Sep
+    october: Oct
+    november: Nov
+    december: Dec

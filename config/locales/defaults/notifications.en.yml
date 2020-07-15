@@ -1,0 +1,37 @@
+en:
+  notifications_masc:
+    info:
+      permissions_assigned: Permissions were totally asigned.
+    success:
+      resource:
+        created: The %{resource} was created correctly.
+        updated: The %{resource} was updated correctly.
+        destroyed: The %{resource} was destroyed correctly.
+        logical_delete: The %{resource} was deactivated.
+        restored: The %{resource} was restored correctly.
+      file:
+        destroyed: The file was destroyed correctly.
+    alert:
+      resource:
+        dependencies: It's not possible to destroy the %{resource} because of its dependencies.
+        destroyed: The %{resource} couldn't be destroyed.
+        topic_dependency: It's not possible to destroy the topic %{resource} because it has pages associated.
+        role_dependency: It's not possible to destroy the role %{resource} because some users have it associated.
+        theme_dependency: It's not possible to destroy the theme %{resource} because a site has it associated.
+    error:
+  notifications_fem:
+    info:
+    success:
+      resource:
+        created: The %{resource} was created correctly.
+        updated: The %{resource} was updated correctly.
+        destroyed: The %{resource} was destroyed correctly.
+        set_as_draft: The %{resource} was reverted to draft.
+    alert:
+      resource:
+        dependencies: It's not possible to destroy the %{resource} because of its dependencies.
+        institution_dependency: It's not possible to destroy because the institution %{resource} has users.
+        category_dependency: It's not possible to destroy the category %{resource} because it has pages associated.
+    error:
+  pundit:
+    default: You cannot perform this action.

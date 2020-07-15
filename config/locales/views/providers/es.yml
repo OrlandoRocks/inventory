@@ -1,0 +1,43 @@
+es:
+  providers:
+    index:
+      title: Proveedores
+      resource: El proveedor
+      name: Nombre
+      description: Descripción
+      contact: Contacto
+      phone: Telefono
+      email: Correo Electronico
+      one: Proveedor
+      other: Proveedores
+      permissions: Permissions
+      new_provider: Nuevo Proveedor
+    form:
+      title: Proveedores
+      resource: Proveedor
+      back: Ir a Proveedores
+      name: Nombre
+      description: Descripción
+      contact: Contacto
+      phone: Telefono
+      email: Correo Electronico
+    new:
+      title: Nuevo Proveedor
+    edit:
+      title: Editar Proveedor
+    show:
+      name: Nombre
+      description: Descripción
+      contact: Contacto
+      phone: Telefono
+      email: Correo Electronico
+      status: Estatus
+      back: Ir a Proveedores
+      delete_confirmation: Estas seguro que quieres eliminar al Proveedor?
+    role_permissions:
+      save_permissions: Guardar Permisos
+      back: ir a Proveedores
+
+  breadcrumbs:
+    providers: Proveedores
+

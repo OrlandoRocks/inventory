@@ -1,0 +1,12 @@
+begin	
+ wb = xlsx_package.workbook
+ wb.add_worksheet(name: "Items") do |sheet|
+    sheet.add_row ["Nombre", "Descripción"]
+    @items.each do |item|
+        sheet.add_row [item.name,item.description]
+    end
+    wb.use_shared_strings = true
+end
+rescue => error
+ p error.inspect
+end

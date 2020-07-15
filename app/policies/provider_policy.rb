@@ -1,0 +1,2 @@
+class ProviderPolicy < ApplicationPolicy
+end

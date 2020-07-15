@@ -1,0 +1,37 @@
+= form_for(company, company: 'form', html: {class: 'form-horizontal'}, validate: true) do |f|
+  .box-body
+    .row.form-group
+      = f.label :name, class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.text_field :name, class: 'form-control', placeholder: t('.name'), autofocus: true
+    / .row.form-group
+      = f.label :description, class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.text_field :description, class: 'form-control', placeholder: t('.description')
+    /.row.form-group
+      = f.label :logo, class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.file_field :logo, class: 'form-control', placeholder: t('.logo')
+    .row.form-group
+      = f.label :address, class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.text_field :address, class: 'form-control', placeholder: t('.address')
+    .row.form-group
+      = f.label :phone, class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.text_field :phone, class: 'form-control', placeholder: t('.phone')
+    .row.form-group
+      = f.label :email, class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.text_field :email, class: 'form-control', placeholder: t('.email')
+    /.row.form-group
+      = f.label :user, class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.collection_select(:user_id, User.admins_company, :id, :full_name,
+                {prompt: t('helpers.select.prompt')}, {class: 'form-control'})
+  .box-footer
+    = f.button "<i class='fa fa-floppy-o'></i> #{t('helpers.submit.submit', model: t('.resource'))}".html_safe,
+          class: 'btn btn-primary btn-flat', type: 'submit'
+    = link_to companies_path, class: 'btn btn-default btn-flat' do
+      i.fa.fa-list
+      =< t('.back')

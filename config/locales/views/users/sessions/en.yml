@@ -1,0 +1,9 @@
+en:
+  users:
+    sessions:
+      new:
+        template: Template
+        sign_in: Sign In
+        email: Email
+        password: Password
+        remember: Remember me

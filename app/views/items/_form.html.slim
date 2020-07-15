@@ -1,0 +1,227 @@
+div
+  = form_for @item,html: {class: 'form-horizontal' , multipart: true } do |f|
+    - if @item.errors.any?
+      #error_explanation
+        h2 = "#{pluralize(@item.errors.count, "error(es)")}, No se permitio almacenar el artículo debido a:"
+        ul
+          - @item.errors.full_messages.each do |message|
+            li = message
+
+
+    = form_for(item, item: 'form', html: {class: 'form-horizontal'}, validate: true) do |f|
+      .box-body
+        - unless current_user.admin_department?
+          .row.form-group
+            = f.label :branch_id, class: 'col-sm-2 control-label'
+            .col-md-10
+              / TODO: Hacer un helper
+              = f.collection_select :branch_id, @branches, :id, :name,
+                      {prompt: t('helpers.select.prompt')},{class: 'form-control', data: {placeholder: t('.branch')}}
+
+          .row.form-group
+            = f.label :department_id, class: 'col-sm-2 control-label'
+            .col-md-4
+              = f.select(:department_id, options_for_select(policy_scope(Department).map {|d| ["#{d.name}", d.id]}, @item.department_id),
+                       {prompt: t('helpers.select.prompt')}, {class: 'form-control', disabled:'true'})
+              input type='hidden' id='deparment_id' value='#{@item.department_id}'
+              / TODO: Hacer un helper
+              / - if current_user.god? or current_user.admin?
+              /   = f.select(:department_id, grouped_options_for_select(Branch.joins(:company).order('companies.name').map {|b| ["#{b.name} - #{b.company_name}", b.departments.order(:id).map {|d| [d.name, d.id]}]}, selected: @item.department_id),
+              /           {prompt: t('helpers.select.prompt')}, {class: 'form-control'})
+              / - elsif current_user.admin_company?
+              /   - data = nil
+              /   - current_user.companies.each do |c|
+              /     - info = c.branches.map {|b| ["#{b.name} - #{b.company_name}", b.departments.order(:id).map {|d| [d.name, d.id]}]}
+              /     - data.nil? ? data = info : data << info
+              /   - data = [] if data.nil?
+              /   = f.select(:department_id, grouped_options_for_select(data, selected: @item.department_id),
+              /           {prompt: t('helpers.select.prompt')}, {class: 'form-control'})
+              / - elsif current_user.admin_branch?
+              /   = f.select(:department_id, grouped_options_for_select(current_user.branches.map {|b| [b.name, b.departments.order(:id).map {|d| [d.name, d.id]}]}, selected: @item.department_id),
+              /           {prompt: t('helpers.select.prompt')}, {class: 'form-control'})
+              / - elsif current_user.admin_department?
+              /   = f.select(:department_id, options_for_select(current_user.departments.map {|d| ["#{d.name} - #{d.branch_name}", d.id]}, @item.department_id),
+              /           {prompt: t('helpers.select.prompt')}, {class: 'form-control'})
+
+            = f.label :code, class: 'col-sm-2 control-label'
+            .col-md-4
+              = f.text_field :code, class: 'form-control', placeholder: t('.code'), disabled: false
+              input type='hidden' id='item_code2' name='item[code]' value='#{@item.code}'
+
+        .row.form-group
+          = f.label :user_id, class: 'col-sm-2 control-label'
+          .col-md-4
+            = f.select :user_id, options_for_select(@users.map {|u| ["#{u.user.try(:full_name)} - #{u.user.try(:role_name)}", u.user.try(:id)]}, @item.user_id),
+                    {include_blank: false}, class: 'form-control'
+            input type='hidden' id='user_id' value='#{@item.user_id}'
+        .row.form-group
+          = label_tag 'Categoria', 'Categoría', class: 'col-sm-2 control-label'
+          .col-md-4
+            = select_tag('category_id', options_from_collection_for_select(policy_scope(Category), 'id', 'name', @item.try(:category).try(:id)),
+                    {prompt: t('helpers.select.prompt'), class: 'form-control' })
+          = f.label :sub_category_id, class: 'col-sm-2 control-label'
+          .col-md-4
+            = f.select(:sub_category_id, grouped_options_for_select(Category.order(:name).all.map {|c| [c.name, c.sub_categories.order(:name).map {|sc| [sc.name, sc.id]}]}, disabled: '',selected: @item.sub_category_id),
+                    {prompt: t('helpers.select.prompt')}, {class: 'form-control', disabled: 'false'})
+
+
+        .row.form-group
+          = f.label :name, class: 'col-sm-2 control-label'
+          .col-md-10
+            = f.text_field :name, class: 'form-control', placeholder: t('.name')
+
+
+        .row.form-group
+          = f.label :description, class: 'col-sm-2 control-label'
+          .col-sm-10
+            = f.text_area :description, class: 'form-control', placeholder: t('.description')
+        .row.form-group
+          = f.label :purchased_date, class: 'col-sm-2 control-label'
+          .col-md-4
+            .input-group.date
+              .input-group-addon
+                i.fa.fa-calendar
+              = f.text_field :purchased_date, class: 'form-control pull-right datepicker', type: "text", placeholder: t('.purchased_date')
+
+          = f.label :in_service_date, class: 'col-sm-2 control-label'
+          .col-md-4
+            .input-group.date
+              .input-group-addon
+                i.fa.fa-calendar
+              = f.text_field :in_service_date, class:'form-control pull-right datepicker', type: "text", placeholder: t('.in_service_date')
+        /.row.form-group
+          = f.label :time_quantity_service, class: 'col-sm-2 control-label'
+          .col-md-4
+            = f.number_field :time_quantity_service, class: 'form-control', placeholder: t('.time_quantity_service')
+
+          = f.label :time_unit_service, class: 'col-sm-2 control-label'
+          .col-md-4
+            = f.select :time_unit_service, options_for_select(Item.time_units.map {|k, e| [I18n.t("time_units.#{k}"),e]}, @item.time_unit_service),
+              {include_blank: t('helpers.select.prompt')}, class: 'col-xs-2 form-control'
+        .row.form-group
+          = f.label :model, class: 'col-sm-2 control-label'
+          .col-md-4
+            = f.text_field :model, class: 'form-control', placeholder: t('.model')
+          = f.label :price, class: 'col-sm-2 control-label'
+          .col-md-4
+            .input-group
+              span.input-group-addon $
+              = f.number_field :price, value: number_to_currency(f.object.price.to_f, delimiter: '', unit: ''), step: :any, class: 'form-control text_field', placeholder: t('.price')
+              span.input-group-addon .00
+        .row.form-group
+          = f.label :brand_id, class: 'col-sm-2 control-label'
+          .col-md-4
+            = f.collection_select :brand_id, Brand.order(:name).all, :id, :name,
+                  {prompt: t('helpers.select.prompt')}, {class: 'form-control'}
+
+          = f.label :status_item_id, class: 'col-sm-2 control-label'
+          .col-md-4
+            = f.collection_select :status_item_id, StatusItem.order(:name).all, :id, :name,
+                    {include_blank: t('helpers.select.prompt')}, class: 'form-control'
+
+
+
+
+
+        /.row.form-group
+        /  = f.label :time_quantity_depreciation, class: 'col-sm-2 control-label'
+        /  .col-md-4
+        /    = f.number_field :time_quantity_depreciation, class: 'form-control', :step => 0.01 ,placeholder: t('.time_quantity_depreciation')
+        /
+        /  = f.label :time_unit_depreciation, class: 'col-sm-2 control-label'
+        /  .col-md-4
+        /    = f.select :time_unit_depreciation, Item.time_units.map { |k, e| [I18n.t("time_units.#{k}"), e] },
+        /        {include_blank: t('helpers.select.prompt')}, class: 'form-control'
+
+
+          = f.label :provider_id, class: 'col-sm-2 control-label'
+          .col-md-4
+            = f.collection_select :provider_id, Provider.all, :id, :name,
+              {prompt: t('helpers.select.prompt')}, {class: 'form-control'}
+
+        .row.form-group
+
+          = f.label :serial_number, class: 'col-sm-2 control-label'
+          .col-md-4
+            = f.text_field :serial_number, class: 'form-control', placeholder: t('.serial_number')
+          = f.label :image, class: 'col-sm-2 control-label'
+          .col-md-4
+            = f.hidden_field(:image, class: 'form-control')
+            = f.file_field(:image, class: 'form-control')
+            /= image_tag @item.image_url(:thumb).to_s  if @item.image?
+            - if @item.image.present?
+              = link_to image_tag((@item.image.url.include? "pdf") ? "pdf_download.png" : @item.image_url(:thumb).to_s, :class => 'download_icon', :alt => 'Archivo'), "#{f.object.image.url}", :target => "_blank"
+
+
+
+
+
+        /.row.form-group
+          = f.label :image, class: 'col-sm-2 control-label'
+          .col-md-4
+            = f.hidden_field(:image, class: 'form-control')
+            = f.file_field(:image, class: 'form-control')
+            /= image_tag @item.image_url(:thumb).to_s  if @item.image?
+            - if  @item.image.present?
+              = link_to image_tag((@item.image.url.include?"pdf")?  "pdf_download.png" : @item.image_url(:thumb).to_s, :class => 'download_icon', :alt => 'Archivo'), "#{f.object.image.url}", :target => "_blank"
+
+        /.row.form-group
+          = f.label :serial_number, class: 'col-sm-2 control-label'
+          .col-md-4
+            = f.text_field :serial_number, class: 'form-control', placeholder: t('.serial_number')
+
+        .row.form-group
+          = label_tag 'jefe','Jefe Inmediato', class: 'col-sm-2 control-label'
+          .col-md-8
+            = f.label 'jefe inmediato', class: 'control-label h3.page-header text-uppercase',id: 'immediate_boss'
+            /h3 id='immediate_boss'
+             .control-label.h2.page-header.text-uppercase
+            input id='immediate_boss_id' name='boss_id' type='hidden'
+            input id='director_name' name='boss_id' type='hidden' value="#{@users.first.user.to_json({methods: :full_name})}" class="control-label h2.page-header text-uppercase"
+
+      .box-footer
+        = f.button "<i class='fa fa-floppy-o'></i> #{t('helpers.submit.submit', model: t('.resource'))}".html_safe,
+                class: 'btn btn-primary btn-flat', type: 'submit'
+        = link_to items_path, class: 'btn btn-default btn-flat' do
+          i.fa.fa-list
+          =< t('helpers.back')
+
+
+
+  javascript:
+    $(document).ready(function(){
+      $('.datepicker').datepicker({
+        format: 'dd/mm/yyyy',
+        language: "es"
+      });
+
+        jQuery('#item_branch_id').change(function () {
+          var data = $('#item_branch_id').val();
+          //$("#item_code").prop("disabled", true);
+          $('#item_code').html('');
+          if (data != "") {
+            $.ajax({
+              type: "GET",
+              url: "/next_code_department/" + data,
+              //data: data,
+              success: function (result) {
+                console.log(result);
+                  $('#item_code').val('');
+                  $('#item_code').val(result);
+                  $('#item_code2').val(result);
+
+              }
+            });
+          } else {
+            $('#item_code').val('');
+            $('#item_code2').val('');
+          }
+        });
+    });
+
+
+
+    $('#item_code').on('keyup', function () {
+      var val1 = $('#item_code').val();
+      $('#item_code2').val(val1);
+    });
