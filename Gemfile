@@ -94,7 +94,7 @@ gem 'will_paginate-bootstrap', '~> 1.0.1'
 gem 'modernizr-rails', '~> 2.7', '>= 2.7.1'
 
 # Flexible authentication solution for Rails with Warden
-gem 'devise', '~> 3.5', '>= 3.5.4'
+gem 'devise', '~> 4.7'
 
 # ClientSideValidations for Ruby on Rails
 gem 'client_side_validations', '~> 4.2', '>= 4.2.3'
