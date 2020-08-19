@@ -48,6 +48,7 @@ section.content
                         th = t('.price')
                         th = t('.branch')
                         th = t('.department')
+                        th = t('.status_item')
                         th.actions_header
                           = t('helpers.actions')
                     tbody
@@ -58,8 +59,9 @@ section.content
                           td = item.description
                           td = item.model
                           td =  "%.2f" % item.price if item.price.present?
-                          td = item.branch.present? ? item.branch.name : (item.direct_branch ? item.direct_branch.name : nil)
+                          td = item.direct_branch.present? ? item.direct_branch.name : (item.direct_branch ? item.direct_branch.name : nil)
                           td = item.department.name if item.department.present?
+                          td = item.status_item.name if item.status_item.present?
                           td
                             .actions
                               = link_item '<i class="fa fa-search"></i>'.html_safe, item_path(item), title: t('helpers.show'),

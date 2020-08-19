@@ -17,8 +17,8 @@ es:
         time_quantity_depreciation: Depreciación cada
         sub_category: Sub Categoría
         provider: Proveedor
-        branch: Departamento
-        department: Sucursal
+        branch: Sucursal
+        department: Departamento
         user: Usuario
         brand: Marca
         status_item: Estatus del Artículo
@@ -35,7 +35,7 @@ es:
         model: Modelo
         price: Precio
         branch: Sucursal
-        department: Sucursal
+        department: Departamento
       reporter:
         title: Reporteador de artículos
         resource: el artículo
@@ -58,7 +58,7 @@ es:
         provider: Proveedor
         f_branch: Filtro por Departamento
         branch: Sucursal
-        f_department: Filtro por Sucursal
+        f_department: Filtro por departamento
         department: Departamento
         user: Usuario
         f_brand: Filtro por Marca
@@ -96,7 +96,7 @@ es:
         provider: Proveedor
         f_branch: Filtro por Departamento
         branch: Sucursal
-        f_department: Filtro por Sucursal
+        f_department: Filtro por departamento
         department: Departamento
         user: Usuario
         f_brand: Filtro por Marca
@@ -157,8 +157,8 @@ es:
         category: Categoría
         sub_category: Sub Categoría
         provider: Proveedor
-        branch: Departamento
-        department: Sucursal
+        branch: Sucursal
+        department: Departamento
         user: Usuario responsable
         brand: Marca
         status_item: Estatus del Artículo

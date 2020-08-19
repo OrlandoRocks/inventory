@@ -292,7 +292,7 @@ class ReportsController < ApplicationController
       role and role.key == 'admin_departamento'
     end
 
-    def employee?
+    def user_employee?
       role and %w(empleado empleado_sin_acceso).include? role.key
     end
 

@@ -7,7 +7,9 @@ StatusItem.delete_all
 ActiveRecord::Base.connection.reset_pk_sequence!('status_items')
 
 # Content.
-StatusItem.create(name: 'Nuevo', description: 'Nuevo',key:'nuevo')
+StatusItem.create(name: 'Vendido', description: 'Vendido',key:'vendido')
+StatusItem.create(name: 'No Vendido', description: 'No Vendido',key:'no_vendido')
+StatusItem.create(name: 'Vendido y Pendiente de Factura', description: 'Vendido y Pendiente de Factura',key:'pendiente')
 StatusItem.create(name: 'Seminuevo', description: 'Semi nuevo',key:'seminuevo')
 StatusItem.create(name: 'Viejo', description: 'Viejo',key:'viejo')
 StatusItem.create(name: 'Malas condiciones', description: 'Malas condiciones',key:'malas_condiciones')

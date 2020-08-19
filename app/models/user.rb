@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable #, :confirmable
 
   validates :password, presence: true, on: [:create]
-  validates :employee_number, presence: true
+  # validates :employee_number, presence: true
   validates :first_name, presence: true
   # validates :current_company,
   #            presence: true,
@@ -48,8 +48,6 @@ class User < ActiveRecord::Base
 
   def current_company_nil?
     !Role.where(id: role_id).last.key.exclude?('admin')
-    p '<<<<<<<<<'
-    p role_id
   end
 
   # validates :employee_number,
@@ -124,7 +122,7 @@ class User < ActiveRecord::Base
     role and role.key == 'admin_departamento'
   end
 
-  def employee?
+  def user_employee?
     role and %w(empleado empleado_sin_acceso).include? role.key
   end
 

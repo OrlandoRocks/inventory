@@ -60,11 +60,7 @@ class ItemsController < ApplicationController
     end
 
 
-    p '**************************'
-    p params.inspect
-
     @item = Item.new(new_params)
-
 
     respond_to do |format|
       if @item.save

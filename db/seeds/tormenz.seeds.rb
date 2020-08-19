@@ -8,9 +8,7 @@ puts '==> Filling the \'tormenz group\' table...'
 
 # Content.
 
-u = User.create(email: 'admin_tormenz@example.com', username: 'admin', first_name: 'Admin Tormenz', last_name: 'Admin Tormenz',
-            maiden_name: 'Admin Tormenz', role_id: Role.find_by_key('admin_empresa').id, password: 'password',
-            confirmed_at: Time.now, sign_in_count: 0)
+u = User.create(email: 'admin_tormenz@example.com', username: 'admin', first_name: 'Admin Tormenz', last_name: 'Admin Tormenz', maiden_name: 'Admin Tormenz', role_id: Role.find_by_key('admin_empresa').id, password: 'password',password_confirmation:'password', confirmed_at: Time.now, sign_in_count: 0)
 Company.create(name: "Grupo Tormenz",description:"Grupo Tormenz", user_id: u.id)
 puts "==> Filling the -->COMPANY  TABLE <--- ...#{Company.where(name: "Grupo Tormenz").first.id}"
 

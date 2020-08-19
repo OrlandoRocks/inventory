@@ -22,9 +22,8 @@ class ItemPolicy < ApplicationPolicy
         scope.where(id: ids)
 
       elsif @user.admin_branch?
-        ids = scope.joins(:branch).where('branches.manager_id = ?', @user.id).pluck(:id) +
-            scope.joins(:direct_branch)
-                .where('branches.manager_id = ? and items.department_id is NULL', @user.id).pluck(:id)
+
+        ids = scope.joins(:direct_branch).where('branches.manager_id = ? AND items.status_item_id = 2', @user.id).pluck(:id)
 
         status_id = StatusItem.where(key: %w(baja)).first
         scope.where(id: ids).where.not(status_item_id: status_id)
