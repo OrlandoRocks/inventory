@@ -8,7 +8,7 @@ ActiveRecord::Base.connection.reset_pk_sequence!('subcategories')
 
 # Content.
 # Se inserta equipo de oficina
-# SubCategory.create(name: 'Silla', description: 'Silla', status: 'true',category_id: 1 )
+SubCategory.create(name: 'Silla', description: 'Silla', status: 'true',category_id: 1 )
 # SubCategory.create(name: 'Silla gerente', description: 'Silla gerente', status: 'true',category_id: 1 )
 # SubCategory.create(name: 'Silla gerente', description: 'Silla gerente', status: 'true',category_id: 1 )
 # SubCategory.create(name: 'Silla ejecutiva', description: 'Silla ejecutiva', status: 'true',category_id: 1)

@@ -26,6 +26,14 @@ module ApplicationHelper
     return true if (current_user.god? or current_user.admin?)
   end
 
+  def has_policy_branch()
+    return true if (current_user.admin_branch?)
+  end
+
+  def has_policy_employee()
+    return true if (current_user.user_employee?)
+  end
+
   def collection_scope(user, scope)
     policy_name = (scope.to_s + 'Policy').classify.constantize
     policy_name::ScopeActions.new(user, scope).collection_scope

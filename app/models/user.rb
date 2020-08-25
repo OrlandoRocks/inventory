@@ -48,8 +48,6 @@ class User < ApplicationRecord
 
   def current_company_nil?
     !Role.where(id: role_id).last.key.exclude?('admin')
-    p '<<<<<<<<<'
-    p role_id
   end
 
   # validates :employee_number,
@@ -123,7 +121,7 @@ class User < ApplicationRecord
     role and role.key == 'admin_departamento'
   end
 
-  def employee?
+  def user_employee?
     role and %w(empleado empleado_sin_acceso).include? role.key
   end
 
