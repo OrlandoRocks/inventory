@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   resources :offices
   get 'items/next_maintenances', to: 'items#next_maintenances', as: :items_next_maintenances
   put 'items/:id/change_maintenance_done/:value', to: 'items#change_maintenance_done', as: :items_change_maintenance_done
@@ -60,9 +60,9 @@ Rails.application.routes.draw do
       get '/employee/:id/assign_work_articles', to: 'users/registrations#assign_work_articles',
           as: :employee_assign_work_articles
       post '/employee/add_work_article', to: 'users/registrations#add_work_article',
-            as: :employee_add_work_article
+           as: :employee_add_work_article
       match '/employee/remove_work_article', to: 'users/registrations#remove_work_article',
-           as: :employee_remove_work_article, via: [:patch, :put]
+            as: :employee_remove_work_article, via: [:patch, :put]
       get '/search_work_articles/:id/:search_type', to: 'users/registrations#search_work_articles',
           as: :search_work_articles
 
@@ -152,6 +152,9 @@ Rails.application.routes.draw do
       get '/next_code_department/:branch_id', to:'branches#next_code'
 
 
+
+
     end
   end
+
 end

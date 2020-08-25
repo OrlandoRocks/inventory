@@ -135,9 +135,7 @@ en:
         4: Other
       add_file: Agregar Archivo
       add_maintenance: Agregar Mantenimiento
-      description: Description
-      title: Add Items Documentation
-      back: Go to items
+      new_item: Add Items Documentation
       delete_confirmation: Are you sure you want to delete the item
 
   breadcrumbs:

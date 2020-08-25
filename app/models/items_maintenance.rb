@@ -1,4 +1,4 @@
-class ItemsMaintenance < ActiveRecord::Base
+class ItemsMaintenance < ApplicationRecord
   belongs_to :item
   belongs_to :maintenance
 

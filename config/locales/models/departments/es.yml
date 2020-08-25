@@ -4,8 +4,17 @@ es:
       department:
         name: Nombre
         description: Descripción
-        #branch_id: Sucursal #Origin
-        branch_id: Departamento
+        branch_id: Sucursal
         manager_id: Coordinador
         code: Código
         sequence: Consecutivo
+    errors:
+      models:
+        department:
+          attributes:
+            branch:
+              required: Obligatorio
+            user:
+              required: Obligatorio
+            manager:
+              required: Obligatorio

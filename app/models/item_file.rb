@@ -1,4 +1,4 @@
-class ItemFile < ActiveRecord::Base
+class ItemFile < ApplicationRecord
   belongs_to :item
 
   mount_uploader :file, ItemFileUploader

@@ -1,2 +1,2 @@
-class Provider < ActiveRecord::Base
+class Provider < ApplicationRecord
 end

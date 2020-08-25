@@ -8,5 +8,12 @@ es:
         city: Ciudad
         company: Compañia
         manager_id: Gerente
-        #code: Código sucursal # Origin
-        code: Código departamento # Origin
+        code: Código sucursal
+    errors:
+      models:
+        branch:
+          attributes:
+            state:
+              required: Obligatorio
+            user:
+              required: Obligatorio

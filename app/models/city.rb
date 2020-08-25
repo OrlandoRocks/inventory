@@ -1,3 +1,3 @@
-class City < ActiveRecord::Base
+class City < ApplicationRecord
   belongs_to :state
 end

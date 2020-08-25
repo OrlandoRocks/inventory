@@ -1,2 +1,2 @@
-class Maintenance < ActiveRecord::Base
+class Maintenance < ApplicationRecord
 end

@@ -11,7 +11,7 @@
 #  updated_at  :datetime         not null
 #
 
-class Role < ActiveRecord::Base
+class Role < ApplicationRecord
   has_many :users
   has_many :permission_role, dependent: :destroy
   has_many :permissions, through: :permission_role

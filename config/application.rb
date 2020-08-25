@@ -1,4 +1,4 @@
-require File.expand_path('../boot', __FILE__)
+require_relative 'boot'
 
 require 'rails/all'
 
@@ -8,24 +8,27 @@ Bundler.require(*Rails.groups)
 
 module Inventory
   class Application < Rails::Application
-    # Settings in config/environments/* take precedence over those specified here.
-    # Application configuration should go into files in config/initializers
-    # -- all .rb files in that directory are automatically loaded.
+    # Initialize configuration defaults for originally generated Rails version.
+    config.load_defaults 5.2
 
-    # Set Time.zone defaults to the specified zone and make Active Record auto-convert to this zone.
-    # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
-    # config.time_zone = 'Central Time (US & Canada)'
-    # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
+
+    # Do not swallow errors in after_commit/after_rollback callbacks.
+    # config.active_record.raise_in_transactional_callbacks = true
+
+    # Contains the controllers that will be excluded from the permissions.
+    config.x.controller_exceptions = %w(Home SetLanguage PasswordExpired Confirmation Password OmniauthCallback Session Application)
+
+
+
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
     config.assets.paths << Rails.root.join('vendor', 'assets', 'components')
     I18n.available_locales = [:es, :en]
     config.time_zone = 'Chihuahua'
     config.i18n.default_locale = :es
 
-    # Do not swallow errors in after_commit/after_rollback callbacks.
-    config.active_record.raise_in_transactional_callbacks = true
-
-    # Contains the controllers that will be excluded from the permissions.
-    config.x.controller_exceptions = %w(Home SetLanguage PasswordExpired Confirmation Password OmniauthCallback Session Application)
+    # Settings in config/environments/* take precedence over those specified here.
+    # Application configuration can go into files in config/initializers
+    # -- all .rb files in that directory are automatically loaded after loading
+    # the framework and any gems in your application.
   end
 end

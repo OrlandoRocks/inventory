@@ -176,16 +176,12 @@ es:
       create: Crear %{model}
       submit: Guardar %{model}
       update: Actualizar %{model}
-    show: Ver
-    edit: Editar
     edit_variables: Editar variables
     close: Cerrar
     save: Guardar
-    destroy: Eliminar
     actions: Acciones
     not_apply: No aplica
     tools: Herramientas
-    print: Imprimir
     export_pdf: Guardar PDF
     export_excel: Exportar a Excel
     dump_destroy: Eliminar por lote
@@ -193,9 +189,6 @@ es:
     generate_seeds: Generar semillas
     search: Buscar
     synchronize: Sincronizar
-    password: Contraseña
-    password_confirmation: Confirmar contraseña
-    edit_password: Editar contraseña
     loading: Cargando...
     load_more: Cargar más elementos
     advanced_search: Búsqueda Avanzada
@@ -211,7 +204,6 @@ es:
     back: Regresar
     send: Enviar
     here: aquí
-    home: Inicio
     select_index: Seleccionar página principal del sitio
     grid_view: Vista de cuadrícula
     list_view: Vista de lista

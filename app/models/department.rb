@@ -1,4 +1,4 @@
-class Department < ActiveRecord::Base
+class Department < ApplicationRecord
   belongs_to :branch
   has_one :company, through: :branch
   has_one :city, through: :branch

@@ -1,57 +1,34 @@
 es:
   departments:
     index:
-#Origin
-#      title: Departamentos
-#      resource: el departamento
-#      name: Nombre
-#      description: Descripción
-#      branch: Sucursal
-#      manager_id: Coordinador
-#      one: Departamento
-#      other: Departamento
-#      new_employee: Nuevo empleado
-#      new_department: Nuevo departamento
-      title: Sucursales
-      resource: la sucursal
-      name: Nombre de la sucursal
+      title: Departamentos
+      resource: el departamento
+      name: Nombre
       description: Descripción
-      branch: Departamento
+      branch: Sucursal
       manager_id: Coordinador
-      one: Sucursal
-      other: Sucursales
+      one: Departamento
+      other: Departamento
       new_employee: Nuevo empleado
-      new_department: Nueva sucursal
+      new_department: Nuevo departamento
     form:
 #Origin
-#      title: departamento
-#      role: Rol
-#      back: Ir a departamentos
-#      resource: departamento
-#      name: Nombre
-#      description: Descripción
-#      code: Código
-#      sequence: Consecutivo
-#      controller: Controlador
-      title: Sucursal
+      title: departamento
       role: Rol
-      back: Ir a sucursales
-      resource: sucursal
+      back: Ir a departamentos
+      resource: departamento
       name: Nombre
       description: Descripción
       code: Código
       sequence: Consecutivo
       controller: Controlador
     edit:
-      #title: Editar departamento #Origin
-      title: Editar sucursal
+      title: Editar departamento #Origin
     new:
-      #title: Nuevo departamento #Origin
-      title: Nueva sucursal
+      title: Nuevo departamento #Origin
     show:
       description: Descripción
-      #branch: Sucursal #Origin
-      branch: Departamento
+      branch: Sucursal #Origin
       manager: Coordinador
       back: Ir a departamentos
       delete_confirmation: Estas seguro que deseas eliminar la sucursal
@@ -69,8 +46,7 @@ es:
       last_name: Apellido paterno
       maiden_name: Apellido materno
       username: Nombre de usuario
-      #department: Departamento #Origin
-      department: Sucursal
+      department: Departamento
       role: Rol
       report: Reporte
       articles_assign: Artículos asignados
@@ -78,24 +54,22 @@ es:
       items: Artículos
       info: Información general de la sucursal
       company: Compañia
-      #branch: Sucursal #Origin
-      branch: Departamento
     employee_items:
       title: Artículos asignados
       title_unassigned: Lista de artículos sin asignar
       one: Articulo
       other: Articulos
-      title: Articulos
+#      title: Articulos
       name: Nombre
       code: Código
       description: Descripción
       model: Modelo
       price: Precio
       serial_number: Numero de Serie
-      department: Sucursal
+      department: Departamento
       employee: Artículos asignados al empleado con número
       name_employee: con nombre
-      of: perteneciente a la sucursal
+      of: perteneciente a la Departamento
       user: Usuario
       brand: Marca
       status_item: Estatus del Artículo
@@ -103,13 +77,12 @@ es:
       close: Cerrar
       unassign: Desasignar
       assign: Asignar
-      back: Regresar a sucursales
-      info: Sucursal
+      back: Regresar a Departamentos
+      info: Departamento
       company: Compañia
       branch: Sucursal
-      deparmento: Sucursal
+      deparmento: Departamento
       manager: Coordinador
-      assigned_to: Asignado a
       resource: empleado
       title_assign_work_articles: Asignar artículos de trabajo
       work_articles: Artículos de trabajo

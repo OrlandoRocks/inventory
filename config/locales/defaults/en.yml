@@ -175,10 +175,7 @@ en:
       create: Create %{model}
       submit: Save %{model}
       update: Update %{model}
-    show: Show
-    edit: Edit
     edit_variables: Edit variables
-    destroy: Delete
     actions: Actions
     tools: Tools
     print: Print
@@ -189,9 +186,6 @@ en:
     generate_seeds: Generate seeds
     search: Search
     synchronize: Synchronize
-    password: Password
-    password_confirmation: Password confirmation
-    edit_password: Edit password
     loading: Loading...
     load_more: Load more elements
     advanced_search: Advanced Search
@@ -207,7 +201,6 @@ en:
     back: Go back
     send: Send
     here: here
-    home: Home
     select_index: Select index of site
     grid_view: Grid view
     list_view: List view
@@ -293,7 +286,7 @@ en:
     invoice: Factura
     guarantee_policy: Poliza de garantia
     other: Otro
-  file_type:
+  date_type:
     day: Dia
     month: Mes
     year: Año

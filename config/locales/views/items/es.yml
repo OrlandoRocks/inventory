@@ -17,8 +17,8 @@ es:
         time_quantity_depreciation: Depreciación cada
         sub_category: Sub Categoría
         provider: Proveedor
-        branch: Departamento
-        department: Sucursal
+        branch: Sucursal
+        department: Departamento
         user: Usuario
         brand: Marca
         status_item: Estatus del Artículo
@@ -35,7 +35,7 @@ es:
         model: Modelo
         price: Precio
         branch: Sucursal
-        department: Sucursal
+        department: Departamento
       reporter:
         title: Reporteador de artículos
         resource: el artículo
@@ -56,9 +56,9 @@ es:
         f_sub_category: Filtro por Sub Categoría
         f_provider: Filtro por Proveedor
         provider: Proveedor
-        f_branch: Filtro por Departamento
+        f_branch: Filtro por Sucursal
         branch: Sucursal
-        f_department: Filtro por Sucursal
+        f_department: Filtro por Departamento
         department: Departamento
         user: Usuario
         f_brand: Filtro por Marca
@@ -94,9 +94,9 @@ es:
         f_sub_category: Filtro por Sub Categoría
         f_provider: Filtro por Proveedor
         provider: Proveedor
-        f_branch: Filtro por Departamento
+        f_branch: Filtro por Sucursal
         branch: Sucursal
-        f_department: Filtro por Sucursal
+        f_department: Filtro por Departamento
         department: Departamento
         user: Usuario
         f_brand: Filtro por Marca
@@ -157,8 +157,7 @@ es:
         category: Categoría
         sub_category: Sub Categoría
         provider: Proveedor
-        branch: Departamento
-        department: Sucursal
+        department: Departamento
         user: Usuario responsable
         brand: Marca
         status_item: Estatus del Artículo
@@ -200,10 +199,6 @@ es:
           guarantee_policy: Poliza de garantia
           other: Otro
           0: Fotografia
-          assignment_signature: Hoja de asignación
-          invoice: Factura
-          guarantee_policy: Poliza de garantia
-          other: Otro
         maintenance: Mantenimiento
         maintenance_done: Mantenimiento realizado
         maintenances:
@@ -250,8 +245,6 @@ es:
           4: Otro
         add_file: Agrega archivo
         add_maintenance: Agregar mantenimiento
-        description: Descripción
-        title:  Agregar Documentacion para el Artículo
         back: ir a Articulos
         delete_confirmation: ¿Estas seguro que deseas eliminar este artículo?
       file_type:

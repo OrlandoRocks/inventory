@@ -16,13 +16,31 @@ es:
         time_quantity_depreciation: Depreciación cada
         sub_category_id: Subcategoría
         provider_id: Proveedor
-        branch_id: Departamento
-        department_id: Sucursal
+        branch_id: Sucursal
+        department_id: Departamento
         user: Usuario
         brand_id: Marca
         status_item_id: Estatus del Articulo
         user_id: Usuario
         image: Imágen
+    errors:
+      models:
+        item:
+          attributes:
+            sub_category:
+              required: Obligatorio
+            user:
+              required: Obligatorio
+            provider:
+              required: Obligatorio
+            department:
+              required: Obligatorio
+            brand:
+              required: Obligatorio
+            status_item:
+              required: Obligatorio
+            direct_branch:
+              required: Obligatorio
   time_units:
       day: Día(s)
       month: Mes(es)

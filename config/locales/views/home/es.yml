@@ -2,19 +2,14 @@ es:
   home:
     index:
       articles: Lista de articulos
-      resource: el departamento
       name: Nombre
       description: Descripción
-      branch: Departamento
+      branch: Sucursal
       manager_id: Coordinador
-      one: Departamento
-      other: Departamento
       new_employee: Nuevo empleado
       new_department: Nueva sucursal
       title: Reporteador de artículos
       resource: el artículo
-      name: Nombre
-      description: Descripción
       model: Modelo
       serial_number: Numero de Serie
       purchased_date: Fecha de Compra
@@ -31,7 +26,6 @@ es:
       f_provider: Filtro por Proveedor
       provider: Proveedor
       f_branch: Filtro por Departamento
-      branch: Sucursal
       f_department: Filtro por Sucursal
       department: Sucursal
       user: Usuario
@@ -108,7 +102,7 @@ es:
       title: Nuevo departamento
     show:
       description: Descripción
-      branch: Departamento
+      branch: Sucursal
       manager: Coordinador
       back: Ir a departamentos
       delete_confirmation: Estas seguro que deseas eliminar el departamento
@@ -122,15 +116,14 @@ es:
       last_name: Apellido paterno
       maiden_name: Apellido materno
       username: Nombre de usuario
-      department: Sucursal
+      department: Departamento
       role: Rol
       resource: el empleado
       items: Artículos
       info: Información general de la sucursal
       company: Compañia
-      branch: Departamento
     employee_items:
-      title: Artículos para
+      title_for: Artículos para
       title_unassigned: Lista general de articulos
       one: Articulo
       other: Articulos

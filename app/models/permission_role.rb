@@ -9,7 +9,7 @@
 #  updated_at    :datetime         not null
 #
 
-class PermissionRole < ActiveRecord::Base
+class PermissionRole < ApplicationRecord
   belongs_to :role
   belongs_to :permission
 end

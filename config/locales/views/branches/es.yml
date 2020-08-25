@@ -1,10 +1,8 @@
 es:
   branches:
     index:
-      #title: Sucursales #Origin
-      title: Departamentos #Origin
-      #resource: la sucursal
-      resource: el departamento
+      title: Sucursales 
+      resource: la sucursal
       name: Nombre
       description: Descripción
       state: Estado
@@ -13,44 +11,31 @@ es:
       key: Llave
       scope: Alcance
       manager: Gerente
-#      one: Sucursal #Origin
-#      other: Sucursales #Origin
-      one: Departamento #Origin
-      other: Departamentos #Origin
+      one: Sucursal 
+      other: Sucursales 
       permissions: Permisos
-      new_branch: Nuevo departamento
+      new_branch: Nueva Sucursal
     form:
-#      name: Sucursales #Origin
-#      title: Sucursales  #Origin
-      name: Departamentos
-      title: Departamentos
-#      resource: Sucursal #Origin
-#      back: Ir a sucursales #Origin
-      resource: Departamento
-      back: Ir a departamentos
-      name: Nombre
+      name: Sucursales 
+      title: Sucursales  
+      resource: Sucursal 
+      back: Ir a sucursales 
       description: Descripción
       code: Código
       city: Ciudad
       company: Compañia
       manager: Gerente
     new:
-      #title: Nueva sucursal #Origin
-      title: Nuevo departamento
+      title: Nueva sucursal 
     edit:
-      #title: Editar sucursal
-      title: Editar departamento #Origin
+      title: Editar sucursal
     show:
       key: Llave
       description: Descripción
-      back: Ir a Departamentos
-      #delete_confirmation: Estas seguro que deseas eliminar la sucursal #Origin
-      delete_confirmation: Estas seguro que deseas eliminar el departamento
+      back: Ir a Sucursals
+      delete_confirmation: Estas seguro que deseas eliminar la sucursal 
     branch_permissions:
-      #save_permissions: Guardar sucursal #Origin
-      #back: Ir a sucursales #Origin
-      save_permissions: Guardar departamento
-      back: Ir a departamentos
+      save_permissions: Guardar sucursal 
+      back: Ir a sucursales 
   breadcrumbs:
-    #branches: Sucursales
-    branches: Departamentos
+    branches: Sucursales

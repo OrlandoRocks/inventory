@@ -30,13 +30,13 @@
 #  avatar_updated_at      :datetime
 #
 
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   # Include defaults devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable #, :confirmable
 
   validates :password, presence: true, on: [:create]
-  validates :employee_number, presence: true
+  # validates :employee_number, presence: true
   validates :first_name, presence: true
   # validates :current_company,
   #            presence: true,
@@ -78,7 +78,6 @@ class User < ActiveRecord::Base
 
   has_many :companies, foreign_key: :user_id
   has_many :branches, foreign_key: :manager_id
-  has_many :departments, foreign_key: :manager_id
   has_many :items
   has_many :users_work_articles
   has_many :work_articles, through: :users_work_articles

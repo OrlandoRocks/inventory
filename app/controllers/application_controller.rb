@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   include Pundit
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
-  after_filter :set_csrf_cookie_for_ng
+  after_action :set_csrf_cookie_for_ng
   before_action :authenticate_user!, :is_authorized, :set_locale, :check_user_company, except:[:user_employee_nomber]
 
 
@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
     true
   end
 
-  add_breadcrumb proc { I18n.t('helpers.home') }, :authenticated_root_path
+  # add_breadcrumb proc { I18n.t('helpers.home') }, :authenticated_root_path
 
 
   protected

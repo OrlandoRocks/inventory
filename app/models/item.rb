@@ -1,6 +1,6 @@
-class Item < ActiveRecord::Base
+class Item < ApplicationRecord
   belongs_to :sub_category
-  #belongs_to :category
+  #belongs_to :category, optional: true
   belongs_to :provider
   belongs_to :department
   belongs_to :user

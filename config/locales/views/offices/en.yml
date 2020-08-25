@@ -12,13 +12,11 @@ en:
       new_office: New office
     form:
       title: Offices
-      resource: the office
       name: Name
       description: Description
       department: Department
       user: User
       back: Go to offices
-      resource: office
     edit:
       title: Edit Office
     new:

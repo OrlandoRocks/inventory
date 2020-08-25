@@ -1,36 +1,41 @@
 source 'https://api.rubygems.org'
 
-ruby '2.3.1'
+ruby '2.4.10'
 #ruby-gemset=inventory-gemset
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'.
-gem 'rails', '4.2.6'
+gem 'rails', github: 'rails/rails', branch: '5-2-stable'
 # Use postgresql as the database for Active Record
-gem 'pg', '~> 0.18.4'
+gem 'pg', '~> 0.20.0'
 # Use SCSS for stylesheets.
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails', '~> 6.0'
 # Use Uglifier as compressor for JavaScript assets.
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views.
-gem 'coffee-rails', '~> 4.1.0'
+gem 'coffee-rails', '~> 4.2.2'
 # See https://github.com/rails/execjs#readme for more supported runtimes.
-gem 'execjs', '~> 2.7'
-gem 'therubyracer', platforms: :ruby
+# gem 'execjs', '~> 2.7'
+# gem 'therubyracer', platforms: :ruby
+
+gem 'rake', '~> 12.3', '>= 12.3.3'
+
+gem 'audited', '~> 4.9'
+
+gem 'bootsnap', require: false
 
 
-gem 'audited', '~> 4.3'
 
 # Use jquery as the JavaScript library.
-gem 'jquery-rails', '~> 4.2.2'
+gem 'jquery-rails', '~> 4.3'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks.
-gem 'turbolinks', '2.5.3'
+gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder.
-gem 'jbuilder', '~> 2.0'
+gem 'jbuilder', '~> 2.10'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Use Puma as the app server
-gem 'puma', '~> 2.15.3'
+gem 'puma'
 
 # Simple Rails app configuration.
 gem 'figaro', '~> 1.1.1'
@@ -43,8 +48,12 @@ gem 'seedbank', '~> 0.3.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console.
+  #
+  #
+  gem 'listen'
   gem 'awesome_print', require: 'ap'
   gem 'byebug'
+  gem 'rb-readline'
 end
 
 group :development do
@@ -55,7 +64,7 @@ group :development do
   gem 'spring', '~> 2.0'
 
   # Add a comment summarizing the current schema.
-  gem 'annotate', '~> 2.7.0'
+  gem 'annotate', '~> 2.7.5'
 
   # Code metric tool for rails projects.
   gem 'rails_best_practices', '>= 1.15.7'
@@ -67,16 +76,16 @@ group :development do
   gem 'better_errors', '>= 2.1.1'
 
   # Remote multi-server automation tool.
-  gem 'mina', '~> 0.3.8'
+  gem 'mina'
   gem 'mina-multistage', '~> 1.0.2', require: false
-  gem 'mina-puma', '~> 0.2.0', require: false
+  gem 'mina-puma', '~> 1.0.0', require: false
 end
 
 # Provides the generator settings required for Rails 3 and 4 to use Slim
-gem 'slim-rails', '~> 3.0', '>= 3.0.1'
+gem 'slim-rails', '~> 3.2.0'
 
 # Search Engine Optimization (SEO) plugin for Ruby on Rails applications.
-gem 'meta-tags', '~> 2.1'
+gem 'meta-tags'
 
 # Bootstrap-sass is a Sass-powered version of Bootstrap 3, ready to drop right into your Sass powered applications.
 gem 'bootstrap-sass', '~> 3.3', '>= 3.3.6'
@@ -94,10 +103,10 @@ gem 'will_paginate-bootstrap', '~> 1.0.1'
 gem 'modernizr-rails', '~> 2.7', '>= 2.7.1'
 
 # Flexible authentication solution for Rails with Warden
-gem 'devise', '~> 3.5', '>= 3.5.4'
+gem 'devise', '~> 4.7.2'
 
 # ClientSideValidations for Ruby on Rails
-gem 'client_side_validations', '~> 4.2', '>= 4.2.3'
+gem 'client_side_validations', '~> 12.0.0'
 
 # Pace automatic web page progress bar
 gem 'pace-rails', '~> 0.1.3'
@@ -109,18 +118,19 @@ gem 'icheck-rails', '~> 1.0', '>= 1.0.2.1'
 gem 'pundit', '~> 1.1'
 
 # Dump (parts) of your database to db/Items_csv.rb to get a headstart creating a meaningful Items_csv.rb file.
-gem 'seed_dump', '~> 3.2', '>= 3.2.4'
+gem 'seed_dump', '~> 3.3.0'
 
 # A simple Ruby on Rails plugin for creating and managing a breadcrumb navigation.
 gem 'breadcrumbs_on_rails', '~> 2.3.1'
 
 # Ransack enables the creation of both simple and advanced search forms for your Ruby on Rails application.
-gem 'ransack', '~> 1.7'
+gem 'ransack', github: 'activerecord-hackery/ransack', branch: '8daa87a0389d380f7c9fd7ea9cb5bda634d5dc7d'
 
 source 'https://rails-assets.org' do
   # Sweet Alert gem to replace JavaScript's alert
   gem 'rails-assets-sweetalert2', '~> 0.4.0'
 end
+
 
 #Gema de apoyo para reportes de jasper
 gem 'rjb', '~> 1.5.5'
@@ -128,7 +138,7 @@ gem 'rjb', '~> 1.5.5'
 # Easy upload management for ActiveRecord
 # gem 'paperclip', '~> 4.3', '>= 4.3.5'
 gem 'mini_magick', '~> 4.6'
-gem 'carrierwave', '0.11.2'
+gem 'carrierwave', '~> 2.0'
 
 
 #Gema para el manejo del componente de fecha
@@ -141,8 +151,8 @@ gem 'momentjs-rails', '~> 2.11.1'
 gem 'bootstrap-daterangepicker-rails', '~> 0.1.5'
 
 #Gema para generar archivos de excel
-gem 'axlsx', '~> 2.0'
-gem 'axlsx_rails', '~> 0.5'
+gem 'caxlsx'
+gem 'caxlsx_rails'
 
 #Gema que nos sirve para eliminar acentos.
 gem 'unidecoder'

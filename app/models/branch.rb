@@ -1,4 +1,4 @@
-class Branch < ActiveRecord::Base
+class Branch < ApplicationRecord
   belongs_to :company
   belongs_to :user , :class_name => 'User' , foreign_key: 'manager_id'
   belongs_to :state , :class_name => 'State' , foreign_key: 'state_id'

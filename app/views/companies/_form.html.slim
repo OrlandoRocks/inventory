@@ -1,4 +1,10 @@
 = form_for(company, company: 'form', html: {class: 'form-horizontal'}, validate: true) do |f|
+  - if @company.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(company.errors.count, "error")} prohibited this branch from being saved:"
+      ul
+        - @company.errors.full_messages.each do |message|
+          li = message
   .box-body
     .row.form-group
       = f.label :name, class: 'col-sm-2 control-label'
@@ -24,10 +30,10 @@
       = f.label :email, class: 'col-sm-2 control-label'
       .col-sm-10
         = f.text_field :email, class: 'form-control', placeholder: t('.email')
-    /.row.form-group
+    .row.form-group
       = f.label :user, class: 'col-sm-2 control-label'
       .col-sm-10
-        = f.collection_select(:user_id, User.admins_company, :id, :full_name,
+        = f.collection_select(:user_id, User.all, :id, :full_name,
                 {prompt: t('helpers.select.prompt')}, {class: 'form-control'})
   .box-footer
     = f.button "<i class='fa fa-floppy-o'></i> #{t('helpers.submit.submit', model: t('.resource'))}".html_safe,

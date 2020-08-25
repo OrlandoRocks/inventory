@@ -1,4 +1,10 @@
 = form_for(department, role: 'form', html: {class: 'form-horizontal'}, validate: true) do |f|
+  - if @department.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(department.errors.count, "error")} prohibited this department from being saved:"
+      ul
+        - @department.errors.full_messages.each do |message|
+          li = message
   .box-body
     .row.form-group
       = f.label :branch_id, class: 'col-sm-2 control-label'
@@ -21,7 +27,7 @@
       = f.label :sequence, class: 'col-sm-2 control-label'
       .col-sm-10
         = f.number_field :sequence, class: 'form-control', placeholder: t('.sequence')
-    /.row.form-group
+    .row.form-group
       = f.label :manager_id, class: 'col-sm-2 control-label'
       .col-sm-10
         = f.collection_select(:manager_id, User.admins_department, :id, :full_name,

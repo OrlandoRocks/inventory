@@ -32,12 +32,10 @@ es:
       employees_asig: Empleados responsables
       companies: Compañias
       new_company: Nueva compañia
-      #branches: Sucursales -- original
-      branches: Departamentos
-      new_branch: Nuevo departamento
-      #departments: Departamentos -- Original
-      departments: Sucursal
-      new_department: Nueva sucursal
+      branches: Sucursales
+      new_branch: Nueva sucursal
+      departments: Departamentos
+      new_department: Nuevo departamento
       providers: Proveedores
       new_provider: Nuevo proveedor
       brands: Marcas

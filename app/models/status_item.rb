@@ -1,4 +1,4 @@
-class StatusItem < ActiveRecord::Base
+class StatusItem < ApplicationRecord
   has_many :items
   before_destroy :check_for_items
 

@@ -1,4 +1,4 @@
-class Brand < ActiveRecord::Base
+class Brand < ApplicationRecord
 
   has_many :items
   before_destroy :check_for_items
