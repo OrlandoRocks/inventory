@@ -23,7 +23,7 @@ gem 'audited', '~> 4.9'
 
 gem 'bootsnap', require: false
 
-
+gem 'redis', '~> 3.0'
 
 # Use jquery as the JavaScript library.
 gem 'jquery-rails', '~> 4.3'

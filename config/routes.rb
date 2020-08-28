@@ -16,6 +16,8 @@ Rails.application.routes.draw do
 
   delete 'departments/:department_id/employee/:id', to: 'departments#destroy_employee', as: :destroy_department_employee
 
+  mount ActionCable.server, at: '/cable'
+
   resources :items
   resources :providers
   resources :maintenances
