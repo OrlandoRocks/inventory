@@ -31,8 +31,10 @@ class ItemPolicy < ApplicationPolicy
       elsif @user.admin_department?
         status_id = StatusItem.where(key: %w(baja)).first
         scope.joins(:department).where('departments.manager_id = ? And items.status_id != ? ', @user.id,status_item_id)
+      elsif @user.user_employee?
+        scope.where(user_id: [nil, @user.id])
       else
-        scope.where(user_id: @user.id)
+        scope.all
       end
     end
   end

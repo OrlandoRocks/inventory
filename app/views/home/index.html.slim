@@ -9,53 +9,57 @@ section.content-header
 section.content
     .row
       /! ./col
-      .col-lg-3.col-xs-6
-        /! small box
-        .small-box.bg-blue
-          .inner
-            h3 = @branches_count
-            p Departamentos
-          .icon
-            i.fa.fa-home
-          a.small-box-footer href="/branches"
-            | Departamentos
-            i.fa.fa-arrow-circle-right
+      - if has_policy(Branch, %w(new index))
+        .col-lg-3.col-xs-6
+          /! small box
+          .small-box.bg-blue
+            .inner
+              h3 = @branches_count
+              p Departamentos
+            .icon
+              i.fa.fa-home
+            a.small-box-footer href="/branches"
+              | Departamentos
+              i.fa.fa-arrow-circle-right
 
-      .col-lg-3.col-xs-6
-        /! small box
-        .small-box.bg-aqua
-          .inner
-            h3 = @departments_count
-            p Sucursales
-          .icon
-            i.fa.fa-cubes
-          a.small-box-footer href="/departments"
-            | Sucursales
-            i.fa.fa-arrow-circle-right
+      - if has_policy(Department, %w(new index))
+        .col-lg-3.col-xs-6
+          /! small box
+          .small-box.bg-aqua
+            .inner
+              h3 = @departments_count
+              p Sucursales
+            .icon
+              i.fa.fa-cubes
+            a.small-box-footer href="/departments"
+              | Sucursales
+              i.fa.fa-arrow-circle-right
         /! ./col
-      .col-lg-3.col-xs-6
-        /! small box
-        .small-box.bg-green
-          .inner
-            h3 = @items_count
-            p Artículos
-          .icon
-            i.fa.fa-tag
-          a.small-box-footer href="/"
-            | Artículos
-            i.fa.fa-arrow-circle-right
+      - if has_policy(Item, %w(new index))
+        .col-lg-3.col-xs-6
+          /! small box
+          .small-box.bg-green
+            .inner
+              h3 = @items_count
+              p Artículos
+            .icon
+              i.fa.fa-tag
+            a.small-box-footer href="/"
+              | Artículos
+              i.fa.fa-arrow-circle-right
       /! ./col
-      .col-lg-3.col-xs-6
-        /! small box
-        .small-box.bg-yellow
-          .inner
-            h3 = @users_count
-            p Usuarios registrados
-          .icon
-            i.fa.fa-users
-          a.small-box-footer href="/users"
-            | Usuarios en el sistema
-            i.fa.fa-arrow-circle-right
+      - unless current_user.user_employee?
+        .col-lg-3.col-xs-6
+          /! small box
+          .small-box.bg-yellow
+            .inner
+              h3 = @users_count
+              p Usuarios registrados
+            .icon
+              i.fa.fa-users
+            a.small-box-footer href="/users"
+              | Usuarios en el sistema
+              i.fa.fa-arrow-circle-right
     .row
       .col-md-12
         .box
@@ -134,39 +138,6 @@ section.content
                     .box-body style=('display: block;')
                       = f.collection_select :brand_id_in, Brand.order(:name), :id, :name, {prompt: false},
                               {class: 'form-control select2', multiple: 'multiple', data: {placeholder: t('.brand')}}
-                /! End Brand
-
-
-                /! Ini Provideer
-                /.col-md-4
-                  .box.box-warning.box-solid
-                    .box-header.with-border
-                      h3.box-title = t('.f_provider')
-                      .box-tools.pull-right
-                        button.btn.btn-box-tool data-widget="collapse" type="button"
-                          i.fa.fa-minus
-                    .box-body style=('display: block;')
-                      = f.collection_select :provider_id_in, Provider.order(:name), :id, :name, {prompt: false},
-                              {class: 'form-control select2', multiple: 'multiple', data: {placeholder: t('.provider')}}
-                /! End Brand
-
-                /! Ini Maintenance Date
-                /.col-md-4
-                  .box.box-warning.box-solid
-                    .box-header.with-border
-                      h3.box-title = t('.f_maintenance_date')
-                      .box-tools.pull-right
-                        button.btn.btn-box-tool data-widget="collapse" type="button"
-                          i.fa.fa-minus
-                    .box-body style=('display: block;')
-                      /= f.text_field :user_first_name_or_user_last_name_or_user_maiden_name_or_department_manager_first_name_or_department_manager_last_name_or_department_manager_maiden_name_or_branch_user_first_name_or_branch_user_last_name_or_branch_user_maiden_name_or_company_user_first_name_or_company_user_last_name_or_company_user_maiden_name_or_direct_branch_user_first_name_or_direct_branch_user_last_name_or_direct_branch_user_maiden_name_or_direct_company_user_first_name_or_direct_company_user_last_name_or_direct_company_user_maiden_name_cont, class: 'form-control', placeholder: t('.responsible')
-                      = text_field_tag :date_range, params[:date_range], class: 'form-control date-range', placeholder: t('.maintenance_date')
-                      = hidden_field_tag :start_date
-                      = hidden_field_tag :end_date
-                /! End Maintenance Date
-
-                /.row
-                /! Ini Status
                 .col-md-4
                   .box.box-warning.box-solid
                     .box-header.with-border
@@ -235,24 +206,3 @@ section.content
               .dataTables_wrapper
                 .table-responsive#reporter-list
                   = render 'home/list_items_reporter'
-
-      / script id='modal.html' type='text/ng-template'
-        .modal.modal-fullscreen
-          .modal-dialog
-            .modal-content.form-horizontal style="width: 900px"
-              .modal-header
-                button.close aria-hidden="true" data-dismiss="modal" type="button"  ×
-                h4.modal-title
-                  = t('.modal_titulo')
-              .box-body
-                .row.form-group
-                  label.col-md-3.control-label
-                    = t('.select_company')
-                    | :
-                  .col-md-6
-                    select.form-control ng-model='company_selected'
-                      option value=""  Seleccione Empresa
-                      option ng-repeat="company in companies" ng-value="company.id"
-                        | {{company.name}}
-              .modal-footer
-                button.btn.btn-primary data-dismiss="modal" ng-click="setUserCompany(#{current_user.id})" type="button" Aceptar

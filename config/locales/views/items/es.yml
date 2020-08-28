@@ -145,6 +145,8 @@ es:
         code: Código
         branch: Sucursal
         description: Descripción
+        accessory: Accesorios
+        remission: Remisión
         model: Modelo
         serial_number: Numero de Serie
         purchased_date: Fecha de Compra

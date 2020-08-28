@@ -142,7 +142,6 @@ Rails.application.routes.draw do
       get '/get_maintenances/:id' => 'items#get_maintenances'
       get '/get_files/:id' => 'items#get_files'
 
-      get '/departments/:id/items/:employee_id' => 'departments#employee_items', as: :departments_employee_items
 
 
       #Regresa la info del articulo que se selecciona en la venta
@@ -151,6 +150,12 @@ Rails.application.routes.draw do
 
       get '/next_code_department/:branch_id', to:'branches#next_code'
 
+      #Rutas extras para Departamentos
+      get '/departments/:id/items/:employee_id' => 'departments#employee_items', as: :departments_employee_items
+      get 'departments_by_branch/:id' => 'departments#get_departments_by_branch'
+
+      #Rutas extras para subcategorias
+      get 'subcategory_by_category/:id' => 'sub_categories#get_subcategory_by_category'
 
 
 

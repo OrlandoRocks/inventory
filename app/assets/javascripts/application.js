@@ -44,11 +44,10 @@
 //= require ng-switchery/src/ng-switchery
 //= require angular/config
 //= require pace/pace
-//= require angular/Item
 //= require angular/controllers/user
 //= require angular/controllers/home
+//= require angular/controllers/item
 //= require departments
-//= require items
 //= require permissions
 //= require users
 //= require home
