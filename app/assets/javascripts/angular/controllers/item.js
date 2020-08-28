@@ -3,7 +3,6 @@
  */
 app.controller('itemController',["$scope", "ModalService", "$http", function($scope, ModalService, $http) {
 
-  
 
     // $scope.get_companies_services_json =  function(id) {
     //     $http.get('/admin/companies_services/show_by_company/'+id+'.json')
@@ -19,6 +18,11 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
 
 
     // $scope.get_companies_services_json($scope.company);
+
+    $('.datepicker').datepicker({
+        format: 'dd/mm/yyyy',
+        language: "es"
+    });
 
     $scope.show = function() {
 
@@ -49,6 +53,28 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
             });
         });
     };
+
+
+    $scope.get_department = function(){
+        $http({
+            url: '/departments_by_branch/'+ $scope.branch + '.json',
+            method: 'GET'
+        }).then(function (response) {
+            $scope.department = response.data;
+            $scope.consignee = response.data.manager;
+            $scope.full_name = $scope.consignee.first_name + ' ' + $scope.consignee.last_name;
+        });
+    };
+
+    $scope.get_subcategories = function(){
+        $http({
+            url: '/subcategory_by_category/'+ $scope.category + '.json',
+            method: 'GET'
+        }).then(function (response) {
+            $scope.sub_category = response.data;
+
+        });
+    }
 
 }]);
 

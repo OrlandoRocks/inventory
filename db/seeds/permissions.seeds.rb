@@ -80,5 +80,7 @@ Permission.create!([
   {name: "Permite Generar El Reporte Del Checklist Del Empleado", description: "Permite Generar el reporte del Checklist del empleado", action: "report_check_items_user", controller: "Reports"},
   {name: "Actualizar Fecha De Mantenimiento De Un Artículo", description: "Permite actualizar fecha de mantenimiento de un artículo", action: "change_maintenance_done", controller: "Items"},
   {name: "Obtener el ultimo codigo de un departamento para cuando no se tiene sucursal", description: "Permite obtener el ultimo codigo del departamento", action: "next_code", controller: "Branches"},
+  {name: "Obtener departmante por id de sucursal", description: "Permite Obtener departmante por id de sucursal", action: "get_departments_by_branch", controller: "Departments"},
+  {name: "Obtener SubCategorias por id de categoria", description: "Permite obtener SubCategorias por id de categoria", action: "get_subcategory_by_category", controller: "SubCategories"}
 
                    ])

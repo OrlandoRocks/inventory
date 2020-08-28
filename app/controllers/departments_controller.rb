@@ -109,6 +109,10 @@ class DepartmentsController < ApplicationController
 
   end
 
+  def get_departments_by_branch
+    @department = Department.find_by(branch_id: params[:id])
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_department

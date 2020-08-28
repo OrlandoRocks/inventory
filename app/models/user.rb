@@ -99,7 +99,7 @@ class User < ApplicationRecord
   scope :admins, -> { where(role_id: Role.find_by_key('admin').try(:id)) }
   scope :admins_company, -> { where(role_id: Role.find_by_key('admin_empresa').try(:id)) }
   scope :admins_branch, -> { where(role_id: Role.find_by_key('admin_sucursal').try(:id)) }
-  scope :admins_department, -> { where(role_id: Role.find_by_key('admin_departamento').try(:id)) }
+  scope :admins_department, -> { where(role_id: Role.find_by_key('admin_sucursal').try(:id)) }
 
   def god?
     role and role.key == 'god'

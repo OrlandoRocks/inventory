@@ -1,10 +1,10 @@
 class Item < ApplicationRecord
   belongs_to :sub_category
   #belongs_to :category, optional: true
-  belongs_to :provider
+  belongs_to :provider, optional: true
   belongs_to :department
-  belongs_to :user
-  belongs_to :brand
+  belongs_to :user, optional: true
+  belongs_to :brand, optional: true
   belongs_to :status_item
   belongs_to :direct_branch, class_name: 'Branch', foreign_key: 'branch_id'
   has_one :direct_company, through: :direct_branch, source: :company
@@ -25,21 +25,21 @@ class Item < ApplicationRecord
   mount_uploader :image, ItemUploader
 
 
-  validates :name ,:description , :sub_category_id , presence: true
+  validates :name ,:description  , presence: true
 
 
   #validates :time_unit_service, :time_quantity_service, :purchased_date, :name, presence: true
-  validates_processing_of :image
-  validate :image_size_validation
+  # validates_processing_of :image
+  # validate :image_size_validation
 
   before_save :set_maintenance_date
   before_create :set_maintenance_done
   before_update :calculate_maintenance_date
 
-  delegate :name, to: :brand, prefix: true, allow_nil: true
-  delegate :name, to: :provider, prefix: true, allow_nil: true
-  delegate :name, to: :sub_category, prefix: true, allow_nil: true
-  delegate :name, to: :category, prefix: true, allow_nil: true
+  # delegate :name, to: :brand, prefix: true, allow_nil: true
+  # delegate :name, to: :provider, prefix: true, allow_nil: true
+  # delegate :name, to: :sub_category, prefix: true, allow_nil: true
+  # delegate :name, to: :category, prefix: true, allow_nil: true
   delegate :name, to: :status_item, prefix: true, allow_nil: true
 
   def self.set_without_maintenance
