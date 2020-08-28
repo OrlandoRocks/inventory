@@ -387,7 +387,7 @@ DEPENDENCIES
   ransack!
   rb-readline
   redis (~> 3.0)
-  rjb (~> 1.5.5)
+  rjb (~> 1.5.9)
   sass-rails (~> 6.0)
   sdoc (~> 0.4.0)
   seed_dump (~> 3.3.0)
