@@ -1,6 +1,6 @@
 class RolesController < ApplicationController
   before_action :set_role, only: [:show, :edit, :update, :destroy]
-  add_breadcrumb proc { I18n.t('breadcrumbs.roles') }, :roles_path
+  # add_breadcrumb proc { I18n.t('breadcrumbs.roles') }, :roles_path
 
   # GET /roles
   # GET /roles.json

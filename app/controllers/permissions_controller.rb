@@ -1,6 +1,6 @@
 class PermissionsController < ApplicationController
   before_action :set_permission, only: [:show, :edit, :update, :destroy]
-  add_breadcrumb proc { I18n.t('breadcrumbs.permissions') }, :permissions_path
+  # add_breadcrumb proc { I18n.t('breadcrumbs.permissions') }, :permissions_path
 
   # GET /permissions
   # GET /permissions.json
