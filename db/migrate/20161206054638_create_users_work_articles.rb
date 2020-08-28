@@ -1,4 +1,4 @@
-class CreateUsersWorkArticles < ActiveRecord::Migration
+class CreateUsersWorkArticles < ActiveRecord::Migration[5.0]
   def change
     create_table :users_work_articles do |t|
       t.references :user, index: true, foreign_key: true

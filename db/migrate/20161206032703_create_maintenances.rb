@@ -1,4 +1,4 @@
-class CreateMaintenances < ActiveRecord::Migration
+class CreateMaintenances < ActiveRecord::Migration[5.0]
   def change
     create_table :maintenances do |t|
       t.string :name

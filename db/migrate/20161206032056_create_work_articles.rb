@@ -1,4 +1,4 @@
-class CreateWorkArticles < ActiveRecord::Migration
+class CreateWorkArticles < ActiveRecord::Migration[5.0]
   def change
     create_table :work_articles do |t|
       t.string :name

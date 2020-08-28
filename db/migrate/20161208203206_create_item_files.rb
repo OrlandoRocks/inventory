@@ -1,4 +1,4 @@
-class CreateItemFiles < ActiveRecord::Migration
+class CreateItemFiles < ActiveRecord::Migration[5.0]
   def change
     create_table :item_files do |t|
       t.references :item, index: true, foreign_key: true
