@@ -30,7 +30,7 @@ pickle-email-*.html
 /vendor/bundle
 
 # these should all be checked in to normalise the environment:
-# Gemfile.lock, .ruby-version, .ruby-gemset
+ Gemfile.lock, .ruby-version, .ruby-gemset
 
 # unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
 .rvmrc
@@ -70,8 +70,6 @@ output_file
 # Ignore Redis dump files.
 dump.rdb
 
-# Ignore application configuration.
-/config/application.yml
 
 
 

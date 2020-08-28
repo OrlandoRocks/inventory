@@ -14,9 +14,4 @@ ActiveRecord::Base.connection.reset_pk_sequence!('categories')
 # Category.create(name: 'OTROS', description: 'OTROS', status: 'true', company_id: 1)
 
 
-Category.create(name: 'MOBILIARIO Y EQUIPO DE OFICINA', description: 'MOBILIARIO Y EQUIPO DE OFICINA', status: 'true', company_id: 1)
-Category.create(name: 'EQUIPO DE TRANSPORTE', description: 'EQUIPO DE TRANSPORTE', status: 'true', company_id: 1)
-Category.create(name: 'OTROS ACTIVOS FIJOS', description: 'OTROS ACTIVOS FIJOS', status: 'true', company_id: 1)
-Category.create(name: 'EQUIPO DE COMPUTO', description: 'EQUIPO DE COMPUTO', status: 'true', company_id: 1)
-Category.create(name: 'SOFTWARE', description: 'SOFTWARE', status: 'true', company_id: 1)
-
+Category.create(name: 'REMOLEQUES', description: 'TRAILERS', status: 'true', company_id: 1)
