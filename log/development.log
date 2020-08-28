@@ -1,0 +1,84 @@
+Started GET "/items/new" for ::1 at 2020-08-28 16:20:17 -0600
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /Users/mac/.rvm/gems/ruby-2.5.1@inventory-gemset/gems/better_errors-2.7.1/lib/better_errors/middleware.rb:84
+
+ActiveRecord::PendingMigrationError - Migrations are pending. To resolve this issue, run:
+
+        bin/rails db:migrate RAILS_ENV=development
+
+:
+
+Started POST "/__better_errors/a79d167df4c5e0b0/variables" for ::1 at 2020-08-28 16:20:17 -0600
+  [1m[35m (63.0ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  ↳ /Users/mac/.rvm/gems/ruby-2.5.1@inventory-gemset/gems/rake-12.3.3/lib/rake/task.rb:273
+  [1m[35m (3.4ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6103990896674070750)[0m
+  ↳ /Users/mac/.rvm/gems/ruby-2.5.1@inventory-gemset/gems/rake-12.3.3/lib/rake/task.rb:273
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /Users/mac/.rvm/gems/ruby-2.5.1@inventory-gemset/gems/rake-12.3.3/lib/rake/task.rb:273
+Migrating to AddNewColumnsToItems (20200827044056)
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ /Users/mac/.rvm/gems/ruby-2.5.1@inventory-gemset/gems/rake-12.3.3/lib/rake/task.rb:273
+  [1m[35m (18.9ms)[0m  [1m[35mALTER TABLE "items" ADD "sale_price" decimal[0m
+  ↳ db/migrate/20200827044056_add_new_columns_to_items.rb:4
+  [1m[35m (1.0ms)[0m  [1m[35mALTER TABLE "items" ADD "remission" character varying[0m
+  ↳ db/migrate/20200827044056_add_new_columns_to_items.rb:5
+  [1m[35m (0.9ms)[0m  [1m[35mALTER TABLE "items" ADD "accessory" character varying[0m
+  ↳ db/migrate/20200827044056_add_new_columns_to_items.rb:6
+  [1m[36mActiveRecord::SchemaMigration Create (1.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200827044056"]]
+  ↳ /Users/mac/.rvm/gems/ruby-2.5.1@inventory-gemset/gems/rake-12.3.3/lib/rake/task.rb:273
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ /Users/mac/.rvm/gems/ruby-2.5.1@inventory-gemset/gems/rake-12.3.3/lib/rake/task.rb:273
+  [1m[36mActiveRecord::InternalMetadata Load (6.5ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  ↳ /Users/mac/.rvm/gems/ruby-2.5.1@inventory-gemset/gems/rake-12.3.3/lib/rake/task.rb:273
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ /Users/mac/.rvm/gems/ruby-2.5.1@inventory-gemset/gems/rake-12.3.3/lib/rake/task.rb:273
+  [1m[36mActiveRecord::InternalMetadata Create (12.7ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2020-08-28 22:20:37.752452"], ["updated_at", "2020-08-28 22:20:37.752452"]]
+  ↳ /Users/mac/.rvm/gems/ruby-2.5.1@inventory-gemset/gems/rake-12.3.3/lib/rake/task.rb:273
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ /Users/mac/.rvm/gems/ruby-2.5.1@inventory-gemset/gems/rake-12.3.3/lib/rake/task.rb:273
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_advisory_unlock(6103990896674070750)[0m
+  ↳ /Users/mac/.rvm/gems/ruby-2.5.1@inventory-gemset/gems/rake-12.3.3/lib/rake/task.rb:273
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /Users/mac/.rvm/gems/ruby-2.5.1@inventory-gemset/gems/rake-12.3.3/lib/rake/task.rb:273
+Started GET "/items/new" for ::1 at 2020-08-28 16:20:56 -0600
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /Users/mac/.rvm/gems/ruby-2.5.1@inventory-gemset/gems/better_errors-2.7.1/lib/better_errors/middleware.rb:84
+Processing by ItemsController#new as HTML
+  [1m[36mUser Load (13.8ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ /Users/mac/.rvm/gems/ruby-2.5.1@inventory-gemset/gems/orm_adapter-0.5.0/lib/orm_adapter/adapters/active_record.rb:17
+  [1m[36mRole Load (0.4ms)[0m  [1m[34mSELECT  "roles".* FROM "roles" WHERE "roles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/models/user.rb:105
+  [1m[36mCompany Load (6.2ms)[0m  [1m[34mSELECT  "companies".* FROM "companies" WHERE "companies"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:25
+  Rendering items/new.html.slim within layouts/application
+  [1m[36mBranch Load (24.1ms)[0m  [1m[34mSELECT "branches".* FROM "branches" INNER JOIN "companies" ON "companies"."id" = "branches"."company_id" WHERE (companies.id = 1) AND "branches"."company_id" = $1 ORDER BY companies.name ,branches.name, "branches"."name" ASC[0m  [["company_id", 1]]
+  ↳ /Users/mac/.rvm/gems/ruby-2.5.1@inventory-gemset/gems/client_side_validations-12.0.0/lib/client_side_validations/action_view/form_builder.rb:77
+  [1m[36mCategory Load (11.6ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."company_id" = $1 ORDER BY "categories"."name" ASC[0m  [["company_id", 1]]
+  ↳ app/views/items/_form.html.slim:55
+  [1m[36mCompany Load (0.3ms)[0m  [1m[34mSELECT  "companies".* FROM "companies" WHERE "companies"."id" = $1 ORDER BY "companies"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/items/_form.html.slim:101
+  Rendered items/_form.html.slim (233.0ms)
+  Rendered items/new.html.slim within layouts/application (329.1ms)
+  Rendered layouts/_javascripts.html.slim (10693.0ms)
+  Rendered layouts/_head.html.slim (13016.0ms)
+  [1m[35m (8.3ms)[0m  [1m[34mSELECT "items"."id" FROM "items" INNER JOIN "departments" ON "departments"."id" = "items"."department_id" INNER JOIN "branches" ON "branches"."id" = "departments"."branch_id" INNER JOIN "companies" ON "companies"."id" = "branches"."company_id" WHERE (companies.id = 1)[0m
+  ↳ app/policies/item_policy.rb:11
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "items"."id" FROM "items" INNER JOIN "branches" ON "branches"."id" = "items"."branch_id" INNER JOIN "companies" ON "companies"."id" = "branches"."company_id" WHERE (companies.id = 1)[0m
+  ↳ app/policies/item_policy.rb:13
+  [1m[35m (11.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "items" WHERE 1=0[0m
+  ↳ app/views/layouts/_header.html.slim:21
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "items" WHERE 1=0[0m
+  ↳ app/views/layouts/_header.html.slim:23
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "items" WHERE 1=0[0m
+  ↳ app/views/layouts/_header.html.slim:32
+  [1m[36mCACHE Company Load (0.0ms)[0m  [1m[34mSELECT  "companies".* FROM "companies" WHERE "companies"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:69
+  Rendered layouts/_account_dropdown.html.slim (3.8ms)
+  Rendered layouts/_header.html.slim (50.6ms)
+  Rendered layouts/_side_menu.html.slim (19.0ms)
+  Rendered layouts/_content.html.slim (4.5ms)
+  Rendered layouts/_footer.html.slim (2.6ms)
+  Rendered layouts/_control_sidebar.html.slim (29.3ms)
+Completed 200 OK in 13705ms (Views: 13375.6ms | ActiveRecord: 169.4ms)
+
+
