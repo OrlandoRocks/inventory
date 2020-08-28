@@ -14,7 +14,7 @@ class PermissionsController < ApplicationController
   def show
     add_breadcrumb @permission.name, :permission_path
   end
-
+  # GET /permissions/new# GET /permissions/new# GET /permissions/new
   # GET /permissions/new
   def new
     add_breadcrumb t('helpers.new'), :new_permission_path
