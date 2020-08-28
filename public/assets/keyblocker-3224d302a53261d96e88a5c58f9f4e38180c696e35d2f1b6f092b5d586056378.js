@@ -1,0 +1,1 @@
+function keyBlocker(e,n){$(e).on("keypress",function(e){var t,r;t=e.charCode||e.which,r=String.fromCharCode(t),n.test(r)||/((^8$)|(^0$))/g.test(t)||e.preventDefault()})}
