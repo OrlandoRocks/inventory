@@ -133,7 +133,7 @@ end
 
 
 #Gema de apoyo para reportes de jasper
-# gem 'rjb', '~> 1.5.9'
+gem 'rjb', '~> 1.5.9'
 
 # Easy upload management for ActiveRecord
 # gem 'paperclip', '~> 4.3', '>= 4.3.5'

@@ -1,7 +1,7 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   layout 'application', except: [:new, :create]
   layout 'out_system', only: [:new, :create]
-  add_breadcrumb proc { I18n.t('breadcrumbs.users') }, :user_registrations_path
+  # add_breadcrumb proc { I18n.t('breadcrumbs.users') }, :user_registrations_path
 
   before_action :set_user, only: [:show, :edit_user, :update_user, :destroy, :change_password, :save_password,
                                   :get_user_image, :assign_work_articles, :search_work_articles, :add_work_article]

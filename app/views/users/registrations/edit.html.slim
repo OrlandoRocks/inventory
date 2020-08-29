@@ -4,7 +4,7 @@ section.content
       = form_for(@user, url: get_user_image_path(@user), html: { multipart: true }, validate: true) do |f|
         .box.box-primary
           .box-body.box-profile
-            = image_tag @user.avatar.url(:small), class: 'profile-user-img img-responsive img-circle',
+            / = image_tag @user.avatar.url(:small), class: 'profile-user-img img-responsive img-circle',
                         onerror: "this.src='#{image_path 'user_image.png'}'"
             h3.profile-username.text-center
               = current_user.email
