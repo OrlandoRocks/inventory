@@ -69,7 +69,7 @@ class User < ApplicationRecord
   mount_uploader :received_file, FileUploader
 
   belongs_to :role
-  belongs_to :department
+  belongs_to :department, optional: true
 
   has_one :branch, through: :department
   has_one :company, through: :branch

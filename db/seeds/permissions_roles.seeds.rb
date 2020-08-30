@@ -1,3 +1,4 @@
+after :roles do
 PermissionRole.create!([
   {role_id: 4, permission_id: 17},
   {role_id: 4, permission_id: 18},
@@ -48,3 +49,4 @@ PermissionRole.create!([
   {role_id: 4, permission_id: 82},
   {role_id: 4, permission_id: 83}
  ])
+end
