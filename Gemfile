@@ -133,13 +133,13 @@ end
 
 
 #Gema de apoyo para reportes de jasper
-gem 'rjb', '~> 1.6.2'
+# gem 'rjb', '~> 1.6.2'
 
 # Easy upload management for ActiveRecord
 # gem 'paperclip', '~> 4.3', '>= 4.3.5'
 gem 'mini_magick', '~> 4.6'
 gem 'carrierwave', '~> 2.0'
-
+#
 
 #Gema para el manejo del componente de fecha
 gem 'bootstrap-datepicker-rails', '~> 1.6.4'
