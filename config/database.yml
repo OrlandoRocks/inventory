@@ -26,12 +26,16 @@ development:
   database: inventory
 
 production:
-  adapter: postgresql
-  encoding: unicode
-  database: inventory_production
-  pool: 5
-  username: inventory
-  password: tormenz.inventory
+  <<: *default
+  database: inventory
+  url:  <%= ENV["DATABASE_URL"] %>
+  pool: <%= ENV["DB_POOL"] || ENV['RAILS_MAX_THREADS'] || 5 %>
+#  adapter: postgresql
+#  encoding: unicode
+#  database: inventory_production
+#  pool: 5
+#  username: inventory
+#  password: tormenz.inventory
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
