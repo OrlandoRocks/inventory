@@ -596,3 +596,171 @@ Processing by HomeController#index as HTML
 Completed 200 OK in 2832ms (Views: 2625.9ms | ActiveRecord: 77.9ms)
 
 
+Started GET "/" for 127.0.0.1 at 2020-08-30 12:02:55 -0600
+  [1m[35m (6.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /Users/mac/.rvm/gems/ruby-2.5.1@inventory-gemset/gems/better_errors-2.7.1/lib/better_errors/middleware.rb:84
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ /Users/mac/.rvm/gems/ruby-2.5.1@inventory-gemset/gems/orm_adapter-0.5.0/lib/orm_adapter/adapters/active_record.rb:17
+Processing by HomeController#index as HTML
+  [1m[36mCompany Load (0.6ms)[0m  [1m[34mSELECT  "companies".* FROM "companies" WHERE "companies"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:25
+  [1m[36mRole Load (0.3ms)[0m  [1m[34mSELECT  "roles".* FROM "roles" WHERE "roles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/models/user.rb:105
+  [1m[35m (1.8ms)[0m  [1m[34mSELECT "items"."id" FROM "items" INNER JOIN "departments" ON "departments"."id" = "items"."department_id" INNER JOIN "branches" ON "branches"."id" = "departments"."branch_id" INNER JOIN "companies" ON "companies"."id" = "branches"."company_id" WHERE (companies.id = 1)[0m
+  ↳ app/policies/item_policy.rb:11
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "items"."id" FROM "items" INNER JOIN "branches" ON "branches"."id" = "items"."branch_id" INNER JOIN "companies" ON "companies"."id" = "branches"."company_id" WHERE (companies.id = 1)[0m
+  ↳ app/policies/item_policy.rb:13
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "items" WHERE 1=0[0m
+  ↳ app/controllers/home_controller.rb:20
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "user_id" FROM "users" INNER JOIN "companies" ON "companies"."user_id" = "users"."id" WHERE (companies.id = 1)[0m
+  ↳ app/policies/user_policy.rb:11
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "manager_id" FROM "users" INNER JOIN "companies" ON "companies"."user_id" = "users"."id" INNER JOIN "branches" ON "branches"."company_id" = "companies"."id" WHERE (companies.id = 1)[0m
+  ↳ app/policies/user_policy.rb:13
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT departments.manager_id FROM "users" INNER JOIN "companies" ON "companies"."user_id" = "users"."id" INNER JOIN "branches" ON "branches"."company_id" = "companies"."id" INNER JOIN "departments" ON "departments"."branch_id" = "branches"."id" WHERE (companies.id = 1)[0m
+  ↳ app/policies/user_policy.rb:15
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT departments.id FROM "companies" INNER JOIN "branches" ON "branches"."company_id" = "companies"."id" INNER JOIN "departments" ON "departments"."branch_id" = "branches"."id" WHERE (companies.id = 1)[0m
+  ↳ app/policies/user_policy.rb:17
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE (users.id in (1) or department_id in (1) )[0m
+  ↳ app/controllers/home_controller.rb:24
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "branches" INNER JOIN "companies" ON "companies"."id" = "branches"."company_id" WHERE (companies.id = 1)[0m
+  ↳ app/controllers/home_controller.rb:26
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "departments" INNER JOIN "branches" ON "branches"."id" = "departments"."branch_id" INNER JOIN "companies" ON "companies"."id" = "branches"."company_id" WHERE (companies.id = 1)[0m
+  ↳ app/controllers/home_controller.rb:27
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT SUM("items"."price") FROM "items" WHERE 1=0[0m
+  ↳ app/controllers/home_controller.rb:31
+  Rendering home/index.html.slim within layouts/application
+  [1m[36mBranch Load (0.6ms)[0m  [1m[34mSELECT "branches".* FROM "branches" INNER JOIN "companies" ON "companies"."id" = "branches"."company_id" WHERE (companies.id = 1) ORDER BY companies.name ,branches.name[0m
+  ↳ /Users/mac/.rvm/gems/ruby-2.5.1@inventory-gemset/gems/client_side_validations-12.0.0/lib/client_side_validations/action_view/form_builder.rb:77
+  [1m[36mBranch Load (0.6ms)[0m  [1m[34mSELECT "branches".* FROM "branches" INNER JOIN "companies" ON "companies"."id" = "branches"."company_id" WHERE (companies.id = 1) ORDER BY companies.name ,branches.name, "branches"."name" ASC[0m
+  ↳ app/views/home/index.html.slim:99
+  [1m[36mDepartment Load (0.2ms)[0m  [1m[34mSELECT "departments".* FROM "departments" WHERE "departments"."branch_id" = $1 ORDER BY "departments"."id" ASC[0m  [["branch_id", 1]]
+  ↳ app/views/home/index.html.slim:99
+  [1m[36mCategory Load (0.4ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."company_id" = $1 ORDER BY "categories"."name" ASC[0m  [["company_id", 1]]
+  ↳ /Users/mac/.rvm/gems/ruby-2.5.1@inventory-gemset/gems/client_side_validations-12.0.0/lib/client_side_validations/action_view/form_builder.rb:77
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."company_id" = $1 ORDER BY "categories"."name" ASC[0m  [["company_id", 1]]
+  ↳ app/views/home/index.html.slim:126
+  [1m[36mSubCategory Load (0.6ms)[0m  [1m[34mSELECT "sub_categories".* FROM "sub_categories" WHERE "sub_categories"."category_id" = $1 ORDER BY name, "sub_categories"."id" ASC[0m  [["category_id", 2]]
+  ↳ app/views/home/index.html.slim:126
+  [1m[36mBrand Load (0.5ms)[0m  [1m[34mSELECT "brands".* FROM "brands" ORDER BY "brands"."name" ASC[0m
+  ↳ /Users/mac/.rvm/gems/ruby-2.5.1@inventory-gemset/gems/client_side_validations-12.0.0/lib/client_side_validations/action_view/form_builder.rb:77
+  [1m[36mStatusItem Load (0.4ms)[0m  [1m[34mSELECT "status_items".* FROM "status_items" ORDER BY "status_items"."name" ASC[0m
+  ↳ /Users/mac/.rvm/gems/ruby-2.5.1@inventory-gemset/gems/client_side_validations-12.0.0/lib/client_side_validations/action_view/form_builder.rb:77
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."first_name" ASC, "users"."last_name" ASC, "users"."maiden_name" ASC[0m
+  ↳ app/views/home/index.html.slim:162
+  [1m[36mCACHE Role Load (0.0ms)[0m  [1m[34mSELECT  "roles".* FROM "roles" WHERE "roles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/models/user.rb:83
+  [1m[36mRole Load (0.2ms)[0m  [1m[34mSELECT  "roles".* FROM "roles" WHERE "roles"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  ↳ app/models/user.rb:83
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "items" WHERE 1=0[0m
+  ↳ /Users/mac/.rvm/gems/ruby-2.5.1@inventory-gemset/gems/will_paginate-3.3.0/lib/will_paginate/active_record.rb:92
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "items" WHERE 1=0[0m
+  ↳ /Users/mac/.rvm/gems/ruby-2.5.1@inventory-gemset/gems/will_paginate-3.3.0/lib/will_paginate/active_record.rb:92
+  [1m[36mItem Load (0.4ms)[0m  [1m[34mSELECT  "items".* FROM "items" WHERE 1=0 ORDER BY code asc LIMIT $1 OFFSET $2[0m  [["LIMIT", 20], ["OFFSET", 0]]
+  ↳ app/views/home/_list_items_reporter.html.slim:27
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "items" WHERE 1=0[0m
+  ↳ /Users/mac/.rvm/gems/ruby-2.5.1@inventory-gemset/gems/will_paginate-3.3.0/lib/will_paginate/active_record.rb:92
+  Rendered home/_list_items_reporter.html.slim (15.5ms)
+  Rendered home/index.html.slim within layouts/application (224.8ms)
+  Rendered layouts/_javascripts.html.slim (1210.4ms)
+  Rendered layouts/_head.html.slim (1849.2ms)
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "items" WHERE 1=0[0m
+  ↳ app/views/layouts/_header.html.slim:21
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "items" WHERE 1=0[0m
+  ↳ app/views/layouts/_header.html.slim:23
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "items" WHERE 1=0[0m
+  ↳ app/views/layouts/_header.html.slim:32
+  [1m[36mCACHE Company Load (0.0ms)[0m  [1m[34mSELECT  "companies".* FROM "companies" WHERE "companies"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:69
+  Rendered layouts/_account_dropdown.html.slim (6.9ms)
+  Rendered layouts/_header.html.slim (29.1ms)
+  Rendered layouts/_side_menu.html.slim (24.3ms)
+  Rendered layouts/_content.html.slim (2.9ms)
+  Rendered layouts/_footer.html.slim (3.4ms)
+  Rendered layouts/_control_sidebar.html.slim (31.0ms)
+Completed 200 OK in 2367ms (Views: 2201.0ms | ActiveRecord: 39.8ms)
+
+
+Started GET "/" for 127.0.0.1 at 2020-08-30 22:13:01 -0600
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /Users/mac/.rvm/gems/ruby-2.5.1@inventory-gemset/gems/better_errors-2.7.1/lib/better_errors/middleware.rb:84
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ /Users/mac/.rvm/gems/ruby-2.5.1@inventory-gemset/gems/orm_adapter-0.5.0/lib/orm_adapter/adapters/active_record.rb:17
+Processing by HomeController#index as HTML
+  [1m[36mCompany Load (0.3ms)[0m  [1m[34mSELECT  "companies".* FROM "companies" WHERE "companies"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:25
+  [1m[36mRole Load (0.3ms)[0m  [1m[34mSELECT  "roles".* FROM "roles" WHERE "roles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/models/user.rb:105
+  [1m[35m (1.8ms)[0m  [1m[34mSELECT "items"."id" FROM "items" INNER JOIN "departments" ON "departments"."id" = "items"."department_id" INNER JOIN "branches" ON "branches"."id" = "departments"."branch_id" INNER JOIN "companies" ON "companies"."id" = "branches"."company_id" WHERE (companies.id = 1)[0m
+  ↳ app/policies/item_policy.rb:11
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "items"."id" FROM "items" INNER JOIN "branches" ON "branches"."id" = "items"."branch_id" INNER JOIN "companies" ON "companies"."id" = "branches"."company_id" WHERE (companies.id = 1)[0m
+  ↳ app/policies/item_policy.rb:13
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "items" WHERE 1=0[0m
+  ↳ app/controllers/home_controller.rb:20
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "user_id" FROM "users" INNER JOIN "companies" ON "companies"."user_id" = "users"."id" WHERE (companies.id = 1)[0m
+  ↳ app/policies/user_policy.rb:11
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "manager_id" FROM "users" INNER JOIN "companies" ON "companies"."user_id" = "users"."id" INNER JOIN "branches" ON "branches"."company_id" = "companies"."id" WHERE (companies.id = 1)[0m
+  ↳ app/policies/user_policy.rb:13
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT departments.manager_id FROM "users" INNER JOIN "companies" ON "companies"."user_id" = "users"."id" INNER JOIN "branches" ON "branches"."company_id" = "companies"."id" INNER JOIN "departments" ON "departments"."branch_id" = "branches"."id" WHERE (companies.id = 1)[0m
+  ↳ app/policies/user_policy.rb:15
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT departments.id FROM "companies" INNER JOIN "branches" ON "branches"."company_id" = "companies"."id" INNER JOIN "departments" ON "departments"."branch_id" = "branches"."id" WHERE (companies.id = 1)[0m
+  ↳ app/policies/user_policy.rb:17
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" WHERE (users.id in (1) or department_id in (1) )[0m
+  ↳ app/controllers/home_controller.rb:24
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "branches" INNER JOIN "companies" ON "companies"."id" = "branches"."company_id" WHERE (companies.id = 1)[0m
+  ↳ app/controllers/home_controller.rb:26
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "departments" INNER JOIN "branches" ON "branches"."id" = "departments"."branch_id" INNER JOIN "companies" ON "companies"."id" = "branches"."company_id" WHERE (companies.id = 1)[0m
+  ↳ app/controllers/home_controller.rb:27
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT SUM("items"."price") FROM "items" WHERE 1=0[0m
+  ↳ app/controllers/home_controller.rb:31
+  Rendering home/index.html.slim within layouts/application
+  [1m[36mBranch Load (0.6ms)[0m  [1m[34mSELECT "branches".* FROM "branches" INNER JOIN "companies" ON "companies"."id" = "branches"."company_id" WHERE (companies.id = 1) ORDER BY companies.name ,branches.name[0m
+  ↳ /Users/mac/.rvm/gems/ruby-2.5.1@inventory-gemset/gems/client_side_validations-12.0.0/lib/client_side_validations/action_view/form_builder.rb:77
+  [1m[36mBranch Load (0.5ms)[0m  [1m[34mSELECT "branches".* FROM "branches" INNER JOIN "companies" ON "companies"."id" = "branches"."company_id" WHERE (companies.id = 1) ORDER BY companies.name ,branches.name, "branches"."name" ASC[0m
+  ↳ app/views/home/index.html.slim:99
+  [1m[36mDepartment Load (0.3ms)[0m  [1m[34mSELECT "departments".* FROM "departments" WHERE "departments"."branch_id" = $1 ORDER BY "departments"."id" ASC[0m  [["branch_id", 1]]
+  ↳ app/views/home/index.html.slim:99
+  [1m[36mCategory Load (0.6ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."company_id" = $1 ORDER BY "categories"."name" ASC[0m  [["company_id", 1]]
+  ↳ /Users/mac/.rvm/gems/ruby-2.5.1@inventory-gemset/gems/client_side_validations-12.0.0/lib/client_side_validations/action_view/form_builder.rb:77
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."company_id" = $1 ORDER BY "categories"."name" ASC[0m  [["company_id", 1]]
+  ↳ app/views/home/index.html.slim:126
+  [1m[36mSubCategory Load (1.0ms)[0m  [1m[34mSELECT "sub_categories".* FROM "sub_categories" WHERE "sub_categories"."category_id" = $1 ORDER BY name, "sub_categories"."id" ASC[0m  [["category_id", 2]]
+  ↳ app/views/home/index.html.slim:126
+  [1m[36mBrand Load (0.5ms)[0m  [1m[34mSELECT "brands".* FROM "brands" ORDER BY "brands"."name" ASC[0m
+  ↳ /Users/mac/.rvm/gems/ruby-2.5.1@inventory-gemset/gems/client_side_validations-12.0.0/lib/client_side_validations/action_view/form_builder.rb:77
+  [1m[36mStatusItem Load (0.5ms)[0m  [1m[34mSELECT "status_items".* FROM "status_items" ORDER BY "status_items"."name" ASC[0m
+  ↳ /Users/mac/.rvm/gems/ruby-2.5.1@inventory-gemset/gems/client_side_validations-12.0.0/lib/client_side_validations/action_view/form_builder.rb:77
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."first_name" ASC, "users"."last_name" ASC, "users"."maiden_name" ASC[0m
+  ↳ app/views/home/index.html.slim:162
+  [1m[36mCACHE Role Load (0.0ms)[0m  [1m[34mSELECT  "roles".* FROM "roles" WHERE "roles"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/models/user.rb:83
+  [1m[36mRole Load (0.2ms)[0m  [1m[34mSELECT  "roles".* FROM "roles" WHERE "roles"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  ↳ app/models/user.rb:83
+  [1m[35mCACHE  (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "items" WHERE 1=0[0m
+  ↳ /Users/mac/.rvm/gems/ruby-2.5.1@inventory-gemset/gems/will_paginate-3.3.0/lib/will_paginate/active_record.rb:92
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "items" WHERE 1=0[0m
+  ↳ /Users/mac/.rvm/gems/ruby-2.5.1@inventory-gemset/gems/will_paginate-3.3.0/lib/will_paginate/active_record.rb:92
+  [1m[36mItem Load (0.6ms)[0m  [1m[34mSELECT  "items".* FROM "items" WHERE 1=0 ORDER BY code asc LIMIT $1 OFFSET $2[0m  [["LIMIT", 20], ["OFFSET", 0]]
+  ↳ app/views/home/_list_items_reporter.html.slim:27
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "items" WHERE 1=0[0m
+  ↳ /Users/mac/.rvm/gems/ruby-2.5.1@inventory-gemset/gems/will_paginate-3.3.0/lib/will_paginate/active_record.rb:92
+  Rendered home/_list_items_reporter.html.slim (19.1ms)
+  Rendered home/index.html.slim within layouts/application (267.1ms)
+  Rendered layouts/_javascripts.html.slim (1002.4ms)
+  Rendered layouts/_head.html.slim (1580.1ms)
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "items" WHERE 1=0[0m
+  ↳ app/views/layouts/_header.html.slim:21
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "items" WHERE 1=0[0m
+  ↳ app/views/layouts/_header.html.slim:23
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "items" WHERE 1=0[0m
+  ↳ app/views/layouts/_header.html.slim:32
+  [1m[36mCACHE Company Load (0.0ms)[0m  [1m[34mSELECT  "companies".* FROM "companies" WHERE "companies"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:69
+  Rendered layouts/_account_dropdown.html.slim (3.8ms)
+  Rendered layouts/_header.html.slim (24.4ms)
+  Rendered layouts/_side_menu.html.slim (16.7ms)
+  Rendered layouts/_content.html.slim (2.4ms)
+  Rendered layouts/_footer.html.slim (2.4ms)
+  Rendered layouts/_control_sidebar.html.slim (26.9ms)
+Completed 200 OK in 2135ms (Views: 1962.4ms | ActiveRecord: 42.3ms)
+
+

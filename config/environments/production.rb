@@ -70,7 +70,7 @@ Rails.application.configure do
       enable_starttls_auto: true  }
 
   config.action_mailer.perform_deliveries = true
-  config.action_mailer.default_url_options = { :host => 'tiempo.com.mx' }
+  config.action_mailer.default_url_options = { :host => 'tranquil-taiga-01571.herokuapp.com' }
   #config.action_mailer.asset_host = 'assets.tiempo.com.mx'
   config.action_mailer.raise_delivery_errors = true
 

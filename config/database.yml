@@ -26,14 +26,12 @@ development:
   database: inventory
 
 production:
-  <<: *default
-  database: inventory
-#  adapter: postgresql
-#  encoding: unicode
-#  database: inventory_production
-#  pool: 5
-#  username: inventory
-#  password: tormenz.inventory
+  adapter: postgresql
+  encoding: unicode
+  database: inventory_production
+  pool: 5
+  username: inventory
+  password: tormenz.inventory
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
