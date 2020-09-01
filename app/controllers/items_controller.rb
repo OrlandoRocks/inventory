@@ -29,7 +29,9 @@ class ItemsController < ApplicationController
     unless current_user.try(:current_company).eql?(0) or current_user.try(:current_company).eql?(nil)
       @item = Item.new
       @users =  Company.where(id: current_user.current_company)
-      @branches = current_user.current_company.eql?(0) ? policy_scope(Branch).order(:name) : policy_scope(Branch).where(company_id: @current_company.try(:id)).order(:name);
+      @branches = current_user.current_company.eql?(0) ? policy_scope(Branch).order(:name) : policy_scope(Branch).where(company_id: @current_company.try(:id)).order(:name)
+      @categories = Category.all
+
     else
       redirect_to authenticated_root_path, notice: 'Es necesario seleccionar una empresa para continuar.'
     end
@@ -42,7 +44,8 @@ class ItemsController < ApplicationController
     else
       @users =  Company.where(id: current_user.current_company)
     end
-    @branches = current_user.current_company.eql?(0) ? policy_scope(Branch).order(:name) : policy_scope(Branch).where(company_id: @current_company.try(:id)).order(:name);
+    @branches = current_user.current_company.eql?(0) ? policy_scope(Branch).order(:name) : policy_scope(Branch).where(company_id: @current_company.try(:id)).order(:name)
+    @categories = Category.all
   end
 
   # POST /items
@@ -284,7 +287,7 @@ class ItemsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def item_params
       params.require(:item).permit(:name,:code, :description, :image, :model, :serial_number, :purchased_date,
-                                   :in_service_date, :time_unit_service, :time_quantity_service, :price,
+                                   :in_service_date, :time_unit_service, :time_quantity_service, :price, :category_id,
                                    :time_unit_depreciation, :time_quantity_depreciation, :sub_category_id, :provider_id,
                                    :department_id, :user_id, :brand_id, :status_item_id, :maintenance_date,
                                    :maintenance_done, :branch_id, :accessory, :remission )

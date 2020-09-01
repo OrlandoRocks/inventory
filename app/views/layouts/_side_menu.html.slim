@@ -26,8 +26,6 @@ aside.main-sidebar
             ul.treeview-menu
               li
                 = link_item "<i class='fa fa-circle-o'></i> #{t '.items'}".html_safe, items_path
-              li
-                = link_item "<i class='fa fa-circle-o'></i> #{t '.new_item'}".html_safe, new_item_path
 
       - if has_policy(Branch, %w(new index))
         li.treeview

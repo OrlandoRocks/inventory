@@ -24,6 +24,19 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
         language: "es"
     });
 
+    $scope.init = function(branches, categories, item){
+        $scope.branches = branches;
+        $scope.categories = categories;
+
+        if(item !== null && item !== undefined){
+            $scope.branch = item.branch_id;
+            $scope.category = item.category_id;
+            $scope.get_department();
+            $scope.get_subcategories();
+        }
+
+    };
+
     $scope.show = function() {
 
         ModalService.showModal({
