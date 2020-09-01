@@ -1,4 +1,4 @@
-class CreateStatusItems < ActiveRecord::Migration
+class CreateStatusItems < ActiveRecord::Migration[5.0]
   def change
     create_table :status_items do |t|
       t.string :name

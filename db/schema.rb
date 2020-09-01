@@ -268,11 +268,6 @@ ActiveRecord::Schema.define(version: 2020_08_27_044056) do
     t.datetime "last_sign_in_at"
     t.inet "current_sign_in_ip"
     t.inet "last_sign_in_ip"
-    t.string "first_name"
-    t.string "last_name"
-    t.string "middle_name"
-    t.string "maiden_name"
-    t.string "username"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "confirmation_token"
@@ -280,6 +275,10 @@ ActiveRecord::Schema.define(version: 2020_08_27_044056) do
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
     t.integer "role_id"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "maiden_name"
+    t.string "username"
     t.string "avatar"
     t.integer "department_id"
     t.integer "employee_number"

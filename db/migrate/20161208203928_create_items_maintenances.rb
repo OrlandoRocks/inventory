@@ -1,4 +1,4 @@
-class CreateItemsMaintenances < ActiveRecord::Migration
+class CreateItemsMaintenances < ActiveRecord::Migration[5.0]
   def change
     create_table :items_maintenances do |t|
       t.references :item, index: true, foreign_key: true
