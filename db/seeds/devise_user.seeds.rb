@@ -15,7 +15,7 @@ after :roles do
 
 # Content.
   User.create(email: 'god@example.com', username: 'divinity', first_name: 'God', last_name: 'System',
-              maiden_name: 'User', role_id: Role.find_by_key('god').id, password: 'inventory2017',
+              maiden_name: 'User', role_id: Role.find_by_key('god').id, password: 'inventory',
               confirmed_at: Time.now, sign_in_count: 0, employee_number: 12345)
 
   # User.create(email: 'admin@example.com', username: 'admin', first_name: 'Admin', last_name: 'Admin',
@@ -36,3 +36,6 @@ after :roles do
   #             sign_in_count: 0)
 
 end
+Company.create(name: 'AgroTrailers Planet', description: 'AgroTrailers Planet',
+        address: 'Cambiar Direccion', phone: 'Cambiar Telefono',
+        user_id: 1)
