@@ -9,14 +9,15 @@ div ng-controller="itemController"
 
 
     = form_for(item, item: 'form', html: {class: 'form-horizontal'}, validate: true) do |f|
-      .box-body
+      .box-body ng-init="init(#{@branches.to_json}, #{@categories.to_json}, #{@item.to_json})"
         - unless current_user.admin_department?
           .row.form-group
             = f.label :branch_id, class: 'col-sm-2 control-label'
             .col-md-10
               / TODO: Hacer un helper
-              = f.collection_select :branch_id, @branches, :id, :name,
-                      {prompt: t('helpers.select.prompt')},{class: 'form-control', data: {placeholder: t('.branch')}, "ng-change": "get_department()", "ng-model": "branch"}
+              select.form-control ng-change="get_department()" ng-model="branch" ng-options=("branch.id as branch.name for branch in branches") required="true"
+                option disabled="" selected="" value=""  Sucursales...
+              = f.hidden_field :branch_id, value: '{{branch}}'
 
           .row.form-group
             = f.label :department_id, class: 'col-sm-2 control-label'
@@ -52,13 +53,14 @@ div ng-controller="itemController"
         .row.form-group
           = label_tag 'Categoria', 'Categoría', class: 'col-sm-2 control-label'
           .col-md-4
-            = select_tag('category_id', options_from_collection_for_select(policy_scope(Category), 'id', 'name'),
-                    {prompt: t('helpers.select.prompt'), class: 'form-control', 'ng-change': 'get_subcategories()', 'ng-model': 'category'})
-            input type='hidden' name='item[category_id]' value='{{category}}'
+            select.form-control ng-change="get_subcategories()" ng-model="category" ng-options=("category.id as category.name for category in categories") required="true"
+              option disabled="" selected="" value=""  Categorias...
+            = f.hidden_field :category_id, value: '{{category}}'
+
           = f.label :sub_category_id, class: 'col-sm-2 control-label'
           .col-md-4
             = text_field_tag 'subcategoria','', class: 'form-control', placeholder: 'Subcategoria', disabled: true, 'ng-model': 'sub_category.name'
-            input type='hidden' name='item[sub_category_id]' value='{{sub_category.id}}'
+            = f.hidden_field :sub_category_id, value: '{{sub_category.id}}'
 
         .row.form-group
           = f.label :purchased_date, class: 'col-sm-2 control-label'
