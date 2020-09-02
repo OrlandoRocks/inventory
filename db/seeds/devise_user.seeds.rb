@@ -35,7 +35,9 @@ after :roles do
   #             role_id: Role.find_by_key('admin_departamento').id, password: 'password', confirmed_at: Time.now,
   #             sign_in_count: 0)
 
+
+  Company.create(name: 'AgroTrailers Planet', description: 'AgroTrailers Planet',
+                 address: 'Cambiar Direccion', phone: 'Cambiar Telefono',
+                 user_id: 1)
+
 end
-Company.create(name: 'AgroTrailers Planet', description: 'AgroTrailers Planet',
-        address: 'Cambiar Direccion', phone: 'Cambiar Telefono',
-        user_id: 1)
