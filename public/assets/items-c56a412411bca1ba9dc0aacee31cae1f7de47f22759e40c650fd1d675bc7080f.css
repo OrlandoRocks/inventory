@@ -1,0 +1,4 @@
+/* line 6, app/assets/stylesheets/items.scss */
+#reporter_form div[class^="col"] {
+  margin-bottom: 5px;
+}

@@ -1,0 +1,47 @@
+/* line 1, app/assets/stylesheets/forms.scss */
+textarea {
+  resize: vertical;
+}
+
+/* line 6, app/assets/stylesheets/forms.scss */
+.box-footer .btn {
+  margin: 5px 5px 5px 0;
+}
+
+/* line 9, app/assets/stylesheets/forms.scss */
+.box-footer :last-child {
+  margin: 0;
+}
+
+/* line 14, app/assets/stylesheets/forms.scss */
+.checkbox {
+  margin: 0;
+}
+
+/* line 18, app/assets/stylesheets/forms.scss */
+.checkboxes {
+  padding-left: 0;
+}
+
+/* line 22, app/assets/stylesheets/forms.scss */
+.check-container {
+  display: -webkit-box;
+  display: flex;
+  margin-bottom: 8px;
+}
+
+/* line 26, app/assets/stylesheets/forms.scss */
+.check-container .description {
+  margin: 0 5px 0 5px;
+  width: 90%;
+}
+
+/* line 30, app/assets/stylesheets/forms.scss */
+.check-container div.checker, .check-container div.checker span, .check-container div.checker input {
+  width: 0px !important;
+}
+
+/* line 35, app/assets/stylesheets/forms.scss */
+.permissions-description {
+  margin: 0px 5px 0 3px;
+}
