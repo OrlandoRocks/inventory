@@ -46,7 +46,7 @@
     .row.form-group
       = f.label :city, class: 'col-sm-2 control-label'
       .col-sm-10
-        = f.collection_select(:city_id, City.all, :id, :name,
+        = f.collection_select(:city_id, City.all.uniq, :id, :name,
                 {prompt: t('helpers.select.prompt')}, {class: 'form-control', :disabled => "disabled"})
     .row.form-group
       = f.label :code, class: 'col-sm-2 control-label'
