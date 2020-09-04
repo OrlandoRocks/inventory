@@ -30,7 +30,7 @@
     .row.form-group
       = f.label :manager_id, class: 'col-sm-2 control-label'
       .col-sm-10
-        = f.collection_select(:manager_id, User.admins_department, :id, :full_name,
+        = f.collection_select(:manager_id, User.all, :id, :full_name,
                 {prompt: t('helpers.select.prompt')}, {class: 'form-control'})
 
   .box-footer
