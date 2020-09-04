@@ -15,10 +15,6 @@ app.controller('homeController',["$scope", "$http","ModalService", function($sco
     $scope.show = function() {
 
 
-        console.log('current_company');
-        console.log($scope.current_company);
-
-
         ModalService.showModal({
             templateUrl: 'modal_select_company.html',
             controller: "ModalSelectCompanyController as modal",
@@ -60,8 +56,6 @@ app.controller('ModalSelectCompanyController', ['$scope','close' ,'$http', '$tim
 
     $scope.companies = [];
 
-    console.log('company');
-    console.log(company);
 
     $http({
         method: "GET",
