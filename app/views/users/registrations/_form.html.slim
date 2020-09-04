@@ -11,35 +11,36 @@
         / = f.collection_select(:role_id, @roles, :id, :name,
                 {prompt: t('helpers.select.prompt')}, {class: 'form-control', "ng-model" => "user_type", "ng-change"=>"set_role(user_type);company=''; branch_selected=''; department_selected=''"})
 
-    .row.form-group ng-show="user_type.id!='' && level!=0"
+    .row.form-group ng-show="user_type.id!=''"
       = f.label :current_company, class: 'col-sm-2 control-label'
       .col-sm-10
         select.form-control ng-change="set_branches(company.id)" name='user[current_company]' ng-model="company" ng-options=("company as company.name for company in companies track by company.id")
           option value=""  Seleccione una Compañia...
         / = f.collection_select(:company, @companies, :id, :name,
                 {prompt: t('helpers.select.prompt')}, {selected: @companies.first, class: 'form-control', "ng-model" => "company", "ng-change" => "set_branches(company)"})
-    .row.form-group ng-show="company!='' && level>=2"
+    .row.form-group ng-show="company!=''"
       = f.label :branch, class: 'col-sm-2 control-label'
       .col-sm-10
-        select.form-control ng-model='branch_selected' ng-change="set_department(branch_selected.id)" name='user[branch]' ng-options=("branch as branch.name for branch in branches track by branch.id")
-          option value=""  Seleccione Departamento
+        select.form-control ng-model='branch_selected' ng-change="set_department(branch_selected.id)"  ng-options=("branch as branch.name for branch in branches track by branch.id")
+          option value=""  Seleccione Sucursal
           / option ng-repeat="branch in branches" ng-value="branch.id"
             | {{branch.name}}
-    .row.form-group ng-show="branch_selected!='' && level>=3"
+    .row.form-group ng-show="branch_selected!=''"
       = f.label :department_id, class: 'col-sm-2 control-label'
       .col-sm-10
-        select.form-control ng-model='department_selected' name='user[department]' ng-change="set_department_boss(department_selected.id)" ng-options=("department as department.name for department in departments track by department.id")
-          option value=""  Seleccione Sucursal
+        select.form-control ng-model='department_selected' ng-change="set_department_boss(department_selected.id)" ng-options=("department as department.name for department in departments track by department.id")
+          option value=""  Seleccione Departamento
+      .col-sm-10
         input type="hidden" name='user[department_id]' value='{{department_selected.id}}'
           / option  ng-repeat="department in departments" ng-value="department.id"
             | {{department.name}}
 
-    div ng-if="user_type.key == 'empleado_sin_acceso' "
+    / div
       = f.hidden_field :email, value: "#{rand(36 ** 8).to_s(36)}@inventory.com"
       = f.hidden_field :password, value: "0000_0000"
       = f.hidden_field :password_confirmation, value: "0000_0000"
 
-    .row.form-group ng-show="user_type!='' && level!=0"
+    / .row.form-group ng-show="user_type!='' && level!=0"
       = f.label :boss, class: 'col-sm-2 control-label'
       .col-sm-10
         = f.label "{{boss}}", class: 'control-label h2.page-header text-uppercase'
@@ -47,7 +48,7 @@
       = f.label :employee_number, class: 'col-sm-2 control-label'
       .col-sm-10
         = f.number_field :employee_number, class: 'form-control'
-    .row.form-group ng-if="user_type.key != 'empleado_sin_acceso' "
+    .row.form-group
       = f.label :email, class: 'col-sm-2 control-label'
       /span.message-validator * obligatorio: Una dirección de correo válida
       .col-sm-10
@@ -73,14 +74,14 @@
       .col-sm-10
         = f.file_field(:received_file, class: 'form-control')
     - if user.new_record?
-      .row.form-group ng-if="user_type.key != 'empleado_sin_acceso' "
+      .row.form-group
         = f.label :password, class: 'col-sm-2 control-label'
         .col-sm-10
           = f.password_field :password, class: 'form-control', autocomplete: 'off', id: 'Password'
           input name="user[password]" ng-if="accessless==user_type" type="hidden" value="0000_0000"
       .progress.col-sm-offset-2 ng-hide="accessless==user_type"
         #StrengthProgressBar.progress-bar
-      .row.form-group ng-if="user_type.key != 'empleado_sin_acceso' "
+      .row.form-group
         = f.label :password_confirmation, class: 'col-sm-2 control-label'
         .col-sm-10
           = f.password_field :password_confirmation, class: 'form-control'

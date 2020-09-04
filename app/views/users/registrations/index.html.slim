@@ -87,6 +87,7 @@ section.content
                               /- if user.try(:department)
                                 = link_to 'Asignar artículos <i class="fa fa-dropbox"></i>'.html_safe, departments_employee_items_path(user.department_id,user.id),
                                         class: 'btn btn-xs btn-success btn-flat', title: t('helpers.assign_work_articles')
+                                        class: 'btn btn-xs btn-success btn-flat', title: t('helpers.assign_work_articles')
                               - if has_policy(User, %w(edit_user), 'Users::Registration')
                                 = link_to '<i class="fa fa-edit"></i>'.html_safe, edit_user_path(user),
                                       class: 'btn btn-xs btn-primary btn-flat', title: t('helpers.edit')
@@ -94,7 +95,7 @@ section.content
                                 = link_to '<i class="fa fa-key"></i>'.html_safe, change_password_path(user),
                                       class: 'btn btn-xs btn-warning btn-flat', title: t('helpers.edit_password')
                               - if has_policy(User, %w(destroy), 'Users::Registration')
-                                = link_to '<i class="fa fa-trash-o"></i>'.html_safe, '#', title: t('helpers.destroy'),
+                                = link_to '<i class="fa fa-trash-o"></i>'.html_safe, user_path(user),method: :delete, title: t('helpers.destroy'),
                                         class: 'btn btn-xs btn-danger btn-flat btn-destroy',
                                         data: {:'resource' => :users, :'resource-id' => user.id,
                                               :'resource-message' => t('questions.destroy', resource: t('.resource'),

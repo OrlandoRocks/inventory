@@ -27,21 +27,21 @@
 //= require daterangepicker
 //= require toastr.min
 //= require jquery.blockUI
-//= require turbolinks
+// require turbolinks
 
-//= require componentes/switchery/dist/switchery
+//= require switchery/dist/switchery
 //= require switchery.min
 //= require keyblocker
 //= require bootstrap-datepicker
 
 //= require general
 
-//= require componentes/angular/angular
-//= require componentes/ng-file-upload-shim/ng-file-upload-shim
+//= require angular/angular
+//= require ng-file-upload-shim/ng-file-upload-shim
 //= require switchery
-//= require componentes/angular-modal-service/dst/angular-modal-service.min.js
-//= require componentes/ng-file-upload/ng-file-upload
-//= require componentes/ng-switchery/src/ng-switchery
+//= require angular-modal-service/dst/angular-modal-service.min.js
+//= require ng-file-upload/ng-file-upload
+//= require ng-switchery/src/ng-switchery
 //= require angular/config
 //= require pace/pace
 //= require angular/controllers/user

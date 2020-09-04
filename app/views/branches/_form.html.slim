@@ -52,7 +52,7 @@
       = f.label :code, class: 'col-sm-2 control-label'
       .col-sm-10
         = f.text_field :code, class: 'form-control', placeholder: t('.code')
-    /.row.form-group
+    .row.form-group
       = f.label :manager_id, class: 'col-sm-2 control-label'
       .col-sm-10
         = f.collection_select(:manager_id, User.admins_branch, :id, :full_name,

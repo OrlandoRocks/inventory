@@ -181,22 +181,25 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     @user = User.new(sign_up_params)
 
+
+
     respond_to do |format|
       if @user.save
 
 
-        key_user = Role.find(@user.role_id).key
 
-        case key_user
-        when 'admin_empresa'
-          Company.find(params[:user]['current_company']).update(user_id: @user.id) unless params[:user]['current_company'].eql? ''
-        when 'admin_sucursal'
-          Branch.find(params[:user]['branch']).update(manager_id: @user.id) unless params[:user]['branch'].eql? ''
-        when 'admin_departamento'
-          Department.find(params[:user]['department']).update(manager_id: @user.id) unless params[:user]['department'].eql? ''
-        else
-          p 'Hola'
-        end
+        # key_user = Role.find(@user.role_id).key
+        #
+        # case key_user
+        # when 'admin_empresa'
+        #   Company.find(params[:current_company]).update(user_id: @user.id) unless params[:user]['current_company'].eql? ''
+        # when 'admin_sucursal'
+        #   Branch.find(params[:branch]).update(manager_id: @user.id) unless params[:user]['branch'].eql? ''
+        # when 'admin_departamento'
+        #   Department.find(params[:department]).update(manager_id: @user.id) unless params[:user]['department'].eql? ''
+        # else
+        #   p 'Hola'
+        # end
         format.html { redirect_to @user.department || user_registrations_path, notice: t('notifications_masc.success.resource.created',
                                                                      resource: t('users.registrations.new_user.resource')) }
         format.json { render :show, status: :created, location: @user }
@@ -248,20 +251,23 @@ class Users::RegistrationsController < Devise::RegistrationsController
     params[:user].delete(:password)
     params[:user].delete(:password_confirmation)
 
+
+
+
     respond_to do |format|
       if @user.update(sign_up_params)
 
-        key_user = Role.find(@user.role_id).key
-        case key_user
-        when 'admin_empresa'
-          Company.find(@user.current_company).update(user_id: @user.id) unless @user.current_company.eql? nil
-        when 'admin_sucursal'
-          Branch.find(params[:user]['branch']).update(manager_id: @user.id) unless params[:user]['branch'].eql? ''
-        when 'admin_departamento'
-          Department.find(params[:user]['department']).update(manager_id: @user.id) unless params[:user]['department'].eql? ''
-        else
-          p 'Hola'
-        end
+        # key_user = Role.find(@user.role_id).key
+        # case key_user
+        # when 'admin_empresa'
+        #   Company.find(@user.current_company).update(user_id: @user.id) unless @user.current_company.eql? nil
+        # when 'admin_sucursal'
+        #   Branch.find(params[:user]['branch']).update(manager_id: @user.id) unless params[:user]['branch'].eql? ''
+        # when 'admin_departamento'
+        #   Department.find(params[:user]['department']).update(manager_id: @user.id) unless params[:user]['department'].eql? ''
+        # else
+        #   p 'Hola'
+        # end
         # format.html { redirect_to @user.department || user_registrations_path, notice: t('notifications_masc.success.resource.created', resource: t('users.registrations.new_user.resource')) }
         format.html { redirect_to @user.department || user_registrations_path, notice: 'El usuario se guardo correctamente' }
 

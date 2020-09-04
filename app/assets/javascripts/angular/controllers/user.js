@@ -91,19 +91,18 @@ app.controller('userController',["$scope", "$http", function($scope, $http) {
 
     $scope.set_department_boss = function (department) {
         // $scope.boss='';
-
         if(department) {
-            $http({
-                method: "GET",
-                url: "/departments/" + department + ".json"
-            }).then(function successCallback(response) {
-                if ($scope.level == 4) {
-                    $scope.boss = response.data.manager;
-                }
-
-
-            }, function errorCallback(response) {
-            });
+            // $http({
+            //     method: "GET",
+            //     url: "/departments/" + department + ".json"
+            // }).then(function successCallback(response) {
+            //     if ($scope.level == 4) {
+            //         $scope.boss = response.data.manager;
+            //     }
+            //
+            //
+            // }, function errorCallback(response) {
+            // });
         }
 
 

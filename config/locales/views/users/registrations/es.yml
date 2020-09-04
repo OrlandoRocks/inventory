@@ -38,13 +38,13 @@ es:
         one: Usuario
         other: Usuarios
         role: Rol
-        branch: Departamento
+        branch: Sucursal
         company: Compañia
         first_name: Nombre
         last_name: Apellido paterno
         maiden_name: Apellido materno
         username: Nombre de usuario
-        department: Sucursal
+        department: Departamento
         articles_assign: Artículos asignados
         print: Impresión
         new_user: Nuevo usuario
@@ -70,7 +70,7 @@ es:
         maiden_name: Apellido materno
         username: Nombre de usuario
         company: Empresa
-        branch: Departamento
+        branch: Sucursal
         one: Articulo
         other: Articulos
         code: Codigo
@@ -84,7 +84,7 @@ es:
         description: Descripcion
         model: Modelo
         price: Precio
-        department: Sucursal
+        department: Departamento
         boss: Jefe inmediato
         employees: Empleados
         status_item: Estatus
@@ -102,8 +102,8 @@ es:
         last_name: Apellido paterno
         maiden_name: Apellido materno
         username: Nombre de usuario
-        branch: Departamento
-        department: Sucursal
+        branch: Sucursal
+        department: Departamento
       assign_work_articles:
         back: Ir a empleados
         resource: empleado

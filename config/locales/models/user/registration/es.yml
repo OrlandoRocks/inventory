@@ -16,8 +16,8 @@ es:
         current_company: Compañia
         boss: Jefe inmediato
         #branch: Sucursal     # Origin
-        branch: Departamento
-        department_id: Sucursal
+        branch: Sucursal
+        department_id: Departamento
         received_file: Archivo Recibido
         avatar: Imágen de Perfil
         resource: usuario

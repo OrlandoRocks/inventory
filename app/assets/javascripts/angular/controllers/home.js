@@ -15,13 +15,13 @@ app.controller('homeController',["$scope", "$http","ModalService", function($sco
     $scope.show = function() {
 
 
-        console.log('company');
+        console.log('current_company');
         console.log($scope.current_company);
 
 
         ModalService.showModal({
-            templateUrl: 'modal.html',
-            controller: "ModalController as modal",
+            templateUrl: 'modal_select_company.html',
+            controller: "ModalSelectCompanyController as modal",
             inputs:{
                 company: $scope.current_company,
                 is_god: $scope.isGod
@@ -38,7 +38,7 @@ app.controller('homeController',["$scope", "$http","ModalService", function($sco
 }]);
 
 
-app.controller('ModalController', ['$scope','close' ,'$http', '$timeout', '$window', 'company','is_god',function($scope, close, $http, $timeout, $window, company, is_god) {
+app.controller('ModalSelectCompanyController', ['$scope','close' ,'$http', '$timeout', '$window', 'company','is_god',function($scope, close, $http, $timeout, $window, company, is_god) {
 
     $scope.all_option_company = {id:0, name:"TODAS LAS EMPRESAS"};
 
@@ -60,6 +60,9 @@ app.controller('ModalController', ['$scope','close' ,'$http', '$timeout', '$wind
 
     $scope.companies = [];
 
+    console.log('company');
+    console.log(company);
+
     $http({
         method: "GET",
         url: "/companies.json"
@@ -68,12 +71,16 @@ app.controller('ModalController', ['$scope','close' ,'$http', '$timeout', '$wind
         if(is_god) {
             $scope.companies.push($scope.all_option_company);
         }
+        console.log($scope.companies);
 
     }, function errorCallback(response) {
     });
 
 
+
+
     $scope.close = function(sale_detail) {
+
         close(sale_detail, 500); // close, but give 500ms for bootstrap to animate
     };
     

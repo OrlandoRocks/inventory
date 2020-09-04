@@ -54,10 +54,10 @@ header.main-header ng-controller="homeController" ng-init="init(#{current_user.c
             /li.footer
               a href="#"  View all
         li.language-btn ng-click="show()"
-          a.first href="#"
+          a.first
             /= "#{@current_company.name.nil? ? 'Sin Empresa' : @current_company.name}"
             = "#{selected_company}"
-          a href="#"
+          a
             | Seleccionar Empresa
         / li.language-btn [title="#{t('.select_lang')}"]
           - if I18n.locale == :es
@@ -83,7 +83,7 @@ header.main-header ng-controller="homeController" ng-init="init(#{current_user.c
           a [href="javascript:;" data-toggle="control-sidebar"]
             i.fa.fa-gears
 
-  script id='modal.html' type='text/ng-template'
+  script id='modal_select_company.html' type='text/ng-template'
     .modal.modal-fullscreen
       .modal-dialog
         .modal-content.form-horizontal style="width: 900px"
