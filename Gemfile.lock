@@ -241,7 +241,6 @@ GEM
     rack (2.2.3)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
-    rails-assets-sweetalert2 (0.4.5)
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
@@ -380,7 +379,6 @@ DEPENDENCIES
   puma
   pundit (~> 1.1)
   rails!
-  rails-assets-sweetalert2 (~> 0.4.0)!
   rails_best_practices (>= 1.15.7)
   rake (~> 12.3, >= 12.3.3)
   ransack!

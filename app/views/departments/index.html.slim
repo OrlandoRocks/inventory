@@ -1,6 +1,6 @@
 p.flash-notice
   = params[:notice]
-section.content
+section.content ng-controller="departmentsController"
   .row
     .col-xs-12
       .box.box-primary
@@ -62,7 +62,10 @@ section.content
                                 = link_item 'Editar <i class="fa fa-edit"></i>'.html_safe, edit_department_path(department),
                                         class: 'btn btn-xs btn-primary btn-flat', title: t('helpers.edit')
                                 - if has_policy(Department, %w(destroy))
-                                  = link_to 'Eliminar <i class="fa fa-trash-o"></i>'.html_safe, '#', title: t('helpers.destroy'),
+                                  a ng-click="delete_department(#{department.id})" class="btn btn-xs btn-danger btn-flat btn-destroy"
+                                    | Eliminar
+                                    i.fa.fa-trash-o
+                                  /= link_to 'Eliminar <i class="fa fa-trash-o"></i>'.html_safe, '#', title: t('helpers.destroy'),
                                           class: 'btn btn-xs btn-danger btn-flat btn-destroy',
                                           data: {'resource' => :roles, 'resource-id' => department.id,
                                                   'resource-message' => t('questions.destroy', resource: t('.resource'),

@@ -32,12 +32,14 @@ class UserPolicy < ApplicationPolicy
         ids.uniq!
         scope.where(id: ids).order('users.employee_number asc')
       elsif @user.admin_branch?
-        ids = [@user.id]
-        @user.branches.each {|b| ids += b.departments.pluck(:manager_id)}
-        ids += scope.joins(:branch).where(branches: { manager_id: @user.id }).pluck(:id)
+        scope.all.order('users.employee_number asc')
 
-        ids.uniq!
-        scope.where(id: ids).order('users.employee_number asc')
+        # ids = [@user.id]
+        # @user.branches.each {|b| ids += b.departments.pluck(:manager_id)}
+        # ids += scope.joins(:branch).where(branches: { manager_id: @user.id }).pluck(:id)
+        #
+        # ids.uniq!
+        # scope.where(id: ids).order('users.employee_number asc')
       elsif @user.admin_department?
         ids = [@user.id]
         ids += scope.joins(:department).where(departments: {manager_id: @user.id}).pluck(:id)

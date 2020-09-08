@@ -18,6 +18,14 @@ after :roles do
               maiden_name: 'User', role_id: Role.find_by_key('god').id, password: 'inventory',
               confirmed_at: Time.now, sign_in_count: 0, employee_number: 12345)
 
+  User.create(email: 'alexrdgz03@gmail.com', username: 'alex', first_name: 'Alejandro', last_name: 'Rodriguez',
+              maiden_name: 'UserAlex', role_id: Role.find_by_key('admin_sucursal').id, password: 'inventory',
+              confirmed_at: Time.now, sign_in_count: 0, employee_number: 123)
+
+  User.create(email: 'ovalencia@uach.mx', username: 'orlando', first_name: 'Orlando', last_name: 'Valencia',
+              maiden_name: 'UserOrlando', role_id: Role.find_by_key('empleado_sin_acceso').id, password: 'inventory',
+              confirmed_at: Time.now, sign_in_count: 0, employee_number: 567, current_company: 1)
+
   # User.create(email: 'admin@example.com', username: 'admin', first_name: 'Admin', last_name: 'Admin',
   #             maiden_name: 'Admin', role_id: Role.find_by_key('admin').id, password: 'password',
   #             confirmed_at: Time.now, sign_in_count: 0)

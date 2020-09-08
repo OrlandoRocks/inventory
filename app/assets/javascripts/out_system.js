@@ -3,7 +3,7 @@
 //= require bootstrap-sprockets
 //= require AdminLTE/datatables.min
 //= require AdminLTE/app
-//= require sweetalert2
+//= require angular/sweetalert2.min.js
 //= require zxcvbn
 //= require zxcvbn-bootstrap-strength-meter
 //= require passwords

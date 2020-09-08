@@ -69,10 +69,14 @@ class BranchesController < ApplicationController
   # DELETE /branches/1
   # DELETE /branches/1.json
   def destroy
-    @branch.destroy
     respond_to do |format|
-      format.html { redirect_to branches_url, notice: 'La sucursal fue eliminada.' }
-      format.json { head :no_content }
+      if @branch.destroy
+        format.html { redirect_to branches_url, notice: 'La sucursal fue eliminada.' }
+        format.json { render json: true }
+      else
+        format.json { render json: false }
+
+      end
     end
   end
 
@@ -90,13 +94,14 @@ class BranchesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_branch
-      @branch = Branch.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def branch_params
-      params.require(:branch).permit(:name, :description, :city_id, :company_id, :manager_id,:city_id,:state_id,:code)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_branch
+    @branch = Branch.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def branch_params
+    params.require(:branch).permit(:name, :description, :city_id, :company_id, :manager_id, :city_id, :state_id, :code)
+  end
 end
