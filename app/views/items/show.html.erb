@@ -10,7 +10,7 @@
               <i class="fa fa-pencil-square-o" > Editar Artículo</i>
           <% end %>
 
-          <%= image_tag @item.image.present?? (@item.image.url.include? "pdf" )?  'pdf_download.png' : @item.image_url(:thumb).to_s : 'logo_tormenz.png', class: "profile-user-img img-responsive img-circle" %>
+          <%= image_tag @item.image.present?? (@item.image.url.include? "pdf" )?  'pdf_download.png' : @item.image_url(:thumb).to_s : 'logoAgroTrailers.png', class: "profile-user-img img-responsive img-circle" %>
 
           <h3 class="profile-username text-center"><%= @item.name %></h3>
 

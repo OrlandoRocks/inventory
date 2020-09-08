@@ -1,3 +1,4 @@
+
 puts '==> Filling the \'Categories\' table...'
 
 # Deletes all existing records.
