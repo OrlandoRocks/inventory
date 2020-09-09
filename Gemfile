@@ -25,6 +25,7 @@ gem 'bootsnap', require: false
 
 gem 'redis', '~> 3.0'
 
+
 # Use jquery as the JavaScript library.
 gem 'jquery-rails', '~> 4.3'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks.
@@ -157,3 +158,4 @@ gem 'caxlsx_rails'
 #Gema que nos sirve para eliminar acentos.
 gem 'unidecoder'
 
+gem "roo", "~> 2.8.0"
