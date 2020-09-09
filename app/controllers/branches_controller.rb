@@ -55,7 +55,6 @@ class BranchesController < ApplicationController
   def departments
     @branches = policy_scope(Branch).find(params[:branch_ids])
 
-    p @branches
 
     render json: @branches.to_json(include: :departments), status: :ok
   end

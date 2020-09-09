@@ -84,7 +84,7 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
             url: '/subcategory_by_category/'+ $scope.category + '.json',
             method: 'GET'
         }).then(function (response) {
-            $scope.sub_category = response.data;
+            $scope.sub_categories = response.data;
 
         });
     };

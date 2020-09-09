@@ -63,7 +63,7 @@ class SubCategoriesController < ApplicationController
   end
 
   def get_subcategory_by_category
-    @sub_category = SubCategory.find_by(category_id: params[:id])
+    @sub_category = SubCategory.where(category_id: params[:id])
   end
 
   private
