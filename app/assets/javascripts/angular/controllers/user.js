@@ -109,6 +109,41 @@ app.controller('userController',["$scope", "$http", function($scope, $http) {
 
     };
 
+    $scope.delete_user = function(id){
+        swal({
+            title: 'Eliminar',
+            text: '¿Estas seguro de eliminar este usuario?',
+            type: 'question',
+            showCancelButton: true
+        }).then(function (isConfirm) {
+            if (isConfirm) {
+                $http({
+                    url: '/users/' + id + '.json',
+                    method: 'DELETE'
+                }).then(function (response) {
+                    if (response.data) {
+                        swal({
+                            title: 'Eliminado',
+                            text: 'El usuario ha sido eliminado',
+                            type: 'success',
+                            showCancelButton: false
+                        }).then(function (isConfirm) {
+                            if (isConfirm) {
+                                location.reload();
+                            }
+
+                        }, function (iSConfirm) {
+
+                        });
+                    }
+                });
+            }
+
+        }, function (iSConfirm) {
+
+        });
+    }
+
 }]).directive('convertToNumber', function() {
     return {
         require: 'ngModel',

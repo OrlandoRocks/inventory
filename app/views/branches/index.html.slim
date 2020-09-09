@@ -1,6 +1,6 @@
 p.flash-notice
   = params[:notice]
-section.content
+section.content ng-controller="branchesController"
   .row
     .col-xs-12
       .box.box-primary
@@ -62,10 +62,12 @@ section.content
                                     = link_item '<i class="fa fa-edit"></i>'.html_safe, edit_branch_path(branch),
                                             class: 'btn btn-xs btn-primary btn-flat', title: t('helpers.edit')
                                     - if has_policy(Branch, %w(destroy))
-                                      = link_to '<i class="fa fa-trash-o"></i>'.html_safe, '#', title: t('helpers.destroy'),
+                                      a ng-click="delete_branch(#{branch.id})" class="btn btn-xs btn-danger btn-flat btn-destroy"
+                                        i.fa.fa-trash-o
+                                      /= link_to '<i class="fa fa-trash-o"></i>'.html_safe, '#',  method: :delete,title: t('helpers.destroy'),
                                               class: 'btn btn-xs btn-danger btn-flat btn-destroy',
                                               data: {'resource' => :branches, 'resource-id' => branch.id,
-                                                      'resource-message' => t('questions.destroy', resource: t('.resource'),
+                                                      'confirm' => t('questions.destroy', resource: t('.resource'),
                                                               name: branch.name)}
           .row
             .col-sm-5

@@ -128,7 +128,7 @@ gem 'ransack', github: 'activerecord-hackery/ransack', branch: '8daa87a0389d380f
 
 source 'https://rails-assets.org' do
   # Sweet Alert gem to replace JavaScript's alert
-  gem 'rails-assets-sweetalert2', '~> 0.4.0'
+  # gem 'rails-assets-sweetalert2', '~> 0.4.0'
 end
 
 
@@ -156,4 +156,3 @@ gem 'caxlsx_rails'
 
 #Gema que nos sirve para eliminar acentos.
 gem 'unidecoder'
-

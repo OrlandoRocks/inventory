@@ -28,7 +28,7 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
         $scope.branches = branches;
         $scope.categories = categories;
 
-        if(item !== null && item !== undefined){
+        if(item.id !== null && item.id !== undefined){
             $scope.branch = item.branch_id;
             $scope.category = item.category_id;
             $scope.get_department();
@@ -85,6 +85,41 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
             method: 'GET'
         }).then(function (response) {
             $scope.sub_category = response.data;
+
+        });
+    };
+
+    $scope.delete_item = function(id){
+        swal({
+            title: 'Eliminar',
+            text: '¿Estas seguro de eliminar este artículo?',
+            type: 'question',
+            showCancelButton: true
+        }).then(function (isConfirm) {
+            if (isConfirm) {
+                $http({
+                    url: '/items/' + id + '.json',
+                    method: 'DELETE'
+                }).then(function (response) {
+                    if (response.data) {
+                        swal({
+                            title: 'Eliminado',
+                            text: 'El artículo ha sido eliminado',
+                            type: 'success',
+                            showCancelButton: false
+                        }).then(function (isConfirm) {
+                            if (isConfirm) {
+                                location.reload();
+                            }
+
+                        }, function (iSConfirm) {
+
+                        });
+                    }
+                });
+            }
+
+        }, function (iSConfirm) {
 
         });
     }

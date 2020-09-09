@@ -47,6 +47,8 @@ PermissionRole.create!([
   {role_id: 6, permission_id: 66},
   {role_id: 6, permission_id: 67},
   {role_id: 4, permission_id: 82},
-  {role_id: 4, permission_id: 83}
+  {role_id: 4, permission_id: 83},
+  {role_id: 4, permission_id: 70}
  ])
 end
+

@@ -61,10 +61,13 @@ class DepartmentsController < ApplicationController
   # DELETE /departments/1
   # DELETE /departments/1.json
   def destroy
-    @department.destroy
     respond_to do |format|
-      format.html { redirect_to departments_url, notice: 'El departamento fue eliminado.' }
-      format.json { head :no_content }
+      if @department.destroy
+        format.html { redirect_to departments_url, notice: 'El departamento fue eliminado.' }
+        format.json { render json: true }
+      else
+        format.json { render json: false }
+      end
     end
   end
 
@@ -79,18 +82,17 @@ class DepartmentsController < ApplicationController
 
     @employee.items.each do |item|
       if @employee.role_id.eql? @role_accessless
-        @user_department = Department.where(id:@user.department_id).first
-        item.update(user_id: @user_department.manager_id, to_assing:true)
+        @user_department = Department.where(id: @user.department_id).first
+        item.update(user_id: @user_department.manager_id, to_assing: true)
 
       elsif @employee.admin_department?
-        @user_department = Department.where(manager_id:@user.id).first
-        item.update(user_id: @user_department.branch.manager_id, to_assing:true)
+        @user_department = Department.where(manager_id: @user.id).first
+        item.update(user_id: @user_department.branch.manager_id, to_assing: true)
 
       end
     end
 
-    EmployeeMailer.department_employee_destroy(@department.manager,@employee).deliver_later
-
+    EmployeeMailer.department_employee_destroy(@department.manager, @employee).deliver_later
 
 
     @employee.destroy
@@ -114,13 +116,14 @@ class DepartmentsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_department
-      @department = Department.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def department_params
-      params.require(:department).permit(:name, :description, :branch_id, :manager_id, :code, :sequence, :last_code)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_department
+    @department = Department.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def department_params
+    params.require(:department).permit(:name, :description, :branch_id, :manager_id, :code, :sequence, :last_code)
+  end
 end
