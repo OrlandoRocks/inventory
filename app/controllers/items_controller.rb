@@ -19,8 +19,8 @@ class ItemsController < ApplicationController
   # GET /items/1
   # GET /items/1.json
   def show
-   audits = @item.audits + @item.associated_audits
-   @audits = audits.sort_by {|a| a.created_at }
+    audits = @item.audits + @item.associated_audits
+    @audits = audits.sort_by { |a| a.created_at }
 
   end
 
@@ -28,7 +28,7 @@ class ItemsController < ApplicationController
   def new
     unless current_user.try(:current_company).eql?(0) or current_user.try(:current_company).eql?(nil)
       @item = Item.new
-      @users =  Company.where(id: current_user.current_company)
+      @users = Company.where(id: current_user.current_company)
       @branches = current_user.current_company.eql?(0) ? policy_scope(Branch).order(:name) : policy_scope(Branch).where(company_id: @current_company.try(:id)).order(:name)
       @categories = Category.all
 
@@ -40,9 +40,9 @@ class ItemsController < ApplicationController
   # GET /items/1/edit
   def edit
     if current_user.current_company.eql? 0
-      @users =  Company.all
+      @users = Company.all
     else
-      @users =  Company.where(id: current_user.current_company)
+      @users = Company.where(id: current_user.current_company)
     end
     @branches = current_user.current_company.eql?(0) ? policy_scope(Branch).order(:name) : policy_scope(Branch).where(company_id: @current_company.try(:id)).order(:name)
     @categories = Category.all
@@ -52,7 +52,7 @@ class ItemsController < ApplicationController
   # POST /items.json
   def create
 
-    @users =  Company.where(id: current_user.current_company)
+    @users = Company.where(id: current_user.current_company)
 
 
     @branches = current_user.current_company.eql?(0) ? policy_scope(Branch).order(:name) : policy_scope(Branch).where(company_id: @current_company.try(:id)).order(:name);
@@ -72,7 +72,7 @@ class ItemsController < ApplicationController
           code = Branch.find(@item.branch_id).try(:code)
           last_code_c = Branch.find(@item.branch_id).last_code + 1
           Branch.find(@item.branch_id).update(last_code: last_code_c) unless @item.department_id
-          Branch.where(code: code).update_all last_code: last_code_c  unless @item.department_id
+          Branch.where(code: code).update_all last_code: last_code_c unless @item.department_id
         end
 
         Department.find(@item.department_id).update(last_code: @item.code) if @item.department_id
@@ -91,9 +91,9 @@ class ItemsController < ApplicationController
   # PATCH/PUT /items/1.json
   def update
     if current_user.current_company.eql? 0
-      @users =  Company.all
+      @users = Company.all
     else
-      @users =  Company.where(id: current_user.current_company)
+      @users = Company.where(id: current_user.current_company)
     end
 
     @branches = current_user.current_company.eql?(0) ? policy_scope(Branch).order(:name) : policy_scope(Branch).where(company_id: @current_company.try(:id)).order(:name);
@@ -133,10 +133,10 @@ class ItemsController < ApplicationController
     @item_file = @item.item_files.create!(item_file_params)
 
     respond_to do |format|
-       if @item_file.save
-         format.html { redirect_to :back, notice: 'Se actualizo el artículo correctamente.' }
+      if @item_file.save
+        format.html { redirect_to :back, notice: 'Se actualizo el artículo correctamente.' }
 
-         format.json { render :json => { "se_armo"=> "el guiso" }}
+        format.json { render :json => {"se_armo" => "el guiso"} }
       else
         render authenticated_root_path
       end
@@ -152,7 +152,7 @@ class ItemsController < ApplicationController
 
       if @item_maintenance.save
         format.html { redirect_to :back, notice: 'Se actualizo el artículo correctamente.' }
-        format.json { render :json => { "se_armo"=> "el guiso" }}
+        format.json { render :json => {"se_armo" => "el guiso"} }
       else
         render authenticated_root_path
       end
@@ -163,12 +163,13 @@ class ItemsController < ApplicationController
   # DELETE /items/1
   # DELETE /items/1.json
   def destroy
-
-
-    @item.destroy
     respond_to do |format|
-      format.html { redirect_to items_url, notice: 'Item was successfully destroyed.' }
-      format.json { head :no_content }
+      if @item.destroy
+        format.html { redirect_to items_url, notice: 'Item was successfully destroyed.' }
+        format.json { render json: true  }
+      else
+        format.json { render json: false  }
+      end
     end
   end
 
@@ -193,7 +194,7 @@ class ItemsController < ApplicationController
     @items = @search_items.result
 
     respond_to do |format|
-      format.xlsx {render xlsx: 'items_excel',filename: "items_excel.xlsx"}
+      format.xlsx { render xlsx: 'items_excel', filename: "items_excel.xlsx" }
     end
   end
 
@@ -218,25 +219,25 @@ class ItemsController < ApplicationController
 
     #@search_items.sorts = 'branches.name'
     #@items = @search_items.result.paginate(page: params[:page], per_page: 50)
-     if  params[:column].eql? "Responsable"
-       @items = @search_items.result.eager_load(:user).order('users.last_name asc').paginate(page: params[:page], per_page: 20) #if @search_items.sorts.empty?
-     elsif params[:column].eql? "branch"
-       @items = @search_items.result.eager_load(user: [:branch, {departments: :branch}]).order('branches.name asc, branches_departments.name asc').paginate(page: params[:page], per_page: 20)
-     elsif params[:column].eql? "department"
-       @items = @search_items.result.eager_load(user: [:department, :departments ]).order("departments.name #{sort_direction}, departments_users #{sort_direction}").paginate(page: params[:page], per_page: 20)
-     elsif params[:column].eql? "brand"
-       @items = @search_items.result.eager_load(:brand).order("brands.name #{sort_direction}").paginate(page: params[:page], per_page: 20)
-     elsif params[:column].eql?("category")
-       @items = @search_items.result.eager_load(:category).order("categories.name #{sort_direction}").paginate(page: params[:page], per_page: 20)
-     elsif params[:column].eql? "sub_category"
-       @items = @search_items.result.eager_load(:sub_category).order("sub_categories.name #{sort_direction}").paginate(page: params[:page], per_page: 20)
-     elsif params[:column].eql? "NumEmpleado"
-       @items = @search_items.result.eager_load(:user).order("users.employee_number #{sort_direction}").paginate(page: params[:page], per_page: 20)
-     else
-       @items = @search_items.result.order("#{sort_column.downcase} #{sort_direction}").paginate(page: params[:page], per_page: 20)
+    if params[:column].eql? "Responsable"
+      @items = @search_items.result.eager_load(:user).order('users.last_name asc').paginate(page: params[:page], per_page: 20) #if @search_items.sorts.empty?
+    elsif params[:column].eql? "branch"
+      @items = @search_items.result.eager_load(user: [:branch, {departments: :branch}]).order('branches.name asc, branches_departments.name asc').paginate(page: params[:page], per_page: 20)
+    elsif params[:column].eql? "department"
+      @items = @search_items.result.eager_load(user: [:department, :departments]).order("departments.name #{sort_direction}, departments_users #{sort_direction}").paginate(page: params[:page], per_page: 20)
+    elsif params[:column].eql? "brand"
+      @items = @search_items.result.eager_load(:brand).order("brands.name #{sort_direction}").paginate(page: params[:page], per_page: 20)
+    elsif params[:column].eql?("category")
+      @items = @search_items.result.eager_load(:category).order("categories.name #{sort_direction}").paginate(page: params[:page], per_page: 20)
+    elsif params[:column].eql? "sub_category"
+      @items = @search_items.result.eager_load(:sub_category).order("sub_categories.name #{sort_direction}").paginate(page: params[:page], per_page: 20)
+    elsif params[:column].eql? "NumEmpleado"
+      @items = @search_items.result.eager_load(:user).order("users.employee_number #{sort_direction}").paginate(page: params[:page], per_page: 20)
+    else
+      @items = @search_items.result.order("#{sort_column.downcase} #{sort_direction}").paginate(page: params[:page], per_page: 20)
 
-       #@items = @search_items.result.eager_load(:user).order('users.last_name asc').paginate(page: params[:page], per_page: 20) #if @search_items.sorts.empty?
-     end
+      #@items = @search_items.result.eager_load(:user).order('users.last_name asc').paginate(page: params[:page], per_page: 20) #if @search_items.sorts.empty?
+    end
     #   @branches = current_user.current_company.eql?(0) ? policy_scope(Branch).order(:name) : policy_scope(Branch).where(company_id: @current_company.try(:id)).order(:name);
 
 
@@ -264,42 +265,41 @@ class ItemsController < ApplicationController
   end
 
 
-
   private
 
-    def sortable_columns
-      ["branch", "department", "category","code", "model", "Responsable", "name", "description", "price", "brand", "sub_category"]
-    end
+  def sortable_columns
+    ["branch", "department", "category", "code", "model", "Responsable", "name", "description", "price", "brand", "sub_category"]
+  end
 
-    def sort_column
-      sortable_columns.include?(params[:column]) ? params[:column] : "code"
-    end
+  def sort_column
+    sortable_columns.include?(params[:column]) ? params[:column] : "code"
+  end
 
-    def sort_direction
-      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
-    end
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+  end
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_item
-      @item = Item.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_item
+    @item = Item.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def item_params
-      params.require(:item).permit(:name,:code, :description, :image, :model, :serial_number, :purchased_date,
-                                   :in_service_date, :time_unit_service, :time_quantity_service, :price, :category_id,
-                                   :time_unit_depreciation, :time_quantity_depreciation, :sub_category_id, :provider_id,
-                                   :department_id, :user_id, :brand_id, :status_item_id, :maintenance_date,
-                                   :maintenance_done, :branch_id, :accessory, :remission )
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def item_params
+    params.require(:item).permit(:name, :code, :description, :image, :model, :serial_number, :purchased_date,
+                                 :in_service_date, :time_unit_service, :time_quantity_service, :price, :category_id,
+                                 :time_unit_depreciation, :time_quantity_depreciation, :sub_category_id, :provider_id,
+                                 :department_id, :user_id, :brand_id, :status_item_id, :maintenance_date,
+                                 :maintenance_done, :branch_id, :accessory, :remission)
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def item_file_params
-      params.require(:item_file).permit(:item_id, :file, :file_type, :description)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def item_file_params
+    params.require(:item_file).permit(:item_id, :file, :file_type, :description)
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def item_maintenance_params
-      params.require(:item_maintenance).permit(:item_id, :file, :maintenance_id, :description, :price, :provider)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def item_maintenance_params
+    params.require(:item_maintenance).permit(:item_id, :file, :maintenance_id, :description, :price, :provider)
+  end
 end

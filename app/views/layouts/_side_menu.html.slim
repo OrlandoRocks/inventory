@@ -9,11 +9,13 @@ aside.main-sidebar
           li.treeview
             a href='#'
               i.fa.fa-list
-              span = t('.items')
+              span = 'Artículos'
               i.fa.fa-angle-left.pull-right
             ul.treeview-menu
               li
                 = link_item "<i class='fa fa-circle-o'></i> #{t '.new_item'}".html_safe, new_item_path
+              li
+                = link_item "<i class='fa fa-circle-o'></i> #{t '.items'}".html_safe, items_path
 
       - if has_policy_employee
         li.header MENU

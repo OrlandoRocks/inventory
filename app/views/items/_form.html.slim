@@ -59,8 +59,11 @@ div ng-controller="itemController"
 
           = f.label :sub_category_id, class: 'col-sm-2 control-label'
           .col-md-4
-            = text_field_tag 'subcategoria','', class: 'form-control', placeholder: 'Subcategoria', disabled: true, 'ng-model': 'sub_category.name'
-            = f.hidden_field :sub_category_id, value: '{{sub_category.id}}'
+            select.form-control ng-model="sub_category" ng-options=("sub_category.id as sub_category.name for sub_category in sub_categories") required="true"
+              option disabled="" selected="" value=""  SubCategorias...
+            / = text_field_tag 'subcategoria','', class: 'form-control', placeholder: 'Subcategoria', disabled: true, 'ng-model': 'sub_category.name'
+            | {{sub_category}}
+            = f.hidden_field :sub_category_id, value: '{{sub_category}}'
 
         .row.form-group
           = f.label :purchased_date, class: 'col-sm-2 control-label'

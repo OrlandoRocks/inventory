@@ -15,7 +15,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # GET /users
   def index
     @search_users = policy_scope(User).ransack(params[:q])
-    @users = @search_users.result.order(:role_id,:employee_number,:id).paginate(page: params[:page], per_page: 30).order(:id)
+    @users = @search_users.result.order(:role_id, :employee_number, :id).paginate(page: params[:page], per_page: 30).order(:id)
+
   end
 
   # GET /users/1
@@ -40,16 +41,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
       @boss_items = @search_items_user.result.paginate(page: params[:page], per_page: 20)
 
     elsif @user.admin_department?
-      @user_department = Department.where(manager_id:@user.id)
+      @user_department = Department.where(manager_id: @user.id)
       @user_branch = Branch.where(id: @user_department.try(:first).try(:branch_id))
       @boss = @user_department.try(:first).try(:branch).try(:user)
       @search_items_user = Item.where(department_id: @user_department.try(:first).try(:id)).ransack(params[:q])
       @boss_items = @search_items_user.result.where.not(id: @user.items.pluck(:id)).paginate(page: params[:page], per_page: 20)
       #@boss_items = @search_items_user.result.paginate(page: params[:page], per_page: 20)
     elsif @user.admin_branch?
-      @user_branch = Branch.where(manager_id:@user.id)
+      @user_branch = Branch.where(manager_id: @user.id)
       @boss = @user_branch.try(:first).try(:company).try(:user)
-      @search_items_user = Item.where(branch_id:  @user_branch.pluck(:id)).ransack(params[:q])
+      @search_items_user = Item.where(branch_id: @user_branch.pluck(:id)).ransack(params[:q])
       @boss_items = @search_items_user.result.where.not(id: @user.items.pluck(:id)).paginate(page: params[:page], per_page: 20)
       #@boss_items = @search_items_user.result.paginate(page: params[:page], per_page: 20)
     elsif @user.admin_company?
@@ -67,13 +68,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
 
 
-
     #@items = @user.items
 
     @search_items = @user.items.ransack(params[:log_search])
 
     @items = @search_items.result.paginate(page: params[:page], per_page: 20)
-
 
 
     @unassigned_items = @boss_items
@@ -84,7 +83,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     respond_to do |format|
       format.html
       format.js
-      format.json {render json: @user}
+      format.json { render json: @user }
     end
   end
 
@@ -93,7 +92,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @user = User.new
     @role_accessless = Role.find_by_key("empleado_sin_acceso").id
   end
-
 
 
   # GET /users/new_user
@@ -142,20 +140,20 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @manegment = Hash.new()
 
     if @user.role_id.eql? @role_accessless
-      @user_department = Department.where(id:@user.department_id).order(:updated_at).last
+      @user_department = Department.where(id: @user.department_id).order(:updated_at).last
       @user_branch = nil
       @user_company = nil
     else
-      @user_department = Department.where(manager_id:@user.id).order(:updated_at).last
-      @user_branch = Branch.where(manager_id:@user.id).order(:updated_at).last
-      @user_company = Company.where(user_id:@user.id).order(:updated_at).last
+      @user_department = Department.where(manager_id: @user.id).order(:updated_at).last
+      @user_branch = Branch.where(manager_id: @user.id).order(:updated_at).last
+      @user_company = Company.where(user_id: @user.id).order(:updated_at).last
     end
 
 
     if !@user_department.nil?
-     @department = @user_department
-     @branch = @department.branch
-     @company = @branch.company
+      @department = @user_department
+      @branch = @department.branch
+      @company = @branch.company
     elsif !@user_branch.nil?
       @department = nil
       @branch = @user_branch
@@ -182,10 +180,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @user = User.new(sign_up_params)
 
 
-
     respond_to do |format|
       if @user.save
-
 
 
         # key_user = Role.find(@user.role_id).key
@@ -201,7 +197,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         #   p 'Hola'
         # end
         format.html { redirect_to @user.department || user_registrations_path, notice: t('notifications_masc.success.resource.created',
-                                                                     resource: t('users.registrations.new_user.resource')) }
+                                                                                         resource: t('users.registrations.new_user.resource')) }
         format.json { render :show, status: :created, location: @user }
       else
         @role_accessless = Role.find_by_key("empleado_sin_acceso").id
@@ -250,8 +246,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     #
     params[:user].delete(:password)
     params[:user].delete(:password_confirmation)
-
-
 
 
     respond_to do |format|
@@ -315,16 +309,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
       items << "Código: #{item.code} Artículo: #{item.name}"
 
       if @user.role_id.eql? @role_accessless
-        @user_department = Department.where(id:@user.department_id).first
-        item.update(user_id: @user_department.manager_id, to_assing:true)
+        @user_department = Department.where(id: @user.department_id).first
+        item.update(user_id: @user_department.manager_id, to_assing: true)
         @boss = @user_department.manager
       elsif @user.admin_department?
-        @user_department = Department.where(manager_id:@user.id).first
-        item.update(user_id: @user_department.branch.manager_id, to_assing:true)
+        @user_department = Department.where(manager_id: @user.id).first
+        item.update(user_id: @user_department.branch.manager_id, to_assing: true)
         @boss = @user_department.manager
       elsif @user.admin_branch?
-        @user_branch = Branch.where(manager_id:@user.id).first
-        item.update(user_id: @user_branch.company.user_id, to_assing:true)
+        @user_branch = Branch.where(manager_id: @user.id).first
+        item.update(user_id: @user_branch.company.user_id, to_assing: true)
         @boss = @user_branch.user
       elsif @user.admin_company?
         #@boss = User.where(role_id: @role_admin).first
@@ -334,17 +328,19 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
 
 
-
-
     if @boss.present?
-      EmployeeMailer.department_employee_destroy(@boss,@user,items).deliver_later
+      EmployeeMailer.department_employee_destroy(@boss, @user, items).deliver_later
     end
 
 
-    @user.destroy
     respond_to do |format|
-      format.html { redirect_to user_registrations_url }
-      format.json { head :no_content }
+      if @user.destroy
+        format.html { redirect_to user_registrations_url }
+        format.json { render json: true }
+      else
+        format.json { render json: false }
+
+      end
     end
   end
 
@@ -432,23 +428,23 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @role_admin = Role.find_by_key("admin").id
 
     if @user.role_id.eql? @role_accessless
-      @user_department = Department.where(id:@user.department_id).first
+      @user_department = Department.where(id: @user.department_id).first
 
-      if  @item.update(user_id: @user_department.manager_id, status_item_id: params[:item][:status_item_id])
+      if @item.update(user_id: @user_department.manager_id, status_item_id: params[:item][:status_item_id])
         render json: @item, status: :ok
       else
         render json: @item.errors.full_messages, status: :unprocessable_entity
       end
 
     elsif @user.admin_department?
-      @user_department = Department.where(manager_id:@user.id).first
+      @user_department = Department.where(manager_id: @user.id).first
       if @item.update(user_id: @user_department.branch.manager_id, status_item_id: params[:item][:status_item_id])
         render json: @item, status: :ok
       else
         render json: @item.errors.full_messages, status: :unprocessable_entity
       end
     elsif @user.admin_branch?
-      @user_branch = Branch.where(manager_id:@user.id).first
+      @user_branch = Branch.where(manager_id: @user.id).first
       if @item.update(user_id: @user_branch.company.user_id, status_item_id: params[:item][:status_item_id])
         render json: @item, status: :ok
       else
@@ -475,7 +471,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
       render json: @item.errors.full_messages, status: :unprocessable_entity
     end
   end
-
 
 
   # GET /resource/cancel
@@ -521,12 +516,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def sign_up_params
     params.require(:user).permit(:email, :password, :password_confirmation, :username, :first_name, :last_name,
-                                 :maiden_name, :role_id, :department_id,:employee_number, :received_file, :avatar, :current_company)
+                                 :maiden_name, :role_id, :department_id, :employee_number, :received_file, :avatar, :current_company)
   end
 
   def account_update_params
     params.require(:user).permit(:email, :password, :password_confirmation, :username, :first_name, :last_name,
-                                 :maiden_name, :role_id, :department_id,:employee_number, :received_file, :avatar, :current_company)
+                                 :maiden_name, :role_id, :department_id, :employee_number, :received_file, :avatar, :current_company)
   end
 
   def profile_update_params

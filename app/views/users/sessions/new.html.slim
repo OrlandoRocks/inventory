@@ -1,8 +1,9 @@
 - @title = t('.sign_in')
 .login-box
   .login-logo
-    b 
-      = t('.template')
+    div.center
+      /= t('.template')
+      = image_tag "logo1.png", alt:"Planet Agrotrailer"
   .login-box-body ng-init="companies = #{Company.all.to_json}"
     p.login-box-msg
       = t('.sign_in')
@@ -25,10 +26,10 @@
           .checkbox.icheck
             label
               - if devise_mapping.rememberable?
-                = f.check_box :remember_me, class: 'icheck-me', data: {skin: 'square', color: 'purple'}
+                = f.check_box :remember_me, class: 'icheck-me', data: {skin: 'square', color: 'red'}
                 =< t('.remember')
         .col-xs-6
-          = f.submit t('.sign_in'), class: 'btn bg-purple btn-block btn-flat', id:'submit_btn'
+          = f.submit t('.sign_in'), class: 'btn bg-red btn-block btn-flat', id:'submit_btn'
 
     p.text-right
       / = render partial: 'users/shared/links'

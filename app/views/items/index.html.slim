@@ -1,4 +1,6 @@
-section.content
+p.flash-notice
+  = params[:notice]
+section.content ng-controller="itemController"
   .row
     .col-xs-12
       .box.box-primary
@@ -63,12 +65,9 @@ section.content
                                       class: 'btn btn-xs btn-success btn-flat'
                               = link_item '<i class="fa fa-edit"></i>'.html_safe, edit_item_path(item),
                                       class: 'btn btn-xs btn-primary btn-flat', title: t('helpers.edit')
-                              - if has_policy(item, %w(destroy))
-                                = link_to '<i class="fa fa-trash-o"></i>'.html_safe, '#', title: t('helpers.destroy'),
-                                        class: 'btn btn-xs btn-danger btn-flat btn-destroy',
-                                        data: {'resource' => :items, 'resource-id' => item.id,
-                                                'resource-message' => t('questions.destroy', resource: t('.resource'),
-                                                        name: item.name)}
+                              - unless current_user.user_employee?
+                                a ng-click="delete_item(#{item.id})" class="btn btn-xs btn-danger btn-flat btn-destroy"
+                                  i.fa.fa-trash-o
 
                               /= link_to '<i class="fa fa-file-pdf-o"></i> PDF'.html_safe, reports_item_path(nombre_reporte: 'item', titulo_reporte: "Ficha técnica del artículo.", format: :pdf, id: item),
                               /      class: 'btn btn-xs btn-success btn-flat'

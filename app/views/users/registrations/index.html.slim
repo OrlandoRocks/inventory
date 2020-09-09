@@ -1,4 +1,6 @@
-section.content
+p.flash-notice
+  = params[:notice]
+section.content ng-controller="userController"
   .row
     .col-xs-12
       .box.box-primary
@@ -95,10 +97,13 @@ section.content
                                 = link_to '<i class="fa fa-key"></i>'.html_safe, change_password_path(user),
                                       class: 'btn btn-xs btn-warning btn-flat', title: t('helpers.edit_password')
                               - if has_policy(User, %w(destroy), 'Users::Registration')
-                                = link_to '<i class="fa fa-trash-o"></i>'.html_safe, user_path(user),method: :delete, title: t('helpers.destroy'),
+                                a ng-click="delete_user(#{user.id})" class="btn btn-xs btn-danger btn-flat btn-destroy"
+                                  i.fa.fa-trash-o
+
+                                / = link_to '<i class="fa fa-trash-o"></i>'.html_safe, user_path(user),method: :delete, title: t('helpers.destroy'),
                                         class: 'btn btn-xs btn-danger btn-flat btn-destroy',
                                         data: {:'resource' => :users, :'resource-id' => user.id,
-                                              :'resource-message' => t('questions.destroy', resource: t('.resource'),
+                                              :'confirm' => t('questions.destroy', resource: t('.resource'),
                                                                   name: user.full_name)}
             .row
               .col-sm-5
