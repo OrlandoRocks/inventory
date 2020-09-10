@@ -15,11 +15,11 @@ section.content
           .small-box.bg-blue
             .inner
               h3 = @branches_count
-              p Departamentos
+              p Sucursales
             .icon
               i.fa.fa-home
-            a.small-box-footer href="/departments"
-              | Departamentos
+            a.small-box-footer href="/branches"
+              | Sucursales
               i.fa.fa-arrow-circle-right
 
       - if has_policy(Department, %w(new index))
@@ -28,11 +28,11 @@ section.content
           .small-box.bg-aqua
             .inner
               h3 = @departments_count
-              p Sucursales
+              p Departamentos
             .icon
               i.fa.fa-cubes
-            a.small-box-footer href="/branches"
-              | Sucursales
+            a.small-box-footer href="/departments"
+              | Departamentos
               i.fa.fa-arrow-circle-right
         /! ./col
       - if has_policy(Item, %w(new index))
