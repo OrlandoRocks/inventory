@@ -93,7 +93,7 @@ module ApplicationHelper
   end
 
   def search_branch_user user
-    if user.role.key.eql? ('empleado_sin_acceso') or  user.role.key.eql? ('admin_departamento')
+    if user.role.key.eql? ('empleado_sin_acceso')
       user.try(:department).try(:branch).try(:name)
     elsif user.role.key.eql? ('admin_sucursal')
       user.try(:branches).try(:first).try(:name)

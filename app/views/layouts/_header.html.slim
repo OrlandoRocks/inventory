@@ -56,12 +56,12 @@ header.main-header ng-controller="homeController" ng-init="init(#{current_user.c
                     | You changed your username
             /li.footer
               a href="#"  View all
-        li.language-btn ng-click="show()"
+        li.language-btn
           a.first
             /= "#{@current_company.name.nil? ? 'Sin Empresa' : @current_company.name}"
             = "#{selected_company}"
           a
-            | Seleccionar Empresa
+            = "#{selected_company}"
         / li.language-btn [title="#{t('.select_lang')}"]
           - if I18n.locale == :es
             a.first href="javascript:;"

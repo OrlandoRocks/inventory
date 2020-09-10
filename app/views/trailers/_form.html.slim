@@ -1,0 +1,24 @@
+= form_for(trailer, trailer: 'form', html: {class: 'form-horizontal'}, validate: true) do |f|
+  - if @trailer.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@trailer.errors.count, "error")} prohibited this trailer from being saved:"
+      ul
+        - @trailer.errors.full_messages.each do |message|
+          li = messagex
+  .box-body
+    .row.form-group
+      = f.label 'Nombre', class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.text_field :name, class: 'form-control', placeholder: 'Nombre', autofocus: true
+    .row.form-group
+      = f.label 'Modelo', class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.text_field :model, class: 'form-control', placeholder: 'Modelo', autofocus: true
+
+
+    .box-footer
+      = f.button "<i class='fa fa-floppy-o'></i> #{t('helpers.submit.submit', model: 'trailer')}".html_safe,
+              class: 'btn btn-primary btn-flat', type: 'submit'
+      = link_to trailers_path, class: 'btn btn-default btn-flat' do
+        i.fa.fa-list
+        =< t('.back')

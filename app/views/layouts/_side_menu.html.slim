@@ -7,6 +7,10 @@ aside.main-sidebar
       - if has_policy_catalogo
         - if has_policy(Item, %w(new index))
           li.treeview
+            a href='/'
+              i.fa.fa-superpowers
+              span = 'Inicio'
+          li.treeview
             a href='#'
               i.fa.fa-list
               span = 'Artículos'
@@ -117,19 +121,17 @@ aside.main-sidebar
                   li
                     = link_item "<i class='fa fa-circle-o'></i> #{t '.new_provider'}".html_safe, new_provider_path
 
-      - if has_policy_branch
-        li.header MENU
         - if has_policy(Item, %w(new index))
           li.treeview
             a href='#'
-              i.fa.fa-list
-              span = t('.items')
+              i.fa.fa-truck
+              span Trailers
               i.fa.fa-angle-left.pull-right
             ul.treeview-menu
               li
-                = link_item "<i class='fa fa-circle-o'></i> #{t '.items'}".html_safe, items_path
+                = link_item "<i class='fa fa-circle-o'></i> Trailers".html_safe, trailers_path
               li
-                = link_item "<i class='fa fa-circle-o'></i> #{t '.new_item'}".html_safe, new_item_path
+                = link_item "<i class='fa fa-circle-o'></i> Nuevo Trailer".html_safe, new_trailer_path
           li.treeview
             a href='#'
               i.fa.fa-user

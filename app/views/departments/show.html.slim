@@ -40,7 +40,7 @@ section.content
         /! Add the bg color to the header using any of the bg-* classes
         .widget-user-header.bg-aqua-active
           h3.widget-user-username  = @department.manager_full_name
-          h5.widget-user-desc = t('.manager_value')
+          h5.widget-user-desc GERENTE
         .widget-user-image
           /= image_tag "avatar_male.png", class:'img.profile-user-img.img-responsive.img-circle' , alt: 'Coordinador'
           / img.profile-user-img.img-responsive.img-circle alt=('Coordinador') src="#{@department.try(:manager).present?? @department.try(:manager).avatar().to_s : image_path("avatar_male.png")}"  /
@@ -124,8 +124,8 @@ section.content
                         th = t('.first_name')
                         th = t('.last_name')
                         th = t('.maiden_name')
-                        th = t('.role')
-                        th = t('.report')
+                        / th = t('.role')
+                        / th = t('.report')
                         th.actions_header
                           = t('.actions')
                     tbody
@@ -138,14 +138,14 @@ section.content
                           td = user.first_name
                           td = user.last_name
                           td = user.maiden_name
-                          td = user.role_name
-                          td
+                          / td = user.role_name
+                          / td
                             - if user.items.count > 0
                               = link_to "#{t('.articles_assign')}" ' <i class="fa fa-file-pdf-o"></i>'.html_safe,
-                                      reports_items_user_path(nombre_reporte: 'items_user', titulo_reporte: "Lista de control de artículos asignados a un empleado.", user_id: user.id, format: :pdf),
+                                      reports_items_user_path(nombre_reporte: 'items_user', titulo_reporte: "Lista de control de remolques vendidos de un Vendedor.", user_id: user.id, format: :pdf),
                                       class: 'btn btn-xs btn-success btn-flat', title: t('helpers.show')
                             -else
-                              = 'SIN ARTÍCULOS ASIGNADOS'
+                              = 'SIN REMOLQUES VENDIDOS'
 
                           td
                             .actions

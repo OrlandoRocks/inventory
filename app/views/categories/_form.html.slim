@@ -34,21 +34,3 @@
       =< t('.back')
 
 
-
-/= form_for @category do |f|
-/  - if @category.errors.any?
-/      h2 = "#{pluralize(@category.errors.count, "error")} prohibited this category from being saved:"
-/      ul
-/        - @category.errors.full_messages.each do |message|
-/          li = message
-/
-/  .field
-/    = f.label :name
-/    = f.text_field :name
-/  .field
-/    = f.label :description
-/    = f.text_area :description
-/  .field
-/    = f.label :status
-/    = f.check_box :status
-/  .actions = f.submit

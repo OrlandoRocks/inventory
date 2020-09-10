@@ -280,17 +280,17 @@ class ReportsController < ApplicationController
       role and role.key == 'admin'
     end
 
-    def admin_company?
-      role and role.key == 'admin_empresa'
-    end
+    # def admin_company?
+    #   role and role.key == 'admin_empresa'
+    # end
 
     def admin_branch?
       role and role.key == 'admin_sucursal'
     end
-
-    def admin_department?
-      role and role.key == 'admin_departamento'
-    end
+    #
+    # def admin_department?
+    #   role and role.key == 'admin_departamento'
+    # end
 
     def user_employee?
       role and %w(empleado empleado_sin_acceso).include? role.key
@@ -324,7 +324,7 @@ class ReportsController < ApplicationController
     end
 
     def search_branch_user user
-      if user.role.key.eql? ('empleado_sin_acceso') or  user.role.key.eql? ('admin_departamento')
+      if user.role.key.eql? ('empleado_sin_acceso')
         user.try(:department).try(:branch).try(:name).try(:upcase)
       elsif user.role.key.eql? ('admin_sucursal')
         user.try(:branches).try(:first).try(:name).try(:upcase)

@@ -78,14 +78,14 @@
         = f.label :password, class: 'col-sm-2 control-label'
         .col-sm-10
           = f.password_field :password, class: 'form-control', autocomplete: 'off', id: 'Password'
-          input name="user[password]" ng-if="accessless==user_type" type="hidden" value="0000_0000"
-      .progress.col-sm-offset-2 ng-hide="accessless==user_type"
+          / input name="user[password]" ng-if="accessless==user_type" type="hidden" value="0000_0000"
+      .progress.col-sm-offset-2
         #StrengthProgressBar.progress-bar
       .row.form-group
         = f.label :password_confirmation, class: 'col-sm-2 control-label'
         .col-sm-10
           = f.password_field :password_confirmation, class: 'form-control'
-          input name="user[password_confirmation]" ng-if="accessless==user_type.id" type="hidden" value="0000_0000"
+          / input name="user[password_confirmation]" ng-if="accessless==user_type.id" type="hidden" value="0000_0000"
   .box-footer
     /= f.button "<i class='fa fa-floppy-o'></i> Guardar Usuario".html_safe,
       class: 'btn btn-primary btn-flat', type: 'submit'

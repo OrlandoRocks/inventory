@@ -54,7 +54,7 @@ section.content ng-controller="userController"
                         th = t('.first_name')
                         /th = t('.last_name')
                         /th = t('.maiden_name')
-                        th = t('.articles_assign')
+                        / th = t('.articles_assign')
                         th.actions_header
                           = t('.actions')
                     tbody
@@ -75,7 +75,7 @@ section.content ng-controller="userController"
                           /td = user.last_name
                           /td = user.maiden_name
 
-                          td
+                          / td
                             = link_to "#{t('.articles_assign')}"' <i class="fa fa-file-pdf-o"></i>'.html_safe,
                                     reports_items_user_path(nombre_reporte: 'items_user', titulo_reporte: "Lista de control de artículos asignados a un empleado.", user_id: user.id, format: :pdf),
                                     class: 'btn btn-xs btn-success btn-flat', title: t('helpers.show')
@@ -83,7 +83,7 @@ section.content ng-controller="userController"
                             .actions
                               - if has_policy(User, %w(show), 'Users::Registration')
                                 - unless user.god? or user.admin?
-                                  = link_to 'Asignar artículos <i class="fa fa-search"></i>'.html_safe, user_path(user),
+                                  = link_to 'Remolques Vendidos <i class="fa fa-handshake-o"></i>'.html_safe, user_path(user),
                                       class: 'btn btn-xs btn-success btn-flat', title: t('helpers.show')
                               /- if has_policy(User, %w(assign_work_articles), 'Users::Registration')
                               /- if user.try(:department)

@@ -26,6 +26,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @role_admin = Role.find_by_key("admin").id
     @role_accessless = Role.find_by_key("empleado_sin_acceso").id
 
+
+
     if @user.role_id.eql? @role_accessless
       #@user_department = Department.where(id:@user.department_id)
       #@user_branch = Branch.where(id: @user_department.try(:first).try(:branch_id))
@@ -40,28 +42,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
       @user_branch = @user.department.branch
       @boss_items = @search_items_user.result.paginate(page: params[:page], per_page: 20)
 
-    elsif @user.admin_department?
-      @user_department = Department.where(manager_id: @user.id)
-      @user_branch = Branch.where(id: @user_department.try(:first).try(:branch_id))
-      @boss = @user_department.try(:first).try(:branch).try(:user)
-      @search_items_user = Item.where(department_id: @user_department.try(:first).try(:id)).ransack(params[:q])
-      @boss_items = @search_items_user.result.where.not(id: @user.items.pluck(:id)).paginate(page: params[:page], per_page: 20)
-      #@boss_items = @search_items_user.result.paginate(page: params[:page], per_page: 20)
     elsif @user.admin_branch?
       @user_branch = Branch.where(manager_id: @user.id)
       @boss = @user_branch.try(:first).try(:company).try(:user)
       @search_items_user = Item.where(branch_id: @user_branch.pluck(:id)).ransack(params[:q])
       @boss_items = @search_items_user.result.where.not(id: @user.items.pluck(:id)).paginate(page: params[:page], per_page: 20)
       #@boss_items = @search_items_user.result.paginate(page: params[:page], per_page: 20)
-    elsif @user.admin_company?
-      id = Role.where(key: %w( admin)).first.id
-      @boss = User.find_by_role_id(id).try(:full_name).try(:upcase)
-      #@boss = User.where(role_id: @role_admin)
-      @search_items_user = Item.joins(:branch).where('branches.company_id = ?', @user.current_company).ransack(params[:q])
-      @user_branch = Company.find(@user.current_company).try(:branches)
-      @boss_items = @search_items_user.result.where.not(id: @user.items.pluck(:id)).paginate(page: params[:page], per_page: 20)
-      #@boss_items = @search_items_user.result.paginate(page: params[:page], per_page: 20)
-
     elsif @user.admin? or @user.god?
       @search_items_user = Item.ransack(params[:q])
       @boss_items = @search_items_user.result.paginate(page: params[:page], per_page: 20)

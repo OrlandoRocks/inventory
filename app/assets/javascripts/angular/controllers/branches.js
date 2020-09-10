@@ -2,8 +2,8 @@
  * Created by orlando on 1/26/17.
  */
 app.controller('branchesController', ["$scope", "$http", "$window", function ($scope, $http) {
-
-    $scope.delete_branch = function (id) {
+'/????'
+    oi$scope.delete_branch = function (id) {
         swal({
             title: 'Eliminar',
             text: '¿Estas seguro de eliminar esta sucursal?',

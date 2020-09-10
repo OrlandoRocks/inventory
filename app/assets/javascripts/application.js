@@ -40,6 +40,10 @@
 //= require ng-file-upload-shim/ng-file-upload-shim
 //= require switchery
 //= require angular-modal-service/dst/angular-modal-service.min.js
+//= require angular-animate/angular-animate
+//= require angular-aria/angular-aria
+//= require angular-messages/angular-messages
+//= require angular-material/angular-material
 //= require ng-file-upload/ng-file-upload
 //= require ng-switchery/src/ng-switchery
 //= require angular/config

@@ -159,3 +159,14 @@ gem 'caxlsx_rails'
 gem 'unidecoder'
 
 gem "roo", "~> 2.8.0"
+
+gem 'awesome_rails_console'
+# Please clean up duplicated gems if any.
+# Feel free to remove gems that you don't want to use or if they conflict with other gem dependencies. (you might need to update .pryrc also)
+group :development, :test do
+  gem 'hirb'
+  gem 'hirb-unicode-steakknife', require: 'hirb-unicode'
+  gem 'pry', '~> 0.12.2'
+  gem 'pry-byebug'
+  gem 'pry-stack_explorer'
+end

@@ -9,8 +9,8 @@ div ng-controller="itemController"
 
 
     = form_for(item, item: 'form', html: {class: 'form-horizontal'}, validate: true) do |f|
-      .box-body ng-init="init(#{@branches.to_json}, #{@categories.to_json}, #{@item.to_json})"
-        - unless current_user.admin_department?
+      .box-body ng-init="init(#{@branches.to_json}, #{@categories.to_json}, #{item.id.nil? ? 'nil' :item.id } )"
+
           .row.form-group
             = f.label :branch_id, class: 'col-sm-2 control-label'
             .col-md-10
@@ -25,87 +25,88 @@ div ng-controller="itemController"
               = text_field_tag 'department','', class: 'form-control', placeholder: 'Departamento', disabled: true, 'ng-model': 'department.name'
               input type='hidden' name='item[department_id]' value='{{department.id}}'
 
-        .row.form-group
-          = label_tag 'Folio', 'Folio', class: 'col-sm-2 control-label'
-          .col-md-10
-            = f.text_field :code, class: 'form-control', placeholder: 'Folio'
+          .row.form-group
+            = label_tag 'Folio', 'Folio', class: 'col-sm-2 control-label'
+            .col-md-10
+              = f.text_field :code, class: 'form-control', placeholder: 'Folio'
 
-        .row.form-group
-          = label_tag 'Remisión', 'Remisión', class: 'col-sm-2 control-label'
-          .col-md-10
-            = f.text_field :remission, class: 'form-control', placeholder: t('.remission')
+          .row.form-group
+            = label_tag 'Remisión', 'Remisión', class: 'col-sm-2 control-label'
+            .col-md-10
+              = f.text_field :remission, class: 'form-control', placeholder: t('.remission')
 
-        .row.form-group
-          = f.label :name, class: 'col-sm-2 control-label'
-          .col-md-10
-            = f.text_field :name, class: 'form-control', placeholder: t('.name')
-
-
-        .row.form-group
-          = f.label :description, class: 'col-sm-2 control-label'
-          .col-sm-10
-            = f.text_area :description, class: 'form-control', placeholder: t('.description')
-        .row.form-group
-          = f.label :accessorios, class: 'col-sm-2 control-label'
-          .col-sm-10
-            = f.text_area :accessory, class: 'form-control', placeholder: t('.accessory')
-
-        .row.form-group
-          = label_tag 'Categoria', 'Categoría', class: 'col-sm-2 control-label'
-          .col-md-4
-            select.form-control ng-change="get_subcategories()" ng-model="category" ng-options=("category.id as category.name for category in categories") required="true"
-              option disabled="" selected="" value=""  Categorias...
-            = f.hidden_field :category_id, value: '{{category}}'
-
-          = f.label :sub_category_id, class: 'col-sm-2 control-label'
-          .col-md-4
-            select.form-control ng-model="sub_category" ng-options=("sub_category.id as sub_category.name for sub_category in sub_categories") required="true"
-              option disabled="" selected="" value=""  SubCategorias...
-            / = text_field_tag 'subcategoria','', class: 'form-control', placeholder: 'Subcategoria', disabled: true, 'ng-model': 'sub_category.name'
-            | {{sub_category}}
-            = f.hidden_field :sub_category_id, value: '{{sub_category}}'
-
-        .row.form-group
-          = f.label :purchased_date, class: 'col-sm-2 control-label'
-          .col-md-4
-            .input-group.date
-              .input-group-addon
-                i.fa.fa-calendar
-              = f.text_field :purchased_date, class: 'form-control pull-right datepicker', type: "text", placeholder: t('.purchased_date')
-          = f.label :model, class: 'col-sm-2 control-label'
-          .col-md-4
-            = f.text_field :model, class: 'form-control', placeholder: t('.model')
-
-        .row.form-group
-          = f.label :price, class: 'col-sm-2 control-label'
-          .col-md-4
-            .input-group
-              span.input-group-addon $
-              = f.number_field :price, value: number_to_currency(f.object.price.to_f, delimiter: '', unit: ''), step: :any, class: 'form-control text_field', placeholder: t('.price')
-              span.input-group-addon .00
-          = f.label :serial_number, class: 'col-sm-2 control-label'
-          .col-md-4
-            = f.text_field :serial_number, class: 'form-control', placeholder: t('.serial_number')
-        .row.form-group
-          = f.label :image, class: 'col-sm-2 control-label'
-          .col-md-4
-            = f.hidden_field(:image, class: 'form-control')
-            = f.file_field(:image, class: 'form-control')
-            /= image_tag @item.image_url(:thumb).to_s  if @item.image?
-            - if @item.image.present?
-              = link_to image_tag((@item.image.url.include? "pdf") ? "pdf_download.png" : @item.image_url(:thumb).to_s, :class => 'download_icon', :alt => 'Archivo'), "#{f.object.image.url}", :target => "_blank"
+          .row.form-group
+            = f.label :name, class: 'col-sm-2 control-label'
+            .col-md-10
+              = f.text_field :name, class: 'form-control', placeholder: t('.name')
 
 
-        .row.form-group
-          = label_tag 'consignatario','Consignatario', class: 'col-sm-2 control-label'
-          .col-md-8
-            = label_tag 'consignee','{{full_name}}',class: 'control-label h3.page-header text-uppercase',id: 'immediate_boss'
-            /h3 id='immediate_boss'
-             .control-label.h2.page-header.text-uppercase
-            input id='immediate_boss_id' name='boss_id' type='hidden'
-            input id='director_name' name='boss_id' type='hidden' value="#{@users.first.user.to_json({methods: :full_name})}" class="control-label h2.page-header text-uppercase"
+          .row.form-group
+            = f.label :description, class: 'col-sm-2 control-label'
+            .col-sm-10
+              = f.text_area :description, class: 'form-control', placeholder: t('.description')
+          .row.form-group
+            = f.label :accessorios, class: 'col-sm-2 control-label'
+            .col-sm-10
+              = f.text_area :accessory, class: 'form-control', placeholder: t('.accessory')
 
-            input type='hidden' name="item[status_item_id]" value='2'
+          .row.form-group
+            = label_tag 'Categoria', 'Categoría', class: 'col-sm-2 control-label'
+            .col-md-4
+              select.form-control ng-change="get_subcategories()" ng-model="category" ng-options=("category.id as category.name for category in categories") required="true"
+                option disabled="" selected="" value=""  Categorias...
+              = f.hidden_field :category_id, value: '{{category}}'
+
+            = f.label :sub_category_id, class: 'col-sm-2 control-label'
+            .col-md-4
+              select.form-control ng-model="sub_category" ng-options=("sub_category.id as sub_category.name for sub_category in sub_categories") required="true"
+                option disabled="" selected="" value=""  SubCategorias...
+              / = text_field_tag 'subcategoria','', class: 'form-control', placeholder: 'Subcategoria', disabled: true, 'ng-model': 'sub_category.name'
+              = f.hidden_field :sub_category_id, value: '{{sub_category}}'
+
+          .row.form-group
+            = f.label :purchased_date, class: 'col-sm-2 control-label'
+            .col-md-4
+              .input-group.date
+                .input-group-addon
+                  i.fa.fa-calendar
+                = f.text_field :purchased_date, class: 'form-control pull-right datepicker', type: "text", placeholder: t('.purchased_date')
+            = f.label :model, class: 'col-sm-2 control-label'
+            .col-md-4
+              = f.text_field :model, class: 'form-control', placeholder: t('.model')
+
+          .row.form-group
+            = f.label :price, class: 'col-sm-2 control-label'
+            .col-md-4
+              .input-group
+                span.input-group-addon $
+                = f.number_field :price, value: number_to_currency(f.object.price.to_f, delimiter: '', unit: ''), step: :any, class: 'form-control text_field', placeholder: t('.price')
+                span.input-group-addon .00
+            = f.label :serial_number, class: 'col-sm-2 control-label'
+            .col-md-4
+              = f.text_field :serial_number, class: 'form-control', placeholder: t('.serial_number')
+          / .row.form-group
+            = f.label :image, class: 'col-sm-2 control-label'
+            .col-md-4
+              = f.hidden_field(:image, class: 'form-control')
+              = f.file_field(:image, class: 'form-control')
+              /= image_tag @item.image_url(:thumb).to_s  if @item.image?
+              - if @item.image.attached?
+                 = link_to image_tag(@item.image, :class => 'download_icon', :size => '65x65'), "#{url_for(f.object.image)}", :target => "_blank"
+
+
+
+
+          .row.form-group
+            = label_tag 'consignatario','Consignatario', class: 'col-sm-2 control-label'
+            .col-md-8
+              = label_tag 'consignee','{{full_name}}',class: 'control-label h3.page-header text-uppercase',id: 'immediate_boss'
+              /h3 id='immediate_boss'
+               .control-label.h2.page-header.text-uppercase
+              input id='immediate_boss_id' name='boss_id' type='hidden'
+              input id='director_name' name='boss_id' type='hidden' value="#{@users.first.user.to_json({methods: :full_name})}" class="control-label h2.page-header text-uppercase"
+
+              input type='hidden' name="item[status_item_id]" value='2'
 
       .box-footer
         = f.button "<i class='fa fa-floppy-o'></i> #{t('helpers.submit.submit', model: t('.resource'))}".html_safe,

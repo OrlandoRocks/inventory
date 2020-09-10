@@ -64318,6 +64318,7 @@ app.controller('ModalMaintenanceController', ['$scope','close', 'Upload','$http'
 
 
 }]);
+
 (function() {
   $(window).bind('page:change', function() {
     $('#modal-unassign-item').on('show.bs.modal', function(e) {

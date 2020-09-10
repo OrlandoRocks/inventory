@@ -40,24 +40,15 @@ section.content
 section.content
   .row
     .col-md-12
-      .nav-tabs-custom
-        ul.nav.nav-tabs
-          li.active
-            a aria-expanded="true" data-toggle="tab" href="#activity"  Articulos
-          /li
-            a aria-expanded="false" data-toggle="tab" href="#timeline"  Articulos de trabajo
-        .tab-content
-          #activity.tab-pane.active
-            .row
-              .col-xs-12
-                .box.box-primary
-                  .box-header.with-border
-                    .row
-                      .col-xs-6.col-md-8.col-lg-9
-                        h3.box-title
-                          strong = "#{t('.title')}"
-                          '
-                          = "#{@employee.full_name}"
+      .row
+        .col-xs-12
+          .box.box-primary
+            .box-header.with-border
+              .row
+                .col-xs-6.col-md-8.col-lg-9
+                  h3.box-title
+                    strong Aticulos Vendidos
+                      "#{@employee.full_name}"
                   .box-body
                     .dataTables_wrapper
                       .row
@@ -99,7 +90,7 @@ section.content
                           .dataTables_info
                             = pluralize(@items.count, t('.one'), t('.other'))
 
-            .row
+            / .row
               .col-xs-12
                 .box.box-primary
                   .box-header.with-border

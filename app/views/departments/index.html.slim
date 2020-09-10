@@ -55,7 +55,7 @@ section.content ng-controller="departmentsController"
                             td = department.manager_id.nil?? 'SIN ASIGNAR' : department.manager_full_name
                             td
                               .actions
-                                = link_to 'Nuevo empleado  <i class="fa fa-user"></i>'.html_safe, new_employee_department_path(department_id: department.id), title: t('.new_employee'),
+                                = link_to 'Nuevo Vendedor  <i class="fa fa-user"></i>'.html_safe, new_employee_department_path(department_id: department.id), title: 'Nuevo Venderdor',
                                       class: 'btn btn-xs btn-info btn-flat'
                                 = link_item 'Ver detalle <i class="fa fa-search"></i>'.html_safe, department_path(department), title: t('helpers.show'),
                                         class: 'btn btn-xs btn-success btn-flat'

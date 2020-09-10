@@ -1,16 +1,17 @@
-<section class="content">
+<section class="content" ng-controller="itemController">
 
-  <div class="row">
+  <div class="row" ng-init="get_item_json(<%= @item.id %>)">
     <div class="col-md-3">
       <!-- Profile Image -->
       <div class="box box-primary">
         <div class="box-body box-profile">
 
-          <%= link_to edit_item_path(@item.id), :class => "btn btn-block btn-success btn-lg" do %>
-              <i class="fa fa-pencil-square-o" > Editar Artículo</i>
-          <% end %>
+            <a class="btn btn-block btn-success btn-lg" ng-click="show()">
+              <i class="fa fa-handshake-o " > Vender</i>
+            </a>
 
-          <%= image_tag @item.image.present?? (@item.image.url.include? "pdf" )?  'pdf_download.png' : @item.image_url(:thumb).to_s : 'logoAgroTrailers.png', class: "profile-user-img img-responsive img-circle" %>
+
+          <%= image_tag @item.image.attached?? @item.image : 'trailers_default.png', class: "profile-user-img img-responsive img-circle" %>
 
           <h3 class="profile-username text-center"><%= @item.name %></h3>
 
@@ -29,14 +30,17 @@
             <!--<%# end %>-->
           <!--</div>-->
 
-          <p class="text-muted text-center"><%= @item.description %></p>
+          <p class="text-muted text-center"><%= @item.accessory %></p>
 
           <ul class="list-group list-group-unbordered">
             <li class="list-group-item">
               <b><%= t("items.form.model") %></b> <a class="pull-right"><%= @item.model %></a>
             </li>
             <li class="list-group-item">
-              <b><%= t("items.form.serial_number") %></b> <a class="pull-right"><%= @item.serial_number %></a>
+                <b><%= t("items.form.serial_number") %></b>
+              <p class="text-muted">
+                <a class="pull-right"><%= @item.serial_number %></a>
+              </p>
             </li>
             <li class="list-group-item">
               <b><%= t("items.form.purchased_date") %></b> <a class="pull-right"><%= @item.purchased_date %></a>
@@ -95,6 +99,10 @@
 
           </ul>
 
+          <%= link_to edit_item_path(@item.id), :class => "btn btn-block btn-danger btn-lg" do %>
+            <i class="fa fa-pencil " > Editar</i>
+          <% end %>
+
         </div>
         <!-- /.box-body -->
       </div>
@@ -116,30 +124,33 @@
               <!-- timeline time label -->
               <% @audits.reverse_each do |audit| %>
                   <% if audit.action == "create" and audit.associated_id.nil?%>
-                      <li class="time-label">
-                          <span class="bg-red">
-                            <%= audit.created_at.strftime("%d / %m / %Y") %>
-                          </span>
-                      </li>
-                      <!-- /.timeline-label -->
-                      <!-- timeline item -->
-                      <li>
-                        <i class="fa fa-plus bg-green"></i>
 
-                        <div class="timeline-item">
-                          <span class="time"><i class="fa fa-clock-o"></i> <%= audit.created_at.strftime("%H:%M") %></span>
+                    <% if audit.version == 2 %>
+                        <li class="time-label">
+                            <span class="bg-red">
+                              <%= audit.created_at.strftime("%d / %m / %Y") %>
+                            </span>
+                        </li>
+                        <!-- /.timeline-label -->
+                        <!-- timeline item -->
+                        <li>
+                          <i class="fa fa-plus bg-green"></i>
 
-                          <h3 class="timeline-header"><strong><%=t(".audit.create")  %> <%= t(".audit.by") %>  <%= "#{User.find(audit.user_id).try(:employee_number)} - #{User.find(audit.user_id).try(:full_name)}"  if audit.user_id.present? %> </strong></h3>
+                          <div class="timeline-item">
+                            <span class="time"><i class="fa fa-clock-o"></i> <%= audit.created_at.strftime("%H:%M") %></span>
 
-                          <div class="timeline-body">
-                            <%= t(".audit.create_mesage") %>
+                            <h3 class="timeline-header"><strong><%=t(".audit.create")  %> </strong></h3>
+
+                            <div class="timeline-body">
+                              Se Creó el Remolque
+                            </div>
+                            <!--<div class="timeline-footer">-->
+                            <!--<a class="btn btn-primary btn-xs">Read more</a>-->
+                            <!--<a class="btn btn-danger btn-xs">Delete</a>-->
+                            <!--</div>-->
                           </div>
-                          <!--<div class="timeline-footer">-->
-                          <!--<a class="btn btn-primary btn-xs">Read more</a>-->
-                          <!--<a class="btn btn-danger btn-xs">Delete</a>-->
-                          <!--</div>-->
-                        </div>
-                      </li>
+                        </li>
+                    <% end %>
                   <% elsif audit.action == "create" and audit.associated_id%>
                           <li class="time-label">
                           <span class="bg-red">
@@ -263,73 +274,11 @@
                                 <br>
                             <% end %>
                           </div>
-                          <!--<div class="timeline-footer">-->
-                          <!--<a class="btn btn-primary btn-xs">Read more</a>-->
-                          <!--<a class="btn btn-danger btn-xs">Delete</a>-->
-                          <!--</div>-->
                         </div>
                       </li>
                   <% end %>
 
               <% end %>
-              <!-- END timeline item -->
-              <!-- timeline item -->
-              <!--<li>-->
-                <!--<i class="fa fa-user bg-aqua"></i>-->
-
-                <!--<div class="timeline-item">-->
-                  <!--<span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>-->
-
-                  <!--<h3 class="timeline-header no-border"><a href="#">Sarah Young</a> accepted your friend request-->
-                  <!--</h3>-->
-                <!--</div>-->
-              <!--</li>-->
-              <!--&lt;!&ndash; END timeline item &ndash;&gt;-->
-              <!--&lt;!&ndash; timeline item &ndash;&gt;-->
-              <!--<li>-->
-                <!--<i class="fa fa-comments bg-yellow"></i>-->
-
-                <!--<div class="timeline-item">-->
-                  <!--<span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>-->
-
-                  <!--<h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>-->
-
-                  <!--<div class="timeline-body">-->
-                    <!--Take me to your leader!-->
-                    <!--Switzerland is small and neutral!-->
-                    <!--We are more like Germany, ambitious and misunderstood!-->
-                  <!--</div>-->
-                  <!--<div class="timeline-footer">-->
-                    <!--<a class="btn btn-warning btn-flat btn-xs">View comment</a>-->
-                  <!--</div>-->
-                <!--</div>-->
-              <!--</li>-->
-              <!--&lt;!&ndash; END timeline item &ndash;&gt;-->
-              <!--&lt;!&ndash; timeline time label &ndash;&gt;-->
-              <!--<li class="time-label">-->
-                        <!--<span class="bg-green">-->
-                          <!--3 Jan. 2014-->
-                        <!--</span>-->
-              <!--</li>-->
-              <!--&lt;!&ndash; /.timeline-label &ndash;&gt;-->
-              <!--&lt;!&ndash; timeline item &ndash;&gt;-->
-              <!--<li>-->
-                <!--<i class="fa fa-camera bg-purple"></i>-->
-
-                <!--<div class="timeline-item">-->
-                  <!--<span class="time"><i class="fa fa-clock-o"></i> 2 days ago</span>-->
-
-                  <!--<h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>-->
-
-                  <!--<div class="timeline-body">-->
-                    <!--<img src="http://placehold.it/150x100" alt="..." class="margin">-->
-                    <!--<img src="http://placehold.it/150x100" alt="..." class="margin">-->
-                    <!--<img src="http://placehold.it/150x100" alt="..." class="margin">-->
-                    <!--<img src="http://placehold.it/150x100" alt="..." class="margin">-->
-                  <!--</div>-->
-                <!--</div>-->
-              <!--</li>-->
-              <!-- END timeline item -->
               <li>
                 <i class="fa fa-clock-o bg-gray"></i>
               </li>
@@ -347,6 +296,67 @@
   </div>
   <!-- /.row -->
 
+<script id="modal_venta.html" type='text/ng-template'>
+  <div class="modal modal-fullscreen">
+    <div class="modal-dialog">
+      <div class="modal-content form-horizontal" style="width: 900px">
+        <div class="modal-header">
+          <button class="button close" aria-hidden="true" data-dismiss="modal" type="button" >x</button>
+          <h4 class="modal-title">
+            Venta de Remolque
+          </h4>
+        </div>
+        <div class="box-body">
+          <div class="row form-group">
+            <label class="col-md-3 control-label">
+              Froma de Pago:
+            </label>
+            <div class="col-md-6">
+              <input class="form-control" >
+            </div>
+          </div>
+          <div class="row form-group">
+            <label class="col-md-3 control-label">
+              Vendedor:
+            </label>
+            <div class="col-md-6">
+              <input class="form-control" value="<%= current_user.full_name %>">
+            </div>
+          </div>
+          <div class="row form-group">
+            <label class="col-md-3 control-label">
+              Cliente:
+            </label>
+            <div class="col-md-6">
+              <select class="form-control" value="<%= current_user.full_name %>">
+                <option> Seleccionar Cliente</option>
+              </select>
+            </div>
+          </div>
+          <div class="row form-group">
+            <label class="col-md-3 control-label">
+              Observaciones:
+            </label>
+            <div class="col-md-6">
+              <textarea class="form-control" value="<%= current_user.full_name %>">
+              </textarea>
+            </div>
+          </div>
 
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-primary" data-dismiss="modal"> Aceptar</button>
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+  </div>
+
+</script>
 
 </section>

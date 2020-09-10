@@ -31,10 +31,10 @@ es:
     role_permissions:
       save_permissions: Guardar permisos
       back: Ir a roles
-      Branches: Departamentos
+      Branches: Sucursales
       Categories: Categorías
       Companies: Compañias
-      Departments: Sucursales
+      Departments: Departamentos
       Items: Artículos
       Permissions: Permisos
       Reports: Reportes

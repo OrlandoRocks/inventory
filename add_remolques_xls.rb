@@ -24,19 +24,21 @@ xlsx.sheets.each do |sheet_name|
     last_row    = sheet.last_row
     last_column = sheet.last_column
 
+    final_item_string = ''
     if !last_row.nil? and !last_column.nil?
       for row in 2..last_row
 
-        create_item_string = "Item.create(remission: '"+ sheet.cell(row, 1).to_s + "', model:'"+ sheet.cell(row, 3).to_s + "', serial_number:'"+ sheet.cell(row, 4).to_s +
+        create_item_string = "\nItem.create(remission: '"+ sheet.cell(row, 1).to_s + "', model:'"+ sheet.cell(row, 3).to_s + "', serial_number:'"+ sheet.cell(row, 4).to_s +
             "', code:'"+ sheet.cell(row, 7).to_s.split(' ')[0] + "', purchased_date:'"+ sheet.cell(row, 7).to_s.split(' ')[1] + "', accessory:'"+ sheet.cell(row, 8).to_s +
             "',department_id:1, status_item_id:1, sub_category_id: 1, branch_id: 1, name:'Remolque "+row.to_s+"', description:'Remolque "+row.to_s+"') "
 
         p create_item_string
+        final_item_string += create_item_string
 
+        # Item.create(remission: "'"+ sheet.cell(row, 1).to_s + "'", model:"'"+ sheet.cell(row, 3).to_s + "'", serial_number:"'"+ sheet.cell(row, 4).to_s +
+        #     "'", code:"'"+ sheet.cell(row, 7).to_s.split(' ')[0] + "'", purchased_date:"'"+ sheet.cell(row, 7).to_s.split(' ')[1] + "'", accessory:"'"+ sheet.cell(row, 8).to_s +
+        #     "'",department_id:1, status_item_id:1, sub_category_id: 1, branch_id: 1, name:"'Remolque "+row.to_s+"'", description:"'Remolque "+row.to_s+"'")
 
-        Item.create(remission: "'"+ sheet.cell(row, 1).to_s + "'", model:"'"+ sheet.cell(row, 3).to_s + "'", serial_number:"'"+ sheet.cell(row, 4).to_s +
-            "'", code:"'"+ sheet.cell(row, 7).to_s.split(' ')[0] + "'", purchased_date:"'"+ sheet.cell(row, 7).to_s.split(' ')[1] + "'", accessory:"'"+ sheet.cell(row, 8).to_s +
-            "'",department_id:1, status_item_id:1, sub_category_id: 1, branch_id: 1, name:"'Remolque "+row.to_s+"'", description:"'Remolque "+row.to_s+"'")
 
 
         # for col in 1..last_column
@@ -51,6 +53,7 @@ xlsx.sheets.each do |sheet_name|
         #   # end
         # end
       end
+      File.open('./inventory_seed', 'w') { |file| file.write(final_item_string) }
     else
       puts 'Seems no data in sheet: ' + sheet_name
     end
