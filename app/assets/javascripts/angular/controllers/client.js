@@ -89,22 +89,22 @@ app.controller('clientController',["$scope", "ModalService", "$http", function($
         });
     };
 
-    $scope.delete_item = function(id){
+    $scope.delete_client = function(id){
         swal({
             title: 'Eliminar',
-            text: '¿Estas seguro de eliminar este artículo?',
+            text: '¿Estas seguro de eliminar este cliente?',
             type: 'question',
             showCancelButton: true
         }).then(function (isConfirm) {
             if (isConfirm) {
                 $http({
-                    url: '/items/' + id + '.json',
+                    url: '/clients/' + id + '.json',
                     method: 'DELETE'
                 }).then(function (response) {
                     if (response.data) {
                         swal({
                             title: 'Eliminado',
-                            text: 'El artículo ha sido eliminado',
+                            text: 'El cliente ha sido eliminado',
                             type: 'success',
                             showCancelButton: false
                         }).then(function (isConfirm) {

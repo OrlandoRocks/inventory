@@ -13,8 +13,6 @@ class ClientsController < ApplicationController
     audits = @client.audits + @client.associated_audits
     @audits = audits.sort_by { |a| a.created_at }
 
-    p "------------------------------------------------------------------------------------------------"
-    p @audits
   end
 
   # GET /clients/new
@@ -33,7 +31,7 @@ class ClientsController < ApplicationController
 
     respond_to do |format|
       if @client.save
-        format.html { redirect_to @client, notice: 'Cliente ha sido creado correctamente.' }
+        format.html { redirect_to clients_path, notice: 'Cliente ha sido creado correctamente.' }
         format.json { render :show, status: :created, location: @client }
       else
         format.html { render :new }
@@ -47,7 +45,7 @@ class ClientsController < ApplicationController
   def update
     respond_to do |format|
       if @client.update(client_params)
-        format.html { redirect_to @client, notice: 'Client ha sido actualizdo correctamente.' }
+        format.html { redirect_to clients_path, notice: 'Client ha sido actualizdo correctamente.' }
         format.json { render :show, status: :ok, location: @client }
       else
         format.html { render :edit }
@@ -59,21 +57,25 @@ class ClientsController < ApplicationController
   # DELETE /clients/1
   # DELETE /clients/1.json
   def destroy
-    @client.destroy
     respond_to do |format|
-      format.html { redirect_to clients_url, notice: 'Client was successfully destroyed.' }
-      format.json { head :no_content }
+      if @client.destroy
+        format.html { redirect_to clients_url, notice: 'Client was successfully destroyed.' }
+        format.json { render json: true }
+      else
+        format.json { render json: false }
+      end
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_client
-      @client = Client.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def client_params
-      params.require(:client).permit(:name, :last_name, :maiden_name, :address, :postal_code, :email, :phone_number, :cellphone, :contact)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_client
+    @client = Client.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def client_params
+    params.require(:client).permit(:name, :last_name, :maiden_name, :address, :postal_code, :email, :phone_number, :cellphone, :contact)
+  end
 end

@@ -1,6 +1,6 @@
 p.flash-notice
   = params[:notice]
-section.content ng-controller="itemController"
+section.content ng-controller="clientController"
   .row
     .col-xs-12
       .box.box-primary
@@ -58,7 +58,7 @@ section.content ng-controller="itemController"
                               = link_to '<i class="fa fa-edit"></i>'.html_safe, edit_client_path(client),
                                       class: 'btn btn-xs btn-primary btn-flat', title: t('helpers.edit')
                               - unless current_user.user_employee?
-                                a ng-click="delete_item(#{client.id})" class="btn btn-xs btn-danger btn-flat btn-destroy"
+                                a ng-click="delete_client(#{client.id})" class="btn btn-xs btn-danger btn-flat btn-destroy"
                                   i.fa.fa-trash-o
 
                   / .row

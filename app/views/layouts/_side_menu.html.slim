@@ -141,3 +141,17 @@ aside.main-sidebar
               li
                 = link_to "<i class='fa fa-circle-o'></i> #{t '.new_user'}".html_safe, new_user_path
                 / = link_to "<i class='fa fa-circle-o'></i> #{t '.new_employee'}".html_safe, new_employee_path
+
+
+      li.treeview
+        a href='#'
+          i.fa.fa-user
+          span
+            | Clientes
+          i.fa.fa-angle-left.pull-right
+        ul.treeview-menu
+          li
+            = link_to "<i class='fa fa-circle-o'></i> Clientes".html_safe, clients_path
+          li
+            = link_to "<i class='fa fa-circle-o'></i> Nuevo Cliente".html_safe, new_client_path
+            / = link_to "<i class='fa fa-circle-o'></i> #{t '.new_employee'}".html_safe, new_employee_path
