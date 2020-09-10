@@ -53,6 +53,7 @@
 //= require angular/controllers/item
 //= require angular/controllers/branches
 //= require angular/controllers/departments
+//= require angular/controllers/client
 //= require departments
 //= require permissions
 //= require users

@@ -99,6 +99,20 @@ ActiveRecord::Schema.define(version: 2020_09_09_231442) do
     t.index ["state_id"], name: "index_cities_on_state_id"
   end
 
+  create_table "clients", force: :cascade do |t|
+    t.string "name"
+    t.string "last_name"
+    t.string "maiden_name"
+    t.string "address"
+    t.string "postal_code"
+    t.string "email"
+    t.string "phone_number"
+    t.string "cellphone"
+    t.string "contact"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "companies", id: :serial, force: :cascade do |t|
     t.string "name"
     t.text "description"

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
+
   resources :trailers
+  resources :clients
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   resources :offices
   get 'items/next_maintenances', to: 'items#next_maintenances', as: :items_next_maintenances

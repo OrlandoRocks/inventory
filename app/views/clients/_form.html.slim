@@ -1,0 +1,52 @@
+= form_for(client, role: 'form', html: {class: 'form-horizontal'}, validate: true) do |f|
+  - if @client.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@client.errors.count, "error")} prohibited this client from being saved:"
+      ul
+        - @client.errors.full_messages.each do |message|
+          li = message
+  .box-body
+    .row.form-group
+      = f.label 'Nombre', class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.text_field :name, class: 'form-control', placeholder: "Nombre", autofocus: true
+    .row.form-group
+      = f.label 'Primer Apellido', class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.text_field :last_name, class: 'form-control', placeholder: "Primer Apellido"
+    .row.form-group
+      = f.label 'Segundo Apellido', class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.text_field :maiden_name, class: 'form-control', placeholder: "Segundo Apellido"
+    .row.form-group
+      = f.label 'Email', class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.text_field :email, class: 'form-control', placeholder: "Email"
+    .row.form-group
+      = f.label 'Dirección', class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.text_field :address, class: 'form-control', placeholder: "Dirección"
+    .row.form-group
+      = f.label 'Codigo Postal', class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.text_field :postal_code, class: 'form-control', placeholder: "Codigo Postal"
+    .row.form-group
+      = f.label 'Telefono', class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.text_field :phone_number, class: 'form-control', placeholder: "Telefono"
+    .row.form-group
+      = f.label 'Celular', class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.text_field :cellphone, class: 'form-control', placeholder: "Celular"
+    .row.form-group
+      = f.label 'Contacto', class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.text_field :contact, class: 'form-control', placeholder: "Contacto"
+
+  .box-footer
+    = f.button "<i class='fa fa-floppy-o'></i> #{t('helpers.submit.submit', model: t('.resource'))}".html_safe,
+            class: 'btn btn-primary btn-flat', type: 'submit'
+    - if has_policy(Client, %w(index))
+      = link_to clients_path, class: 'btn btn-default btn-flat' do
+        i.fa.fa-list
+          | Ir a clientes

@@ -1,0 +1,70 @@
+p.flash-notice
+  = params[:notice]
+section.content ng-controller="clientController"
+  .row
+    .col-xs-12
+      .box.box-primary
+        .box-header.with-border
+          .row
+            .col-xs-6.col-md-8.col-lg-9
+              h3.box-title
+                | Clientes
+            .col-xs-6.col-md-4.col-lg-3
+              .box-tools.pull-right
+                / = search_form_for @search_items do |f|
+                /   .input-group.input-group-sm.search
+                /     = f.text_field :code_or_name_or_description_or_model_or_direct_branch_name_or_department_name_cont, class: 'form-control',
+                /             placeholder: t('helpers.search')
+                /     .input-group-btn
+                /       button [class="btn btn-default" type="submit"]
+                /         i [class="fa fa-search"]
+                - unless has_policy_employee
+                  = link_to new_client_path, class: 'btn btn-sm btn-flat btn-success', title: "Nuevo cliente" do
+                    i.fa.fa-plus
+                    span.hidden-xs
+                      = "Nuevo cliente"
+
+        .box-body
+          .dataTables_wrapper
+            .row
+              .col-sm-12
+                .table-responsive
+                  table.table.table-bordered.table-hover.dataTable
+                    thead
+                      tr
+                        th "Nombre"
+                        th "Email"
+                        th "Dirección"
+                        th "Código postal"
+                        th "Telefono"
+                        th "Celular"
+                        th "Contacto"
+                        th.actions_header
+                          | Acciones
+                    tbody
+                      - @clients.each do |client|
+                        tr.show_actions
+                          td = client.full_name
+                          td = client.email
+                          td = client.address
+                          td = client.postal_code
+                          td = client.phone_number
+                          td = client.cellphone
+                          td = client.contact
+                          td
+                            .actions
+                              = link_to '<i class="fa fa-search"></i>'.html_safe, client_path(client), title: t('helpers.show'),
+                                      class: 'btn btn-xs btn-success btn-flat'
+                              = link_to '<i class="fa fa-edit"></i>'.html_safe, edit_client_path(client),
+                                      class: 'btn btn-xs btn-primary btn-flat', title: t('helpers.edit')
+                              - unless current_user.user_employee?
+                                a ng-click="delete_client(#{client.id})" class="btn btn-xs btn-danger btn-flat btn-destroy"
+                                  i.fa.fa-trash-o
+
+                  / .row
+                  /   .col-sm-5
+                  /     .dataTables_info
+                  /       = pluralize(@clients.count, t('.one'), t('.other'))
+                    / .col-sm-7
+                    /   .dataTables_paginate.paging_simple_numbers
+                    /     = custom_paginator(@clients)
