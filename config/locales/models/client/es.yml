@@ -1,0 +1,23 @@
+es:
+  activerecord:
+    attributes:
+      client:
+        name: Nombre
+        last_name: Primer Apellido
+        maiden_name: Segundo Apellido,
+        address: Dirección,
+        postal_code: Codigo Postal
+        email: Email
+        phone_number: Telefono
+        cellphone: Celular
+        contact: Contacto
+    errors:
+      models:
+        client:
+          attributes:
+            name:
+              required: Obligatorio
+      time_units:
+        day: Día(s)
+        month: Mes(es)
+        year: Año(s)

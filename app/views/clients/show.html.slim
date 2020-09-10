@@ -1,0 +1,33 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @client.name
+p
+  strong Last name:
+  = @client.last_name
+p
+  strong Maiden name:
+  = @client.maiden_name
+p
+  strong Address:
+  = @client.address
+p
+  strong Postal code:
+  = @client.postal_code
+p
+  strong Email:
+  = @client.email
+p
+  strong Phone number:
+  = @client.phone_number
+p
+  strong Cellphone:
+  = @client.cellphone
+p
+  strong Contact:
+  = @client.contact
+
+=> link_to 'Edit', edit_client_path(@client)
+'|
+=< link_to 'Back', clients_path
