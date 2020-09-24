@@ -76,6 +76,7 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
                 $scope.branch = $scope.item.branch_id;
                 $scope.category = $scope.item.sub_category.category_id;
                 $scope.sub_category = $scope.item.sub_category.id;
+
                 $scope.get_department();
                 $scope.get_subcategories();
             }
