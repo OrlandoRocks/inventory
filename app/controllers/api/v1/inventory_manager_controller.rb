@@ -7,7 +7,7 @@ module Api
 
       def get_items
         @items = Item.all
-        render json: @items, except: :image
+        render json: @items
       end
 
     end

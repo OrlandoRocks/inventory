@@ -155,6 +155,9 @@ gem 'bootstrap-daterangepicker-rails', '~> 0.1.5'
 gem 'caxlsx'
 gem 'caxlsx_rails'
 
+
+gem 'active_model_serializers', '~> 0.10.0'
+
 #Gema que nos sirve para eliminar acentos.
 gem 'unidecoder'
 

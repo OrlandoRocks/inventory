@@ -4,20 +4,6 @@
 app.controller('itemController',["$scope", "ModalService", "$http", function($scope, ModalService, $http) {
 
 
-    // $scope.get_companies_services_json =  function(id) {
-    //     $http.get('/admin/companies_services/show_by_company/'+id+'.json')
-    //         .success(function(data, status, headers, config) {
-    //             $scope.company_data = data;
-    //         })
-    //         .error(function(error, status, headers, config) {
-    //             console.log(status);
-    //             console.log("Error occured");
-    //         });
-    //
-    // };
-
-
-    // $scope.get_companies_services_json($scope.company);
 
     $('.datepicker').datepicker({
         format: 'dd/mm/yyyy',
@@ -53,7 +39,7 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
         //
         // $mdDialog.show(confirm).then(function() {
 
-            $scope.save_sale_detail(ev);
+            $scope.save_sale_item(ev);
         //     $scope.status = 'You decided to get rid of your debt.';
         // }, function() {
         //     $scope.status = 'You decided to keep your debt.';
@@ -87,18 +73,21 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
     };
 
 
-    $scope.save_sale_detail = function(sale_detail){
+    $scope.save_sale_item = function(sale_item){
 
-        console.log(sale_detail.payment);
+        const formData = new FormData();
+        formData.append('item', sale_item);
+
+        console.log(formData);
         $http({
-            url: '/sale_details',
+            url: `/item/${sale_item.id}`,
             method: 'POST',
-            data: {sale_detail: sale_detail}
+            data: formData
         }).then(function successCallback(response) {
 
-            $scope.amount_paid += parseInt(sale_detail.payment);
-            $scope.amount_owed -= parseInt(sale_detail.payment);
-            $scope.get_sale_details_json($scope.sale);
+            $scope.amount_paid += parseInt(sale_item.payment);
+            $scope.amount_owed -= parseInt(sale_item.payment);
+            $scope.get_sale_items_json($scope.sale);
 
             console.log("se armo el guiso!! :D");
         }, function errorCallback(response) {
@@ -118,12 +107,12 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
             }
         }).then(function(modal) {
             modal.element.modal();
-            modal.close.then(function(sale_detail) {
-                $scope.showConfirm(sale_detail);
-                // $scope.save_sale_detail(sale_detail);
+            modal.close.then(function(sale_item) {
+                $scope.showConfirm(sale_item);
+                // $scope.save_sale_item(sale_item);
                 // $scope.amount_paid += parseInt(paid);
                 // $scope.amount_owed -= paid;
-                // $scope.get_sale_details_json($scope.sale);
+                // $scope.get_sale_items_json($scope.sale);
             });
         });
     };
@@ -204,10 +193,13 @@ app.controller('ModalVentaController', ['$scope','close' ,'Upload','$http', 'ite
         $scope.opened = true;
     };
 
+    console.log('Hola Bebe!!');
+    console.log(item);
 
 
-    $scope.close = function(sale_detail) {
-        close(sale_detail, 500); // close, but give 500ms for bootstrap to animate
+
+    $scope.close = function(sale_item) {
+        close(sale_item, 500); // close, but give 500ms for bootstrap to animate
     };
 
     $scope.signature = "";
@@ -216,19 +208,19 @@ app.controller('ModalVentaController', ['$scope','close' ,'Upload','$http', 'ite
     $scope.uploadFiles = function() {
 
 
-        $scope.sale_detail = {
+        $scope.sale_item = {
             sale_id: sale,
             payment: $scope.payment,
             signature_client: $scope.signature["dataUrl"]
         };
 
-        $scope.close($scope.sale_detail);
+        $scope.close($scope.sale_item);
 
         // if($scope.payment<=$scope.amount_owed){
         //     $http({
-        //         url: '/sale_details',
+        //         url: '/sale_items',
         //         method: 'POST',
-        //         data: {sale_detail:{
+        //         data: {sale_item:{
         //             sale_id: sale,
         //             payment: $scope.payment,
         //             signature_client: $scope.signature["dataUrl"]
@@ -247,9 +239,9 @@ app.controller('ModalVentaController', ['$scope','close' ,'Upload','$http', 'ite
 
         // if (file) {
         //     file.upload = Upload.upload({
-        //         url: '/sale_details',
+        //         url: '/sale_items',
         //         //  data: {file: file}
-        //         data: {sale_detail: {
+        //         data: {sale_item: {
         //             sale_id: sale,
         //             client_id: $scope.client,
         //             payment: $scope.payment,

@@ -79,6 +79,11 @@ GEM
   remote: https://api.rubygems.org/
   remote: https://rails-assets.org/
   specs:
+    active_model_serializers (0.10.10)
+      actionpack (>= 4.1, < 6.1)
+      activemodel (>= 4.1, < 6.1)
+      case_transform (>= 0.2)
+      jsonapi-renderer (>= 0.1.1.beta1, < 0.3)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
     annotate (2.7.5)
@@ -132,6 +137,8 @@ GEM
       image_processing (~> 1.1)
       mimemagic (>= 0.3.0)
       mini_mime (>= 0.1.3)
+    case_transform (0.2)
+      activesupport
     caxlsx (3.0.2)
       htmlentities (~> 4.3, >= 4.3.4)
       mimemagic (~> 0.3)
@@ -205,6 +212,7 @@ GEM
       regexp_parser (~> 1.6)
       regexp_property_values (~> 1.0)
     json (1.8.6)
+    jsonapi-renderer (0.2.2)
     listen (3.2.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -368,6 +376,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_model_serializers (~> 0.10.0)
   annotate (~> 2.7.5)
   audited (~> 4.9)
   awesome_print
