@@ -1,0 +1,2 @@
+class FiscalVoucher < ApplicationRecord
+end

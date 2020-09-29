@@ -312,15 +312,40 @@
               Froma de Pago:
             </label>
             <div class="col-md-6">
-              <input class="form-control" >
+              <input ng-model="item.payment_type" type="number" class="form-control" >
             </div>
           </div>
+
+
+          <div class="row form-group">
+            <label class="col-md-3 control-label">
+              Cantidad:
+            </label>
+            <div class="col-md-6">
+              <input ng-model="item.sale_price" type="number" class="form-control" >
+            </div>
+          </div>
+
+
+          <div class="row form-group">
+            <label class="col-md-3 control-label">
+              Comprobante:
+            </label>
+            <div class="col-md-6">
+
+              <input type="file" ngf-select ng-model="item.image" name="image"
+                     accept="image/*" ngf-max-size="2MB" required
+                     ngf-model-invalid="errorFile">
+            </div>
+          </div>
+
           <div class="row form-group">
             <label class="col-md-3 control-label">
               Vendedor:
             </label>
             <div class="col-md-6">
-              <input class="form-control" value="<%= current_user.full_name %>">
+              <input class="form-control" type="hidden" ng-model="item.user_id" ng-value="item.user_id ='<%= current_user.id %>'">
+              <input class="form-control" ng-model="user_name" ng-value="user_name = '<%= current_user.full_name %>'">
             </div>
           </div>
           <div class="row form-group">
@@ -328,17 +353,29 @@
               Cliente:
             </label>
             <div class="col-md-6">
-              <select class="form-control" value="<%= current_user.full_name %>">
+              <select class="form-control" ng-model="item.client_id" value="<%= current_user.full_name %>">
                 <option> Seleccionar Cliente</option>
               </select>
             </div>
           </div>
+
+          <div class="row form-group">
+            <label class="col-md-3 control-label">
+              Uso de CFDI:
+            </label>
+            <div class="col-md-6">
+              <select class="form-control" ng-model="item.fiscal_voucher_id" value="">
+                <option> Seleccionar CFDI</option>
+              </select>
+            </div>
+          </div>
+
           <div class="row form-group">
             <label class="col-md-3 control-label">
               Observaciones:
             </label>
             <div class="col-md-6">
-              <textarea class="form-control" value="<%= current_user.full_name %>">
+              <textarea class="form-control" ng-model="item.description" value="<%= current_user.full_name %>">
               </textarea>
             </div>
           </div>
@@ -346,7 +383,7 @@
         </div>
 
         <div class="modal-footer">
-          <button class="btn btn-primary" data-dismiss="modal"> Aceptar</button>
+          <button class="btn btn-primary" ng-click="uploadFiles(item.image)" data-dismiss="modal"> Aceptar</button>
         </div>
 
       </div>

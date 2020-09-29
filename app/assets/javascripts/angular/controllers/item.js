@@ -54,11 +54,8 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
             url: '/items/'+id+'.json'
         }).then(function successCallback(response) {
 
-            console.log('Hola bebe');
-
             if (response.data != null) {
                 $scope.item = response.data;
-                console.log($scope.item);
                 $scope.branch = $scope.item.branch_id;
                 $scope.category = $scope.item.sub_category.category_id;
                 $scope.sub_category = $scope.item.sub_category.id;
@@ -108,7 +105,7 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
         }).then(function(modal) {
             modal.element.modal();
             modal.close.then(function(sale_item) {
-                $scope.showConfirm(sale_item);
+                // $scope.showConfirm(sale_item);
                 // $scope.save_sale_item(sale_item);
                 // $scope.amount_paid += parseInt(paid);
                 // $scope.amount_owed -= paid;
@@ -193,8 +190,6 @@ app.controller('ModalVentaController', ['$scope','close' ,'Upload','$http', 'ite
         $scope.opened = true;
     };
 
-    console.log('Hola Bebe!!');
-    console.log(item);
 
 
 
@@ -205,16 +200,65 @@ app.controller('ModalVentaController', ['$scope','close' ,'Upload','$http', 'ite
     $scope.signature = "";
 
     $scope.item = item;
-    $scope.uploadFiles = function() {
+
+    $scope.uploadFiles = function(file) {
 
 
-        $scope.sale_item = {
-            sale_id: sale,
-            payment: $scope.payment,
-            signature_client: $scope.signature["dataUrl"]
-        };
+        console.log($scope.item);
+        // $scope.close($scope.sale_item);
 
-        $scope.close($scope.sale_item);
+
+        // $http({
+        //     url: `/items/${$scope.item.id}.json`,
+        //     method: 'PATCH',
+        //     data: {item: {
+        //             sale_price: $scope.item.sale_price,
+        //             payment_type: $scope.item.payment_type,
+        //             status_item_id: 3,
+        //             branch_id: $scope.item.branch_id,
+        //             department_id: $scope.item.department_id,
+        //             user_id: $scope.item.user_id
+        //         }}
+        // }).then(function successCallback(response) {
+        //     $scope.close(response);
+        //     console.log("se armo el guiso!! :D");
+        // }, function errorCallback(response) {
+        //     $scope.close(response);
+        //     console.log("algo valio shit!! :(");
+        // });
+
+
+
+        // if (file) {
+        $scope.item.image.upload = Upload.upload({
+                url: `/items/${$scope.item.id}.json`,
+                method: 'PATCH',
+                //  data: {file: file}
+                data: {item: {
+                    sale_price: $scope.item.sale_price,
+                    payment_type: 1,
+                    image: $scope.item.image,
+                    status_item_id: 3,
+                    branch_id: $scope.item.branch_id,
+                    department_id: $scope.item.department_id,
+                    user_id: $scope.item.user_id
+                    }}
+            });
+            file.upload.then(function (response) {
+                $timeout(function () {
+                    file.result = response.data;
+                    $scope.close("Cancel");
+                });
+            }, function (response) {
+                if (response.status > 0)
+                    $scope.errorMsg = response.status + ': ' + response.data;
+            }, function (evt) {
+                file.progress = Math.min(100, parseInt(100.0 *
+                    evt.loaded / evt.total));
+            });
+        // }
+
+
 
         // if($scope.payment<=$scope.amount_owed){
         //     $http({
@@ -237,30 +281,7 @@ app.controller('ModalVentaController', ['$scope','close' ,'Upload','$http', 'ite
 
 
 
-        // if (file) {
-        //     file.upload = Upload.upload({
-        //         url: '/sale_items',
-        //         //  data: {file: file}
-        //         data: {sale_item: {
-        //             sale_id: sale,
-        //             client_id: $scope.client,
-        //             payment: $scope.payment,
-        //             invoice: file
-        //         }}
-        //     });
-        //     file.upload.then(function (response) {
-        //         $timeout(function () {
-        //             file.result = response.data;
-        //             $scope.close("Cancel");
-        //         });
-        //     }, function (response) {
-        //         if (response.status > 0)
-        //             $scope.errorMsg = response.status + ': ' + response.data;
-        //     }, function (evt) {
-        //         file.progress = Math.min(100, parseInt(100.0 *
-        //             evt.loaded / evt.total));
-        //     });
-        // }
+
     }
 
 
@@ -292,7 +313,8 @@ app.controller('ModalFileController', ['$scope','close', 'Upload','$http', '$tim
     $scope.uploadFiles = function(file) {
         if (file) {
             file.upload = Upload.upload({
-                url: '/item_file',
+                url: `/item/${sale_item.id}`,
+                method: 'POST',
                 //  data: {file: file}
                 data: {item_file: {
                     item_id: servicio,

@@ -1,0 +1,23 @@
+h1 Listing fiscal_vouchers
+
+table
+  thead
+    tr
+      th Name
+      th Status
+      th
+      th
+      th
+
+  tbody
+    - @fiscal_vouchers.each do |fiscal_voucher|
+      tr
+        td = fiscal_voucher.name
+        td = fiscal_voucher.status
+        td = link_to 'Show', fiscal_voucher
+        td = link_to 'Edit', edit_fiscal_voucher_path(fiscal_voucher)
+        td = link_to 'Destroy', fiscal_voucher, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Fiscal voucher', new_fiscal_voucher_path
