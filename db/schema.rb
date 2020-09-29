@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_09_231442) do
+ActiveRecord::Schema.define(version: 2020_09_25_044313) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -146,6 +146,13 @@ ActiveRecord::Schema.define(version: 2020_09_09_231442) do
     t.index ["branch_id"], name: "index_departments_on_branch_id"
   end
 
+  create_table "fiscal_vouchers", force: :cascade do |t|
+    t.string "name"
+    t.boolean "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "item_files", id: :serial, force: :cascade do |t|
     t.integer "item_id"
     t.string "file"
@@ -188,10 +195,15 @@ ActiveRecord::Schema.define(version: 2020_09_09_231442) do
     t.string "accessory"
     t.date "acquisition_date"
     t.bigint "trailer_id"
+    t.integer "payment_type"
+    t.bigint "fiscal_voucher_id"
+    t.bigint "client_id"
     t.index ["branch_id"], name: "index_items_on_branch_id"
     t.index ["brand_id"], name: "index_items_on_brand_id"
     t.index ["category_id"], name: "index_items_on_category_id"
+    t.index ["client_id"], name: "index_items_on_client_id"
     t.index ["department_id"], name: "index_items_on_department_id"
+    t.index ["fiscal_voucher_id"], name: "index_items_on_fiscal_voucher_id"
     t.index ["provider_id"], name: "index_items_on_provider_id"
     t.index ["status_item_id"], name: "index_items_on_status_item_id"
     t.index ["sub_category_id"], name: "index_items_on_sub_category_id"
@@ -366,7 +378,9 @@ ActiveRecord::Schema.define(version: 2020_09_09_231442) do
   add_foreign_key "items", "branches"
   add_foreign_key "items", "brands"
   add_foreign_key "items", "categories"
+  add_foreign_key "items", "clients"
   add_foreign_key "items", "departments"
+  add_foreign_key "items", "fiscal_vouchers"
   add_foreign_key "items", "providers"
   add_foreign_key "items", "status_items"
   add_foreign_key "items", "sub_categories"
