@@ -27,6 +27,39 @@ es:
         permissions: Permisos
         new_item: Nuevo Artículo
         next_maintenances: Siguientes mantenimientos
+      form_order:
+        accessory: Accesorios
+        Usuario: Vendedor
+        Client: Cliente
+        select:
+          prompt: Seleccionar una opción
+      orders:
+        title: Artículos
+        resource: el artículo
+        code: Código
+        name: Nombre del trailer
+        description: Descripción
+        model: Modelo
+        serial_number: Numero de Serie
+        purchased_date: Fecha de Compra
+        in_service_date: Fecha de entrega
+        time_unit_service: Unidad
+        time_quantity_service: Mantenimiento cada
+        price: Valor de Adquisición
+        time_unit_depreciation: Unidad de tiempo
+        time_quantity_depreciation: Depreciación cada
+        sub_category: Sub Categoría
+        provider: Proveedor
+        branch: Sucursal
+        department: Departamento
+        user: Usuario
+        brand: Marca
+        status_item: Estatus del Artículo
+        one: Artículo
+        other: Articulos
+        permissions: Permisos
+        new_item: Nuevo Artículo
+        next_maintenances: Siguientes mantenimientos
       items_import:
         title: Importar archivo csv para artículos
         code: Código
@@ -163,6 +196,36 @@ es:
         user: Usuario responsable
         brand: Marca
         status_item: Estatus del Artículo
+      new_order:
+        title: Articulos
+        resource: el artículo
+        name: Nombre
+        code: Código
+        branch: Sucursal
+        description: Descripción
+        accessory: Accesorios
+        remission: Remisión
+        model: Modelo
+        serial_number: Numero de Serie
+        purchased_date: Fecha de Compra
+        in_service_date: Fecha de Uso
+        time_unit_service: Unidad de tiempo
+        time_quantity_service: Mantenimiento cada
+        price: Valor de Adquisición
+        time_unit_depreciation: Unidad de tiempo
+        time_quantity_depreciation: Depreciación cada
+        category: Categoría
+        sub_category: Sub Categoría
+        provider: Proveedor
+        department: Departamento
+        user_id: Vendedor
+        trailer_id: Nombre del remolque
+        brand: Marca
+        status_item: Estatus del Artículo
+        clients: Clientes
+        select:
+          prompt: Seleccione una opción
+
       new:
         title: Nuevo Artículo
       edit:

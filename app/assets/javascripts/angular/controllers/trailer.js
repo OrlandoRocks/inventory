@@ -1,7 +1,7 @@
 /**
  * Created by orlando on 11/12/16.
  */
-app.controller('itemController',["$scope", "ModalService", "$http", function($scope, ModalService, $http) {
+app.controller('trailerController',["$scope", "ModalService", "$http", function($scope, ModalService, $http) {
 
 
     // $scope.get_companies_services_json =  function(id) {
@@ -24,19 +24,8 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
         language: "es"
     });
 
-    $scope.init = function(branches, categories, item){
-        $scope.branches = branches;
+    $scope.init = function(categories){
         $scope.categories = categories;
-
-        if(item !== null && item !== undefined){
-
-            $scope.get_item_json(item);
-
-            console.log($scope.item);
-
-
-        }
-
     };
 
 
@@ -67,6 +56,8 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
             method: 'GET',
             url: '/items/'+id+'.json'
         }).then(function successCallback(response) {
+
+            console.log('Hola bebe');
 
             if (response.data != null) {
                 $scope.item = response.data;

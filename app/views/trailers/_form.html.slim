@@ -1,3 +1,4 @@
+
 = form_for(trailer, trailer: 'form', html: {class: 'form-horizontal'}, validate: true) do |f|
   - if @trailer.errors.any?
     #error_explanation
@@ -14,6 +15,25 @@
       = f.label 'Modelo', class: 'col-sm-2 control-label'
       .col-sm-10
         = f.text_field :model, class: 'form-control', placeholder: 'Modelo', autofocus: true
+    .row.form-group
+      = label_tag 'Categoria', 'Categoría', class: 'col-sm-2 control-label'
+      .col-md-10
+        select.form-control ng-change="get_subcategories()" ng-model="category" ng-options=("category.id as category.name for category in categories") required="true"
+          option disabled="" selected="" value=""  Categorias...
+        = f.hidden_field :category_id, value: '{{category}}'
+
+    .row.form-group
+      = label_tag 'SubCategoria', 'SubCategoría', class: 'col-sm-2 control-label'
+      .col-md-10
+        select.form-control ng-model="sub_category" ng-options=("sub_category.id as sub_category.name for sub_category in sub_categories") required="true"
+          option disabled="" selected="" value=""  SubCategorias...
+        = f.hidden_field :sub_category_id, value: '{{sub_category}}'
+
+    .row.form-group
+      = f.label 'Imagen', class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.file_field :image, class: 'form-control'
+        / input.form-control type="file" accept=".jpg,.png,.pdf" name="trailer[image]"
 
 
     .box-footer

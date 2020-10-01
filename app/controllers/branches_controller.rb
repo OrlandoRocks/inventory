@@ -92,6 +92,10 @@ class BranchesController < ApplicationController
     render json: value.to_json
   end
 
+  def get_branch_user
+    @user = User.find(params[:id])
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.

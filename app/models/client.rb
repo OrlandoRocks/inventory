@@ -1,5 +1,6 @@
 class Client < ApplicationRecord
 
+  has_many :item
   has_associated_audits
 
   audited

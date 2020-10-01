@@ -1,0 +1,69 @@
+= form_for @item, html: {class: 'form-horizontal', multipart: true} do |f|
+  - if @item.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@item.errors.count, "error(es)")}, No se permitio almacenar el artículo debido a:"
+      ul
+        - @item.errors.full_messages.each do |message|
+          li = message
+
+
+  = form_for(@item, item: 'form', html: {class: 'form-horizontal'}, validate: true) do |f|
+    .box-body
+
+      .row.form-group
+        = f.label 'Cliente', class: 'col-sm-2 control-label'
+        .col-md-10
+          = f.select :client_id, Client.all.map { |client| [client.name, client.id] },
+                  {include_blank: t('.select.prompt')}, class: 'form-control'
+
+      .row.form-group
+        = label_tag 'Anticipo', 'Anticipo', class: 'col-sm-2 control-label'
+        .col-md-10
+          = f.number_field :advance_payment, class: 'form-control', placeholder: 'Anticipo'
+
+      .row.form-group
+        = f.label 'Vendedor', class: 'col-sm-2 control-label'
+        .col-md-10
+          = f.select :user_id, User.all.map { |user| [user.first_name, user.id] },
+                  {include_blank: t('.select.prompt')}, class: 'form-control', 'ng-change': 'get_branch_user(user)',
+                  'ng-model': 'user'
+
+      .row.form-group
+        = label_tag 'Sucursal', 'Sucursal', class: 'col-sm-2 control-label'
+        .col-md-10
+          = text_field_tag :branch, '', class: 'form-control', placeholder: 'Sucursal', 'ng-model': 'branch_name', disabled: true
+
+      .row.form-group
+        = label_tag 'Departamento', 'Departamento', class: 'col-sm-2 control-label'
+        .col-md-10
+          = text_field_tag :branch, '', class: 'form-control', placeholder: 'Departamento', 'ng-model': 'department_name', disabled: true
+
+      .row.form-group
+        = f.label :trailer_id, class: 'col-sm-2 control-label'
+        .col-md-10
+          = f.select :trailer_id, Trailer.all.map { |client| [client.name, client.id] },
+                  {include_blank: t('.select.prompt')}, class: 'form-control', 'ng-model': 'trailer', 'ng-change': 'get_category_subcategory(trailer)'
+
+      .row.form-group
+        = label_tag 'Categoria', 'Categoria', class: 'col-sm-2 control-label'
+        .col-md-10
+          = text_field_tag :category, '', class: 'form-control', placeholder: 'Categoria', 'ng-model': 'category_name'
+
+      .row.form-group
+        = label_tag 'SubCategoria', 'SubCategoria', class: 'col-sm-2 control-label'
+        .col-md-10
+          = text_field_tag :sub_category, '', class: 'form-control', placeholder: 'SubCategoria', 'ng-model': 'sub_category_name'
+
+      .row.form-group
+        = f.label :accessorios, class: 'col-sm-2 control-label'
+        .col-sm-10
+          = f.text_area :accessory, class: 'form-control', placeholder: t('.accessory')
+
+          input type='hidden' name="item[status_item_id]" value='5'
+
+    .box-footer
+      = f.button "<i class='fa fa-floppy-o'></i> #{t('helpers.submit.submit', model: t('.resource'))}".html_safe,
+              class: 'btn btn-primary btn-flat', type: 'submit'
+      = link_to items_path, class: 'btn btn-default btn-flat' do
+        i.fa.fa-list
+        =< t('helpers.back')

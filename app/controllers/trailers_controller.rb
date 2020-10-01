@@ -1,5 +1,5 @@
 class TrailersController < ApplicationController
-  before_action :set_trailer, only: [:show, :edit, :update, :destroy]
+  before_action :set_trailer, only: [:show, :edit, :update, :destroy, :get_category_subcategory]
 
   # GET /trailers
   # GET /trailers.json
@@ -18,6 +18,7 @@ class TrailersController < ApplicationController
   # GET /trailers/new
   def new
     @trailer = Trailer.new
+    @categories = Category.all
   end
 
   # GET /trailers/1/edit
@@ -31,7 +32,7 @@ class TrailersController < ApplicationController
 
     respond_to do |format|
       if @trailer.save
-        format.html { redirect_to trailers_path, notice: 'Trailer was successfully created.' }
+        format.html { redirect_to trailers_path, notice: 'Trailer ha sido creado correctamente.' }
         format.json { render :show, status: :created, location: @trailer }
       else
         format.html { render :new }
@@ -64,6 +65,13 @@ class TrailersController < ApplicationController
     end
   end
 
+  def get_category_subcategory
+
+    @sub_category = SubCategory.find(@trailer.sub_category_id)
+
+
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_trailer
@@ -72,6 +80,6 @@ class TrailersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def trailer_params
-      params.require(:trailer).permit(:name, :model, :photo)
+      params.require(:trailer).permit(:name, :model, :photo, :image, :category_id, :sub_category_id)
     end
 end

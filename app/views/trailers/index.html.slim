@@ -30,6 +30,7 @@ section.content
                       tr
                         th = t('.name')
                         th = t('.model')
+                        th = t('.model')
                         th.actions_header
                           = t('helpers.actions')
                       tbody
@@ -37,6 +38,7 @@ section.content
                           tr.show_actions
                             td = trailer.name
                             td = trailer.model
+                            td = link_to image_tag(trailer.image, :class => 'download_icon', :size => '65x65'), "#{url_for(trailer.image)}", :target => "_blank"
                             td
                               .actions
                                 = link_item '<i class="fa fa-edit"></i>'.html_safe, edit_trailer_path(trailer),

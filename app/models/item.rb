@@ -1,8 +1,8 @@
 class Item < ApplicationRecord
-  belongs_to :sub_category, optional: true
+  belongs_to :sub_category
   #belongs_to :category, optional: true
   belongs_to :provider, optional: true
-  belongs_to :department, optional: true
+  belongs_to :department
   belongs_to :user, optional: true
   belongs_to :brand, optional: true
   belongs_to :trailer, optional: true
@@ -35,9 +35,9 @@ class Item < ApplicationRecord
   # validates_processing_of :image
   # validate :image_size_validation
 
-  # before_save :set_maintenance_date
-  # before_create :set_maintenance_done
-  # before_update :calculate_maintenance_date
+  before_save :set_maintenance_date
+  before_create :set_maintenance_done
+  before_update :calculate_maintenance_date
 
   # delegate :name, to: :brand, prefix: true, allow_nil: true
   # delegate :name, to: :provider, prefix: true, allow_nil: true
@@ -95,7 +95,6 @@ class Item < ApplicationRecord
   end
 
   enum file_type: [ :photo, :assignment_signature, :invoice, :guarantee_policy, :other]
-  # enum payment_type: [ :cash, :deposito]
   enum time_unit: [ :day, :month, :year]
 
   audited except: :image

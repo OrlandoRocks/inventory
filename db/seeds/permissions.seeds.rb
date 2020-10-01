@@ -81,6 +81,7 @@ Permission.create!([
   {name: "Actualizar Fecha De Mantenimiento De Un Artículo", description: "Permite actualizar fecha de mantenimiento de un artículo", action: "change_maintenance_done", controller: "Items"},
   {name: "Obtener el ultimo codigo de un departamento para cuando no se tiene sucursal", description: "Permite obtener el ultimo codigo del departamento", action: "next_code", controller: "Branches"},
   {name: "Obtener departmante por id de sucursal", description: "Permite Obtener departmante por id de sucursal", action: "get_departments_by_branch", controller: "Departments"},
-  {name: "Obtener SubCategorias por id de categoria", description: "Permite obtener SubCategorias por id de categoria", action: "get_subcategory_by_category", controller: "SubCategories"}
+  {name: "Obtener SubCategorias por id de categoria", description: "Permite obtener SubCategorias por id de categoria", action: "get_subcategory_by_category", controller: "SubCategories"},
+  {name: "Vista para crear pedidos", description: "Permite entrar a la vista para crear los pedidos", action: "new_order", controller: "Items"}
 
                    ])

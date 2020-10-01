@@ -18,11 +18,41 @@ es:
         provider_id: Proveedor
         branch_id: Sucursal
         department_id: Departamento
-        user: Usuario
+        advance_payment: Anticipo
+        client: Ciente
+        user: Vendedor
         brand_id: Marca
         status_item_id: Estatus del Articulo
         user_id: Usuario
         image: Imágen
+        new_order:
+          name: Nombre del artículo
+          code: Código
+          description: Descripción
+          model: Modelo
+          serial_number: Numero de Serie
+          purchased_date: Fecha de Compra
+          in_service_date: Fecha de entrega
+          time_unit_service: Unidad de tiempo
+          time_quantity_service: Mantenimiento cada
+          price: Valor de Adquisición
+          time_unit_depreciation: Unidad de tiempo
+          time_quantity_depreciation: Depreciación cada
+          sub_category_id: Subcategoría
+          provider_id: Proveedor
+          branch_id: Sucursal
+          department_id: Departamento
+          user: Usuario
+          brand_id: Marca
+          status_item_id: Estatus del Articulo
+          user_id: Usuario
+          client_id: Cliente
+          trailer_id: Nombre del remolque
+          image: Imágen
+          other: Otro
+          select:
+            prompt: Seleccione una opción
+
     errors:
       models:
         item:
@@ -45,3 +75,4 @@ es:
       day: Día(s)
       month: Mes(es)
       year: Año(s)
+
