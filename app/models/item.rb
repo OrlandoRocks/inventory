@@ -1,14 +1,15 @@
 class Item < ApplicationRecord
-  belongs_to :sub_category, optional: true
+  belongs_to :sub_category
   #belongs_to :category, optional: true
   belongs_to :provider, optional: true
-  belongs_to :department, optional: true
+  belongs_to :department
   belongs_to :user, optional: true
   belongs_to :brand, optional: true
   belongs_to :trailer, optional: true
   belongs_to :status_item
-  belongs_to :direct_branch, class_name: 'Branch', foreign_key: 'branch_id', optional: true
+  belongs_to :fiscal_voucher, optional: true
   belongs_to :client, optional: true
+  belongs_to :direct_branch, class_name: 'Branch', foreign_key: 'branch_id'
   has_one :direct_company, through: :direct_branch, source: :company
   has_one :branch, through: :department
   has_one :company, through: :branch

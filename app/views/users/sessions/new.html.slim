@@ -18,7 +18,7 @@
       .form-group.has-feedback
         = f.password_field :password, autocomplete: 'off', class: 'form-control', placeholder: t('.password')
         span.glyphicon.glyphicon-lock.form-control-feedback
-      .form-group.has-feedback
+      / .form-group.has-feedback
         = f.select :current_company, options_for_select(Company.all.order(name: :asc).map {|u| [u.name, u.id]}),
                 {include_blank: t('helpers.select.prompt')}, class: 'form-control'
       .row

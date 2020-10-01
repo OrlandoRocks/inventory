@@ -1,6 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :set_item, only: [:show, :edit, :update, :destroy, :create_maintenance, :create_file,
-                                  :change_maintenance_done, :edit_order]
+  before_action :set_item, only: [:show, :edit, :update, :destroy, :create_maintenance, :create_file, :change_maintenance_done]
   helper_method :sort_column, :sort_direction
   # GET /items
   # GET /items.json
@@ -15,24 +14,6 @@ class ItemsController < ApplicationController
     @items = @search_items.result.order('maintenance_date').paginate(page: params[:page], per_page: 20)
     #@items_electric = Item.where(sub_category: SubCategory.where(category_id: 2).ids)
     @items_electric = policy_scope(Item).next_maintenances.where(sub_category: SubCategory.where(category_id: 2).ids)
-  end
-
-  def orders
-    @search_items = Item.where(status_item_id: 5).ransack(params[:q])
-    @items = @search_items.result.paginate(page: params[:page], per_page: 20)
-  end
-
-  def edit_order
-
-    p "-------------------------------------------------------"
-    p @item
-  end
-
-  def new_order
-    @item = Item.new
-    @users = User.all
-    @trailers = Trailer.all
-
   end
 
   # GET /items/1
@@ -67,6 +48,11 @@ class ItemsController < ApplicationController
   # POST /items.json
   def create
 
+    @users = Company.where(id: current_user.current_company)
+
+
+    @branches = current_user.current_company.eql?(0) ? policy_scope(Branch).order(:name) : policy_scope(Branch).where(company_id: @current_company.try(:id)).order(:name);
+
     new_params = item_params
     if item_params[:user_id].eql?('')
       new_params[:user_id] = params[:boss_id]
@@ -77,6 +63,15 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       if @item.save
+
+        unless @item.department_id
+          code = Branch.find(@item.branch_id).try(:code)
+          last_code_c = Branch.find(@item.branch_id).last_code + 1
+          Branch.find(@item.branch_id).update(last_code: last_code_c) unless @item.department_id
+          Branch.where(code: code).update_all last_code: last_code_c unless @item.department_id
+        end
+
+        Department.find(@item.department_id).update(last_code: @item.code) if @item.department_id
 
         format.html { redirect_to @item, notice: 'Se creo el artículo correctamente.' }
         format.json { render :show, status: :created, location: @item }
@@ -291,7 +286,8 @@ class ItemsController < ApplicationController
                                  :in_service_date, :time_unit_service, :time_quantity_service, :price, :category_id,
                                  :time_unit_depreciation, :time_quantity_depreciation, :sub_category_id, :provider_id,
                                  :department_id, :user_id, :brand_id, :status_item_id, :maintenance_date,
-                                 :maintenance_done, :branch_id, :accessory, :remission, :trailer_id, :client_id, :advance_payment)
+                                 :maintenance_done, :branch_id, :accessory, :remission, :trailer_id, :client_id, :advance_payment,
+                                 :fiscal_voucher_id, :payment_type, :client_id, :sale_price)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

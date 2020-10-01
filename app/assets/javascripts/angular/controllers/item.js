@@ -39,25 +39,6 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
 
     };
 
-    $scope.get_branch_user = function(user){
-        $http({
-            method: 'GET',
-            url: '/get_branch_user/'+user+'.json'
-        }).then(function successCallback(response) {
-
-            console.log('Hola bebe');
-
-            if (response.data != null) {
-               console.log(response);
-               $scope.branch_name = response.data.branch.name;
-               $scope.department_name = response.data.department.name;
-            }
-        }, function errorCallback(response) {
-            console.log("Algo valio shit!");
-        });
-    };
-
-
 
 
     $scope.showConfirm = function(ev) {
@@ -87,9 +68,9 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
             url: '/items/'+id+'.json'
         }).then(function successCallback(response) {
 
-
             if (response.data != null) {
                 $scope.item = response.data;
+                console.log($scope.item);
                 $scope.branch = $scope.item.branch_id;
                 $scope.category = $scope.item.sub_category.category_id;
                 $scope.sub_category = $scope.item.sub_category.id;
@@ -163,19 +144,9 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
             url: '/subcategory_by_category/'+ $scope.category + '.json',
             method: 'GET'
         }).then(function (response) {
+            console.log('response');
+            console.log(response.data);
             $scope.sub_categories = response.data;
-
-        });
-    };
-
-    $scope.get_category_subcategory = function(trailer){
-        $http({
-            url: '/category_subcategory/'+ trailer + '.json',
-            method: 'GET'
-        }).then(function (response) {
-            $scope.sub_category_name = response.data.sub_category.name;
-            $scope.category_name = response.data.category.name;
-            $scope.model = response.data.trailer_model;
 
         });
     };

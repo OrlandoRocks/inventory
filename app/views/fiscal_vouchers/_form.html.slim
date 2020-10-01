@@ -1,0 +1,15 @@
+= form_for @fiscal_voucher do |f|
+  - if @fiscal_voucher.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@fiscal_voucher.errors.count, "error")} prohibited this fiscal_voucher from being saved:"
+      ul
+        - @fiscal_voucher.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :status
+    = f.check_box :status
+  .actions = f.submit

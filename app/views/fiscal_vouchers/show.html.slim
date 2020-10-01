@@ -1,0 +1,12 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @fiscal_voucher.name
+p
+  strong Status:
+  = @fiscal_voucher.status
+
+=> link_to 'Edit', edit_fiscal_voucher_path(@fiscal_voucher)
+'|
+=< link_to 'Back', fiscal_vouchers_path

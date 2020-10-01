@@ -74,7 +74,7 @@ section.content
                 /.row
 
                 /! Ini Brand
-                .col-md-4
+                .col-md-3
                   .box.box-default.box-solid
                     .box-header.with-border
                       h3.box-title = t('.f_branch')
@@ -87,7 +87,7 @@ section.content
                 /! End Brand
 
                 /! Ini Brand
-                .col-md-4
+                .col-md-3
                   .box.box-warning.box-solid
                     .box-header.with-border
                       h3.box-title = t('.f_department')
@@ -101,7 +101,7 @@ section.content
                 /! End Brand
 
                 /! Ini Category
-                .col-md-4
+                .col-md-3
                   .box.box-warning.box-solid
                     .box-header.with-border
                       h3.box-title = t('.f_category')
@@ -114,7 +114,7 @@ section.content
                 /! End SubCategory
 
                 /! Ini SubCategory
-                .col-md-4
+                .col-md-3
                   .box.box-warning.box-solid
                     .box-header.with-border
                       h3.box-title = t('.f_sub_category')
@@ -128,7 +128,7 @@ section.content
                 /! End SubCategory
 
                 /! Ini Brand
-                .col-md-4
+                / .col-md-4
                   .box.box-warning.box-solid
                     .box-header.with-border
                       h3.box-title = t('.f_brand')
@@ -138,7 +138,7 @@ section.content
                     .box-body style=('display: block;')
                       = f.collection_select :brand_id_in, Brand.order(:name), :id, :name, {prompt: false},
                               {class: 'form-control select2', multiple: 'multiple', data: {placeholder: t('.brand')}}
-                .col-md-4
+                .col-md-3
                   .box.box-warning.box-solid
                     .box-header.with-border
                       h3.box-title = t('.f_status_item')
@@ -151,7 +151,7 @@ section.content
                 /! End Status
 
                 /! Ini Responsible Name
-                .col-md-4
+                .col-md-3
                   .box.box-warning.box-solid
                     .box-header.with-border
                       h3.box-title = t('.f_responsible')

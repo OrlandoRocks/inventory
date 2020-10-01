@@ -138,7 +138,7 @@ end
 
 # Easy upload management for ActiveRecord
 # gem 'paperclip', '~> 4.3', '>= 4.3.5'
-gem 'mini_magick', '~> 4.6'
+gem 'mini_magick'
 gem 'carrierwave', '~> 2.0'
 #
 
@@ -154,6 +154,9 @@ gem 'bootstrap-daterangepicker-rails', '~> 0.1.5'
 #Gema para generar archivos de excel
 gem 'caxlsx'
 gem 'caxlsx_rails'
+
+
+gem 'active_model_serializers', '~> 0.10.0'
 
 #Gema que nos sirve para eliminar acentos.
 gem 'unidecoder'
