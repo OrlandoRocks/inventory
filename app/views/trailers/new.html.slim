@@ -1,5 +1,5 @@
-section.content
-  .row
+section.content ng-controller="trailerController"
+  .row ng-init="init(#{@categories.to_json})"
     .col-xs-12
       .box.box-primary
         .box-header.with-border

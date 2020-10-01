@@ -1,0 +1,8 @@
+section.content ng-controller="itemController"
+  .row
+    .col-xs-12 ng-init="init_orders(#{@users.to_json})"
+      .box.box-primary
+        .box-header.with-border
+          h3.box-title
+            = t('.title')
+        = render 'form_order'

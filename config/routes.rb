@@ -91,6 +91,12 @@ Rails.application.routes.draw do
       get '/users/employee_department', to: 'users/registrations#new_employee_department', as: :new_employee_department
       #post '/users', to: 'users/registrations#create_user', as: :create_user
 
+      #Get Branch for user
+      get '/get_branch_user/:id', to: 'branches#get_branch_user'
+
+      #GET Category and sub category by trailer
+      get '/category_subcategory/:id', to: 'trailers#get_category_subcategory'
+
       # Edit page for a user profile.
       get '/users/edit', to: 'users/registrations#edit', as: :edit_profile
       match '/users', to: 'users/registrations#update_profile', as: :update_profile, via: [:patch, :put]
@@ -170,6 +176,11 @@ Rails.application.routes.draw do
 
       #Rutas extras para subcategorias
       get 'subcategory_by_category/:id' => 'sub_categories#get_subcategory_by_category'
+
+      #Ruta para orders
+      get 'orders' => 'items#orders'
+      get 'new_order' => 'items#new_order', as: :new_order
+      get 'edit_order/:id' => 'items#new_order', as: :edit_order
 
 
 

@@ -5,6 +5,8 @@ class CategoryPolicy < ApplicationPolicy
         if @user.current_company.equal?(0)
           scope.all.order(:name)
         else
+          p "----------------------------------------------------------------------------------------------------------------------------"
+          p @user.current_company
          scope.where(company_id: @user.current_company).order(:name)
         end
       elsif @user.admin_company?
