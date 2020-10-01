@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :set_item, only: [:show, :edit, :update, :destroy, :create_maintenance, :create_file, :change_maintenance_done]
+  before_action :set_item, only: [:show, :edit, :update, :destroy, :create_maintenance, :create_file, :change_maintenance_done, :edit_order]
   helper_method :sort_column, :sort_direction
   # GET /items
   # GET /items.json
@@ -14,6 +14,25 @@ class ItemsController < ApplicationController
     @items = @search_items.result.order('maintenance_date').paginate(page: params[:page], per_page: 20)
     #@items_electric = Item.where(sub_category: SubCategory.where(category_id: 2).ids)
     @items_electric = policy_scope(Item).next_maintenances.where(sub_category: SubCategory.where(category_id: 2).ids)
+  end
+
+  def orders
+    @search_items = Item.where(status_item_id: 5).ransack(params[:q])
+    @items = @search_items.result.paginate(page: params[:page], per_page: 20)
+  end
+
+  def edit_order
+
+    p "-------------------------------------------------------"
+    p @item
+    @item_init = @item.to_json
+  end
+
+  def new_order
+    @item = Item.new
+    @users = User.all
+    @trailers = Trailer.all
+
   end
 
   # GET /items/1
