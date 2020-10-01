@@ -126,7 +126,7 @@ section.content
                         button.btn.btn-box-tool data-widget="collapse" type="button"
                           i.fa.fa-minus
                     .box-body style=('display: block;')
-                      = f.select(:department_id_in,
+                      / = f.select(:department_id_in,
                               grouped_options_for_select(Branch.all.map{ |b| [b.name, b.departments.order(:id).map{ |d| [d.name, d.id] }] }, selected: params[:q] ? params[:q][:department_id_in] : nil),
                               {prompt: false}, {class: 'form-control select2', multiple: 'multiple', data: {placeholder: t('.department')}})
                   /! End Brand

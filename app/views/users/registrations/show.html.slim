@@ -37,10 +37,7 @@ section.content
                   = branch.name if branch.present?
                 ol
                   - if @user.admin_branch? or @user.admin_company?
-                    - branch.departments.each do |department|
-                      strong = t('.department')
-                      p.text-muted
-                        = department.name
+                    - branch.department.name if branch.department
                       ol
                         strong = "Vendedores: #{department.employees.count}"
                   - else

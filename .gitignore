@@ -40,7 +40,7 @@ pickle-email-*.html
 **.orig
 
 .DS_Store
-
+/storage
 /nbproject/
 
 .idea

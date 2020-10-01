@@ -1,6 +1,7 @@
 class Trailer < ApplicationRecord
+  belongs_to :sub_category
   has_one :category, through: :sub_category
-  has_one :sub_category, through: :sub_category
 
   has_one_attached :image
+  has_one_attached :photo
 end

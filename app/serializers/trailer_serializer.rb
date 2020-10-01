@@ -1,7 +1,14 @@
 class TrailerSerializer < ActiveModel::Serializer
-  attributes :id, :name, :model, :photo, :image, :category_id, :category, :sub_category_id, :sub_category
+  include Rails.application.routes.url_helpers
+
+  attributes :id, :name,:photo, :image, :model, :category_id, :category, :sub_category_id, :sub_category
 
   def image
     rails_blob_path(object.image, only_path: true) if object.image.attached?
   end
+
+  def photo
+    rails_blob_path(object.photo, only_path: true) if object.photo.attached?
+  end
+
 end
