@@ -32,13 +32,13 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
 
             $scope.get_item_json(item);
 
-            console.log($scope.item);
-
-
         }
 
     };
 
+    $scope.init_order = function(item){
+        console.log(item);
+    }
 
 
     $scope.showConfirm = function(ev) {

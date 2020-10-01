@@ -8,7 +8,7 @@
 
 
   = form_for(@item, item: 'form', html: {class: 'form-horizontal'}, validate: true) do |f|
-    .box-body
+    .box-body ng-init="init_order(#{@item.to_json})"
 
       .row.form-group
         = f.label 'Cliente', class: 'col-sm-2 control-label'
