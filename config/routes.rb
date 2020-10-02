@@ -42,6 +42,7 @@ Rails.application.routes.draw do
       put 'login_user' => 'users_manager#login_user'
       get 'get_items/:token' => 'inventory_manager#get_items'
       get 'get_branches/:token' => 'inventory_manager#get_branches'
+      get 'get_trailers/:token' => 'inventory_manager#get_trailers'
     end
   end
 

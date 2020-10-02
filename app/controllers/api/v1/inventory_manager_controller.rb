@@ -11,6 +11,10 @@ module Api
       end
 
 
+      def get_trailers
+        render json: Trailer.all
+      end
+
       def get_items
         @items = Item.all
         render json: @items
