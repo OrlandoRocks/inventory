@@ -43,6 +43,9 @@ Rails.application.routes.draw do
       get 'get_items/:token' => 'inventory_manager#get_items'
       get 'get_branches/:token' => 'inventory_manager#get_branches'
       get 'get_trailers/:token' => 'inventory_manager#get_trailers'
+
+      post 'create_item' => 'inventory_manager#create_item'
+
     end
   end
 

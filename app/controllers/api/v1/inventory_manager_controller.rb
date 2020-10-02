@@ -20,6 +20,15 @@ module Api
         render json: @items
       end
 
+      def create_item
+
+
+
+
+
+      end
+
+
     end
   end
 end
