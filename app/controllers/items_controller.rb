@@ -17,15 +17,15 @@ class ItemsController < ApplicationController
   end
 
   def orders
-    @search_items = Item.where(status_item_id: 5).ransack(params[:q])
+    @search_items = Item.where(status_item_id: StatusItem.find_by_key('pendiente').id).ransack(params[:q])
     @items = @search_items.result.paginate(page: params[:page], per_page: 20)
   end
 
   def edit_order
 
-    p "-------------------------------------------------------"
-    p @item
-    @item_init = @item.to_json
+    @users = User.all
+    @item_id = @item.try(:id)
+
   end
 
   def new_order
@@ -82,15 +82,6 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       if @item.save
-
-        unless @item.department_id
-          code = Branch.find(@item.branch_id).try(:code)
-          last_code_c = Branch.find(@item.branch_id).last_code + 1
-          Branch.find(@item.branch_id).update(last_code: last_code_c) unless @item.department_id
-          Branch.where(code: code).update_all last_code: last_code_c unless @item.department_id
-        end
-
-        Department.find(@item.department_id).update(last_code: @item.code) if @item.department_id
 
         format.html { redirect_to @item, notice: 'Se creo el artículo correctamente.' }
         format.json { render :show, status: :created, location: @item }
@@ -305,8 +296,9 @@ class ItemsController < ApplicationController
                                  :in_service_date, :time_unit_service, :time_quantity_service, :price, :category_id,
                                  :time_unit_depreciation, :time_quantity_depreciation, :sub_category_id, :provider_id,
                                  :department_id, :user_id, :brand_id, :status_item_id, :maintenance_date,
-                                 :maintenance_done, :branch_id, :accessory, :remission, :trailer_id, :client_id, :advance_payment,
-                                 :fiscal_voucher_id, :payment_type, :client_id, :sale_price)
+                                 :maintenance_done, :branch_id, :accessory, :remission,
+                                 :trailer_id, :client_id, :advance_payment,
+                                 :fiscal_voucher_id, :payment_type, :sale_price)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

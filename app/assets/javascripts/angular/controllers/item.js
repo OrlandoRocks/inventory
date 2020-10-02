@@ -36,9 +36,43 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
 
     };
 
-    $scope.init_order = function(item){
-        console.log(item);
-    }
+    $scope.init_order = function(item_id, users){
+        $scope.users = users;
+        $scope.get_trailers();
+        if(item_id){
+            $scope.get_orders(item_id);
+        }
+    };
+
+    $scope.get_orders = function(id){
+        $http({
+            method: 'GET',
+            url: '/items/'+id+'.json'
+        }).then(function successCallback(response) {
+
+            if (response.data != null) {
+                $scope.item = response.data;
+                $scope.user = parseInt($scope.item.user_id);
+                $scope.trailer = $scope.item.trailer_id;
+                $scope.get_trailer($scope.item.trailer_id);
+                $scope.get_branch_user($scope.item.user_id);
+
+            }
+        }, function errorCallback(response) {
+            console.log("Algo valio shit!");
+        });
+    };
+
+    $scope.get_trailers = function(){
+        $http({
+            method: 'GET',
+            url: '/trailers.json'
+        }).then(function successCallback(response) {
+            $scope.trailers = response.data;
+        }, function errorCallback(response) {
+            console.log("Algo valio shit!");
+        });
+    };
 
 
     $scope.showConfirm = function(ev) {
@@ -70,7 +104,6 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
 
             if (response.data != null) {
                 $scope.item = response.data;
-                console.log($scope.item);
                 $scope.branch = $scope.item.branch_id;
                 $scope.category = $scope.item.sub_category.category_id;
                 $scope.sub_category = $scope.item.sub_category.id;
@@ -86,7 +119,6 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
 
     $scope.save_sale_detail = function(sale_detail){
 
-        console.log(sale_detail.payment);
         $http({
             url: '/sale_details',
             method: 'POST',
@@ -97,7 +129,6 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
             $scope.amount_owed -= parseInt(sale_detail.payment);
             $scope.get_sale_details_json($scope.sale);
 
-            console.log("se armo el guiso!! :D");
         }, function errorCallback(response) {
             console.log("algo valio shit!! :(");
         });
@@ -144,8 +175,6 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
             url: '/subcategory_by_category/'+ $scope.category + '.json',
             method: 'GET'
         }).then(function (response) {
-            console.log('response');
-            console.log(response.data);
             $scope.sub_categories = response.data;
 
         });
@@ -182,6 +211,32 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
             }
 
         }, function (iSConfirm) {
+
+        });
+    };
+
+    $scope.get_branch_user = function(user){
+        $http({
+            url: '/users/'+ user + '.json',
+            method: 'GET'
+        }).then(function (response) {
+            if (response.data != null) {
+                $scope.branch_name = response.data.branch.name;
+                $scope.department_name = response.data.department.name;
+            }
+        });
+    };
+
+    $scope.get_trailer = function(trailer){
+        $http({
+            url: '/trailers/'+ trailer + '.json',
+            method: 'GET'
+        }).then(function (response) {
+            if (response.data != null) {
+                $scope.model_name = response.data.model;
+                $scope.sub_category_name = response.data.sub_category.name;
+                $scope.category_name = response.data.category.name;
+            }
 
         });
     }
