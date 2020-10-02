@@ -12,7 +12,7 @@ module Api
 
 
       def get_items
-        @items = Trailer.all
+        @items = Item.all
         render json: @items
       end
 
