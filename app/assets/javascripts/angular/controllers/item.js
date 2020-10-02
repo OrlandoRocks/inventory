@@ -214,6 +214,40 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
 
         });
     };
+    $scope.delete_order = function(id){
+        swal({
+            title: 'Eliminar',
+            text: '¿Estas seguro de eliminar este pedido?',
+            type: 'question',
+            showCancelButton: true
+        }).then(function (isConfirm) {
+            if (isConfirm) {
+                $http({
+                    url: '/items/' + id + '.json',
+                    method: 'DELETE'
+                }).then(function (response) {
+                    if (response.data) {
+                        swal({
+                            title: 'Eliminado',
+                            text: 'El pedido ha sido eliminado',
+                            type: 'success',
+                            showCancelButton: false
+                        }).then(function (isConfirm) {
+                            if (isConfirm) {
+                                location.reload();
+                            }
+
+                        }, function (iSConfirm) {
+
+                        });
+                    }
+                });
+            }
+
+        }, function (iSConfirm) {
+
+        });
+    };
 
     $scope.get_branch_user = function(user){
         $http({
