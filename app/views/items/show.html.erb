@@ -309,25 +309,31 @@
         <div class="box-body">
           <div class="row form-group">
             <label class="col-md-3 control-label">
-              Froma de Pago:
+              Froma de Pago:{{item.payment_type}}
             </label>
             <div class="col-md-6">
-              <input ng-model="item.payment_type" type="number" class="form-control" >
+              <select class="form-control" ng-init="item.payment_type = item.payment_type || 0"  ng-model="item.payment_type" >
+                <option value="0"> Seleccionar Forma de Pago</option>
+                <option value="1"> Cash (pendiente comprobante) </option>
+                <option value="2"> Deposito</option>
+                <option value="3"> Transferencia</option>
+              </select>
+
             </div>
           </div>
 
 
           <div class="row form-group">
             <label class="col-md-3 control-label">
-              Cantidad:
+              Precio Venta:
             </label>
             <div class="col-md-6">
-              <input ng-model="item.sale_price" type="number" class="form-control" >
+              <input type="text"  ng-model="item.sale_price" format="currency" class="form-control" />
             </div>
           </div>
 
 
-          <div class="row form-group">
+          <div class="row form-group" ng-show="item.payment_type>1">
             <label class="col-md-3 control-label">
               Comprobante:
             </label>
@@ -353,7 +359,9 @@
               Cliente:
             </label>
             <div class="col-md-6">
-              <select class="form-control" ng-model="item.client_id" value="<%= current_user.full_name %>">
+              <%= select_tag "fiscal_voucher",  options_from_collection_for_select(Client.all, "id", "full_name"), class: 'form-control', prompt: "Seleccionar CFDI", 'ng-model'=> 'item.fiscal_voucher_id' %>
+
+              <select class="form-control" ng-model="item.client_id" >
                 <option> Seleccionar Cliente</option>
               </select>
             </div>
@@ -364,9 +372,8 @@
               Uso de CFDI:
             </label>
             <div class="col-md-6">
-              <select class="form-control" ng-model="item.fiscal_voucher_id" value="">
-                <option> Seleccionar CFDI</option>
-              </select>
+              <%= select_tag "fiscal_voucher",  options_from_collection_for_select(FiscalVoucher.all, "id", "name"), class: 'form-control', prompt: "Seleccionar CFDI", 'ng-model'=> 'item.fiscal_voucher_id' %>
+
             </div>
           </div>
 

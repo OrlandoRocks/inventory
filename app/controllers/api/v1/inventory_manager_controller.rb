@@ -5,6 +5,12 @@ module Api
       protect_from_forgery with: :null_session
 
 
+      def get_clients
+        render json: Client.all
+      end
+      def get_fiscal_vouchers
+        render json: FiscalVoucher.all
+      end
       def get_branches
         @branches = Branch.all
         render json: @branches

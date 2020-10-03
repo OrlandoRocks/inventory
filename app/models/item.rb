@@ -94,6 +94,7 @@ class Item < ApplicationRecord
     end
   end
 
+  # enum payment_type: [:cash, :deposit]
   enum file_type: [ :photo, :assignment_signature, :invoice, :guarantee_policy, :other]
   enum time_unit: [ :day, :month, :year]
 
