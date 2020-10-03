@@ -210,6 +210,9 @@ app.controller('ModalVentaController', ['$scope','close' ,'Upload','$http', 'ite
     $scope.signature = "";
 
     $scope.item = item;
+
+    console.log("Item Loco");
+    console.log($scope.item);
     $scope.uploadFiles = function() {
 
 
