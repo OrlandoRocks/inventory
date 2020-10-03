@@ -115,7 +115,7 @@
           <!--<li class="active"><a href="#activity" data-toggle="tab">Archivos del artículo:</a></li>-->
           <li><a href="#timeline" data-toggle="tab">Timeline del artículo</a></li>
         </ul>
-        <div class="tab-content" ng-controller="itemController" ng-init="item=<%= @item.new_record? ? 0 : @item.id %>">
+        <div class="tab-content">
 
           <%#= render "item_file.html.erb" %>
 
@@ -383,7 +383,7 @@
         </div>
 
         <div class="modal-footer">
-          <button class="btn btn-primary" ng-click="uploadFiles(item.image)" data-dismiss="modal"> Aceptar</button>
+          <button class="btn btn-primary" ng-click="uploadSell(item.image)" data-dismiss="modal"> Aceptar</button>
         </div>
 
       </div>
