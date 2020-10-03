@@ -6,7 +6,7 @@ class ItemSerializer < ActiveModel::Serializer
              :time_unit_depreciation, :time_quantity_depreciation, :sub_category_id, :provider_id,
              :department_id, :user_id, :brand_id, :status_item_id, :maintenance_date,
              :maintenance_done, :branch_id, :branch, :department, :status_item, :accessory,
-             :remission, :trailer_id, :payment_type, :fiscal_voucher, :client
+             :remission, :trailer_id, :payment_type, :fiscal_voucher, :client, :user, user: [:department]
 
 
   def image
