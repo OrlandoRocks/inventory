@@ -312,7 +312,7 @@
               Froma de Pago:{{item.payment_type}}
             </label>
             <div class="col-md-6">
-              <select class="form-control" ng-init="item.payment_type = item.payment_type || 0"  ng-model="item.payment_type" >
+              <select class="form-control" ng-model="item.payment_type" >
                 <option value="0"> Seleccionar Forma de Pago</option>
                 <option value="1"> Cash (pendiente comprobante) </option>
                 <option value="2"> Deposito</option>
@@ -359,11 +359,8 @@
               Cliente:
             </label>
             <div class="col-md-6">
-              <%= select_tag "fiscal_voucher",  options_from_collection_for_select(Client.all, "id", "full_name"), class: 'form-control', prompt: "Seleccionar CFDI", 'ng-model'=> 'item.fiscal_voucher_id' %>
+              <%= select_tag "client",  options_from_collection_for_select(Client.all, "id", "full_name"), class: 'form-control', prompt: "Seleccionar Cliente", 'ng-model'=> 'item.client_id' %>
 
-              <select class="form-control" ng-model="item.client_id" >
-                <option> Seleccionar Cliente</option>
-              </select>
             </div>
           </div>
 

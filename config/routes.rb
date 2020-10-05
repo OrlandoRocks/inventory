@@ -46,7 +46,7 @@ Rails.application.routes.draw do
       get 'get_fiscal_vouchers/:token' => 'inventory_manager#get_fiscal_vouchers'
       get 'get_clients/:token' => 'inventory_manager#get_clients'
 
-      post 'create_item' => 'inventory_manager#create_item'
+      put 'create_item' => 'inventory_manager#create_item'
 
     end
   end
