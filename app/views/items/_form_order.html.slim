@@ -38,7 +38,7 @@
         .col-md-10
           = text_field_tag :branch, '', class: 'form-control', placeholder: 'Departamento', 'ng-model'=> 'department_name', disabled: true
 
-          = f.text_field :department_id, value: '{{department_id}}'
+          = f.hidden_field :department_id, value: '{{department_id}}'
       .row.form-group
         = f.label :trailer_id, class: 'col-sm-2 control-label'
         .col-md-10

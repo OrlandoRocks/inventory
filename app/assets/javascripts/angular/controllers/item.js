@@ -69,7 +69,9 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
                 $scope.item = response.data;
                 $scope.branch = $scope.item.branch_id;
                 $scope.trailer = $scope.item.trailer_id;
-                $scope.get_department();
+                if($scope.branch !== null){
+                    $scope.get_department();
+                }
                 $scope.get_subcategories();
                 $scope.get_trailer($scope.item.trailer_id);
                 $scope.get_fiscal_vouchers();

@@ -196,6 +196,8 @@ es:
         user: Usuario responsable
         brand: Marca
         status_item: Estatus del Artículo
+        client: Cliente
+        advance_payment: Abono
       new_order:
         title: Articulos
         resource: el artículo
