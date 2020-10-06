@@ -26,7 +26,8 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
 
     $scope.init = function(branches, categories, item){
         $scope.branches = branches;
-        $scope.categories = categories;
+
+        $scope.get_trailers();
 
         if(item !== null && item !== undefined){
 
@@ -105,10 +106,10 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
             if (response.data != null) {
                 $scope.item = response.data;
                 $scope.branch = $scope.item.branch_id;
-                $scope.category = $scope.item.sub_category.category_id;
-                $scope.sub_category = $scope.item.sub_category.id;
+                $scope.trailer = $scope.item.trailer_id;
                 $scope.get_department();
                 $scope.get_subcategories();
+                $scope.get_trailer($scope.item.trailer_id);
             }
         }, function errorCallback(response) {
             console.log("Algo valio shit!");

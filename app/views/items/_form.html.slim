@@ -36,33 +36,21 @@ div ng-controller="itemController"
               = f.text_field :remission, class: 'form-control', placeholder: t('.remission')
 
           .row.form-group
-            = f.label :name, class: 'col-sm-2 control-label'
+            = f.label :trailer_id, class: 'col-sm-2 control-label'
             .col-md-10
-              = f.text_field :name, class: 'form-control', placeholder: t('.name')
-
-
-          .row.form-group
-            = f.label :description, class: 'col-sm-2 control-label'
-            .col-sm-10
-              = f.text_area :description, class: 'form-control', placeholder: t('.description')
-          .row.form-group
-            = f.label :accessorios, class: 'col-sm-2 control-label'
-            .col-sm-10
-              = f.text_area :accessory, class: 'form-control', placeholder: t('.accessory')
+              select.form-control ng-change="get_trailer(trailer)" ng-model="trailer" ng-options=("trailer.id as trailer.name for trailer in trailers")
+                option disabled="" selected="" value=""  Trailers...
+                = f.hidden_field :trailer_id, value: '{{trailer}}'
 
           .row.form-group
             = label_tag 'Categoria', 'Categoría', class: 'col-sm-2 control-label'
             .col-md-4
-              select.form-control ng-change="get_subcategories()" ng-model="category" ng-options=("category.id as category.name for category in categories") required="true"
-                option disabled="" selected="" value=""  Categorias...
-              = f.hidden_field :category_id, value: '{{category}}'
+              = f.text_field :category, class: 'form-control', placeholder: 'Categoria', readonly: true,'ng-model': 'category_name'
 
             = f.label :sub_category_id, class: 'col-sm-2 control-label'
             .col-md-4
-              select.form-control ng-model="sub_category" ng-options=("sub_category.id as sub_category.name for sub_category in sub_categories") required="true"
-                option disabled="" selected="" value=""  SubCategorias...
-              / = text_field_tag 'subcategoria','', class: 'form-control', placeholder: 'Subcategoria', disabled: true, 'ng-model': 'sub_category.name'
-              = f.hidden_field :sub_category_id, value: '{{sub_category}}'
+              = f.text_field :sub_category, class: 'form-control', placeholder: 'Sub Categoria', readonly: true,'ng-model': 'sub_category_name'
+
 
           .row.form-group
             = f.label :purchased_date, class: 'col-sm-2 control-label'
@@ -73,7 +61,7 @@ div ng-controller="itemController"
                 = f.text_field :purchased_date, class: 'form-control pull-right datepicker', type: "text", placeholder: t('.purchased_date')
             = f.label :model, class: 'col-sm-2 control-label'
             .col-md-4
-              = f.text_field :model, class: 'form-control', placeholder: t('.model')
+              = f.text_field :model_name, class: 'form-control', placeholder: t('.model'), readonly: true,'ng-model': 'model_name'
 
           .row.form-group
             = f.label :price, class: 'col-sm-2 control-label'
