@@ -32,7 +32,7 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
         }
     };
 
-    
+
 
     $scope.show = function() {
 
@@ -255,7 +255,7 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
 
 
 
-app.controller('ModalVentaController', ['$scope','close' ,'Upload','$http', 'item', '', '$timeout',function($scope, close, Upload, $http, item, $timeout) {
+app.controller('ModalVentaController', ['$scope','close' ,'Upload','$http', 'item', 'fiscal_vouchers', '$timeout',function($scope, close, Upload, $http, item, fiscal_vouchers, $timeout) {
 
 
     $scope.open = function($event) {
@@ -276,6 +276,9 @@ app.controller('ModalVentaController', ['$scope','close' ,'Upload','$http', 'ite
     $scope.signature = "";
 
     $scope.item = item;
+    $scope.fiscal_vouchers = fiscal_vouchers;
+    console.log('$scope.fiscal_vouchers');
+    console.log($scope.fiscal_vouchers);
     $scope.payment_types = {1: {id:1, type:'Cash'},
                             2: {id:2, type:'Deposito'},
                             3: {id:3, type:'Transferencia'}
