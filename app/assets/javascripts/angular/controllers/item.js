@@ -260,8 +260,10 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
             method: 'GET'
         }).then(function (response) {
             if (response.data != null) {
+
                 $scope.branch_name = response.data.branch.name;
                 $scope.department_name = response.data.department.name;
+                $scope.department_id = response.data.department_id;
             }
         });
     };

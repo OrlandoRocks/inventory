@@ -1,5 +1,4 @@
 class Item < ApplicationRecord
-  belongs_to :sub_category, optional: true
   #belongs_to :category, optional: true
   belongs_to :provider, optional: true
   belongs_to :department, optional: true
@@ -13,6 +12,7 @@ class Item < ApplicationRecord
   has_one :direct_company, through: :direct_branch, source: :company
   has_one :branch, through: :department
   has_one :company, through: :branch
+  has_one :sub_category, through: :trailer
   has_one :category, through: :sub_category
 
 

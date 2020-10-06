@@ -38,12 +38,14 @@
         .col-md-10
           = text_field_tag :branch, '', class: 'form-control', placeholder: 'Departamento', 'ng-model': 'department_name', disabled: true
 
+          = f.text_field :department_id, value: '{{department_id}}'
       .row.form-group
         = f.label :trailer_id, class: 'col-sm-2 control-label'
         .col-md-10
           select.form-control ng-change="get_trailer(trailer)" ng-model="trailer" ng-options=("trailer.id as trailer.name for trailer in trailers")
             option disabled="" selected="" value=""  Trailers...
             = f.hidden_field :trailer_id, value: '{{trailer}}'
+
 
       .row.form-group
         = label_tag 'Categoria', 'Categoria', class: 'col-sm-2 control-label'
