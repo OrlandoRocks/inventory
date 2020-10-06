@@ -1,4 +1,4 @@
-section.content ng-init="item=#{@item.new_record? ? 0 : @item.id}"
+section.content ng-init="item(#{@item.new_record? ? 0 : @item.id})"
   .row
     .col-xs-12
       .box.box-primary
@@ -117,7 +117,7 @@ section.content ng-init="item=#{@item.new_record? ? 0 : @item.id}"
 
 
 
-  script id='modal2.html' type='text/ng-template'
+  script id='modal_venta.html' type='text/ng-template'
     .modal.modal-fullscreen.modal-fullscreen-default
       .modal-dialog
         .modal-content.form-horizontal

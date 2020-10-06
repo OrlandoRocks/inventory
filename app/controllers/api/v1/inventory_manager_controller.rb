@@ -23,7 +23,8 @@ module Api
       def create_item
 
 
-
+      p "params"
+      p params
 
 
       end

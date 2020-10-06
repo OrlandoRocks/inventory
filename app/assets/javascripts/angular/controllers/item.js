@@ -40,6 +40,7 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
     $scope.init_order = function(item_id, users){
         $scope.users = users;
         $scope.get_trailers();
+
         if(item_id){
             $scope.get_orders(item_id);
         }
@@ -98,6 +99,8 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
 
     $scope.get_item_json =  function(id) {
 
+
+
         $http({
             method: 'GET',
             url: '/items/'+id+'.json'
@@ -139,6 +142,8 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
 
     $scope.show = function() {
 
+        console.log('Show');
+        console.log($scope.item);
         ModalService.showModal({
             templateUrl: 'modal_venta.html',
             controller: "ModalVentaController as modal",
@@ -287,75 +292,74 @@ app.controller('ModalVentaController', ['$scope','close' ,'Upload','$http', 'ite
     $scope.open = function($event) {
         $event.preventDefault();
         $event.stopPropagation();
-
+        console.log("Item Loco");
+        console.log($scope.item);
         $scope.opened = true;
     };
 
 
 
-    $scope.close = function(sale_detail) {
+    $scope.close = function() {
         close(sale_detail, 500); // close, but give 500ms for bootstrap to animate
     };
 
     $scope.signature = "";
 
     $scope.item = item;
-    $scope.uploadFiles = function() {
 
 
-        $scope.sale_detail = {
-            sale_id: sale,
-            payment: $scope.payment,
-            signature_client: $scope.signature["dataUrl"]
-        };
-
-        $scope.close($scope.sale_detail);
-
-        // if($scope.payment<=$scope.amount_owed){
-        //     $http({
-        //         url: '/sale_details',
-        //         method: 'POST',
-        //         data: {sale_detail:{
-        //             sale_id: sale,
-        //             payment: $scope.payment,
-        //             signature_client: $scope.signature["dataUrl"]
+    $scope.uploadSell = function() {
+;
+        console.log("Item Loco");
+        console.log($scope.item);
+        // $http({
+        //     url: `/items/${$scope.item.id}.json`,
+        //     method: 'PATCH',
+        //     data: {item: {
+        //             sale_price: $scope.item.sale_price,
+        //             payment_type: $scope.item.payment_type,
+        //             status_item_id: 3,
+        //             branch_id: $scope.item.branch_id,
+        //             department_id: $scope.item.department_id,
+        //             user_id: $scope.item.user_id
         //         }}
-        //     }).then(function successCallback(response) {
-        //         $scope.close($scope.payment);
-        //         console.log("se armo el guiso!! :D");
-        //     }, function errorCallback(response) {
-        //         console.log("algo valio shit!! :(");
-        //     });
-        // }
-
-
+        // }).then(function successCallback(response) {
+        //     $scope.close(response);
+        //     console.log("se armo el guiso!! :D");
+        // }, function errorCallback(response) {
+        //     $scope.close(response);
+        //     console.log("algo valio shit!! :(");
+        // });
 
 
 
         // if (file) {
-        //     file.upload = Upload.upload({
-        //         url: '/sale_details',
-        //         //  data: {file: file}
-        //         data: {sale_detail: {
-        //             sale_id: sale,
-        //             client_id: $scope.client,
-        //             payment: $scope.payment,
-        //             invoice: file
-        //         }}
-        //     });
-        //     file.upload.then(function (response) {
-        //         $timeout(function () {
-        //             file.result = response.data;
-        //             $scope.close("Cancel");
-        //         });
-        //     }, function (response) {
-        //         if (response.status > 0)
-        //             $scope.errorMsg = response.status + ': ' + response.data;
-        //     }, function (evt) {
-        //         file.progress = Math.min(100, parseInt(100.0 *
-        //             evt.loaded / evt.total));
-        //     });
-        // }
+        $scope.item.image.upload = Upload.upload({
+            url: `/items/${$scope.item.id}.json`,
+            method: 'PATCH',
+            //  data: {file: file}
+            data: {item: {
+                    sale_price: $scope.item.sale_price,
+                    payment_type: 1,
+                    image: $scope.item.image,
+                    status_item_id: 3,
+                    branch_id: $scope.item.branch_id,
+                    department_id: $scope.item.department_id,
+                    user_id: $scope.item.user_id
+                }}
+        });
+        file.upload.then(function (response) {
+            $timeout(function () {
+                file.result = response.data;
+                $scope.close("Cancel");
+            });
+        }, function (response) {
+            if (response.status > 0)
+                $scope.errorMsg = response.status + ': ' + response.data;
+        }, function (evt) {
+            file.progress = Math.min(100, parseInt(100.0 *
+                evt.loaded / evt.total));
+        });
     }
 
 
