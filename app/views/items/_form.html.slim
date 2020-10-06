@@ -22,7 +22,7 @@ div ng-controller="itemController"
           .row.form-group
             = f.label :department_id, class: 'col-sm-2 control-label'
             .col-md-10
-              = text_field_tag 'department','', class: 'form-control', placeholder: 'Departamento', disabled: true, 'ng-model': 'department.name'
+              = text_field_tag 'department','', class: 'form-control', placeholder: 'Departamento', disabled: true, 'ng-model'=> 'department.name'
               input type='hidden' name='item[department_id]' value='{{department.id}}'
 
           .row.form-group
@@ -45,11 +45,11 @@ div ng-controller="itemController"
           .row.form-group
             = label_tag 'Categoria', 'Categoría', class: 'col-sm-2 control-label'
             .col-md-4
-              = f.text_field :category, class: 'form-control', placeholder: 'Categoria', readonly: true,'ng-model': 'category_name'
+              = f.text_field :category, class: 'form-control', placeholder: 'Categoria', readonly: true,'ng-model'=> 'category_name'
 
             = f.label :sub_category_id, class: 'col-sm-2 control-label'
             .col-md-4
-              = f.text_field :sub_category, class: 'form-control', placeholder: 'Sub Categoria', readonly: true,'ng-model': 'sub_category_name'
+              = f.text_field :sub_category, class: 'form-control', placeholder: 'Sub Categoria', readonly: true,'ng-model'=> 'sub_category_name'
 
 
           .row.form-group
@@ -61,7 +61,7 @@ div ng-controller="itemController"
                 = f.text_field :purchased_date, class: 'form-control pull-right datepicker', type: "text", placeholder: t('.purchased_date')
             = f.label :model, class: 'col-sm-2 control-label'
             .col-md-4
-              = f.text_field :model_name, class: 'form-control', placeholder: t('.model'), readonly: true,'ng-model': 'model_name'
+              = f.text_field :model_name, class: 'form-control', placeholder: t('.model'), readonly: true,'ng-model'=> 'model_name'
 
           .row.form-group
             = f.label :price, class: 'col-sm-2 control-label'

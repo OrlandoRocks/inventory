@@ -312,11 +312,8 @@
               Froma de Pago:{{item.payment_type}}
             </label>
             <div class="col-md-6">
-              <select class="form-control" ng-model="item.payment_type" >
-                <option value="0"> Seleccionar Forma de Pago</option>
-                <option value="1"> Cash (pendiente comprobante) </option>
-                <option value="2"> Deposito</option>
-                <option value="3"> Transferencia</option>
+              <select class="form-control" ng-model="item.payment_type" ng-options="payment_type.id as payment_type.type for payment_type in payment_types" >
+                <option disabled="" selected="" value=""> Seleccionar Forma de Pago</option>
               </select>
 
             </div>
@@ -351,7 +348,7 @@
             </label>
             <div class="col-md-6">
               <input class="form-control" type="hidden" ng-model="item.user_id" ng-value="item.user_id ='<%= current_user.id %>'">
-              <input class="form-control" ng-model="user_name" ng-value="user_name = '<%= current_user.full_name %>'">
+              <input class="form-control" disabled ng-model="user_name" ng-value="user_name = '<%= current_user.full_name %>'">
             </div>
           </div>
           <div class="row form-group">

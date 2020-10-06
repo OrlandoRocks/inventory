@@ -8,7 +8,7 @@ es:
         description: Descripción
         model: Modelo
         serial_number: Numero de Serie
-        purchased_date: Fecha de Adquisicion
+        purchased_date: Fecha de Adquisición
         in_service_date: Fecha de entrega
         time_unit_service: Unidad
         time_quantity_service: Mantenimiento cada
@@ -41,7 +41,7 @@ es:
         description: Descripción
         model: Modelo
         serial_number: Numero de Serie
-        purchased_date: Fecha de Compra
+        purchased_date: Fecha de Adquisición
         in_service_date: Fecha de entrega
         time_unit_service: Unidad
         time_quantity_service: Mantenimiento cada
@@ -76,7 +76,7 @@ es:
         description: Descripción
         model: Modelo
         serial_number: Numero de Serie
-        purchased_date: Fecha de Adquisicion
+        purchased_date: Fecha de Adquisición
         in_service_date: Fecha de entrega
         time_unit_service: Unidad
         time_quantity_service: Mantenimiento cada
@@ -114,7 +114,7 @@ es:
         description: Descripción
         model: Modelo
         serial_number: Numero de Serie
-        purchased_date: Fecha de Adquisicion
+        purchased_date: Fecha de Adquisición
         in_service_date: Fecha de Uso
         time_unit_service: Unidad
         time_quantity_service: Mantenimiento cada
@@ -152,7 +152,7 @@ es:
         description: Descripción
         model: Modelo
         serial_number: Numero de Serie
-        purchased_date: Fecha de Adquisicion
+        purchased_date: Fecha de Adquisición
         in_service_date: Fecha de Uso
         time_unit_service: Unidad
         time_quantity_service: Mantenimiento cada
@@ -182,7 +182,7 @@ es:
         remission: Remisión
         model: Modelo
         serial_number: Numero de Serie
-        purchased_date: Fecha de Adquisicion
+        purchased_date: Fecha de Adquisición
         in_service_date: Fecha de Uso
         time_unit_service: Unidad de tiempo
         time_quantity_service: Mantenimiento cada
@@ -207,7 +207,7 @@ es:
         remission: Remisión
         model: Modelo
         serial_number: Numero de Serie
-        purchased_date: Fecha de Compra
+        purchased_date: Fecha de Adquisición
         in_service_date: Fecha de Uso
         time_unit_service: Unidad de tiempo
         time_quantity_service: Mantenimiento cada
@@ -238,7 +238,7 @@ es:
         description: Descripción
         model: Modelo
         serial_number: Numero de Serie
-        purchased_date: Fecha de Adquisicion
+        purchased_date: Fecha de Adquisición
         in_service_date: Fecha de Uso
         time_unit_service: Unidad de tiempo
         time_quantity_service: Mantenimiento cada
@@ -292,7 +292,7 @@ es:
           price: Valor de adquisición
           serial_number: Número de serie
           in_service_date: Fecha de entrega
-          purchased_date: Fecha de Adquisicion
+          purchased_date: Fecha de Adquisición
           description: Descripción
           name: Nombre
           from: de
