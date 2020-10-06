@@ -128,7 +128,7 @@
                 <strong><i class="fa fa-book margin-r-5"></i><%= "#{t("items.form.category")} / #{ t("items.form.sub_category")}" %>
                 </strong>
                 <p class="text-muted">
-                  <%= "#{@item.sub_category.category.try("name") if @item.sub_category.present?} / #{ @item.sub_category.try("name")}" %>
+                  <%= "#{@item.try(:trailer).try(:sub_category).try(:category).try(:name) if @item.try(:trailer).try(:sub_category).present?} / #{ @item.try(:trailer).try(:sub_category).try(:name)}" %>
                 </p>
               </li>
               <!--<li class="list-group-item">-->
