@@ -40,7 +40,6 @@ section.content ng-controller="itemController"
                       tr
                         th = t('.code')
                         th = t('.name')
-                        th = t('.description')
                         th = t('.model')
                         th = t('.price')
                         th = t('.branch')
@@ -53,9 +52,8 @@ section.content ng-controller="itemController"
                       - @items.each do |item|
                         tr.show_actions
                           td = item.code
-                          td = item.name
-                          td = item.description
-                          td = item.model
+                          td = item.try(:trailer).try(:name)
+                          td = item.try(:trailer).try(:model)
                           td =  "%.2f" % item.price if item.price.present?
                           td = item.direct_branch.present? ? item.direct_branch.name : (item.direct_branch ? item.direct_branch.name : nil)
                           td = item.department.name if item.department.present?
