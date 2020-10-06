@@ -309,7 +309,7 @@
         <div class="box-body">
           <div class="row form-group">
             <label class="col-md-3 control-label">
-              Froma de Pago:{{item.payment_type}}
+              Froma de Pago:
             </label>
             <div class="col-md-6">
               <select class="form-control" ng-model="item.payment_type" ng-options="payment_type.id as payment_type.type for payment_type in payment_types" >
@@ -322,7 +322,7 @@
 
           <div class="row form-group">
             <label class="col-md-3 control-label">
-              Precio Venta:
+              Precio Venta: {{item.sale_price}}
             </label>
             <div class="col-md-6">
               <input type="text"  ng-model="item.sale_price" format="currency" class="form-control" />
@@ -384,7 +384,7 @@
         </div>
 
         <div class="modal-footer">
-          <button class="btn btn-primary" ng-click="uploadSell(item.image)" data-dismiss="modal"> Aceptar</button>
+          <button class="btn btn-primary" ng-click="uploadSell(<%= @status_pendiente.id %>)" data-dismiss="modal"> Aceptar</button>
         </div>
 
       </div>

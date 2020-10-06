@@ -279,13 +279,13 @@ app.controller('ModalVentaController', ['$scope','close' ,'Upload','$http', 'ite
     $scope.fiscal_vouchers = fiscal_vouchers;
     console.log('$scope.fiscal_vouchers');
     console.log($scope.fiscal_vouchers);
-    $scope.payment_types = {1: {id:1, type:'Cash'},
-                            2: {id:2, type:'Deposito'},
-                            3: {id:3, type:'Transferencia'}
+    $scope.payment_types = {0: {id:1, type:'Cash'},
+                            1: {id:2, type:'Deposito'},
+                            2: {id:3, type:'Transferencia'}
                             };
 
 
-    $scope.uploadSell = function() {
+    $scope.uploadSell = function(status_pendiente) {
 
         console.log("Item Loco");
         console.log($scope.item);
@@ -298,9 +298,9 @@ app.controller('ModalVentaController', ['$scope','close' ,'Upload','$http', 'ite
                 data: {
                     item: {
                         sale_price: $scope.item.sale_price,
-                        payment_type: 1,
+                        payment_type: $scope.item.payment_type,
                         image: $scope.item.image,
-                        status_item_id: 3,
+                        status_item_id: status_pendiente,
                         branch_id: $scope.item.branch_id,
                         department_id: $scope.item.department_id,
                         user_id: $scope.item.user_id
@@ -316,7 +316,7 @@ app.controller('ModalVentaController', ['$scope','close' ,'Upload','$http', 'ite
                 if (response.status > 0)
                     $scope.errorMsg = response.status + ': ' + response.data;
             }, function (evt) {
-                file.progress = Math.min(100, parseInt(100.0 *
+                $scope.item.image.progress = Math.min(100, parseInt(100.0 *
                     evt.loaded / evt.total));
             });
 
