@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :status_shippings
   resources :fiscal_vouchers
   resources :trailers
   resources :clients

@@ -68,6 +68,7 @@
           = f.text_area :accessory, class: 'form-control', placeholder: t('.accessory')
 
           input type='hidden' name="item[status_item_id]" value='#{StatusItem.find_by_key('pendiente').id}'
+          input type='hidden' name="item[status_shipping_id]" value='#{StatusShipping.find_by_key('pedido').id}'
 
     .box-footer
       = f.button "<i class='fa fa-floppy-o'></i> #{t('helpers.submit.submit', model: t('.resource'))}".html_safe,

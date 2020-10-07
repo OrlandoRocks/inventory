@@ -19,6 +19,8 @@ div ng-controller="itemController"
                 option disabled="" selected="" value=""  Sucursales...
               = f.hidden_field :branch_id, value: '{{branch}}'
 
+              | {{branch === 1}}
+
           .row.form-group
             = f.label :department_id, class: 'col-sm-2 control-label'
             .col-md-10
@@ -95,6 +97,9 @@ div ng-controller="itemController"
               //input id='director_name' name='boss_id' type='hidden' value="#{@users.first.user.to_json({methods: :full_name})}" class="control-label h2.page-header text-uppercase"
 
               input type='hidden' name="item[status_item_id]" value='2'
+              input type='hidden' name="item[status_shipping_id]" ng-if="branch === 1" value='#{StatusShipping.find_by_key('recibido').id}'
+              input type='hidden' name="item[status_shipping_id]" ng-if="branch !== 1" value='#{StatusShipping.find_by_key('enviado').id}'
+
 
       .box-footer
         = f.button "<i class='fa fa-floppy-o'></i> #{t('helpers.submit.submit', model: t('.resource'))}".html_safe,

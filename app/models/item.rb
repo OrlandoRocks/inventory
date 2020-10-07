@@ -6,6 +6,7 @@ class Item < ApplicationRecord
   belongs_to :brand, optional: true
   belongs_to :trailer, optional: true
   belongs_to :status_item
+  belongs_to :status_shipping
   belongs_to :fiscal_voucher, optional: true
   belongs_to :client, optional: true
   belongs_to :direct_branch, class_name: 'Branch', foreign_key: 'branch_id', optional: true
