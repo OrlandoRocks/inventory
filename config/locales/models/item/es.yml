@@ -7,7 +7,8 @@ es:
         description: Descripción
         model: Modelo
         serial_number: Numero de Serie
-        purchased_date: Fecha de Adquisición
+        acquisition_date: Fecha de Adquisición
+        purchased_date: Fecha de Compra
         in_service_date: Fecha de entrega
         time_unit_service: Unidad de tiempo
         time_quantity_service: Mantenimiento cada
@@ -31,7 +32,8 @@ es:
           description: Descripción
           model: Modelo
           serial_number: Numero de Serie
-          purchased_date: Fecha de Adquisición
+          acquisition_date: Fecha de Adquisición
+          purchased_date: Fecha de Compra
           in_service_date: Fecha de entrega
           time_unit_service: Unidad de tiempo
           time_quantity_service: Mantenimiento cada
