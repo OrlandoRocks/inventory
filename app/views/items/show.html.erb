@@ -28,7 +28,7 @@
               <li class="list-group-item">
                 <b><%= t("items.form.client") %></b>
                 <p class="text-muted">
-                  <a class="pull-right"><%= @item.client.full_name %></a>
+                  <a class="pull-right"><%= @item.client.try(:full_name) %></a>
                 </p>
               </li>
               <li class="list-group-item">
@@ -398,38 +398,39 @@
   </div>
   <!-- /.row -->
 
-  <script id="modal_venta.html" type='text/ng-template'>
-    <div class="modal modal-fullscreen">
-      <div class="modal-dialog">
-        <div class="modal-content form-horizontal" style="width: 900px">
-          <div class="modal-header">
-            <button class="button close" aria-hidden="true" data-dismiss="modal" type="button">x</button>
-            <h4 class="modal-title">
-              Venta de Remolque
-            </h4>
+<script id="modal_venta.html" type='text/ng-template'>
+  <div class="modal modal-fullscreen">
+    <div class="modal-dialog">
+      <div class="modal-content form-horizontal" style="width: 900px">
+        <div class="modal-header">
+          <button class="button close" aria-hidden="true" data-dismiss="modal" type="button" >x</button>
+          <h4 class="modal-title">
+            Venta de Remolque
+          </h4>
+        </div>
+        <div class="box-body">
+          <div class="row form-group">
+            <label class="col-md-3 control-label">
+              Froma de Pago:
+            </label>
+            <div class="col-md-6">
+              <select class="form-control" ng-model="item.payment_type" ng-options="payment_type.id as payment_type.type for payment_type in payment_types" >
+                <option disabled="" selected="" value=""> Seleccionar Forma de Pago</option>
+              </select>
+
+            </div>
           </div>
-          <div class="box-body">
-            <div class="row form-group">
-              <label class="col-md-3 control-label">
-                Froma de Pago:{{item.payment_type}}
-              </label>
-              <div class="col-md-6">
-                <select class="form-control" ng-model="item.payment_type" ng-options="payment_type.id as payment_type.type for payment_type in payment_types">
-                  <option disabled="" selected="" value=""> Seleccionar Forma de Pago</option>
-                </select>
 
-              </div>
+
+          <div class="row form-group">
+            <label class="col-md-3 control-label">
+              Precio Venta: {{item.sale_price}}
+            </label>
+            <div class="col-md-6">
+              <input type="text"  ng-model="item.sale_price" format="currency" class="form-control" />
             </div>
 
-
-            <div class="row form-group">
-              <label class="col-md-3 control-label">
-                Precio Venta:
-              </label>
-              <div class="col-md-6">
-                <input type="text" ng-model="item.sale_price" format="currency" class="form-control"/>
-              </div>
-            </div>
+          </div>
 
 
             <div class="row form-group" ng-show="item.payment_type>1">
@@ -486,15 +487,15 @@
           </div>
 
           <div class="modal-footer">
-            <button class="btn btn-primary" ng-click="uploadSell(item.image)" data-dismiss="modal"> Aceptar</button>
+            <button class="btn btn-primary" ng-click="uploadSell(<%= @status_pendiente.id %>)" data-dismiss="modal"> Aceptar</button>
           </div>
 
-        </div>
 
       </div>
 
 
     </div>
+  </div>
 
   </script>
 

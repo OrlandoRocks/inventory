@@ -38,6 +38,8 @@ class ItemsController < ApplicationController
   # GET /items/1
   # GET /items/1.json
   def show
+    @status_pendiente << StatusItem.find_by_key('vendido')
+    @status_pendiente << StatusItem.find_by_key('pendiente_factura')
     audits = @item.audits + @item.associated_audits
     @audits = audits.sort_by { |a| a.created_at }
 
