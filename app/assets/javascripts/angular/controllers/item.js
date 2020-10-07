@@ -57,6 +57,48 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
         });
     };
 
+    $scope.show_receive = function() {
+
+        console.log($scope.item);
+        swal({
+            title: 'Producto Recibido',
+            text: '¿Ha recibido este producto?',
+            type: 'question',
+            showCancelButton: true
+        }).then(function (isConfirm) {
+            if (isConfirm) {
+                $http({
+                    url: '/items/' + $scope.item.id + '.json',
+                    method: 'PUT',
+                    data: {
+                        item: {
+                            status_shipping_id: 3
+                        }
+                    }
+                }).then(function (response) {
+                    if (response.data) {
+                        swal({
+                            title: 'Recibido',
+                            text: 'El producto a sido actulizado',
+                            type: 'success',
+                            showCancelButton: false
+                        }).then(function (isConfirm) {
+                            if (isConfirm) {
+                                location.reload();
+                            }
+
+                        }, function (iSConfirm) {
+
+                        });
+                    }
+                });
+            }
+
+        }, function (iSConfirm) {
+
+        });
+    };
+
 
     $scope.get_item_json =  function(id) {
 
