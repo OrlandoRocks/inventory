@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_28_032545) do
+ActiveRecord::Schema.define(version: 2020_10_07_012753) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -195,10 +195,11 @@ ActiveRecord::Schema.define(version: 2020_09_28_032545) do
     t.string "accessory"
     t.date "acquisition_date"
     t.bigint "trailer_id"
+    t.bigint "client_id"
     t.integer "payment_type"
     t.bigint "fiscal_voucher_id"
-    t.bigint "client_id"
     t.decimal "advance_payment"
+    t.bigint "status_shipping_id"
     t.index ["branch_id"], name: "index_items_on_branch_id"
     t.index ["brand_id"], name: "index_items_on_brand_id"
     t.index ["category_id"], name: "index_items_on_category_id"
@@ -207,6 +208,7 @@ ActiveRecord::Schema.define(version: 2020_09_28_032545) do
     t.index ["fiscal_voucher_id"], name: "index_items_on_fiscal_voucher_id"
     t.index ["provider_id"], name: "index_items_on_provider_id"
     t.index ["status_item_id"], name: "index_items_on_status_item_id"
+    t.index ["status_shipping_id"], name: "index_items_on_status_shipping_id"
     t.index ["sub_category_id"], name: "index_items_on_sub_category_id"
     t.index ["trailer_id"], name: "index_items_on_trailer_id"
     t.index ["user_id"], name: "index_items_on_user_id"
@@ -296,6 +298,15 @@ ActiveRecord::Schema.define(version: 2020_09_28_032545) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "key"
+  end
+
+  create_table "status_shippings", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.boolean "status"
+    t.string "key"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "sub_categories", id: :serial, force: :cascade do |t|
@@ -389,6 +400,7 @@ ActiveRecord::Schema.define(version: 2020_09_28_032545) do
   add_foreign_key "items", "fiscal_vouchers"
   add_foreign_key "items", "providers"
   add_foreign_key "items", "status_items"
+  add_foreign_key "items", "status_shippings"
   add_foreign_key "items", "sub_categories"
   add_foreign_key "items", "trailers"
   add_foreign_key "items", "users"

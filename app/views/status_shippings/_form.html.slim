@@ -1,0 +1,9 @@
+= form_for @status_shipping do |f|
+  - if @status_shipping.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@status_shipping.errors.count, "error")} prohibited this status_shipping from being saved:"
+      ul
+        - @status_shipping.errors.full_messages.each do |message|
+          li = message
+
+  .actions = f.submit

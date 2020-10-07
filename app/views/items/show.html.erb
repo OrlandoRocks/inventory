@@ -8,13 +8,13 @@
           <div class="box-body box-profile">
 
             <%= link_to edit_item_path(@item.id), :class => "btn btn-block btn-info btn-lg" do %>
-              <i class="fa fa-plus "> Crear</i>
+              <i class="fa fa-plus "> Crear y enviar</i>
             <% end %>
 
             <% if @item.trailer.image.attached? %>
               <%= link_to image_tag(@item.trailer.image, :class => 'profile-user-img img-responsive img-circle', :size => '65x65'), "#{url_for(@item.trailer.image)}", :target => "_blank" %>
             <% else %>
-              <%= link_to image_tag('trailers_default', :class => 'profile-user-img img-responsive img-circle', :size => '65x65'), "trailers_default.png", :target => "_blank"  %>
+              <%= link_to image_tag('trailers_default', :class => 'profile-user-img img-responsive img-circle', :size => '65x65'), "trailers_default.png", :target => "_blank" %>
             <% end %>
 
             <h3 class="profile-username text-center"><%= @item.name %></h3>
@@ -93,14 +93,21 @@
         <% else %>
           <div class="box-body box-profile">
 
-            <a class="btn btn-block btn-success btn-lg" ng-click="show()">
-              <i class="fa fa-handshake-o "> Vender</i>
-            </a>
+            <% if @item.status_shipping.key === 'enviado' %>
+              <a class="btn btn-block btn-success btn-lg" ng-click="show_receive()">
+                <i class="fa fa-handshake-o "> Recibido</i>
+              </a>
+            <% elsif @item.status_item.key != 'vendido'  %>
+              <a class="btn btn-block btn-success btn-lg" ng-click="show()">
+                <i class="fa fa-handshake-o "> Vender</i>
+              </a>
+            <% end %>
+
 
             <% if @item.trailer.image.attached? %>
               <%= link_to image_tag(@item.trailer.image, :class => 'profile-user-img img-responsive img-circle', :size => '65x65'), "#{url_for(@item.trailer.image)}", :target => "_blank" %>
             <% else %>
-              <%= link_to image_tag('trailers_default', :class => 'profile-user-img img-responsive img-circle', :size => '65x65'), "trailers_default.png", :target => "_blank"  %>
+              <%= link_to image_tag('trailers_default', :class => 'profile-user-img img-responsive img-circle', :size => '65x65'), "trailers_default.png", :target => "_blank" %>
             <% end %>
 
             <h3 class="profile-username text-center"><%= @item.name %></h3>
@@ -398,39 +405,39 @@
   </div>
   <!-- /.row -->
 
-<script id="modal_venta.html" type='text/ng-template'>
-  <div class="modal modal-fullscreen">
-    <div class="modal-dialog">
-      <div class="modal-content form-horizontal" style="width: 900px">
-        <div class="modal-header">
-          <button class="button close" aria-hidden="true" data-dismiss="modal" type="button" >x</button>
-          <h4 class="modal-title">
-            Venta de Remolque
-          </h4>
-        </div>
-        <div class="box-body">
-          <div class="row form-group">
-            <label class="col-md-3 control-label">
-              Froma de Pago:
-            </label>
-            <div class="col-md-6">
-              <select class="form-control" ng-model="item.payment_type" ng-options="payment_type.id as payment_type.type for payment_type in payment_types" >
-                <option disabled="" selected="" value=""> Seleccionar Forma de Pago</option>
-              </select>
-
-            </div>
+  <script id="modal_venta.html" type='text/ng-template'>
+    <div class="modal modal-fullscreen">
+      <div class="modal-dialog">
+        <div class="modal-content form-horizontal" style="width: 900px">
+          <div class="modal-header">
+            <button class="button close" aria-hidden="true" data-dismiss="modal" type="button">x</button>
+            <h4 class="modal-title">
+              Venta de Remolque
+            </h4>
           </div>
+          <div class="box-body">
+            <div class="row form-group">
+              <label class="col-md-3 control-label">
+                Froma de Pago:
+              </label>
+              <div class="col-md-6">
+                <select class="form-control" ng-model="item.payment_type" ng-options="payment_type.id as payment_type.type for payment_type in payment_types">
+                  <option disabled="" selected="" value=""> Seleccionar Forma de Pago</option>
+                </select>
 
-
-          <div class="row form-group">
-            <label class="col-md-3 control-label">
-              Precio Venta: {{item.sale_price}}
-            </label>
-            <div class="col-md-6">
-              <input type="text"  ng-model="item.sale_price" format="currency" class="form-control" />
+              </div>
             </div>
 
-          </div>
+
+            <div class="row form-group">
+              <label class="col-md-3 control-label">
+                Precio Venta: {{item.sale_price}}
+              </label>
+              <div class="col-md-6">
+                <input type="text" ng-model="item.sale_price" format="currency" class="form-control"/>
+              </div>
+
+            </div>
 
 
             <div class="row form-group" ng-show="item.payment_type>1">
@@ -487,15 +494,18 @@
           </div>
 
           <div class="modal-footer">
-            <button class="btn btn-primary" ng-click="uploadSell(<%= @status_item_vendidos.first.id if @status_item_vendidos.first %>), <%= @status_item_vendidos.last.id if @status_item_vendidos.last %>)" data-dismiss="modal"> Aceptar</button>
+            <button class="btn btn-primary" ng-click="uploadSell(<%= @status_item_vendidos.first.id if @status_item_vendidos.first %>), <%= @status_item_vendidos.last.id if @status_item_vendidos.last %>)" data-dismiss="modal">
+              Aceptar
+            </button>
+
           </div>
 
 
+        </div>
+
+
       </div>
-
-
     </div>
-  </div>
 
   </script>
 

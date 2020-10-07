@@ -298,7 +298,7 @@ class ItemsController < ApplicationController
     params.require(:item).permit(:name, :code, :description, :image, :model, :serial_number, :purchased_date,
                                  :in_service_date, :time_unit_service, :time_quantity_service, :price, :category_id,
                                  :time_unit_depreciation, :time_quantity_depreciation, :sub_category_id, :provider_id,
-                                 :department_id, :user_id, :brand_id, :status_item_id, :maintenance_date,
+                                 :department_id, :user_id, :brand_id, :status_item_id,:status_shipping_id, :maintenance_date,
                                  :maintenance_done, :branch_id, :accessory, :remission,
                                  :trailer_id, :client_id, :advance_payment,
                                  :fiscal_voucher_id, :payment_type, :sale_price)

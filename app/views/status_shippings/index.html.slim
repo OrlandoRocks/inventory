@@ -1,0 +1,19 @@
+h1 Listing status_shippings
+
+table
+  thead
+    tr
+      th
+      th
+      th
+
+  tbody
+    - @status_shippings.each do |status_shipping|
+      tr
+        td = link_to 'Show', status_shipping
+        td = link_to 'Edit', edit_status_shipping_path(status_shipping)
+        td = link_to 'Destroy', status_shipping, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Status shipping', new_status_shipping_path
