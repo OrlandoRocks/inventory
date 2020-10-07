@@ -287,7 +287,7 @@ app.controller('ModalVentaController', ['$scope','close' ,'Upload','$http', 'ite
                             };
 
 
-    $scope.uploadSell = function(status_pendiente) {
+    $scope.uploadSell = function(status_vendido,status_pendiente_factura) {
 
         console.log("Item Loco");
         console.log($scope.item);

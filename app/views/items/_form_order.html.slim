@@ -24,7 +24,7 @@
       .row.form-group
         = f.label 'Vendedor', class: 'col-sm-2 control-label'
         .col-md-10
-          select.form-control ng-change="get_branch_user(user)" ng-model="user" ng-options=("user.id as user.first_name for payment_type in payment_types")
+          select.form-control ng-change="get_branch_user(user)" ng-model="user" ng-options=("user.id as user.first_name for user in users")
             option disabled="" selected="" value=""  Vendedores...
             = f.hidden_field :user_id, value: '{{user}}'
 
