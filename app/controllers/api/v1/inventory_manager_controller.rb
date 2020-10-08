@@ -30,6 +30,7 @@ module Api
         begin
 
           serial_number    =         params[:serial_number]
+          acquisition_date    =      params[:acquisition_date]
           purchased_date    =        params[:purchased_date]
           in_service_date    =       params[:in_service_date]
           time_unit_service    =     params[:time_unit_service]
@@ -43,8 +44,27 @@ module Api
           acquisition_date    =      params[:acquisition_date]
           trailer_id    =            params[:trailer_id]
 
+
+          p 'ITEMmMMMMMMMMMMSMMAMAMMAMAMAMAMAMMAMAMAMAM-------------------------'
+
+          p serial_number
+          p purchased_date
+          p acquisition_date
+          p in_service_date
+          p time_unit_service
+          p time_quantity_service
+          p price
+          p department_id
+          p status_item_id
+          p sale_price
+          p remission
+          p accessory
+          p acquisition_date
+          p trailer_id
+
          @new_item = Item.new(
               serial_number:                 serial_number,
+              acquisition_date:              acquisition_date,
               purchased_date:                purchased_date,
               in_service_date:               in_service_date,
               time_unit_service:             time_unit_service,
