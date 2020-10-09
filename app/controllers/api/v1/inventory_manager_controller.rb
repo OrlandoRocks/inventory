@@ -31,7 +31,6 @@ module Api
         begin
 
           serial_number    =         params[:serial_number]
-          acquisition_date    =      params[:acquisition_date]
           purchased_date    =        params[:purchased_date]
           in_service_date    =       params[:in_service_date]
           time_unit_service    =     params[:time_unit_service]
@@ -60,7 +59,6 @@ module Api
           p sale_price
           p remission
           p accessory
-          p acquisition_date
           p trailer_id
 
          @new_item = Item.new(
@@ -76,7 +74,6 @@ module Api
               sale_price:                    sale_price,
               remission:                     remission,
               accessory:                     accessory,
-              acquisition_date:              acquisition_date,
               trailer_id:                    trailer_id
            )
 
