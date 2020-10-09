@@ -27,6 +27,7 @@ module Api
       end
 
       def create_item
+        p 'ITEMmMMMMMMMMMMSMMAMAMMAMAMAMAMAMMAMAMAMAM-------------------------'
         begin
 
           serial_number    =         params[:serial_number]
