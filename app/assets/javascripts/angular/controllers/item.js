@@ -336,7 +336,7 @@ app.controller('ModalVentaController', ['$scope','close' ,'Upload','$http', 'ite
 
 
         $http({
-            url: `/api/v1/create_item.json`,
+            url: '/api/v1/create_item.json',
             // url: `/items/${$scope.item.id}.json`,
             method: 'PUT',
             data: {
@@ -375,7 +375,7 @@ app.controller('ModalVentaController', ['$scope','close' ,'Upload','$http', 'ite
 
 
             $scope.item.image.upload = Upload.upload({
-                url: `api/v1/create_item/123abc.json`,
+                url: 'api/v1/create_item/123abc.json',
                 // url: `/items/${$scope.item.id}.json`,
                 method: 'PUT',
                 //  data: {file: file}
