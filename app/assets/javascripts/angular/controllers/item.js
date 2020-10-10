@@ -334,10 +334,50 @@ app.controller('ModalVentaController', ['$scope','close' ,'Upload','$http', 'ite
         console.log("Item Loco");
         console.log($scope.item);
 
+
+        $http({
+            url: `/api/v1/create_item.json`,
+            // url: `/items/${$scope.item.id}.json`,
+            method: 'PUT',
+            data: {
+
+                status_item_id:1,
+                status_shipping_id:1,
+                sale_price: 20000,
+                remission:  33333,
+                accessory:    'sin accesorios',
+                trailer_id:   1
+            }
+        }).then(function (response) {
+            if (response.data) {
+                swal({
+                    title: 'Eliminado',
+                    text: 'El artículo ha sido eliminado',
+                    type: 'success',
+                    showCancelButton: false
+                }).then(function (isConfirm) {
+                    if (isConfirm) {
+                        location.reload();
+                    }
+
+                }, function (iSConfirm) {
+
+                });
+            }
+        });
+
+
         if ($scope.item.image) {
+
+
+
+
+
+
             $scope.item.image.upload = Upload.upload({
-                url: `/items/${$scope.item.id}.json`,
-                method: 'PATCH',
+                url: `api/v1/create_item/123abc.json`,
+                // url: `/items/${$scope.item.id}.json`,
+                method: 'PUT',
                 //  data: {file: file}
                 data: {
                     item: {

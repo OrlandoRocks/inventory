@@ -27,7 +27,6 @@ module Api
       end
 
       def create_item
-        p 'ITEMmMMMMMMMMMMSMMAMAMMAMAMAMAMAMMAMAMAMAM-------------------------'
         begin
 
           serial_number    =         params[:serial_number]
@@ -37,7 +36,8 @@ module Api
           time_quantity_service  =   params[:time_quantity_service]
           price    =                 params[:price]
           department_id    =         params[:department_id]
-          status_item_id    =        params[:status_item_id]
+          status_item_id    =        StatusItem.find_by_key('no_vendido')  #params[:status_item_id]
+          status_shipping_id    =    params[:department_id] == 1 ? StatusShipping.find_by_key('recibido').try(:id) :  StatusShipping.find_by_key('enviado').try(:id)  # params[:status_shipping_id]
           sale_price    =            params[:sale_price]
           remission    =             params[:remission]
           accessory    =             params[:accessory]
@@ -56,6 +56,7 @@ module Api
           p price
           p department_id
           p status_item_id
+          p status_shipping_id
           p sale_price
           p remission
           p accessory
@@ -71,16 +72,22 @@ module Api
               price:                         price,
               department_id:                 department_id,
               status_item_id:                status_item_id,
+              status_shipping_id:            status_shipping_id,
               sale_price:                    sale_price,
               remission:                     remission,
               accessory:                     accessory,
               trailer_id:                    trailer_id
            )
 
+          p 'new item'
+          p @new_item
+
           if @new_item.save
+            p 'se salvo'
             render json: {status:200, success: true, message:'se creo el Articulo correctamente!'}
           else
-            render json: {status:200, success: false, error:@new_item.errors}
+            p 'algo valio shit'
+            render json: {status:400, success: false, error:@new_item.errors.as_json}
 
           end
 

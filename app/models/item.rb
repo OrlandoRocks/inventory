@@ -36,9 +36,9 @@ class Item < ApplicationRecord
   # validates_processing_of :image
   # validate :image_size_validation
 
-  before_save :set_maintenance_date
-  before_create :set_maintenance_done
-  before_update :calculate_maintenance_date
+  # before_save :set_maintenance_date
+  # before_create :set_maintenance_done
+  # before_update :calculate_maintenance_date
 
   # delegate :name, to: :brand, prefix: true, allow_nil: true
   # delegate :name, to: :provider, prefix: true, allow_nil: true

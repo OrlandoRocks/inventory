@@ -494,7 +494,7 @@
           </div>
 
           <div class="modal-footer">
-            <button class="btn btn-primary" ng-click="uploadSell(<%= @status_item_vendidos.first.id if @status_item_vendidos.first %>), <%= @status_item_vendidos.last.id if @status_item_vendidos.last %>)" data-dismiss="modal">
+            <button class="btn btn-primary" ng-click="uploadSell(<%= @status_item_vendidos.first.id if @status_item_vendidos.first %>, <%= @status_item_vendidos.last.id if @status_item_vendidos.last %>)" data-dismiss="modal">
               Aceptar
             </button>
 
