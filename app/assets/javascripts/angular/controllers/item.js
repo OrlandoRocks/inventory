@@ -36,8 +36,6 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
 
     $scope.show = function() {
 
-        console.log('Show');
-        console.log($scope.item);
         ModalService.showModal({
             templateUrl: 'modal_venta.html',
             controller: "ModalVentaController as modal",
@@ -59,7 +57,6 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
 
     $scope.show_receive = function() {
 
-        console.log($scope.item);
         swal({
             title: 'Producto Recibido',
             text: '¿Ha recibido este producto?',
@@ -112,6 +109,10 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
                 $scope.branch = $scope.item.branch_id;
                 $scope.trailer = $scope.item.trailer_id;
                 if($scope.branch !== null){
+                    $scope.get_department();
+                }
+                if($scope.item.status_shipping_id === 1){
+                    $scope.branch = $scope.item.department_user.branch_id;
                     $scope.get_department();
                 }
                 $scope.get_subcategories();
@@ -321,8 +322,6 @@ app.controller('ModalVentaController', ['$scope','close' ,'Upload','$http', 'ite
 
     $scope.item = item;
     $scope.fiscal_vouchers = fiscal_vouchers;
-    console.log('$scope.fiscal_vouchers');
-    console.log($scope.fiscal_vouchers);
     $scope.payment_types = {0: {id:1, type:'Cash'},
                             1: {id:2, type:'Deposito'},
                             2: {id:3, type:'Transferencia'}
@@ -330,9 +329,6 @@ app.controller('ModalVentaController', ['$scope','close' ,'Upload','$http', 'ite
 
 
     $scope.uploadSell = function(status_vendido,status_pendiente_factura) {
-
-        console.log("Item Loco");
-        console.log($scope.item);
 
         if ($scope.item.image) {
             $scope.item.image.upload = Upload.upload({
