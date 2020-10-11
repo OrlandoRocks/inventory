@@ -371,7 +371,7 @@ app.controller('ModalVentaController', ['$scope','close' ,'Upload','$http', 'ite
 
 
 
-            
+
             $scope.item.image.upload.then(function (response) {
                 $timeout(function () {
                     $scope.item.image.result = response.data;
