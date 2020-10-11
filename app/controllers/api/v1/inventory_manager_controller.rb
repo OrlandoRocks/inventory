@@ -36,7 +36,7 @@ module Api
           time_quantity_service  =   params[:time_quantity_service]
           price    =                 params[:price]
           department_id    =         params[:department_id]
-          status_item_id    =        StatusItem.find_by_key('no_vendido')  #params[:status_item_id]
+          status_item_id    =        StatusItem.find_by_key('no_vendido').try(:id)  #params[:status_item_id]
           status_shipping_id    =    params[:department_id] == 1 ? StatusShipping.find_by_key('recibido').try(:id) :  StatusShipping.find_by_key('enviado').try(:id)  # params[:status_shipping_id]
           sale_price    =            params[:sale_price]
           remission    =             params[:remission]
