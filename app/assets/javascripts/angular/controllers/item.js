@@ -334,44 +334,25 @@ app.controller('ModalVentaController', ['$scope','close' ,'Upload','$http', 'ite
         console.log($scope.item);
 
 
-        $http({
-            url: '/api/v1/create_item.json',
-            // url: `/items/${$scope.item.id}.json`,
-            method: 'PUT',
-            data: {
-
-                status_item_id:1,
-                status_shipping_id:1,
-                sale_price: 20000,
-                remission:  33333,
-                accessory:    'sin accesorios',
-                trailer_id:   1
-            }
-        }).then(function (response) {
-            if (response.data) {
-                swal({
-                    title: 'Eliminado',
-                    text: 'El artículo ha sido eliminado',
-                    type: 'success',
-                    showCancelButton: false
-                }).then(function (isConfirm) {
-                    if (isConfirm) {
-                        location.reload();
-                    }
-
-                }, function (iSConfirm) {
-
-                });
-            }
-        });
-
-
         if ($scope.item.image) {
 
 
-
-
-
+            $scope.item.image.upload = Upload.upload({
+                url: `/items/${$scope.item.id}.json`,
+                method: 'PUT',
+                //  data: {file: file}
+                data: {
+                    item: {
+                        sale_price: $scope.item.sale_price,
+                        payment_type: $scope.item.payment_type,
+                        image: $scope.item.image,
+                        status_item_id: status_vendido,
+                        branch_id: $scope.item.branch_id,
+                        department_id: $scope.item.department_id,
+                        user_id: $scope.item.user_id
+                    }
+                }
+            });
             $scope.item.image.upload.then(function (response) {
                 $timeout(function () {
                     $scope.item.image.result = response.data;
@@ -380,12 +361,63 @@ app.controller('ModalVentaController', ['$scope','close' ,'Upload','$http', 'ite
             }, function (response) {
                 if (response.status > 0)
                     $scope.errorMsg = response.status + ': ' + response.data;
+
+                if (response.data) {
+                    swal({
+                        title: 'Vendido',
+                        text: 'El artículo ha sido Vendido correctamente. La factura esta en proceso',
+                        type: 'success',
+                        showCancelButton: false
+                    }).then(function (isConfirm) {
+                        if (isConfirm) {
+                            location.reload();
+                        }
+
+                    }, function (iSConfirm) {
+
+                    });
+                }
             }, function (evt) {
                 $scope.item.image.progress = Math.min(100, parseInt(100.0 *
                     evt.loaded / evt.total));
             });
 
-         }
+         }else{
+            $http({
+                url: `/items/${$scope.item.id}.json`,
+                method: 'PUT',
+                //  data: {file: file}
+                data: {
+                    item: {
+                        sale_price: $scope.item.sale_price,
+                        payment_type: $scope.item.payment_type,
+                        status_item_id: status_pendiente_factura,
+                        branch_id: $scope.item.branch_id,
+                        department_id: $scope.item.department_id,
+                        user_id: $scope.item.user_id,
+                        client_id: $scope.item.client_id,
+                        fiscal_voucher_id: $scope.item.fiscal_voucher_id,
+                        description: $scope.item.description
+                    }
+                }
+            }).then(function (response) {
+                if (response.data) {
+                    swal({
+                        title: 'Vendido (Falta Comprobante)',
+                        text: 'El artículo ha sido Vendido y se facturara cuando se agregue el comprobante de pago',
+                        type: 'success',
+                        showCancelButton: false
+                    }).then(function (isConfirm) {
+                        if (isConfirm) {
+                            location.reload();
+                        }
+
+                    }, function (iSConfirm) {
+
+                    });
+                }
+            });
+        }
     }
 
 

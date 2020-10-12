@@ -1,9 +1,10 @@
 <section class="content" ng-controller="itemController">
 
-  <div class="row" ng-init="get_item_json(<%= @item.id %>)">
+  <div class="row" ng-init="get_item_json(<%= @item.id %>) clients= <%= Client.all.as_json(only: [:id, :full_name]); %>">
     <div class="col-md-6">
       <!-- Profile Image -->
       <div class="box box-primary">
+        {{clients}}
         <% if @item.status_item.key == 'pendiente' %>
           <div class="box-body box-profile">
 
@@ -463,9 +464,13 @@
             </div>
             <div class="row form-group">
               <label class="col-md-3 control-label">
-                Cliente:
+                Cliente: {{item.client_id}}
               </label>
-              <div class="col-md-6">
+              <div class="col-md-6" >
+                <select class="form-control" ng-model="item.payment_type" ng-options="payment_type.id as payment_type.type for payment_type in payment_types">
+                  <option disabled="" selected="" value=""> Seleccionar Forma de Pago</option>
+                </select>
+
                 <%= select_tag "client", options_from_collection_for_select(Client.all, "id", "full_name"), class: 'form-control', prompt: "Seleccionar Cliente", 'ng-model' => 'item.client_id' %>
 
               </div>
@@ -473,7 +478,7 @@
 
             <div class="row form-group">
               <label class="col-md-3 control-label">
-                Uso de CFDI:
+                Uso de CFDI: {{item.fiscal_voucher_id}}
               </label>
               <div class="col-md-6">
                 <%= select_tag "fiscal_voucher", options_from_collection_for_select(FiscalVoucher.all, "id", "name"), class: 'form-control', prompt: "Seleccionar CFDI", 'ng-model' => 'item.fiscal_voucher_id' %>
