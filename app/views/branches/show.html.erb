@@ -1,0 +1,79 @@
+<section class="content" ng-controller="branchesController">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="box box-primary">
+        <div class="box-body box-profile">
+          <h3 class="profile-username text-center"><%= @branch.name %></h3>
+          <ul class="list-group list-group-unbordered">
+            <li class="list-group-item">
+              <b>Gerente</b> <a class="pull-right"><%= @branch.try(:manager).try(:full_name)%></a>
+            </li>
+            <li class="list-group-item">
+              <b>Ciudad</b> <a class="pull-right"><%= @branch.try(:city).try(:name)%></a>
+            </li>
+            <li class="list-group-item">
+              <b>Estado</b> <a class="pull-right"><%= @branch.try(:state).try(:name)%></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+          <li><a href="#timeline" data-toggle="tab">Artículos</a></li>
+        </ul>
+        <div class="tab-content">
+          <div class="box-body">
+            <div class="dataTables_wrapper">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="table-responsive">
+                    <table class="table table-bordered table-hover dataTable">
+                      <thead>
+                        <tr>
+                          <th>Código</th>
+                          <th> Nombre del artículo</th>
+                          <th>Valor de Adquisición</th>
+                          <th>Estatus del artículo</th>
+                          <th>Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      <% @branch.items.each do |item| %>
+                      <tr class="show_actions">
+                        <td><%= item.code %></td>
+                        <td><%= item.try(:trailer).try(:name) %></td>
+                        <td><%= "%.2f" % item.price if item.price.present? %></td>
+                        <td><%= item.status_item.name if item.status_item.present? %></td>
+                        <td>
+                          <div class="item.status_item.name if item.status_item.present?">
+                            <%= link_item '<i class="fa fa-search"></i>'.html_safe, item_path(item), title: t('helpers.show'),
+                                          class: 'btn btn-xs btn-success btn-flat'  %>
+                            <%= link_item '<i class="fa fa-edit"></i>'.html_safe, edit_item_path(item),
+                                          class: 'btn btn-xs btn-primary btn-flat', title: t('helpers.edit')  %>
+                            <% unless current_user.user_employee? %>
+                              <a ng-click="delete_item(<%= item.id %>)" class="btn btn-xs btn-danger btn-flat btn-destroy">
+                                <i class="fa fa-trash-o"></i>
+                              </a>
+                            <% end  %>
+                          </div>
+
+                        </td>
+
+                      </tr>
+                      <% end %>
+                      </tbody>
+
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>

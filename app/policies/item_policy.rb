@@ -7,31 +7,18 @@ class ItemPolicy < ApplicationPolicy
       if @user.god? or @user.admin?
         if @user.current_company.equal?(0)
           scope.all
-        else
-          ids = scope.joins(:company).where('companies.id = ?', @user.current_company).pluck(:id) +
-              scope.joins(:direct_company)
-                  .where('companies.id = ?', @user.current_company).pluck(:id)
-
-          scope.where(id: ids)
         end
-      elsif @user.admin_company?
-        ids = scope.joins(:company).where('companies.user_id = ?', @user.id).pluck(:id) +
-            scope.joins(:direct_company)
-                .where('companies.user_id = ? and items.department_id is NULL', @user.id).pluck(:id)
-
-        scope.where(id: ids)
-
       elsif @user.admin_branch?
-
-        ids = scope.joins(:direct_branch).where('branches.manager_id = ? AND items.status_item_id = 2', @user.id).pluck(:id)
-
-        status_id = StatusItem.where(key: %w(baja)).first
-        scope.where(id: ids).where.not(status_item_id: status_id)
-
+        scope.where('items.status_item_id = 2')
       elsif @user.user_employee?
-        scope.where(user_id: [nil, @user.id])
+        scope.where(status_item_id: 2)
       else
-        scope.all
+        scope.not
+      end
+    end
+    def orders
+      if @user.god? or @user.admin?
+
       end
     end
   end
