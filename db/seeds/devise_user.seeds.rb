@@ -26,6 +26,10 @@ after :roles do
               maiden_name: 'UserOrlando', role_id: Role.find_by_key('empleado_sin_acceso').id, password: 'inventory',
               confirmed_at: Time.now, sign_in_count: 0, employee_number: 567, current_company: 1)
 
+  User.create(email: 'javitorres@uach.mx', username: 'javi', first_name: 'Javier', last_name: 'Torres',
+              maiden_name: 'userJavi', role_id: Role.find_by_key('empleado_sin_acceso').id, password: 'inventory',
+              confirmed_at: Time.now, sign_in_count: 0, employee_number: 1245, current_company: 1)
+
   # User.create(email: 'admin@example.com', username: 'admin', first_name: 'Admin', last_name: 'Admin',
   #             maiden_name: 'Admin', role_id: Role.find_by_key('admin').id, password: 'password',
   #             confirmed_at: Time.now, sign_in_count: 0)

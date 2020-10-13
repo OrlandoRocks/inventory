@@ -192,7 +192,8 @@ Rails.application.routes.draw do
       get 'new_order' => 'items#new_order', as: :new_order
       get 'edit_order/:id' => 'items#edit_order', as: :edit_order
 
-
+      #Ruta para ventas
+      get 'sales' => 'items#sales'
 
     end
   end

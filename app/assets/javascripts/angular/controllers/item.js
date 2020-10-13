@@ -114,6 +114,7 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
             method: 'GET',
             url: '/trailers.json'
         }).then(function successCallback(response) {
+            console.log(response);
             $scope.trailers = response.data;
         }, function errorCallback(response) {
             console.log("Algo valio shit!");
@@ -170,7 +171,7 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
             }
 
         });
-    }
+    };
 
 
 

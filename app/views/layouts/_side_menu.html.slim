@@ -31,40 +31,45 @@ aside.main-sidebar
             li
               = link_item "<i class='fa fa-circle-o'></i> Pedidos".html_safe, orders_path
 
-      - if has_policy_employee
+      - if has_policy_employee || has_policy_branch
         li.header MENU
         - if has_policy(Item, %w(new index))
           li.treeview
             a href='#'
               i.fa.fa-list
-              span = t('.items')
+              span = 'Inventario'
               i.fa.fa-angle-left.pull-right
             ul.treeview-menu
               li
                 = link_item "<i class='fa fa-circle-o'></i> #{t '.items'}".html_safe, items_path
+        - if has_policy(Branch, %w(index))
+          li.treeview
+            a href='#'
+              i.fa.fa-store
+              span = 'Sucursales'
+              i.fa.fa-angle-left.pull-right
+            ul.treeview-menu
+              li
+                = link_item "<i class='fa fa-circle-o'></i> Sucursales".html_safe, branches_path
+        - if has_policy(Item, %w(sales))
+          li.treeview
+            a href='#'
+              i.fa.fa-dollar
+              span = 'Ventas'
+              i.fa.fa-angle-left.pull-right
+            ul.treeview-menu
+              li
+                = link_item "<i class='fa fa-circle-o'></i> Ventas".html_safe, sales_path
         li.treeview
           a href='#'
             i.fa.fa-shopping-bag
-            span = 'Pedidos'
+            span = 'Catalogo'
             i.fa.fa-angle-left.pull-right
           ul.treeview-menu
             li
               = link_item "<i class='fa fa-circle-o'></i> Nuevo Pedido".html_safe, new_order_path
             li
               = link_item "<i class='fa fa-circle-o'></i> Pedidos".html_safe, orders_path
-
-      - if has_policy(Branch, %w(new index))
-        li.treeview
-          a href='#'
-            i.fa.fa-home
-            span = t('.branches')
-            i.fa.fa-angle-left.pull-right
-          ul.treeview-menu
-            li
-              = link_item "<i class='fa fa-circle-o'></i> #{t '.new_branch'}".html_safe, new_branch_path
-            li
-              = link_item "<i class='fa fa-circle-o'></i> #{t '.branches'}".html_safe, branches_path
-
 
       - if has_policy(Department, %w(new index))
         li.treeview

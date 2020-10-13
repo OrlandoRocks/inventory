@@ -13,8 +13,8 @@ section.content ng-controller="branchesController"
               .box-tools.pull-right
                 = search_form_for @search_branches do |f|
                   .input-group.input-group-sm.search
-                    = f.text_field :name_or_description_or_company_name_or_city_name_or_state_name_or_user_first_name_or_user_last_name_or_user_maiden_name_cont, class: 'form-control',
-                            placeholder: t('helpers.search')
+                    / = f.text_field :name_or_description_or_company_name_or_city_name_or_state_name_or_user_first_name_or_user_last_name_or_user_maiden_name_cont, class: 'form-control',
+                             placeholder: t('helpers.search')
                     .input-group-btn
                       button [class="btn btn-default" type="submit"]
                         i [class="fa fa-search"]
@@ -54,11 +54,12 @@ section.content ng-controller="branchesController"
                                 / td = branch.description
                                 td = branch.state.name if branch.state.present?
                                 td = branch.city.name if branch.city.present?
-                                td = branch.user.present?? branch.user.try(:full_name) : 'SIN ASIGNAR'
+                                td = branch.manager.present?? branch.manager.try(:full_name) : 'SIN ASIGNAR'
                                 td
                                   .actions
-                                    /= link_item '<i class="fa fa-search"></i>'.html_safe, branch_path(branch),
-                                    /        class: 'btn btn-xs btn-success btn-flat', title: t('helpers.show')
+                                    - if has_policy(Branch, %w(show))
+                                      = link_item '<i class="fa fa-search"></i>'.html_safe, branch_path(branch),
+                                             class: 'btn btn-xs btn-success btn-flat', title: t('helpers.show')
                                     = link_item '<i class="fa fa-edit"></i>'.html_safe, edit_branch_path(branch),
                                             class: 'btn btn-xs btn-primary btn-flat', title: t('helpers.edit')
                                     - if has_policy(Branch, %w(destroy))
