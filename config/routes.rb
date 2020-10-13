@@ -48,6 +48,7 @@ Rails.application.routes.draw do
       get 'get_clients/:token' => 'inventory_manager#get_clients'
 
       put 'create_item' => 'inventory_manager#create_item'
+      put 'update_item' => 'inventory_manager#update_item'
 
     end
   end
