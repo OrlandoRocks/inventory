@@ -17,16 +17,20 @@ class ItemsController < ApplicationController
   end
 
   def orders
-    if current_user.admin_branch?
+    if current_user.god? or current_user.admin?
+      @search_items = Item.where(status_item_id: StatusItem.find_by_key('pendiente').id).ransack(params[:q])
+    elsif current_user.admin_branch?
       @search_items =  Item.joins(:branch).where('branches.manager_id = ? AND items.status_item_id = ?', current_user.id, StatusItem.find_by_key('pendiente')).ransack(params[:q])
     elsif current_user.user_employee?
-      @search_items = Item.where(user_id: current_user.id, status_item_id: StatusItem.find_by_key('pendiente')).ransack(params[:q])
+      @search_items = Item.where(user_id: current_user.id, status_item_id: StatusItem.find_by_key('pendiente').id).ransack(params[:q])
     end
     @items = @search_items.result.paginate(page: params[:page], per_page: 20)
   end
 
   def sales
-    if current_user.admin_branch?
+    if current_user.god? or current_user.admin?
+      @search_items = Item.where(status_item_id: StatusItem.find_by_key('vendido').id).ransack(params[:q])
+    elsif current_user.admin_branch?
       @search_items = Item.joins(:branch).where('branches.manager_id = ? AND items.status_item_id = 1', current_user.id).ransack(params[:q])
     elsif current_user.user_employee?
       @search_items = Item.where(user_id: current_user.id, status_item_id: 1).ransack(params[:q])
