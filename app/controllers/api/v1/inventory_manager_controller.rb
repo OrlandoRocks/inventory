@@ -43,6 +43,7 @@ module Api
           accessory               =    params[:accessory]
           acquisition_date        =    params[:acquisition_date]
           trailer_id              =    params[:trailer_id]
+          code                    =    params[:code]
 
 
          @new_item = Item.new(
@@ -59,7 +60,8 @@ module Api
               sale_price:                    sale_price,
               remission:                     remission,
               accessory:                     accessory,
-              trailer_id:                    trailer_id
+              trailer_id:                    trailer_id,
+              code:                          code
            )
 
           p 'new item'
