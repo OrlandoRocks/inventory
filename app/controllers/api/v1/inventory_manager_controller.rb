@@ -85,43 +85,15 @@ module Api
       def update_item
         begin
 
-          item= Item.find(params[:id])
+          item = Item.find(params[:id])
 
           # status_item_id          =    StatusItem.find_by_key('no_vendido').try(:id)  #params[:status_item_id]
           # status_shipping_id      =    params[:department_id] == 1 ? StatusShipping.find_by_key('recibido').try(:id) :  StatusShipping.find_by_key('enviado').try(:id)  # params[:status_shipping_id]
 
 
 
-          p 'ITEMmMMMMMMMMMMSMMAMAMMAMAMAMAMAMMAMAMAMAM--------------------UPPPPDAAAAAAATEEE-----'
 
           item_params = Hash.new
-
-
-
-          p params[:serial_number]
-          p params[:acquisition_date]
-          p params[:purchased_date]
-          p params[:in_service_date]
-          p params[:price]
-          p params[:department_id]
-          p params[:status_item_id]
-          p params[:status_shipping_id]
-          p params[:sale_price]
-          p params[:remission]
-          p params[:accessory]
-          p params[:trailer_id]
-          p params[:description]
-          p params[:price]
-          p params[:user_id]
-          p params[:code]
-          p params[:payment_type]
-          p params[:fiscal_voucher_id]
-          p params[:client_id]
-          p params[:advance_payment]
-
-
-
-
 
           item_params[:serial_number]       =    params[:serial_number]       if params[:serial_number]
           item_params[:acquisition_date]    =    params[:acquisition_date]    if params[:acquisition_date]
@@ -146,9 +118,7 @@ module Api
 
 
 
-         
 
-          
           
          if item.update(item_params)
 
