@@ -83,7 +83,7 @@ section.content ng-controller="userController"
                             .actions
                               - if has_policy(User, %w(show), 'Users::Registration')
                                 - unless user.god? or user.admin?
-                                  = link_to 'Remolques Vendidos <i class="fa fa-handshake-o"></i>'.html_safe, user_path(user),
+                                  = link_to 'Remolques Vendidos <i class="fa fa-handshake"></i>'.html_safe, user_path(user),
                                       class: 'btn btn-xs btn-success btn-flat', title: t('helpers.show')
                               /- if has_policy(User, %w(assign_work_articles), 'Users::Registration')
                               /- if user.try(:department)

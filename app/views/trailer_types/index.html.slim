@@ -1,0 +1,25 @@
+h1 Listing trailer_types
+
+table
+  thead
+    tr
+      th Name
+      th Image
+      th Status
+      th
+      th
+      th
+
+  tbody
+    - @trailer_types.each do |trailer_type|
+      tr
+        td = trailer_type.name
+        td = trailer_type.image
+        td = trailer_type.status
+        td = link_to 'Show', trailer_type
+        td = link_to 'Edit', edit_trailer_type_path(trailer_type)
+        td = link_to 'Destroy', trailer_type, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Trailer type', new_trailer_type_path

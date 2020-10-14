@@ -1,0 +1,18 @@
+= form_for @trailer_type do |f|
+  - if @trailer_type.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@trailer_type.errors.count, "error")} prohibited this trailer_type from being saved:"
+      ul
+        - @trailer_type.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :image
+    = f.text_field :image
+  .field
+    = f.label :status
+    = f.check_box :status
+  .actions = f.submit

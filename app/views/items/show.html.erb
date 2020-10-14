@@ -95,11 +95,11 @@
 
             <% if @item.status_shipping.key === 'enviado' %>
               <a class="btn btn-block btn-success btn-lg" ng-click="show_receive()">
-                <i class="fa fa-handshake-o "> Recibido</i>
+                <i class="fa fa-handshake "> Recibido</i>
               </a>
             <% elsif @item.status_item.key != 'vendido'  %>
               <a class="btn btn-block btn-success btn-lg" ng-click="show()">
-                <i class="fa fa-handshake-o "> Vender</i>
+                <i class="fa fa-handshake "> Vender</i>
               </a>
             <% end %>
 
@@ -307,7 +307,7 @@
                   <!-- /.timeline-label -->
                   <!-- timeline item -->
                   <li>
-                    <i class="fa fa-refresh bg-blue"></i>
+                    <i class="fa fa-sync-alt bg-blue"></i>
 
                     <div class="timeline-item">
                       <span class="time"><i class="fa fa-clock-o"></i> <%= audit.created_at.strftime("%H:%M") %></span>

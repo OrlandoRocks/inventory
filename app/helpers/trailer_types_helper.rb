@@ -1,0 +1,2 @@
+module TrailerTypesHelper
+end
