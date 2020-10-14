@@ -20,7 +20,7 @@ header.main-header ng-controller="homeController" ng-init="init(#{current_user.c
       ul.nav.navbar-nav
         li.dropdown.notifications-menu
           a.dropdown-toggle aria-expanded="false" data-toggle="dropdown" href="#"
-            i.fa.fa-bell-o
+            i.fa.fa-bell
             span.label.label-danger = "#{policy_scope(Item).count}"
           ul.dropdown-menu
             li.header ="Cuentas con #{policy_scope(Item).count} artículos."

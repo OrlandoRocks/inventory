@@ -8,8 +8,8 @@ aside.main-sidebar
         - if has_policy(Item, %w(new index))
           li.treeview
             a href='/'
-              i.fa.fa-superpowers
-              span = 'Inicio'
+              i.fab.fa-superpowers
+              span = ' Inicio'
           li.treeview
             a href='#'
               i.fa.fa-list
@@ -35,7 +35,7 @@ aside.main-sidebar
         - if has_policy(Item, %w(sales))
           li.treeview
             a href='#'
-              i.fa.fa-dollar
+              i.fa.fa-dollar-sign
               span = 'Ventas'
               i.fa.fa-angle-left.pull-right
             ul.treeview-menu
@@ -138,7 +138,7 @@ aside.main-sidebar
       - if has_policy(StatusItem, %w(new index))
         li.treeview
           a href='#'
-            i.fa.fa-thumbs-o-up
+            i.fa.fa-thumbs-up
             span = t('.status_item')
             i.fa.fa-angle-left.pull-right
           ul.treeview-menu
