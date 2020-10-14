@@ -22,6 +22,16 @@ class Api::V1::InventoryManagerController < ActionController::Base
   def get_status_item
     render json: StatusItem.all
   end
+
+
+  def get_categories
+    render json: Category.all
+  end
+
+  def get_sub_categories
+    render json: SubCategory.all
+  end
+
   def get_status_shipping
     render json: StatusShipping.all
   end
