@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @trailer_type.name
+p
+  strong Image:
+  = @trailer_type.image
+p
+  strong Status:
+  = @trailer_type.status
+
+=> link_to 'Edit', edit_trailer_type_path(@trailer_type)
+'|
+=< link_to 'Back', trailer_types_path
