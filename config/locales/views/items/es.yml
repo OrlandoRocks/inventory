@@ -27,7 +27,18 @@ es:
         other: Articulos
         permissions: Permisos
         new_item: Nuevo Artículo
-        next_maintenances: Siguientes mantenimientos
+        next_maintenances: Siguientes
+        f_trailer: Filtro por Trailer
+        trailers: Trailers
+        f_model: Filtro por Modelo
+        models: Modelo
+        f_remissions: Filtro por Rremisión
+        remissions: Remission
+        f_category: Filtro por Categoría
+        category: Categoría
+        f_sub_category: Filtro por Sub Categoría
+        f_orden: Ordenar por
+        search: Buscar...
       form_order:
         accessory: Accesorios
         Usuario: Vendedor
@@ -62,6 +73,17 @@ es:
         permissions: Permisos
         new_item: Nuevo Artículo
         next_maintenances: Siguientes mantenimientos
+        f_trailer: Filtro por Trailer
+        trailers: Trailers
+        f_model: Filtro por Modelo
+        models: Modelo
+        f_remissions: Filtro por Rremisión
+        remissions: Remission
+        f_category: Filtro por Categoría
+        category: Categoría
+        f_sub_category: Filtro por Sub Categoría
+        f_orden: Ordenar por
+        search: Buscar...
       orders_shipped:
         title: Artículos
         resource: el artículo
@@ -90,6 +112,56 @@ es:
         permissions: Permisos
         new_item: Nuevo Artículo
         next_maintenances: Siguientes mantenimientos
+        f_trailer: Filtro por Trailer
+        trailers: Trailers
+        f_model: Filtro por Modelo
+        models: Modelo
+        f_remissions: Filtro por Rremisión
+        remissions: Remission
+        f_category: Filtro por Categoría
+        category: Categoría
+        f_sub_category: Filtro por Sub Categoría
+        f_orden: Ordenar por
+        search: Buscar...
+      sales:
+        title: Artículos
+        resource: el artículo
+        code: Código
+        name: Nombre del trailer
+        description: Descripción
+        model: Modelo
+        serial_number: Numero de Serie
+        acquisition_date: Fecha de Adquisición
+        purchased_date: Fecha de Compra
+        in_service_date: Fecha de entrega
+        time_unit_service: Unidad
+        time_quantity_service: Mantenimiento cada
+        price: Valor de Adquisición
+        time_unit_depreciation: Unidad de tiempo
+        time_quantity_depreciation: Depreciación cada
+        sub_category: Sub Categoría
+        provider: Proveedor
+        branch: Sucursal
+        department: Departamento
+        user: Usuario
+        brand: Marca
+        status_item: Estatus del Artículo
+        one: Artículo
+        other: Articulos
+        permissions: Permisos
+        new_item: Nuevo Artículo
+        next_maintenances: Siguientes mantenimientos
+        f_trailer: Filtro por Trailer
+        trailers: Trailers
+        f_model: Filtro por Modelo
+        models: Modelo
+        f_remissions: Filtro por Rremisión
+        remissions: Remission
+        f_category: Filtro por Categoría
+        category: Categoría
+        f_sub_category: Filtro por Sub Categoría
+        f_orden: Ordenar por
+        search: Buscar...
       items_import:
         title: Importar archivo csv para artículos
         code: Código
