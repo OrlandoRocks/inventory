@@ -4,7 +4,7 @@ class ItemPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       if @user.god? or @user.admin?
-        scope.all
+        scope.where('items.status_item_id = 2')
       elsif @user.admin_branch?
         scope.where('items.status_item_id = 2')
       elsif @user.user_employee?

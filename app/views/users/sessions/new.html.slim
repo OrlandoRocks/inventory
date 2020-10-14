@@ -42,6 +42,7 @@ javascript:
             employee_number =  $('#user_employee_number').val();
              $.get("/user_employee_nomber/"+employee_number+".json", function (data) {
                  if(data.email) {
+                     console.log(data.email);
                      $(':input[type="submit"]').prop('disabled', false);
                      $("#user_email").val(data.email);
                      // alert("Load was performed.");

@@ -29,11 +29,22 @@ class ItemsController < ApplicationController
 
   def sales
     if current_user.god? or current_user.admin?
-      @search_items = Item.where(status_item_id: StatusItem.find_by_key('vendido').id).ransack(params[:q])
+      @search_items = Item.where(status_item_id: [StatusItem.find_by_key('vendido').id,StatusItem.find_by_key('pendiente_factura').id, StatusItem.find_by_key('facturado').id]).ransack(params[:q])
     elsif current_user.admin_branch?
-      @search_items = Item.joins(:branch).where('branches.manager_id = ? AND items.status_item_id = 1', current_user.id).ransack(params[:q])
+      @search_items = Item.joins(:branch).where('branches.manager_id = ?', current_user.id).where(status_item_id: [StatusItem.find_by_key('vendido').id,StatusItem.find_by_key('pendiente_factura').id, StatusItem.find_by_key('facturado').id]).ransack(params[:q])
     elsif current_user.user_employee?
-      @search_items = Item.where(user_id: current_user.id, status_item_id: 1).ransack(params[:q])
+      @search_items = Item.where(user_id: current_user.id, status_item_id: [StatusItem.find_by_key('vendido').id,StatusItem.find_by_key('pendiente_factura').id, StatusItem.find_by_key('facturado').id]).ransack(params[:q])
+    end
+    @items = @search_items.result.paginate(page: params[:page], per_page: 20)
+  end
+
+  def orders_shipped
+    if current_user.god? or current_user.admin?
+      @search_items = Item.where(status_shipping_id: StatusShipping.find_by_key('enviado').id).ransack(params[:q])
+    elsif current_user.admin_branch?
+      @search_items =  Item.joins(:branch).where('branches.manager_id = ? AND items.status_shipping_id = ?', current_user.id, StatusShipping.find_by_key('enviado')).ransack(params[:q])
+    elsif current_user.user_employee?
+      @search_items = Item.where(user_id: current_user.id, status_item_id: StatusShipping.find_by_key('enviado').id).ransack(params[:q])
     end
     @items = @search_items.result.paginate(page: params[:page], per_page: 20)
   end
@@ -79,7 +90,8 @@ class ItemsController < ApplicationController
     else
       @users = Company.where(id: current_user.current_company)
     end
-    @branches = current_user.current_company.eql?(0) ? policy_scope(Branch).order(:name) : policy_scope(Branch).where(company_id: @current_company.try(:id)).order(:name)
+    # @branches = current_user.current_company.eql?(1) ? policy_scope(Branch).order(:name) : policy_scope(Branch).where(company_id: @current_company.try(:id)).order(:name)
+    @branches = policy_scope(Branch).order(:name)
     @categories = Category.all
   end
 
