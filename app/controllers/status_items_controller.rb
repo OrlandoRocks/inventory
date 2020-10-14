@@ -70,6 +70,6 @@ class StatusItemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def status_item_params
-      params.require(:status_item).permit(:name, :description, :status)
+      params.require(:status_item).permit(:name, :description, :key, :status)
     end
 end

@@ -19,6 +19,17 @@ class Api::V1::InventoryManagerController < ActionController::Base
     render json: Trailer.all
   end
 
+  def get_status_item
+    render json: StatusItem.all
+  end
+  def get_status_shipping
+    render json: StatusShipping.all
+  end
+
+  def get_trailer_types
+    render json: TrailerType.all
+  end
+
   def get_items
     @items = Item.all
     render json: @items
