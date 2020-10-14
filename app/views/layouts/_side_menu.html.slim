@@ -35,7 +35,7 @@ aside.main-sidebar
         - if has_policy(Item, %w(sales))
           li.treeview
             a href='#'
-              i.fa.fa-dollar
+              i.fa.fa-dollar-sign
               span = 'Ventas'
               i.fa.fa-angle-left.pull-right
             ul.treeview-menu
@@ -51,6 +51,9 @@ aside.main-sidebar
               span = 'Inventario'
               i.fa.fa-angle-left.pull-right
             ul.treeview-menu
+              - if has_policy(Item, %w(new))
+                li
+                  = link_item "<i class='fa fa-circle-o'></i> #{t '.new_item'}".html_safe, new_item_path
               li
                 = link_item "<i class='fa fa-circle-o'></i> #{t '.items'}".html_safe, items_path
         - if has_policy(Branch, %w(index))
@@ -65,7 +68,7 @@ aside.main-sidebar
         - if has_policy(Item, %w(sales))
           li.treeview
             a href='#'
-              i.fa.fa-dollar
+              i.fa.fa-dollar-sign
               span = 'Ventas'
               i.fa.fa-angle-left.pull-right
             ul.treeview-menu

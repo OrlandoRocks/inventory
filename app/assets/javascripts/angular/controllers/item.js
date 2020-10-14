@@ -178,6 +178,8 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
             title: 'Eliminar',
             text: '¿Estas seguro de eliminar este pedido?',
             type: 'question',
+            confirmButtonText: "SI",
+            cancelButtonText: "NO",
             showCancelButton: true
         }).then(function (isConfirm) {
             if (isConfirm) {
@@ -249,6 +251,8 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
         swal({
             title: 'Producto Recibido',
             text: '¿Ha recibido este producto?',
+            confirmButtonText: "SI",
+            cancelButtonText: "NO",
             type: 'question',
             showCancelButton: true
         }).then(function (isConfirm) {
