@@ -30,6 +30,10 @@ class HomeController < ApplicationController
 
     @total_price_items = @search_items.result.sum(:price)
 
+    @all_models = Trailer.all.pluck(:model)
+
+    @all_remissions = Item.all.pluck(:remission)
+
 
     if  params[:column].eql? "Responsable"
       @items = @search_items.result.eager_load(:user).order('users.last_name asc').paginate(page: params[:page], per_page: 20) #if @search_items.sorts.empty?

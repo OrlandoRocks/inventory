@@ -6,8 +6,9 @@ es:
       description: Descripción
       branch: Sucursal
       manager_id: Coordinador
+      remission: Remisión
       new_employee: Nuevo empleado
-      new_department: Nueva sucursal
+      new_department: Nueva Departamento
       title: Reporteador de artículos
       resource: el artículo
       model: Modelo
@@ -25,9 +26,9 @@ es:
       f_sub_category: Filtro por Sub Categoría
       f_provider: Filtro por Proveedor
       provider: Proveedor
-      f_branch: Filtro por Departamento
-      f_department: Filtro por Sucursal
-      department: Sucursal
+      f_branch: Filtro por Sucursal
+      f_department: Filtro por Departamento
+      department: Departamento
       user: Usuario
       f_brand: Filtro por Marca
       brand: Marca
@@ -48,6 +49,12 @@ es:
       new_item: Nuevo Artículo
       next_maintenances: Siguientes mantenimientos
       search: Buscar...
+      f_trailer: Filtro por Trailer
+      trailers: Trailers
+      f_model: Filtro por Modelo
+      models: Modelo
+      f_remissions: Filtro por Rremisión
+      remissions: Remission
     list_items_reporter:
       title: Reporteador de artículos
       resource: el artículo
@@ -68,10 +75,10 @@ es:
       f_sub_category: Filtro por Sub Categoría
       f_provider: Filtro por Proveedor
       provider: Proveedor
-      f_branch: Filtro por departamento
-      branch: Departamento
-      f_department: Filtro por Sucursal
-      department: Sucursal
+      f_branch: Filtro por Sucursal
+      branch: Sucursal
+      f_department: Filtro por Departamento
+      department: Departamento
       user: Usuario
       f_brand: Filtro por Marca
       brand: Marca
@@ -133,7 +140,7 @@ es:
       model: Modelo
       price: Precio
       serial_number: Numero de Serie
-      department: Sucursal
+      department: Departamento
       user: Usuario
       brand: Marca
       status_item: Estatus del Artículo
