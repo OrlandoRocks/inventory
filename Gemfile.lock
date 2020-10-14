@@ -11,7 +11,7 @@ GIT
 
 GIT
   remote: git://github.com/rails/rails.git
-  revision: 5d0e5f0e6ce5b8352a51d88ba59f68741134d15c
+  revision: 2a3f8a29e5d7d17a0448fa47fd756c8d11b175b1
   branch: 5-2-stable
   specs:
     actioncable (5.2.4.4)
@@ -92,7 +92,7 @@ GEM
     arel (9.0.0)
     audited (4.9.0)
       activerecord (>= 4.2, < 6.1)
-    autoprefixer-rails (10.0.0.2)
+    autoprefixer-rails (10.0.1.0)
       execjs
     awesome_print (1.8.0)
     awesome_rails_console (0.4.4)
@@ -100,7 +100,7 @@ GEM
       pry-rails
       railties
     bcrypt (3.1.16)
-    better_errors (2.8.1)
+    better_errors (2.8.3)
       coderay (>= 1.0.0)
       erubi (>= 1.0.0)
       rack (>= 0.9.0)
@@ -180,8 +180,8 @@ GEM
       thor (~> 0.14)
     flag-icons-rails (1.1.2)
       sass (~> 3.2)
-    font-awesome-sass (4.7.0)
-      sass (>= 3.2)
+    font-awesome-sass (5.13.0)
+      sassc (>= 1.11)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     haml (4.0.7)
@@ -264,7 +264,7 @@ GEM
       binding_of_caller (>= 0.7)
       pry (>= 0.9.11)
     public_suffix (4.0.6)
-    puma (5.0.0)
+    puma (5.0.2)
       nio4r (~> 2.0)
     pundit (1.1.0)
       activesupport (>= 3.0.0)
@@ -291,7 +291,7 @@ GEM
     rb-readline (0.5.5)
     rdoc (4.3.0)
     redis (3.3.5)
-    regexp_parser (1.8.0)
+    regexp_parser (1.8.2)
     regexp_property_values (1.0.0)
     require_all (3.0.0)
     responders (3.0.1)
@@ -397,7 +397,7 @@ DEPENDENCIES
   devise (~> 4.7.2)
   figaro (~> 1.1.1)
   flag-icons-rails (~> 1.1, >= 1.1.2)
-  font-awesome-sass (~> 4.5)
+  font-awesome-sass (~> 5.13.0)
   hirb
   hirb-unicode-steakknife
   icheck-rails (~> 1.0, >= 1.0.2.1)

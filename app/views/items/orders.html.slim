@@ -54,8 +54,8 @@ section.content ng-controller="itemController"
                           td = item.try(:user).try(:department).try(:branch).try(:name)
                           td = item.try(:user).try(:department).try(:name)
                           td = item.status_item.name if item.status_item.present?
-                          td = item.try(:client).full_name
-                          td = item.try(:user).full_name
+                          td = item.try(:client).try(:full_name)
+                          td = item.try(:user).try(:full_name)
                           td
                             .actions
                               = link_item '<i class="fa fa-search"></i>'.html_safe, item_path(item), title: t('helpers.show'),

@@ -92,7 +92,7 @@ gem 'meta-tags'
 gem 'bootstrap-sass', '~> 3.3', '>= 3.3.6'
 
 # Font-Awesome SASS gem for use in Ruby projects
-gem 'font-awesome-sass', '~> 4.5'
+gem 'font-awesome-sass', '~> 5.13.0'
 
 # Flag icons SASS gem for Ruby
 gem 'flag-icons-rails', '~> 1.1', '>= 1.1.2'
