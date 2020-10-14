@@ -1,0 +1,78 @@
+p.flash-notice
+  = params[:notice]
+section.content ng-controller="itemController"
+  .row
+    .col-xs-12
+      .box.box-primary
+        .box-header.with-border
+          .row
+            .col-xs-6.col-md-8.col-lg-9
+              h3.box-title
+                | Pedidos
+            .col-xs-6.col-md-4.col-lg-3
+              .box-tools.pull-right
+                = search_form_for @search_items do |f|
+                  .input-group.input-group-sm.search
+                    = f.text_field :code_or_name_or_description_or_model_or_direct_branch_name_or_department_name_cont, class: 'form-control',
+                            placeholder: t('helpers.search')
+                    .input-group-btn
+                      button [class="btn btn-default" type="submit"]
+                        i [class="fa fa-search"]
+                - unless has_policy_employee
+                  = link_to new_order_path, class: 'btn btn-sm btn-flat btn-success', title: 'Nuevo pedido' do
+                    i.fa.fa-plus
+                    span.hidden-xs
+                      | Nuevo pedido
+                .tools
+                  button [type="button" class="btn btn-default btn-box-tool dropdown-toggle" data-toggle="dropdown" aria-expanded="false"]
+                    i.fa.fa-cog = t('helpers.actions')
+
+        .box-body
+          .dataTables_wrapper
+            .row
+              .col-sm-12
+                .table-responsive
+                  table.table.table-bordered.table-hover.dataTable
+                    thead
+                      tr
+                        th = t('.name')
+                        th = t('.model')
+                        th = t('.advance_payment')
+                        th = t('.branch')
+                        th = t('.department')
+                        th = t('.status_item')
+                        th = t('.client')
+                        th = 'Vendedor'
+                        th.actions_header
+                          = t('helpers.actions')
+                    tbody
+                      - @items.each do |item|
+                        tr.show_actions
+                          td = item.try(:trailer).try(:name)
+                          td = item.try(:trailer).try(:model)
+                          td = "%.2f" % item.advance_payment if item.advance_payment.present?
+                          td = item.try(:user).try(:department).try(:branch).try(:name)
+                          td = item.try(:user).try(:department).try(:name)
+                          td = item.status_item.name if item.status_item.present?
+                          td = item.try(:client).full_name
+                          td = item.try(:user).full_name
+                          td
+                            .actions
+                              = link_item '<i class="fa fa-search"></i>'.html_safe, item_path(item), title: t('helpers.show'),
+                                      class: 'btn btn-xs btn-success btn-flat'
+                              = link_item '<i class="fa fa-edit"></i>'.html_safe, edit_order_path(item),
+                                      class: 'btn btn-xs btn-primary btn-flat', title: t('helpers.edit')
+                              - unless current_user.user_employee?
+                                a ng-click="delete_order(#{item.id})" class="btn btn-xs btn-danger btn-flat btn-destroy"
+                                  i.fa.fa-trash-o
+
+                                    /= link_to '<i class="fa fa-file-pdf-o"></i> PDF'.html_safe, reports_item_path(nombre_reporte: 'item', titulo_reporte: "Ficha técnica del artículo.", format: :pdf, id: item),
+                                    /      class: 'btn btn-xs btn-success btn-flat'
+
+                  .row
+                    .col-sm-5
+                      .dataTables_info
+                        = pluralize(@items.count, t('.one'), t('.other'))
+                    .col-sm-7
+                      .dataTables_paginate.paging_simple_numbers
+                        = custom_paginator(@items)

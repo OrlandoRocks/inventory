@@ -12,7 +12,6 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
 
     $scope.init = function(branches, categories, item){
         $scope.branches = branches;
-
         $scope.get_trailers();
 
         if(item !== null && item !== undefined){
@@ -114,7 +113,6 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
             method: 'GET',
             url: '/trailers.json'
         }).then(function successCallback(response) {
-            console.log(response);
             $scope.trailers = response.data;
         }, function errorCallback(response) {
             console.log("Algo valio shit!");
@@ -304,7 +302,6 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
             modal.close.then(function(sale_detail) {
 
 
-                console.log(sale_detail);
                 // $scope.showConfirm(sale_detail);
                 // $scope.save_sale_detail(sale_detail);
                 // $scope.amount_paid += parseInt(paid);
@@ -353,8 +350,6 @@ app.controller('ModalVentaController', ['$scope','close' ,'Upload','$http', 'ite
 
     $scope.uploadSell = function(status_vendido,status_pendiente_factura) {
 
-        console.log("Item Loco");
-        console.log($scope.item);
         swal({
             title: '¿Estas seguro de vender este artículo?',
             text: 'una vez vendido no podras modificarlo',
