@@ -1,36 +1,36 @@
 es:
   departments:
     index:
-      title: Departamentos
-      resource: el departamento
+      title: Punto de Ventas
+      resource: el Punto de Venta
       name: Nombre
       description: Descripción
       branch: Sucursal
       manager_id: Coordinador
-      one: Departamento
-      other: Departamento
+      one: Punto de Venta
+      other: Punto de Venta
       new_employee: Nuevo empleado
-      new_department: Nuevo departamento
+      new_department: Nuevo Punto de Venta
     form:
 #Origin
-      title: departamento
+      title: Punto de Venta
       role: Rol
-      back: Ir a departamentos
-      resource: departamento
+      back: Ir a Punto de Ventas
+      resource: Punto de Venta
       name: Nombre
       description: Descripción
-      code: Código
+      code: Folio
       sequence: Consecutivo
       controller: Controlador
     edit:
-      title: Editar departamento #Origin
+      title: Editar Punto de Venta #Origin
     new:
-      title: Nuevo departamento #Origin
+      title: Nuevo Punto de Venta #Origin
     show:
       description: Descripción
       branch: Sucursal #Origin
       manager: Coordinador
-      back: Ir a departamentos
+      back: Ir a Punto de Ventas
       delete_confirmation: Estas seguro que deseas eliminar la sucursal
       new_employee: Nuevo empleado
       employees_count: Empleados
@@ -46,7 +46,7 @@ es:
       last_name: Apellido paterno
       maiden_name: Apellido materno
       username: Nombre de usuario
-      department: Departamento
+      department: Punto de Venta
       role: Rol
       report: Reporte
       articles_assign: Artículos asignados
@@ -61,15 +61,15 @@ es:
       other: Articulos
 #      title: Articulos
       name: Nombre
-      code: Código
+      code: Folio
       description: Descripción
       model: Modelo
       price: Precio
       serial_number: Numero de Serie
-      department: Departamento
+      department: Punto de Venta
       employee: Artículos asignados al empleado con número
       name_employee: con nombre
-      of: perteneciente a la Departamento
+      of: perteneciente a la Punto de Venta
       user: Usuario
       brand: Marca
       status_item: Estatus del Artículo
@@ -77,11 +77,11 @@ es:
       close: Cerrar
       unassign: Desasignar
       assign: Asignar
-      back: Regresar a Departamentos
-      info: Departamento
+      back: Regresar a Punto de Ventas
+      info: Punto de Venta
       company: Compañia
       branch: Sucursal
-      deparmento: Departamento
+      deparmento: Punto de Venta
       manager: Coordinador
       resource: empleado
       title_assign_work_articles: Asignar artículos de trabajo

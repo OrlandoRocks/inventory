@@ -3,7 +3,7 @@ es:
     attributes:
       item:
         name: Nombre del artículo
-        code: Código
+        code: Folio
         description: Descripción
         model: Modelo
         serial_number: Numero de Serie
@@ -18,7 +18,7 @@ es:
         sub_category_id: Subcategoría
         provider_id: Proveedor
         branch_id: Sucursal
-        department_id: Departamento
+        department_id: Punto de Venta
         advance_payment: Anticipo
         client: Ciente
         user: Vendedor
@@ -28,7 +28,7 @@ es:
         image: Imágen
         new_order:
           name: Nombre del artículo
-          code: Código
+          code: Folio
           description: Descripción
           model: Modelo
           serial_number: Numero de Serie
@@ -43,7 +43,7 @@ es:
           sub_category_id: Subcategoría
           provider_id: Proveedor
           branch_id: Sucursal
-          department_id: Departamento
+          department_id: Punto de Venta
           user: Usuario
           brand_id: Marca
           status_item_id: Estatus del Articulo

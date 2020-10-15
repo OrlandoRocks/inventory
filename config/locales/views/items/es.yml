@@ -3,7 +3,7 @@ es:
       index:
         title: Artículos
         resource: el artículo
-        code: Código
+        code: Folio
         name: Nombre del artículo
         description: Descripción
         model: Modelo
@@ -19,7 +19,7 @@ es:
         sub_category: Sub Categoría
         provider: Proveedor
         branch: Sucursal
-        department: Departamento
+        department: Punto de Venta
         user: Usuario
         brand: Marca
         status_item: Estatus del Artículo
@@ -37,7 +37,7 @@ es:
       orders:
         title: Artículos
         resource: el artículo
-        code: Código
+        code: Folio
         name: Nombre del trailer
         description: Descripción
         model: Modelo
@@ -53,7 +53,7 @@ es:
         sub_category: Sub Categoría
         provider: Proveedor
         branch: Sucursal
-        department: Departamento
+        department: Punto de Venta
         user: Usuario
         brand: Marca
         status_item: Estatus del Artículo
@@ -65,7 +65,7 @@ es:
       orders_shipped:
         title: Artículos
         resource: el artículo
-        code: Código
+        code: Folio
         name: Nombre del trailer
         description: Descripción
         model: Modelo
@@ -81,7 +81,7 @@ es:
         sub_category: Sub Categoría
         provider: Proveedor
         branch: Sucursal
-        department: Departamento
+        department: Punto de Venta
         user: Usuario
         brand: Marca
         status_item: Estatus del Artículo
@@ -92,13 +92,13 @@ es:
         next_maintenances: Siguientes mantenimientos
       items_import:
         title: Importar archivo csv para artículos
-        code: Código
+        code: Folio
         name: Nombre
         description: Descripcion
         model: Modelo
         price: Precio
         branch: Sucursal
-        department: Departamento
+        department: Punto de Venta
       reporter:
         title: Reporteador de artículos
         resource: el artículo
@@ -122,12 +122,12 @@ es:
         provider: Proveedor
         f_branch: Filtro por Sucursal
         branch: Sucursal
-        f_department: Filtro por Departamento
-        department: Departamento
+        f_department: Filtro por Punto de Venta
+        department: Punto de Venta
         user: Usuario
         f_brand: Filtro por Marca
         brand: Marca
-        code: Código
+        code: Folio
         f_status_item: Filtro por Estatus
         status_item: Estatus del Artículo
         f_responsible: Filtro por Responsable
@@ -161,12 +161,12 @@ es:
         provider: Proveedor
         f_branch: Filtro por Sucursal
         branch: Sucursal
-        f_department: Filtro por Departamento
-        department: Departamento
+        f_department: Filtro por Punto de Venta
+        department: Punto de Venta
         user: Usuario
         f_brand: Filtro por Marca
         brand: Marca
-        code: Código
+        code: Folio
         f_status_item: Filtro por Estatus
         status_item: Estatus del Artículo
         one: Artículo
@@ -194,7 +194,7 @@ es:
         time_quantity_depreciation: Depreciación cada
         sub_category: Sub Categoría
         provider: Proveedor
-        department: Departamento
+        department: Punto de Venta
         user: Usuario
         brand: Marca
         status_item: Estatus del Artículo
@@ -208,7 +208,7 @@ es:
         title: Articulos
         resource: el artículo
         name: Nombre
-        code: Código
+        code: Folio
         branch: Sucursal
         description: Descripción
         accessory: Accesorios
@@ -226,7 +226,7 @@ es:
         category: Categoría
         sub_category: Sub Categoría
         provider: Proveedor
-        department: Departamento
+        department: Punto de Venta
         user: Usuario responsable
         brand: Marca
         status_item: Estatus del Artículo
@@ -236,7 +236,7 @@ es:
         title: Articulos
         resource: el artículo
         name: Nombre
-        code: Código
+        code: Folio
         branch: Sucursal
         description: Descripción
         accessory: Accesorios
@@ -254,7 +254,7 @@ es:
         category: Categoría
         sub_category: Sub Categoría
         provider: Proveedor
-        department: Departamento
+        department: Punto de Venta
         user_id: Vendedor
         trailer_id: Nombre del remolque
         brand: Marca
@@ -271,7 +271,7 @@ es:
         title: Articulos
         resource: el artículo
         name: Nombre
-        code: Código
+        code: Folio
         description: Descripción
         model: Modelo
         serial_number: Numero de Serie
@@ -286,7 +286,7 @@ es:
         category: Categoría
         sub_category: Sub Categoría
         provider: Proveedor
-        department: Departamento
+        department: Punto de Venta
         user: Usuario
         brand_id: Marca
         file: Archivo
@@ -322,7 +322,7 @@ es:
           change: Se cambio
           user_id: Usuario
           brand_id: Marca
-          department_id: Departamento
+          department_id: Punto de Venta
           sub_category_id: Sub categoría
           status_item_id: Estatus
           provider_id: Proveedor

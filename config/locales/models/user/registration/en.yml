@@ -14,5 +14,5 @@ en:
         role_id: Role
         company: Compañia
         branch: Sucursal
-        department_id: Departamento
+        department_id: Punto de Venta
         received_file: Received File

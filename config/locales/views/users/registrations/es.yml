@@ -44,7 +44,7 @@ es:
         last_name: Apellido paterno
         maiden_name: Apellido materno
         username: Nombre de usuario
-        department: Departamento
+        department: Punto de Venta
         articles_assign: Artículos asignados
         print: Impresión
         new_user: Nuevo usuario
@@ -56,7 +56,7 @@ es:
       new_employee_department:
         title: Nuevo empleado responsable
         resource: empleado responsable
-        back: Ir a departamentos
+        back: Ir a Punto de Ventas
       edit_user:
         resource: usuario
         title: Editar usuario
@@ -73,7 +73,7 @@ es:
         branch: Sucursal
         one: Articulo
         other: Articulos
-        code: Codigo
+        code: Folio
         assign: Asignar
         unassign: Desasignar
         close: Cerrar
@@ -84,7 +84,7 @@ es:
         description: Descripcion
         model: Modelo
         price: Precio
-        department: Departamento
+        department: Punto de Venta
         boss: Jefe inmediato
         employees: Empleados
         status_item: Estatus
@@ -103,7 +103,7 @@ es:
         maiden_name: Apellido materno
         username: Nombre de usuario
         branch: Sucursal
-        department: Departamento
+        department: Punto de Venta
       assign_work_articles:
         back: Ir a empleados
         resource: empleado

@@ -5,7 +5,7 @@ es:
       resource: La oficina
       name: Nombre
       description: Descripcion
-      department: Departamento
+      department: Punto de Venta
       user: Encargado
       one: Oficina
       other: Oficinas
@@ -15,7 +15,7 @@ es:
       resource: La oficina
       name: nombre
       description: Descripcion
-      department: Departamento
+      department: Punto de Venta
       user: Encargado
       back: ir a Oficinas
       resource: Oficina

@@ -1,6 +1,6 @@
 #Cambio de nombres 10 de agosto 2018
 # Annel y Carlos solicitan cambio de Nombre de:
-# Sucursal(branches) <--> Departamento(departament)
+# Sucursal(branches) <--> Punto de Venta(departament)
 
 
 es:
@@ -34,8 +34,8 @@ es:
       new_company: Nueva compañia
       branches: Sucursales
       new_branch: Nueva sucursal
-      departments: Departamentos
-      new_department: Nuevo departamento
+      departments: Punto de Venta
+      new_department: Nuevo Punto de Venta
       providers: Proveedores
       new_provider: Nuevo proveedor
       brands: Marcas

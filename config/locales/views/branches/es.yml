@@ -21,7 +21,7 @@ es:
       resource: Sucursal 
       back: Ir a sucursales 
       description: Descripción
-      code: Código
+      code: Folio
       city: Ciudad
       company: Compañia
       manager: Gerente

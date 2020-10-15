@@ -16,7 +16,7 @@ en:
         time_quantity_depreciation: Cantidad de Tiempo de Depreciación
         sub_category_id: Subcategoría
         provider_id: Proveedor
-        department_id: Departamento
+        department_id: Punto de Venta
         user: Usuario
         brand_id: Marca
         status_item_id: Estatus del Articulo

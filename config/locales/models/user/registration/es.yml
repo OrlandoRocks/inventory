@@ -17,7 +17,7 @@ es:
         boss: Jefe inmediato
         #branch: Sucursal     # Origin
         branch: Sucursal
-        department_id: Departamento
+        department_id: Punto de Venta
         received_file: Archivo Recibido
         avatar: Imágen de Perfil
         resource: usuario

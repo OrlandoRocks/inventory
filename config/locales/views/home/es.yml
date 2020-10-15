@@ -25,14 +25,14 @@ es:
       f_sub_category: Filtro por Sub Categoría
       f_provider: Filtro por Proveedor
       provider: Proveedor
-      f_branch: Filtro por Departamento
+      f_branch: Filtro por Punto de Venta
       f_department: Filtro por Sucursal
       department: Sucursal
       user: Usuario
       f_brand: Filtro por Marca
       brand: Marca
       employee_number: Número de Empleado
-      code: Código
+      code: Folio
       f_status_item: Filtro por Estatus
       status_item: Estatus del Artículo
       f_responsible: Filtro por Responsable
@@ -68,14 +68,14 @@ es:
       f_sub_category: Filtro por Sub Categoría
       f_provider: Filtro por Proveedor
       provider: Proveedor
-      f_branch: Filtro por departamento
-      branch: Departamento
+      f_branch: Filtro por Punto de Venta
+      branch: Punto de Venta
       f_department: Filtro por Sucursal
       department: Sucursal
       user: Usuario
       f_brand: Filtro por Marca
       brand: Marca
-      code: Codigo
+      code: Folio
       f_status_item: Filtro por Estatus
       status_item: Estatus del Artículo
       one: Artículo
@@ -89,23 +89,23 @@ es:
       employee_number: Núm. Empleado
       acquisition_value: Total del Valor de Adquisión
     form:
-      title: departamento
+      title: Punto de Venta
       role: Rol
-      back: Ir a departamentos
-      resource: departamento
+      back: Ir a Punto de Ventas
+      resource: Punto de Venta
       name: Nombre
       description: Descripción
       controller: Controlador
     edit:
-      title: Editar departamento
+      title: Editar Punto de Venta
     new:
-      title: Nuevo departamento
+      title: Nuevo Punto de Venta
     show:
       description: Descripción
       branch: Sucursal
       manager: Coordinador
-      back: Ir a departamentos
-      delete_confirmation: Estas seguro que deseas eliminar el departamento
+      back: Ir a Punto de Ventas
+      delete_confirmation: Estas seguro que deseas eliminar el Punto de Venta
       new_employee: Nuevo empleado
       employees_table_title: Empleados
       email: Correo electrónico
@@ -116,7 +116,7 @@ es:
       last_name: Apellido paterno
       maiden_name: Apellido materno
       username: Nombre de usuario
-      department: Departamento
+      department: Punto de Venta
       role: Rol
       resource: el empleado
       items: Artículos
@@ -141,4 +141,4 @@ es:
       unassign: Desasignar
       assign: Asignar
   breadcrumbs:
-    permissions: departamentos
+    permissions: Punto de Ventas
