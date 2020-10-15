@@ -8,7 +8,7 @@ es:
       manager_id: Coordinador
       remission: Remisión
       new_employee: Nuevo empleado
-      new_department: Nueva Departamento
+      new_department: Nueva Punto de Venta
       title: Reporteador de artículos
       resource: el artículo
       model: Modelo
@@ -140,7 +140,7 @@ es:
       model: Modelo
       price: Precio
       serial_number: Numero de Serie
-      department: Departamento
+      department: Punto de Venta
       user: Usuario
       brand: Marca
       status_item: Estatus del Artículo
