@@ -11,10 +11,10 @@
               <i class="fa fa-plus "> Crear y enviar</i>
             <% end %>
 
-            <% if @item.trailer.image.attached? %>
-              <%= link_to image_tag(@item.trailer.image, :class => 'profile-user-img img-responsive img-circle', :size => '65x65'), "#{url_for(@item.trailer.image)}", :target => "_blank" %>
-            <% else %>
+            <% if @item.trailer.image.nil? %>
               <%= link_to image_tag('trailers_default.png', :class => 'profile-user-img img-responsive img-circle', :size => '65x65'), "trailers_default.png", :target => "_blank" %>
+            <% else %>
+              <%= link_to image_tag(@item.trailer.image, :class => 'profile-user-img img-responsive img-circle', :size => '65x65'), "#{url_for(@item.trailer.image)}", :target => "_blank" %>
             <% end %>
 
             <h3 class="profile-username text-center"><%= @item.name %></h3>
@@ -93,21 +93,23 @@
         <% else %>
           <div class="box-body box-profile">
 
-            <% if @item.status_shipping.key === 'enviado' %>
-              <a class="btn btn-block btn-success btn-lg" ng-click="show_receive()">
-                <i class="fa fa-handshake "> Recibido</i>
-              </a>
-            <% elsif @item.status_item.key != 'vendido'  %>
-              <a class="btn btn-block btn-success btn-lg" ng-click="show()">
-                <i class="fa fa-handshake "> Vender</i>
-              </a>
+            <% unless @item.status_item.key == 'vendido' || @item.status_item.key == 'pendiente_factura' || @item.status_item.key == 'facturado' %>
+              <% if @item.status_shipping.key === 'enviado' %>
+                <a class="btn btn-block btn-success btn-lg" ng-click="show_receive()">
+                  <i class="fa fa-handshake "> Recibido</i>
+                </a>
+              <% elsif @item.status_item.key != 'vendido' %>
+                <a class="btn btn-block btn-success btn-lg" ng-click="show()">
+                  <i class="fa fa-handshake "> Vender</i>
+                </a>
+              <% end %>
             <% end %>
 
 
-            <% if @item.trailer.image.attached? %>
-              <%= link_to image_tag(@item.trailer.image, :class => 'profile-user-img img-responsive img-circle', :size => '65x65'), "#{url_for(@item.trailer.image)}", :target => "_blank" %>
-            <% else %>
+            <% if @item.trailer.image.nil? %>
               <%= link_to image_tag('trailers_default', :class => 'profile-user-img img-responsive img-circle', :size => '65x65'), "trailers_default.png", :target => "_blank" %>
+            <% else %>
+              <%= link_to image_tag(@item.trailer.image, :class => 'profile-user-img img-responsive img-circle', :size => '65x65'), "#{url_for(@item.trailer.image)}", :target => "_blank" %>
             <% end %>
 
             <h3 class="profile-username text-center"><%= @item.name %></h3>
@@ -183,9 +185,10 @@
               <!--</li>-->
 
             </ul>
-
-            <%= link_to edit_item_path(@item.id), :class => "btn btn-block btn-danger btn-lg" do %>
-              <i class="fa fa-pencil "> Editar</i>
+            <% unless @item.status_item.key == 'vendido' || @item.status_item.key == 'pendiente_factura' || @item.status_item.key == 'facturado' %>
+              <%= link_to edit_item_path(@item.id), :class => "btn btn-block btn-danger btn-lg" do %>
+                <i class="fa fa-pencil "> Editar</i>
+              <% end %>
             <% end %>
 
           </div>
@@ -462,10 +465,10 @@
               </div>
             </div>
             <div class="row form-group">
-              <label class="col-md-3 control-label" >
+              <label class="col-md-3 control-label">
                 Cliente:
               </label>
-              <div class="col-md-6" >
+              <div class="col-md-6">
                 <select class="form-control" ng-model="item.client_id" ng-options="client.id as client.name for client in clients">
                   <option disabled="" selected="" value=""> Seleccionar Cliente</option>
                 </select>

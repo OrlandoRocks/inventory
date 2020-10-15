@@ -91,7 +91,6 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
             url: '/departments_by_branch/'+ $scope.branch + '.json',
             method: 'GET'
         }).then(function (response) {
-
             $scope.department = response.data;
             $scope.consignee = response.data.manager;
             $scope.full_name = $scope.consignee.first_name + ' ' + $scope.consignee.last_name;
