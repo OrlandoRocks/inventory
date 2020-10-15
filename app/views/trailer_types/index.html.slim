@@ -23,3 +23,60 @@ table
 br
 
 = link_to 'New Trailer type', new_trailer_type_path
+
+
+section.content
+  .row
+    .col-xs-12
+      .box.box-primary
+        .box-header.with-border
+          .row
+            .col-xs-6.col-md-8.col-lg-8
+              h3.box-title
+                = 'Tipo de Trailer'
+            .col-xs-6.col-md-4.col-lg-4
+              .box-tools.pull-right
+                = link_to new_trailer_type_path, class: 'btn btn-sm btn-flat btn-success', title: 'Nuevo Tipo de Trailer' do
+                  i.fa.fa-plus
+                  span.hidden-xs
+                    | Nuevo Tipo de Trailer
+        .box-body
+          .dataTables_wrapper
+            .row
+              .col-sm-12
+                .table-responsive
+                  table.table.table-bordered.table-hover.dataTable
+                    thead
+                      tr
+                        th = "Nombre"
+                        th = "Status"
+                        th = "Imagen"
+                        th.actions_header
+                          = t('helpers.actions')
+                      tbody
+                        - @trailer_types.each do |trailer_type|
+                          tr.show_actions
+                            td = trailer_type.name
+                            td = trailer_type.status
+                            - if trailer_type.image.attached?
+                              td = link_to image_tag(trailer_type.image, :class => 'download_icon', :size => '65x65'), "#{url_for(trailer_type.image)}", :target => "_blank"
+                            - else
+                              td = link_to image_tag('trailers_default', :class => 'download_icon', :size => '65x65'), "trailers_default.png", :target => "_blank"
+
+                            td
+                              .actions
+                                = link_item '<i class="fa fa-edit"></i>'.html_safe, edit_trailer_type_path(trailer),
+                                        class: 'btn btn-xs btn-primary btn-flat', title: t('helpers.edit')
+                                - if has_policy(trailer_type, %w(destroy))
+                                  = link_to '<i class="fa fa-trash-o"></i>'.html_safe, '#', title: t('helpers.destroy'),
+                                          class: 'btn btn-xs btn-danger btn-flat btn-destroy',
+                                          data: {'resource' => :trailer_type, 'resource-id' => trailer_type.id,
+                                                  'resource-message' => t('questions.destroy', resource: t('.resource'),
+                                                          name: trailer_type.name)}
+        .row
+          .col-sm-5
+            .dataTables_info
+              = pluralize(@trailer_types.count, 'tipo trailer', 'tipos de trailers')
+          .col-sm-7
+            .dataTables_paginate.paging_simple_numbers
+              = custom_paginator(@trailer_types)

@@ -1,4 +1,4 @@
 class SubCategory < ApplicationRecord
-  belongs_to :category, optional: true
-  has_many :trailers #, through: category
+  belongs_to :category
+  has_many :trailers
 end

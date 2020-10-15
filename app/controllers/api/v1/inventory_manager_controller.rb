@@ -133,13 +133,14 @@ class Api::V1::InventoryManagerController < ActionController::Base
       item_params[:fiscal_voucher_id]   =    params[:fiscal_voucher_id]   if params[:fiscal_voucher_id]
       item_params[:client_id]           =    params[:client_id]           if params[:client_id]
       item_params[:advance_payment]     =    params[:advance_payment]     if params[:advance_payment]
-      item_params[:image]               =    params[:image].attach(io: image_io, filename: 'comprobante de pago')     if params[:image]
+      item_params[:image]               =    params[:image]  if params[:image]
+      item_params[:image]               =    item_params[:image].attach(io: image_io, filename: 'comprobante de pago') if item_params[:image]
 
 
 
 
 
-     if item.update(item_params)
+      if item.update(item_params)
 
         p 'se actualizo!'
         render json: {status:200, success: true, message:'se actualizo el Articulo correctamente!'}
@@ -160,6 +161,12 @@ class Api::V1::InventoryManagerController < ActionController::Base
   private
 
   def image_io
+
+
+
+
+
+
     decoded_image = Base64.decode64(params[:image])
     StringIO.new(decoded_image)
   end

@@ -26,6 +26,31 @@ app.controller('trailerController',["$scope", "ModalService", "$http", function(
 
     $scope.init = function(categories){
         $scope.categories = categories;
+        $scope.get_trailer_types_json()
+    };
+
+
+
+
+
+
+    $scope.get_trailer_types_json =  function() {
+
+        $http({
+            method: 'GET',
+            url: '/trailer_types.json'
+        }).then(function successCallback(response) {
+
+            console.log('Hola bebe');
+
+            if (response.data != null) {
+                $scope.trailer_types = response.data;
+                console.log($scope.trailer_types);
+            }
+        }, function errorCallback(response) {
+            console.log("Algo valio shit!");
+        });
+
     };
 
 
