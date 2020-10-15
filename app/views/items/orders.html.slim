@@ -18,11 +18,10 @@ section.content ng-controller="itemController"
                     .input-group-btn
                       button [class="btn btn-default" type="submit"]
                         i [class="fa fa-search"]
-                - unless has_policy_employee
-                  = link_to new_order_path, class: 'btn btn-sm btn-flat btn-success', title: 'Nuevo pedido' do
-                    i.fa.fa-plus
-                    span.hidden-xs
-                      | Nuevo pedido
+                = link_to new_order_path, class: 'btn btn-sm btn-flat btn-success', title: 'Nuevo pedido' do
+                  i.fa.fa-plus
+                  span.hidden-xs
+                    | Nuevo pedido
                 .tools
                   button [type="button" class="btn btn-default btn-box-tool dropdown-toggle" data-toggle="dropdown" aria-expanded="false"]
                     i.fa.fa-cog = t('helpers.actions')
@@ -30,6 +29,75 @@ section.content ng-controller="itemController"
         .box-body
           .dataTables_wrapper
             .row
+              .col-md-12
+                .box
+                  .box-header.with-border
+                    .row
+                      .col-xs-6
+                        h3.box-title  Buscador de Pedidos
+                      .col-xs-6
+                        .box-tools.pull-right
+                    = search_form_for(@search_items, url: orders_path, id: 'order_index') do |f|
+                      .col-md-3
+                        .box.box-warning.box-solid
+                          .box-header.with-border
+                            h3.box-title = t('.f_trailer')
+                            .box-tools.pull-right
+                              button.btn.btn-box-tool data-widget="collapse" type="button"
+                                i.fa.fa-minus
+                          .box-body style=('display: block;')
+                            = f.collection_select :trailer_id_in, Trailer.all, :id, :name, {prompt: 'Seleccionar una opción'},
+                                    {class: 'form-control select', data: {placeholder: t('.trailers')}}
+
+                      .col-md-3
+                        .box.box-warning.box-solid
+                          .box-header.with-border
+                            h3.box-title = t('.f_category')
+                            .box-tools.pull-right
+                              button.btn.btn-box-tool data-widget="collapse" type="button"
+                                i.fa.fa-minus
+                          .box-body style=('display: block;')
+                            = f.collection_select :sub_category_category_id_in, Category.all.order(:name), :id, :name, {prompt: 'Seleccionar una opción'},
+                                    {class: 'form-control', data: {placeholder: t('.category')}}
+
+                      .col-md-3
+                        .box.box-warning.box-solid
+                          .box-header.with-border
+                            h3.box-title = t('.f_sub_category')
+                            .box-tools.pull-right
+                              button.btn.btn-box-tool data-widget="collapse" type="button"
+                                i.fa.fa-minus
+                          .box-body style=('display: block;')
+                            = f.collection_select :sub_category_id_in, SubCategory.all.order(:name), :id, :name, {prompt: 'Seleccionar una opción'},
+                                    {class: 'form-control', data: {placeholder: "t('.sub_category')"}}
+
+                      .col-md-3
+                        .box.box-warning.box-solid
+                          .box-header.with-border
+                            h3.box-title = t('.f_model')
+                            .box-tools.pull-right
+                              button.btn.btn-box-tool data-widget="collapse" type="button"
+                                i.fa.fa-minus
+                          .box-body style=('display: block;')
+                            = f.select :trailer_model_eq, @all_models.map { |model| [model, model] }, {prompt: 'Seleccionar una opción'},
+                                    {class: 'form-control', data: {placeholder: "t('.models')"}}
+
+                      .col-md-3
+                        .box.box-warning.box-solid
+                          .box-header.with-border
+                            h3.box-title = t('.f_remissions')
+                            .box-tools.pull-right
+                              button.btn.btn-box-tool data-widget="collapse" type="button"
+                                i.fa.fa-minus
+                          .box-body style=('display: block;')
+                            = f.select :remission_eq, @all_remissions.map { |remission| [remission, remission] }, {prompt: 'Seleccionar una opción'},
+                                    {class: 'form-control', data: {placeholder: "t('.remissions')"}}
+
+                      .col-xs-12.col-md-12
+                        .input-group-btn
+                          button [class="btn btn-block btn-info btn-lg" type="submit"]
+                            i [class="fa fa-search"]
+                              = " #{t('.search')}"
               .col-sm-12
                 .table-responsive
                   table.table.table-bordered.table-hover.dataTable

@@ -6,6 +6,10 @@ class ItemsController < ApplicationController
   def index
     @search_items = policy_scope(Item).ransack(params[:q])
     @items = @search_items.result.paginate(page: params[:page], per_page: 20)
+
+    @all_models = policy_scope(Trailer).pluck(:model)
+
+    @all_remissions = policy_scope(Item).pluck(:remission)
   end
 
   def next_maintenances
@@ -24,7 +28,12 @@ class ItemsController < ApplicationController
     elsif current_user.user_employee?
       @search_items = Item.where(user_id: current_user.id, status_item_id: StatusItem.find_by_key('pendiente').id).ransack(params[:q])
     end
+
     @items = @search_items.result.paginate(page: params[:page], per_page: 20)
+
+    @all_models = policy_scope(Trailer).pluck(:model)
+
+    @all_remissions = policy_scope(Item).pluck(:remission)
   end
 
   def sales
@@ -35,6 +44,11 @@ class ItemsController < ApplicationController
     elsif current_user.user_employee?
       @search_items = Item.where(user_id: current_user.id, status_item_id: [StatusItem.find_by_key('vendido').id,StatusItem.find_by_key('pendiente_factura').id, StatusItem.find_by_key('facturado').id]).ransack(params[:q])
     end
+
+    @all_models = policy_scope(Trailer).pluck(:model)
+
+    @all_remissions = policy_scope(Item).pluck(:remission)
+
     @items = @search_items.result.paginate(page: params[:page], per_page: 20)
   end
 
@@ -47,6 +61,9 @@ class ItemsController < ApplicationController
       @search_items = Item.where(user_id: current_user.id, status_item_id: StatusShipping.find_by_key('enviado').id).ransack(params[:q])
     end
     @items = @search_items.result.paginate(page: params[:page], per_page: 20)
+    @all_models = policy_scope(Trailer).pluck(:model)
+
+    @all_remissions = policy_scope(Item).pluck(:remission)
   end
 
   def edit_order
