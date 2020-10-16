@@ -137,8 +137,13 @@ class Api::V1::InventoryManagerController < ActionController::Base
       # item_params[:image]               =    item_params[:image].attach(io: image_io, filename: 'comprobante de pago') if item_params[:image]
 
 
+      p '------------------------imagen-------------------------'
+      p item_params[:image]
 
 
+
+      p '------------------------Params-------------------------'
+      p item_params
 
       if item.update(item_params)
 
