@@ -52,7 +52,7 @@ section.content
                                     = link_item '<i class="fa fa-edit"></i>'.html_safe, edit_maintenance_path(maintenance),
                                             class: 'btn btn-xs btn-primary btn-flat', title: t('helpers.edit')
                                     - if has_policy(maintenance, %w(destroy))
-                                      = link_to '<i class="fa fa-trash-o"></i>'.html_safe, '#', title: t('helpers.destroy'),
+                                      = link_to '<i class="fas fa-trash"></i>'.html_safe, '#', title: t('helpers.destroy'),
                                               class: 'btn btn-xs btn-danger btn-flat btn-destroy',
                                               data: {'resource' => :maintenances, 'resource-id' => maintenance.id,
                                                       'resource-message' => t('questions.destroy', resource: t('.resource'),

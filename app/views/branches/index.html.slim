@@ -64,7 +64,7 @@ section.content ng-controller="branchesController"
                                             class: 'btn btn-xs btn-primary btn-flat', title: t('helpers.edit')
                                     - if has_policy(Branch, %w(destroy))
                                       a ng-click="delete_branch(#{branch.id})" class="btn btn-xs btn-danger btn-flat btn-destroy"
-                                        i.fa.fa-trash-o
+                                        i.fas.fa-trash
                                       /= link_to '<i class="fa fa-trash-o"></i>'.html_safe, '#',  method: :delete,title: t('helpers.destroy'),
                                               class: 'btn btn-xs btn-danger btn-flat btn-destroy',
                                               data: {'resource' => :branches, 'resource-id' => branch.id,

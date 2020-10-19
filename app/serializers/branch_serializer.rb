@@ -5,5 +5,5 @@ class BranchSerializer < ActiveModel::Serializer
   def items
     object.items.as_json(except: :image) if object.items
   end
-  
+
 end

@@ -64,7 +64,7 @@ section.content ng-controller="departmentsController"
                                 - if has_policy(Department, %w(destroy))
                                   a ng-click="delete_department(#{department.id})" class="btn btn-xs btn-danger btn-flat btn-destroy"
                                     | Eliminar
-                                    i.fa.fa-trash-o
+                                    i.fas.fa-trash
                                   /= link_to 'Eliminar <i class="fa fa-trash-o"></i>'.html_safe, '#', title: t('helpers.destroy'),
                                           class: 'btn btn-xs btn-danger btn-flat btn-destroy',
                                           data: {'resource' => :roles, 'resource-id' => department.id,

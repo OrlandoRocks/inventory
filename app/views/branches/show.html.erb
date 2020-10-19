@@ -54,7 +54,7 @@
                                           class: 'btn btn-xs btn-primary btn-flat', title: t('helpers.edit')  %>
                             <% unless current_user.user_employee? %>
                               <a ng-click="delete_item(<%= item.id %>)" class="btn btn-xs btn-danger btn-flat btn-destroy">
-                                <i class="fa fa-trash-o"></i>
+                                <i class="fas fa-trash"></i>
                               </a>
                             <% end  %>
                           </div>

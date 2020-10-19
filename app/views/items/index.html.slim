@@ -141,7 +141,7 @@ section.content ng-controller="itemController"
                                       class: 'btn btn-xs btn-primary btn-flat', title: t('helpers.edit')
                               - unless current_user.user_employee?
                                 a ng-click="delete_item(#{item.id})" class="btn btn-xs btn-danger btn-flat btn-destroy"
-                                  i.fa.fa-trash-o
+                                  i.fas.fa-trash
 
                               /= link_to '<i class="fa fa-file-pdf-o"></i> PDF'.html_safe, reports_item_path(nombre_reporte: 'item', titulo_reporte: "Ficha técnica del artículo.", format: :pdf, id: item),
                               /      class: 'btn btn-xs btn-success btn-flat'

@@ -25,7 +25,7 @@ section.content
                         i.fa.fa-file-excel-o
                         = t('helpers.export_excel')
                     li = link_to "<i class='fa fa-file-pdf-o'></i> #{t 'helpers.export_pdf'}".html_safe, reports_rols_path(nombre_reporte: 'rols', titulo_reporte: "Reporte de Usuarios.", format: :pdf)
-                    li = link_to "<i class='fa fa-trash'></i> #{t 'helpers.dump_destroy'}".html_safe, '#'
+                    li = link_to "<i class='fas fa-trash'></i> #{t 'helpers.dump_destroy'}".html_safe, '#'
         .box-body
           .dataTables_wrapper
             .row
@@ -58,7 +58,7 @@ section.content
                               = link_item '<i class="fa fa-edit"></i>'.html_safe, edit_role_path(role),
                                       class: 'btn btn-xs btn-primary btn-flat', title: t('helpers.edit')
                               - if has_policy(Role, %w(destroy)) && role.key != 'god'
-                                = link_to '<i class="fa fa-trash-o"></i>'.html_safe, '#', title: t('helpers.destroy'),
+                                = link_to '<i class="fas fa-trash"></i>'.html_safe, '#', title: t('helpers.destroy'),
                                         class: 'btn btn-xs btn-danger btn-flat btn-destroy',
                                         data: {'resource' => :roles, 'resource-id' => role.id,
                                               'resource-message' => t('questions.destroy', resource: t('.resource'),

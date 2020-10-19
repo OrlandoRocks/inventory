@@ -156,7 +156,7 @@ section.content
                                 = link_to '<i class="fa fa-edit"></i>'.html_safe, edit_user_path(user),
                                       class: 'btn btn-xs btn-primary btn-flat', title: t('helpers.edit')
                               - if has_policy(User, %w(destroy), 'Users::Registration')
-                                = link_to '<i class="fa fa-trash-o"></i>'.html_safe, destroy_department_employee_path(@department, user), method: :delete, title: t('helpers.destroy'),
+                                = link_to '<i class="fas fa-trash"></i>'.html_safe, destroy_department_employee_path(@department, user), method: :delete, title: t('helpers.destroy'),
                                         class: 'btn btn-xs btn-danger btn-flat btn-destroy',
                                         data: {:'resource' => :users, :'resource-id' => user.id,
                                                 :'resource-message' => t('questions.destroy', resource: t('.resource'),
