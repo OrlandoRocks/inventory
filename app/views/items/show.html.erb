@@ -11,10 +11,12 @@
               <i class="fa fa-plus "> Crear y enviar</i>
             <% end %>
 
-            <% if @item.trailer.image.nil? %>
+            <% if @item.trailer.image.attached? %>
               <%= link_to image_tag('trailers_default.png', :class => 'profile-user-img img-responsive img-circle', :size => '65x65'), "trailers_default.png", :target => "_blank" %>
             <% else %>
-              <%= link_to image_tag(@item.trailer.image, :class => 'profile-user-img img-responsive img-circle', :size => '65x65'), "#{url_for(@item.trailer.image)}", :target => "_blank" %>
+              <%= link_to image_tag('trailers_default.png', :class => 'profile-user-img img-responsive img-circle', :size => '65x65'), "trailers_default.png", :target => "_blank" %>
+
+              <%#= link_to image_tag(@item.trailer.image, :class => 'profile-user-img img-responsive img-circle', :size => '65x65'), "#{url_for(@item.trailer.image)}", :target => "_blank" %>
             <% end %>
 
             <h3 class="profile-username text-center"><%= @item.name %></h3>
