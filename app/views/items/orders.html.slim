@@ -134,9 +134,6 @@ section.content ng-controller="itemController"
                                 a ng-click="delete_order(#{item.id})" class="btn btn-xs btn-danger btn-flat btn-destroy"
                                   i.fas.fa-trash
 
-                                    /= link_to '<i class="fa fa-file-pdf-o"></i> PDF'.html_safe, reports_item_path(nombre_reporte: 'item', titulo_reporte: "Ficha técnica del artículo.", format: :pdf, id: item),
-                                    /      class: 'btn btn-xs btn-success btn-flat'
-
                   .row
                     .col-sm-5
                       .dataTables_info
