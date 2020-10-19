@@ -91,5 +91,8 @@ Permission.create!([
   {name: "Vista para crear los clientes", description: "Permite entrar a la vista para crear los clientes", action: "new", controller: "Clients"},
   {name: "Mostrar Detalles De Un Cliente", description: "Permite mostrar los detalles de un cliente.", action: "show", controller: "Clients"},
   {name: "Vista para ver pedidos enviados", description: "Permite entrar a la vista para ver los pedidos enviados", action: "orders_shipped", controller: "Items"},
-  {name: "Mostrar Listado De Comprobantes Fiscales", description: "Permite mostrar un listado de los comprobantes fiscales.", action: "index", controller: "FiscalVouchers"}
+  {name: "Mostrar Listado De Comprobantes Fiscales", description: "Permite mostrar un listado de los comprobantes fiscales.", action: "index", controller: "FiscalVouchers"},
+  {name: "Crear Cliente", description: "Permite crear los cliente.", action: "create", controller: "Clients"},
+  {name: "Actualizar Cliente", description: "Permite actualizar los cliente.", action: "update", controller: "Clients"},
+  {name: "Editar Cliente", description: "Permite visualizar la vista editar cliente.", action: "edit", controller: "Clients"},
                    ])

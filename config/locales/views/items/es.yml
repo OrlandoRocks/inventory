@@ -304,6 +304,7 @@ es:
         status_item: Estatus del Artículo
         client: Cliente
         advance_payment: Abono
+        color: Color
       new_order:
         title: Articulos
         resource: el artículo

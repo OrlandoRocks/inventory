@@ -64,6 +64,7 @@ class ItemsController < ApplicationController
     @all_models = policy_scope(Trailer).pluck(:model)
 
     @all_remissions = policy_scope(Item).pluck(:remission)
+
   end
 
   def edit_order
@@ -345,7 +346,7 @@ class ItemsController < ApplicationController
                                  :in_service_date, :time_unit_service, :time_quantity_service, :price, :category_id,
                                  :time_unit_depreciation, :time_quantity_depreciation, :sub_category_id, :provider_id,
                                  :department_id, :user_id, :brand_id, :status_item_id,:status_shipping_id, :maintenance_date,
-                                 :maintenance_done, :branch_id, :accessory, :remission,
+                                 :maintenance_done, :branch_id, :accessory, :remission,:color,
                                  :trailer_id, :client_id, :advance_payment, :acquisition_date,
                                  :fiscal_voucher_id, :payment_type, :sale_price)
   end
