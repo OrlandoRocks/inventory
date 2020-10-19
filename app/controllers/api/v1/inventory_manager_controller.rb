@@ -140,13 +140,6 @@ class Api::V1::InventoryManagerController < ActionController::Base
       # item_params[:image]               =    image_io(item_params[:image]) if item_params[:image]
 
 
-      p '------------------------imagen-------------------------'
-      p item_params[:image]
-
-
-
-      p '------------------------Params-------------------------'
-      p item_params
 
       if item.update(item_params)
 
