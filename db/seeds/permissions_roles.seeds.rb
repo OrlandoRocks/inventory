@@ -46,6 +46,7 @@ PermissionRole.create!([
   {role_id: 4, permission_id: 66},
   {role_id: 4, permission_id: 67},
   {role_id: 3, permission_id: 82},
+  {role_id: 4, permission_id: 82},
   {role_id: 3, permission_id: 83},
   {role_id: 3, permission_id: 70},
   {role_id: 3, permission_id: 84},
@@ -72,8 +73,15 @@ PermissionRole.create!([
   {role_id: 4, permission_id: 91},
   {role_id: 3, permission_id: 92},
   {role_id: 4, permission_id: 92},
-  {role_id: 4, permission_id: 61}
-  # {role_id: 4, permission_id: 44}
+  {role_id: 4, permission_id: 61},
+  {role_id: 3, permission_id: 93},
+  {role_id: 4, permission_id: 93},
+  {role_id: 3, permission_id: 94},
+  {role_id: 4, permission_id: 94},
+  {role_id: 3, permission_id: 95},
+  {role_id: 4, permission_id: 95},
+  {role_id: 3, permission_id: 96},
+  {role_id: 4, permission_id: 96}
  ])
 end
 

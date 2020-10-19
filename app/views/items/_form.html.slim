@@ -36,6 +36,11 @@ div ng-controller="itemController"
               = f.text_field :remission, class: 'form-control', placeholder: t('.remission')
 
           .row.form-group
+            = label_tag 'Color', 'Color', class: 'col-sm-2 control-label'
+            .col-md-10
+              = f.text_field :color, class: 'form-control', placeholder: 'Color'
+
+          .row.form-group
             = f.label :trailer_id, class: 'col-sm-2 control-label'
             .col-md-10
               select.form-control ng-change="get_trailer(trailer)" ng-model="trailer" ng-options=("trailer.id as trailer.name for trailer in trailers")

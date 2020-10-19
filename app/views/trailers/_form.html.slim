@@ -36,7 +36,14 @@
           option disabled="" selected="" value=""  Tipos de Trailers...
         = f.hidden_field :tipo_trailer_id, value: '{{tipo_trailer}}'
     .row.form-group
-      = f.button "<i class='fa fa-floppy-o'></i> #{t('helpers.submit.submit', model: 'tipo_trailer')}".html_safe,
+      = f.label 'Imagen', class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.file_field :image, class: 'form-control'
+        / input.form-control base-sixty-four-input="" ng-model="picFile" type="file" accept=".jpg,.png,.pdf"
+
+
+    .box-footer
+      = f.button "<i class='fa fa-floppy-o'></i> #{t('helpers.submit.submit', model: 'trailer')}".html_safe,
               class: 'btn btn-primary btn-flat', type: 'submit'
 
       = link_to trailers_path, class: 'btn btn-default btn-flat' do

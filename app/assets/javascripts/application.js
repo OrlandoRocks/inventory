@@ -37,8 +37,9 @@
 //= require general
 
 //= require angular/angular
-//= require ng-file-upload-shim/ng-file-upload-shim
+//= require angular/config
 //= require switchery
+//= require angular-base64-upload
 //= require angular-modal-service/dst/angular-modal-service.min.js
 //= require angular-animate/angular-animate
 //= require angular-aria/angular-aria
@@ -46,7 +47,6 @@
 //= require angular-material/angular-material
 //= require ng-file-upload/ng-file-upload
 //= require ng-switchery/src/ng-switchery
-//= require angular/config
 //= require pace/pace
 //= require angular/controllers/user
 //= require angular/controllers/home

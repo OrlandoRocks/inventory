@@ -1,8 +1,7 @@
 /**
  * Created by orlando on 11/12/16.
  */
-app.controller('itemController',["$scope", "ModalService", "$http", function($scope, ModalService, $http) {
-
+app.controller('itemController', ["$scope", "ModalService", "$http", function ($scope, ModalService, $http) {
 
 
     $('.datepicker').datepicker({
@@ -10,11 +9,11 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
         language: "es"
     });
 
-    $scope.init = function(branches, categories, item){
+    $scope.init = function (branches, categories, item) {
         $scope.branches = branches;
         $scope.get_trailers();
 
-        if(item !== null && item !== undefined){
+        if (item !== null && item !== undefined) {
 
             $scope.get_item_json(item);
 
@@ -22,34 +21,31 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
 
     };
 
-    $scope.init_order = function(item_id, users){
+    $scope.init_order = function (item_id, users) {
         $scope.users = users;
         $scope.get_trailers();
 
-        if(item_id){
+        if (item_id) {
             $scope.get_orders(item_id);
         }
     };
 
 
-
-
-
-    $scope.get_item_json =  function(id) {
+    $scope.get_item_json = function (id) {
 
         $http({
             method: 'GET',
-            url: '/items/'+id+'.json'
+            url: '/items/' + id + '.json'
         }).then(function successCallback(response) {
 
             if (response.data != null) {
                 $scope.item = response.data;
                 $scope.branch = $scope.item.branch_id;
                 $scope.trailer = $scope.item.trailer_id;
-                if($scope.branch !== null){
+                if ($scope.branch !== null) {
                     $scope.get_department();
                 }
-                if($scope.item.status_shipping_id === 1){
+                if ($scope.item.status_shipping_id === 1) {
                     $scope.branch = $scope.item.department_user.branch_id;
                     $scope.get_department();
                 }
@@ -66,10 +62,10 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
     };
 
 
-    $scope.get_orders = function(id){
+    $scope.get_orders = function (id) {
         $http({
             method: 'GET',
-            url: '/items/'+id+'.json'
+            url: '/items/' + id + '.json'
         }).then(function successCallback(response) {
 
             if (response.data != null) {
@@ -86,21 +82,20 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
     };
 
 
-    $scope.get_department = function(){
+    $scope.get_department = function () {
         $http({
-            url: '/departments_by_branch/'+ $scope.branch + '.json',
+            url: '/departments_by_branch/' + $scope.branch + '.json',
             method: 'GET'
         }).then(function (response) {
-
             $scope.department = response.data;
             $scope.consignee = response.data.manager;
             $scope.full_name = $scope.consignee.first_name + ' ' + $scope.consignee.last_name;
         });
     };
 
-    $scope.get_subcategories = function(){
+    $scope.get_subcategories = function () {
         $http({
-            url: '/subcategory_by_category/'+ $scope.category + '.json',
+            url: '/subcategory_by_category/' + $scope.category + '.json',
             method: 'GET'
         }).then(function (response) {
             $scope.sub_categories = response.data;
@@ -108,7 +103,7 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
         });
     };
 
-    $scope.get_trailers = function(){
+    $scope.get_trailers = function () {
         $http({
             method: 'GET',
             url: '/trailers.json'
@@ -119,7 +114,7 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
         });
     };
 
-    $scope.get_fiscal_vouchers = function(){
+    $scope.get_fiscal_vouchers = function () {
         $http({
             method: 'GET',
             url: '/fiscal_vouchers.json'
@@ -130,7 +125,7 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
         });
     };
 
-    $scope.get_clients = function(){
+    $scope.get_clients = function () {
         $http({
             method: 'GET',
             url: '/clients.json'
@@ -142,10 +137,9 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
     };
 
 
-
-    $scope.get_branch_user = function(user){
+    $scope.get_branch_user = function (user) {
         $http({
-            url: '/users/'+ user + '.json',
+            url: '/users/' + user + '.json',
             method: 'GET'
         }).then(function (response) {
             if (response.data != null) {
@@ -157,9 +151,9 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
         });
     };
 
-    $scope.get_trailer = function(trailer){
+    $scope.get_trailer = function (trailer) {
         $http({
-            url: '/trailers/'+ trailer + '.json',
+            url: '/trailers/' + trailer + '.json',
             method: 'GET'
         }).then(function (response) {
             if (response.data != null) {
@@ -172,8 +166,7 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
     };
 
 
-
-    $scope.delete_order = function(id){
+    $scope.delete_order = function (id) {
         swal({
             title: 'Eliminar',
             text: '¿Estas seguro de eliminar este pedido?',
@@ -211,7 +204,7 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
     };
 
 
-    $scope.delete_item = function(id){
+    $scope.delete_item = function (id) {
         swal({
             title: 'Eliminar',
             text: '¿Estas seguro de eliminar este artículo?',
@@ -246,7 +239,7 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
         });
     };
 
-    $scope.show_receive = function() {
+    $scope.show_receive = function () {
 
         swal({
             title: 'Producto Recibido',
@@ -290,20 +283,19 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
     };
 
 
-
-    $scope.show = function() {
+    $scope.show = function () {
 
         ModalService.showModal({
             templateUrl: 'modal_venta.html',
             controller: "ModalVentaController as modal",
-            inputs:{
+            inputs: {
                 item: $scope.item,
                 fiscal_vouchers: $scope.fiscal_vouchers,
                 clients: $scope.clients
             }
-        }).then(function(modal) {
+        }).then(function (modal) {
             modal.element.modal();
-            modal.close.then(function(sale_detail) {
+            modal.close.then(function (sale_detail) {
 
 
                 // $scope.showConfirm(sale_detail);
@@ -315,29 +307,64 @@ app.controller('itemController',["$scope", "ModalService", "$http", function($sc
         });
     };
 
+    $scope.accept_voucher = function (id) {
+        swal({
+            title: 'Aceptar Factura',
+            text: '¿Esta seguro de aceptar la factura?',
+            confirmButtonText: "SI",
+            cancelButtonText: "NO",
+            type: 'question',
+            showCancelButton: true
+        }).then(function (isConfirm) {
+            if (isConfirm) {
+                $http({
+                    url: '/items/' + id + '.json',
+                    method: 'PUT',
+                    data: {
+                        item: {
+                            status_item_id: 4
+                        }
+                    }
+                }).then(function (response) {
+                    if (response.data) {
+                        swal({
+                            title: 'Aceptado',
+                            text: 'La factura a sido aceptada',
+                            type: 'success',
+                            showCancelButton: false
+                        }).then(function (isConfirm) {
+                            if (isConfirm) {
+                                location.reload();
+                            }
+
+                        }, function (iSConfirm) {
+
+                        });
+                    }
+                });
+            }
+
+        }, function (iSConfirm) {
+
+        });
+    }
 
 
 
 }]);
 
 
+app.controller('ModalVentaController', ['$scope', 'close', 'Upload', '$http', 'item', 'fiscal_vouchers', 'clients', '$timeout', function ($scope, close, Upload, $http, item, fiscal_vouchers, clients, $timeout) {
 
 
-app.controller('ModalVentaController', ['$scope','close' ,'Upload','$http', 'item', 'fiscal_vouchers','clients', '$timeout',function($scope, close, Upload, $http, item, fiscal_vouchers, clients, $timeout) {
-
-
-    $scope.open = function($event) {
+    $scope.open = function ($event) {
         $event.preventDefault();
         $event.stopPropagation();
         $scope.opened = true;
     };
 
 
-
-
-
-
-    $scope.close = function() {
+    $scope.close = function () {
         close('', 500); // close, but give 500ms for bootstrap to animate
     };
 
@@ -346,17 +373,20 @@ app.controller('ModalVentaController', ['$scope','close' ,'Upload','$http', 'ite
     $scope.item = item;
     $scope.fiscal_vouchers = fiscal_vouchers;
     $scope.clients = clients;
-    $scope.payment_types = {0: {id:1, type:'Cash'},
-                            1: {id:2, type:'Deposito'},
-                            2: {id:3, type:'Transferencia'}
-                            };
+    $scope.payment_types = {
+        0: {id: 1, type: 'Cash'},
+        1: {id: 2, type: 'Deposito'},
+        2: {id: 3, type: 'Transferencia'}
+    };
 
 
-    $scope.uploadSell = function(status_vendido,status_pendiente_factura) {
+    $scope.uploadSell = function (status_vendido, status_pendiente_factura) {
 
         swal({
             title: '¿Estas seguro de vender este artículo?',
             text: 'una vez vendido no podras modificarlo',
+            confirmButtonText: "SI",
+            cancelButtonText: "NO",
             type: 'question',
             showCancelButton: true
         }).then(function (isConfirm) {
@@ -408,7 +438,7 @@ app.controller('ModalVentaController', ['$scope','close' ,'Upload','$http', 'ite
                             evt.loaded / evt.total));
                     });
 
-                 }else{
+                } else {
                     $http({
                         url: `/items/${$scope.item.id}.json`,
                         method: 'PUT',
@@ -453,7 +483,6 @@ app.controller('ModalVentaController', ['$scope','close' ,'Upload','$http', 'ite
     }
 
 
-
 }]).directive('format', ['$filter', function ($filter) {
     return {
         require: '?ngModel',
@@ -464,7 +493,7 @@ app.controller('ModalVentaController', ['$scope','close' ,'Upload','$http', 'ite
                 return $filter(attrs.format)(ctrl.$modelValue)
             });
 
-            elem.bind('blur', function(event) {
+            elem.bind('blur', function (event) {
                 var plainNumber = elem.val().replace(/[^\d|\-+|\.+]/g, '');
                 elem.val($filter(attrs.format)(plainNumber));
             });
@@ -473,38 +502,35 @@ app.controller('ModalVentaController', ['$scope','close' ,'Upload','$http', 'ite
 }]);
 
 
+app.controller('ModalFileController', ['$scope', 'close', 'Upload', '$http', '$timeout', function ($scope, close, Upload, $http, $timeout) {
 
 
-
-
-app.controller('ModalFileController', ['$scope','close', 'Upload','$http', '$timeout',function($scope, close, Upload, $http, $timeout) {
-
-
-    $scope.open = function($event) {
+    $scope.open = function ($event) {
         $event.preventDefault();
         $event.stopPropagation();
 
         $scope.opened = true;
     };
-    
 
-    $scope.close = function(result) {
+
+    $scope.close = function (result) {
         close(result, 500); // close, but give 500ms for bootstrap to animate
     };
 
 
-
-    $scope.uploadFiles = function(file) {
+    $scope.uploadFiles = function (file) {
         if (file) {
             file.upload = Upload.upload({
                 url: '/item_file',
                 //  data: {file: file}
-                data: {item_file: {
-                    item_id: servicio,
-                    file_type: company,
-                    description: $scope.data_com_ser.description,
-                    file: file
-                }}
+                data: {
+                    item_file: {
+                        item_id: servicio,
+                        file_type: company,
+                        description: $scope.data_com_ser.description,
+                        file: file
+                    }
+                }
             });
 
             file.upload.then(function (response) {
@@ -521,8 +547,6 @@ app.controller('ModalFileController', ['$scope','close', 'Upload','$http', '$tim
             });
         }
     }
-
-    
 
 
 }]);

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_14_205104) do
+ActiveRecord::Schema.define(version: 2020_10_15_203057) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -111,6 +111,7 @@ ActiveRecord::Schema.define(version: 2020_10_14_205104) do
     t.string "contact"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "rfc"
   end
 
   create_table "companies", id: :serial, force: :cascade do |t|
@@ -195,11 +196,12 @@ ActiveRecord::Schema.define(version: 2020_10_14_205104) do
     t.string "accessory"
     t.date "acquisition_date"
     t.bigint "trailer_id"
+    t.bigint "client_id"
     t.integer "payment_type"
     t.bigint "fiscal_voucher_id"
-    t.bigint "client_id"
     t.decimal "advance_payment"
     t.bigint "status_shipping_id"
+    t.string "color"
     t.index ["branch_id"], name: "index_items_on_branch_id"
     t.index ["brand_id"], name: "index_items_on_brand_id"
     t.index ["category_id"], name: "index_items_on_category_id"

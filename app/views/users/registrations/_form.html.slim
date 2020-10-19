@@ -28,10 +28,8 @@
     .row.form-group ng-show="branch_selected!=''"
       = f.label :department_id, class: 'col-sm-2 control-label'
       .col-sm-10
-        select.form-control ng-model='department_selected' ng-change="set_department_boss(department_selected.id)" ng-options=("department as department.name for department in departments track by department.id")
-          option value=""  Seleccione Departamento
-      .col-sm-10
-        input type="hidden" name='user[department_id]' value='{{department_selected.id}}'
+        = text_field_tag 'department','', class: 'form-control', 'ng-model': 'department.name', readonly: true
+        input type="hidden" name='user[department_id]' value='{{department.id}}'
           / option  ng-repeat="department in departments" ng-value="department.id"
             | {{department.name}}
 
