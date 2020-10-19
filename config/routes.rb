@@ -43,6 +43,9 @@ Rails.application.routes.draw do
     namespace :v1 do
       put 'login_user' => 'users_manager#login_user'
       get 'get_items/:token' => 'inventory_manager#get_items'
+      get 'get_items_not_sell/:token' => 'inventory_manager#get_items_not_sell'
+      get 'get_items_sell/:token' => 'inventory_manager#get_items_sell'
+      get 'get_items_order/:token' => 'inventory_manager#get_items_order'
       get 'get_branches/:token' => 'inventory_manager#get_branches'
       get 'get_trailers/:token' => 'inventory_manager#get_trailers'
       get 'get_categories/:token' => 'inventory_manager#get_categories'

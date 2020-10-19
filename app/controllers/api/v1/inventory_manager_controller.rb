@@ -45,6 +45,24 @@ class Api::V1::InventoryManagerController < ActionController::Base
     render json: @items
   end
 
+  def get_items_not_sell
+    @items = Item.where(status_item_id: StatusItem.find_by_key('no_vendido'))
+    render json: @items
+  end
+
+  def get_items_sell
+    @items = Item.where(status_item_id: StatusItem.where(key:['vendido', 'pendiente_factura', 'facturado']).pluck(:id))
+    render json: @items
+  end
+
+  def get_items_order
+    @items = Item.where(status_item_id: StatusItem.find_by_key('pendiente'))
+    render json: @items
+  end
+
+
+
+
   def create_item
     begin
 
@@ -72,13 +90,13 @@ class Api::V1::InventoryManagerController < ActionController::Base
       item_params[:fiscal_voucher_id]   =    params[:fiscal_voucher_id]   if params[:fiscal_voucher_id]
       item_params[:client_id]           =    params[:client_id]           if params[:client_id]
       item_params[:advance_payment]     =    params[:advance_payment]     if params[:advance_payment]
-      item_params[:image]               =    params[:image].attach(io: image_io, filename: 'comprobante de pago')     if params[:image]
 
 
 
 
 
       @new_item = Item.new(item_params)
+      @new_item.image.attach(io: image_io, filename: 'comprobante de pago')     if params[:image]
 
       p 'new item'
       p @new_item
