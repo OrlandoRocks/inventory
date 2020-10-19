@@ -133,8 +133,11 @@ class Api::V1::InventoryManagerController < ActionController::Base
       item_params[:fiscal_voucher_id]   =    params[:fiscal_voucher_id]   if params[:fiscal_voucher_id]
       item_params[:client_id]           =    params[:client_id]           if params[:client_id]
       item_params[:advance_payment]     =    params[:advance_payment]     if params[:advance_payment]
-      item_params[:image]               =    params[:image] if params[:image]
-      item_params[:image]               =    image_io(item_params[:image]) if item_params[:image]
+
+      item.image.attach(io: image_io, filename: 'Comprobante de Pago') if params[:image]
+
+      # item_params[:image]               =    params[:image] if params[:image]
+      # item_params[:image]               =    image_io(item_params[:image]) if item_params[:image]
 
 
       p '------------------------imagen-------------------------'
@@ -165,9 +168,9 @@ class Api::V1::InventoryManagerController < ActionController::Base
 
   private
 
-  def image_io(image)
+  def image_io
 
-    decoded_image = Base64.decode64(image)
+    decoded_image = Base64.decode64(params[:image])
 
 
     StringIO.new(decoded_image)
