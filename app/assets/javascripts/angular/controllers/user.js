@@ -80,10 +80,8 @@ app.controller('userController',["$scope", "$http", function($scope, $http) {
                 method: "GET",
                 url: "/branches/"+branch+".json"
             }).then(function successCallback(response) {
-                $scope.departments = response.data.departments;
-                if($scope.level == 3){
-                    $scope.boss = response.data.manager;
-                }
+                $scope.department = response.data;
+
             }, function errorCallback(response) {
             });
         }
