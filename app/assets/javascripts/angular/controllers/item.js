@@ -351,7 +351,23 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
 
 
 
-}]);
+}]).directive('format', ['$filter', function ($filter) {
+    return {
+        require: '?ngModel',
+        link: function (scope, elem, attrs, ctrl) {
+            if (!ctrl) return;
+
+            ctrl.$formatters.unshift(function (a) {
+                return $filter(attrs.format)(ctrl.$modelValue)
+            });
+
+            elem.bind('blur', function (event) {
+                var plainNumber = elem.val().replace(/[^\d|\-+|\.+]/g, '');
+                elem.val($filter(attrs.format)(plainNumber));
+            });
+        }
+    };
+}]);;
 
 
 app.controller('ModalVentaController', ['$scope', 'close', 'Upload', '$http', 'item', 'fiscal_vouchers', 'clients', '$timeout', function ($scope, close, Upload, $http, item, fiscal_vouchers, clients, $timeout) {

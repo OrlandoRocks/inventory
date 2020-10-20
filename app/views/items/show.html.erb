@@ -197,7 +197,7 @@
 
             </ul>
             <% if @item.status_item.key == 'facturado' || @item.status_item.key == 'vendido' || @item.status_item.key == 'pendiente_factura' %>
-              <% if @item.status_item.key == 'vendido' %>
+              <% if @item.status_item.key == 'vendido' || @item.status_item.key == 'facturado' %>
                 <a ng-click="accept_voucher(<%= @item.id %>)" class="btn btn-block btn-info btn-lg">
                   Aceptar Factura
                 </a>
