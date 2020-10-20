@@ -204,7 +204,7 @@
 
             </ul>
             <% if @item.status_item.key == 'facturado' || @item.status_item.key == 'vendido' || @item.status_item.key == 'pendiente_factura' %>
-              <% if @item.status_item.key == 'vendido' %>
+              <% if @item.status_item.key == 'vendido' || @item.status_item.key == 'facturado' %>
                 <a ng-click="accept_voucher(<%= @item.id %>)" class="btn btn-block btn-info btn-lg">
                   Aceptar Factura
                 </a>
@@ -240,7 +240,6 @@
               <% @audits.reverse_each do |audit| %>
                 <% if audit.action == "create" and audit.associated_id.nil? %>
 
-                  <% if audit.version == 2 %>
                     <li class="time-label">
                             <span class="bg-red">
                               <%= audit.created_at.strftime("%d / %m / %Y") %>
@@ -265,7 +264,6 @@
                         <!--</div>-->
                       </div>
                     </li>
-                  <% end %>
                 <% elsif audit.action == "create" and audit.associated_id %>
                   <li class="time-label">
                           <span class="bg-red">
