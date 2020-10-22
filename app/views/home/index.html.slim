@@ -9,6 +9,19 @@ section.content-header
 section.content
     .row
       /! ./col
+
+      - if has_policy(Item, %w(new index))
+        .col-lg-3.col-xs-6
+          /! small box
+          .small-box.bg-green
+            .inner
+              h3 = @items_count
+              p Inventario
+            .icon
+              i.fa.fa-list
+            a.small-box-footer href="/items"
+              | Inventario
+              i.fa.fa-arrow-circle-right
       - if has_policy(Branch, %w(new index))
         .col-lg-3.col-xs-6
           /! small box
@@ -17,48 +30,37 @@ section.content
               h3 = @branches_count
               p Sucursales
             .icon
-              i.fa.fa-home
+              i.fa.fa-store
             a.small-box-footer href="/branches"
               | Sucursales
               i.fa.fa-arrow-circle-right
 
-      - if has_policy(Department, %w(new index))
+      - if has_policy(Trailer, %w(new index))
         .col-lg-3.col-xs-6
           /! small box
           .small-box.bg-aqua
             .inner
-              h3 = @departments_count
-              p Departamentos
+              h3 = @trailers_count
+              p Catalogo
             .icon
-              i.fa.fa-cubes
-            a.small-box-footer href="/departments"
-              | Departamentos
+              i.fa.fa-truck
+            a.small-box-footer href="/trailers"
+              | Catalogo
               i.fa.fa-arrow-circle-right
         /! ./col
-      - if has_policy(Item, %w(new index))
-        .col-lg-3.col-xs-6
-          /! small box
-          .small-box.bg-green
-            .inner
-              h3 = @items_count
-              p Artículos
-            .icon
-              i.fa.fa-tag
-            a.small-box-footer href="/items"
-              | Artículos
-              i.fa.fa-arrow-circle-right
+
       /! ./col
       - unless current_user.user_employee?
         .col-lg-3.col-xs-6
           /! small box
           .small-box.bg-yellow
             .inner
-              h3 = @users_count
-              p Usuarios registrados
+              h3 = @items_sold_count
+              p Ventas
             .icon
-              i.fa.fa-users
-            a.small-box-footer href="/users"
-              | Usuarios en el sistema
+              i.fa.fa-dollar-sign
+            a.small-box-footer href="/sales"
+              | Ventas
               i.fa.fa-arrow-circle-right
     .row
       .col-md-12

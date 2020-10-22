@@ -4,9 +4,9 @@ es:
       title: Lista de Subcategorías
       resource: la Subcategoría
       name: Subcategoría
-      description: Descripción
+      description: Codigo
       status: Estatus
-      category: Categoría / Compañía
+      category: Categoría
       one: Sub Categoría
       other: Sub Categorías
       company_id: Compañía

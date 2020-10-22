@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
     unless current_user.nil?
       unless current_user.current_company.nil?
 
-        @current_company = Company.find(current_user.current_company) unless current_user.current_company.eql?(0)
+        @current_company = Company.first
 
       end
     end

@@ -21,10 +21,10 @@ class HomeController < ApplicationController
     #@work_articles = WorkArticle.count
     @users = User.all  #policy_scope(User).count
 
-    @users_count = policy_scope(User).count
+    @items_sold_count = Item.where(status_item_id: [StatusItem.find_by_key('vendido').id,StatusItem.find_by_key('pendiente_factura').id, StatusItem.find_by_key('facturado').id]).count
 
     @branches_count = policy_scope(Branch).count
-    @departments_count = policy_scope(Department).count
+    @trailers_count = policy_scope(Trailer).count
 
     @search_items = policy_scope(Item).ransack(params[:q])
 

@@ -34,7 +34,7 @@ section.content
                               .checkbox.icheck
                                 input [type="checkbox" class="icheck-me" data-skin="square" data-color="blue"]
                             th = t('.name')
-                            / th = t('.description')
+                            th = t('.description')
                             th = t('.category')
                             /th = t('.status')
                             th.actions_header
@@ -46,9 +46,9 @@ section.content
                                   .checkbox.icheck
                                     input [type="checkbox" class="icheck-me" data-skin="square" data-color="blue"]
                                 td = sub_category.name
-                                / td = sub_category.description
-                                td = "#{sub_category.category.try("name")} / #{sub_category.category.try(:company).try("name").try(:upcase)} "
-                                /td = sub_category.status
+                                td = sub_category.description
+                                td = sub_category.category.try("name")
+                                td = sub_category.status ? 'Activo' : 'Inhábil'
                                 td
                                   .actions
                                     = link_item '<i class="fa fa-edit"></i>'.html_safe, edit_sub_category_path(sub_category),

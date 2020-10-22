@@ -6,7 +6,7 @@
         - @category.errors.full_messages.each do |message|
           li = message
   .box-body
-    .row.form-group
+    / .row.form-group
       = f.label :company_id, class: 'col-sm-2 control-label'
       .col-sm-10
         = f.collection_select :company_id, Company.all, :id, :name,
@@ -15,13 +15,13 @@
       = f.label :name, class: 'col-sm-2 control-label'
       .col-sm-10
         = f.text_field :name, class: 'form-control', placeholder: t('.name'), autofocus: true
-        = f.hidden_field :status, value: true
-    / .row.form-group
-      = f.label :description, class: 'col-sm-2 control-label'
+        = f.hidden_field :company_id, value: @current_company.id
+    .row.form-group
+      = f.label 'Codigo', class: 'col-sm-2 control-label'
       .col-sm-10
-        = f.text_field :description, class: 'form-control', placeholder: t('.description')
+        = f.text_field :description, class: 'form-control', placeholder: 'codigo'
 
-    /.row.form-group
+    .row.form-group
       = f.label :status, class: 'col-sm-2 control-label'
       .col-sm-10
         = f.check_box(:status)
