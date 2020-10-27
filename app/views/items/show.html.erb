@@ -104,9 +104,15 @@
                   <i class="fa fa-handshake "> Recibido</i>
                 </a>
               <% elsif @item.status_item.key != 'facturado' %>
-                <a class="btn btn-block btn-success btn-lg" ng-click="show()">
-                  <i class="fa fa-handshake "> Vender</i>
-                </a>
+                <% if @item.status_item.key == 'no_vendido' %>
+                  <a class="btn btn-block btn-success btn-lg" ng-click="show()">
+                    <i class="fa fa-handshake "> Vender</i>
+                  </a>
+                <% else %>
+                  <a class="btn btn-block btn-success btn-lg" ng-click="show_voucher()">
+                    <i class="fa fa-handshake "> Mostrar comprobante</i>
+                  </a>
+                <% end %>
               <% end %>
             <% end %>
 
@@ -142,7 +148,7 @@
               </li>
               <li class="list-group-item">
                 <b><%= t("items.form.color") %></b>
-                <a class="pull-right"><%= @item.color%></a>
+                <a class="pull-right"><%= @item.color %></a>
               </li>
               <li class="list-group-item">
                 <strong><i class="fa fa-book margin-r-5"></i><%= "#{t("items.form.category")} / #{ t("items.form.sub_category")}" %>
@@ -206,17 +212,17 @@
             <% if @item.status_item.key == 'facturado' || @item.status_item.key == 'vendido' || @item.status_item.key == 'pendiente_factura' %>
               <% if @item.status_item.key == 'vendido' || @item.status_item.key == 'facturado' %>
                 <a ng-click="accept_voucher(<%= @item.id %>)" class="btn btn-block btn-info btn-lg">
-                  Aceptar Factura
+                  Aceptar Comprobante
                 </a>
               <% end %>
             <% else %>
-                <%= link_to edit_item_path(@item.id), :class => "btn btn-block btn-danger btn-lg" do %>
-                  <i class="fa fa-pencil "> Editar</i>
-                <% end %>
+              <%= link_to edit_item_path(@item.id), :class => "btn btn-block btn-danger btn-lg" do %>
+                <i class="fa fa-pencil "> Editar</i>
+              <% end %>
             <% end %>
 
 
-        </div>
+          </div>
 
         <% end %>
         <!-- /.box-body -->
@@ -526,11 +532,60 @@
               </textarea>
               </div>
             </div>
-
           </div>
 
           <div class="modal-footer">
             <button class="btn btn-primary" ng-click="uploadSell(<%= @status_item_vendidos.first.id if @status_item_vendidos.first %>, <%= @status_item_vendidos.last.id if @status_item_vendidos.last %>)" data-dismiss="modal">
+              Aceptar
+            </button>
+
+          </div>
+
+
+        </div>
+
+
+      </div>
+    </div>
+
+  </script>
+
+  <script id="modal_factura.html" type='text/ng-template'>
+    <div class="modal modal-fullscreen">
+      <div class="modal-dialog">
+        <div class="modal-content form-horizontal" style="width: 900px">
+          <div class="modal-header">
+            <button class="button close" aria-hidden="true" data-dismiss="modal" type="button">x</button>
+            <h4 class="modal-title">
+              Mostrar comprobante
+            </h4>
+          </div>
+
+          <div class="box-body" >
+            <div class="row form-group" ng-show="item.image_url !== null && item.image_url !== undefined && item.image_url !== ''">
+              <label class="col-md-3 control-label">
+                Factura:
+              </label>
+              <div class="col-md-6">
+                <%= link_to 'Ver Factura', "#{url_for('{{item.image_url}}')}", :target => "_blank", class: 'pull-left' %>
+              </div>
+            </div>
+
+            <div class="row form-group" ng-show="item.payment_type>1">
+              <label class="col-md-3 control-label">
+                Comprobante:
+              </label>
+              <div class="col-md-6">
+
+                <input type="file" ngf-select ng-model="item.image" name="image"
+                       accept="image/*" ngf-max-size="2MB" required
+                       ngf-model-invalid="errorFile">
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="uploadVoucher(<%= @status_item_vendidos.first.id if @status_item_vendidos.first %>, <%= @status_item_vendidos.last.id if @status_item_vendidos.last %>)" data-dismiss="modal">
               Aceptar
             </button>
 

@@ -307,6 +307,30 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
         });
     };
 
+    $scope.show_voucher = function () {
+
+        ModalService.showModal({
+            templateUrl: 'modal_factura.html',
+            controller: "ModalFacturaController as modal",
+            inputs: {
+                item: $scope.item,
+                fiscal_vouchers: $scope.fiscal_vouchers,
+                clients: $scope.clients
+            }
+        }).then(function (modal) {
+            modal.element.modal();
+            modal.close.then(function (sale_detail) {
+
+
+                // $scope.showConfirm(sale_detail);
+                // $scope.save_sale_detail(sale_detail);
+                // $scope.amount_paid += parseInt(paid);
+                // $scope.amount_owed -= paid;
+                // $scope.get_sale_details_json($scope.sale);
+            });
+        });
+    };
+
     $scope.accept_voucher = function (id) {
         swal({
             title: 'Aceptar Factura',
@@ -370,7 +394,8 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
 }]);;
 
 
-app.controller('ModalVentaController', ['$scope', 'close', 'Upload', '$http', 'item', 'fiscal_vouchers', 'clients', '$timeout', function ($scope, close, Upload, $http, item, fiscal_vouchers, clients, $timeout) {
+app.controller('ModalVentaController', ['$scope', 'close', 'Upload', '$http', 'item', 'fiscal_vouchers', 'clients', '$timeout',
+    function ($scope, close, Upload, $http, item, fiscal_vouchers, clients,$timeout) {
 
 
     $scope.open = function ($event) {
@@ -500,6 +525,118 @@ app.controller('ModalVentaController', ['$scope', 'close', 'Upload', '$http', 'i
 
 
 }]).directive('format', ['$filter', function ($filter) {
+    return {
+        require: '?ngModel',
+        link: function (scope, elem, attrs, ctrl) {
+            if (!ctrl) return;
+
+            ctrl.$formatters.unshift(function (a) {
+                return $filter(attrs.format)(ctrl.$modelValue)
+            });
+
+            elem.bind('blur', function (event) {
+                var plainNumber = elem.val().replace(/[^\d|\-+|\.+]/g, '');
+                elem.val($filter(attrs.format)(plainNumber));
+            });
+        }
+    };
+}]);
+
+app.controller('ModalFacturaController', ['$scope', 'close', 'Upload', '$http', 'item', 'fiscal_vouchers', 'clients', '$timeout',
+    function ($scope, close, Upload, $http, item, fiscal_vouchers, clients,$timeout) {
+
+
+        $scope.open = function ($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+            $scope.opened = true;
+        };
+
+
+        $scope.close = function () {
+            close('', 500); // close, but give 500ms for bootstrap to animate
+        };
+
+        $scope.signature = "";
+
+        $scope.item = item;
+        $scope.fiscal_vouchers = fiscal_vouchers;
+        $scope.clients = clients;
+        $scope.payment_types = {
+            0: {id: 1, type: 'Cash'},
+            1: {id: 2, type: 'Deposito'},
+            2: {id: 3, type: 'Transferencia'}
+        };
+
+
+        $scope.uploadVoucher = function (status_vendido, status_pendiente_factura) {
+
+            swal({
+                title: '¿Estas seguro de subir este comprobante?',
+                text: '',
+                confirmButtonText: "SI",
+                cancelButtonText: "NO",
+                type: 'question',
+                showCancelButton: true
+            }).then(function (isConfirm) {
+                if (isConfirm) {
+                    if ($scope.item.image) {
+
+                        $scope.item.image.upload = Upload.upload({
+                            url: `/items/${$scope.item.id}.json`,
+                            method: 'PUT',
+                            //  data: {file: file}
+                            data: {
+                                item: {
+                                    sale_price: $scope.item.sale_price,
+                                    payment_type: $scope.item.payment_type,
+                                    image: $scope.item.image,
+                                    status_item_id: status_vendido,
+                                    branch_id: $scope.item.branch_id,
+                                    department_id: $scope.item.department_id,
+                                    user_id: $scope.item.user_id
+                                }
+                            }
+                        });
+                        $scope.item.image.upload.then(function (response) {
+                            $timeout(function () {
+                                $scope.item.image.result = response.data;
+                                if (response.data) {
+                                    swal({
+                                        title: 'Subido',
+                                        text: 'El comprobando a sido subido con exito',
+                                        type: 'success',
+                                        showCancelButton: false
+                                    }).then(function (isConfirm) {
+                                        if (isConfirm) {
+                                            location.reload();
+                                        }
+
+                                    }, function (iSConfirm) {
+
+                                    });
+                                }
+                            });
+                        }, function (response) {
+                            if (response.status > 0)
+                                $scope.errorMsg = response.status + ': ' + response.data;
+
+
+                        }, function (evt) {
+                            $scope.item.image.progress = Math.min(100, parseInt(100.0 *
+                                evt.loaded / evt.total));
+                        });
+
+                    }
+                }
+
+            }, function (iSConfirm) {
+
+            });
+        }
+
+
+    }]).directive('format', ['$filter', function ($filter) {
     return {
         require: '?ngModel',
         link: function (scope, elem, attrs, ctrl) {
