@@ -1,4 +1,4 @@
-aside.main-sidebar
+aside.main-sidebar style=('position: fixed;')
   section.sidebar
     /! Sidebar Menu
     ul.sidebar-menu
@@ -17,22 +17,23 @@ aside.main-sidebar
               i.fa.fa-angle-left.pull-right
             ul.treeview-menu
               li
-                = link_item "<i class='fa fa-circle-o'></i> #{t '.new_item'}".html_safe, new_item_path
+                = link_item "<i class='fas fa-angle-right'></i> #{t '.new_item'}".html_safe, new_item_path
               li
-                = link_item "<i class='fa fa-circle-o'></i> #{t '.items'}".html_safe, items_path
+                = link_item "<i class='fas fa-angle-right'></i> Inventario Local".html_safe, items_path
         li.treeview
           a href='#'
-            i.fa.fa-shopping-bag
-            span = 'Pedidos'
+            i.fa.fa-truck
+            span Catalogo
             i.fa.fa-angle-left.pull-right
           ul.treeview-menu
             li
-              = link_item "<i class='fa fa-circle-o'></i> Nuevo Pedido".html_safe, new_order_path
+              = link_item "<i class='fas fa-angle-right'></i> Trailers".html_safe, trailer_types_path
             li
-              = link_item "<i class='fa fa-circle-o'></i> Pedidos".html_safe, orders_path
+              = link_item "<i class='fas fa-angle-right'></i> Nuevo Pedido".html_safe, new_order_path
             li
-              = link_item "<i class='fa fa-circle-o'></i> Pedidos Enviados".html_safe, orders_shipped_path
-        - if has_policy(Item, %w(sales))
+              = link_item "<i class='fas fa-angle-right'></i> Pedidos".html_safe, orders_path
+            li
+              = link_item "<i class='fas fa-angle-right'></i> Pedidos Enviados".html_safe, orders_shipped_path
           li.treeview
             a href='#'
               i.fa.fa-dollar-sign
@@ -40,7 +41,7 @@ aside.main-sidebar
               i.fa.fa-angle-left.pull-right
             ul.treeview-menu
               li
-                = link_item "<i class='fa fa-circle-o'></i> Ventas".html_safe, sales_path
+                = link_item "<i class='fas fa-angle-right'></i> Ventas".html_safe, sales_path
 
       - if has_policy_employee || has_policy_branch
         li.header MENU
@@ -53,9 +54,9 @@ aside.main-sidebar
             ul.treeview-menu
               - if has_policy(Item, %w(new))
                 li
-                  = link_item "<i class='fa fa-circle-o'></i> #{t '.new_item'}".html_safe, new_item_path
+                  = link_item "<i class='fa fa-circle'></i> #{t '.new_item'}".html_safe, new_item_path
               li
-                = link_item "<i class='fa fa-circle-o'></i> #{t '.items'}".html_safe, items_path
+                = link_item "<i class='fa fa-circle'></i> Inventario Local".html_safe, items_path
         - if has_policy(Branch, %w(index))
           li.treeview
             a href='#'
@@ -64,7 +65,7 @@ aside.main-sidebar
               i.fa.fa-angle-left.pull-right
             ul.treeview-menu
               li
-                = link_item "<i class='fa fa-circle-o'></i> Sucursales".html_safe, branches_path
+                = link_item "<i class='fas fa-angle-right'></i> Sucursales".html_safe, branches_path
         - if has_policy(Item, %w(sales))
           li.treeview
             a href='#'
@@ -73,19 +74,21 @@ aside.main-sidebar
               i.fa.fa-angle-left.pull-right
             ul.treeview-menu
               li
-                = link_item "<i class='fa fa-circle-o'></i> Ventas".html_safe, sales_path
+                = link_item "<i class='fas fa-angle-right'></i> Ventas".html_safe, sales_path
         li.treeview
           a href='#'
-            i.fa.fa-shopping-bag
-            span = 'Pedidos'
+            i.fa.fa-truck
+            span Catalogo
             i.fa.fa-angle-left.pull-right
           ul.treeview-menu
             li
-              = link_item "<i class='fa fa-circle-o'></i> Nuevo Pedido".html_safe, new_order_path
+              = link_item "<i class='fas fa-angle-right'></i> Trailers".html_safe, trailer_types_path
             li
-              = link_item "<i class='fa fa-circle-o'></i> Pedidos".html_safe, orders_path
+              = link_item "<i class='fas fa-angle-right'></i> Nuevo Pedido".html_safe, new_order_path
             li
-              = link_item "<i class='fa fa-circle-o'></i> Pedidos Enviados".html_safe, orders_shipped_path
+              = link_item "<i class='fas fa-angle-right'></i> Pedidos".html_safe, orders_path
+            li
+              = link_item "<i class='fas fa-angle-right'></i> Pedidos Enviados".html_safe, orders_shipped_path
       - if has_policy_catalogo
         - if has_policy(Branch, %w(index))
           li.treeview
@@ -95,9 +98,9 @@ aside.main-sidebar
               i.fa.fa-angle-left.pull-right
             ul.treeview-menu
               li
-                = link_item "<i class='fa fa-circle-o'></i> #{t '.new_branch'}".html_safe, new_branch_path
+                = link_item "<i class='fas fa-angle-right'></i> #{t '.new_branch'}".html_safe, new_branch_path
               li
-                = link_item "<i class='fa fa-circle-o'></i> Sucursales".html_safe, branches_path
+                = link_item "<i class='fas fa-angle-right'></i> Sucursales".html_safe, branches_path
 
         - if has_policy(Department, %w(new index))
           li.treeview
@@ -107,9 +110,9 @@ aside.main-sidebar
               i.fa.fa-angle-left.pull-right
             ul.treeview-menu
               li
-                = link_item "<i class='fa fa-circle-o'></i> #{t '.new_department'}".html_safe, new_department_path
+                = link_item "<i class='fas fa-angle-right'></i> #{t '.new_department'}".html_safe, new_department_path
               li
-                = link_item "<i class='fa fa-circle-o'></i> #{t '.departments'}".html_safe, departments_path
+                = link_item "<i class='fas fa-angle-right'></i> #{t '.departments'}".html_safe, departments_path
 
 
       - if has_policy_catalogo
@@ -122,69 +125,22 @@ aside.main-sidebar
             i.fa.fa-angle-left.pull-right
           ul.treeview-menu
             li
-              = link_item "<i class='fa fa-circle-o'></i> #{t '.new_category'}".html_safe, new_category_path
+              = link_item "<i class='fas fa-angle-right'></i> Tipo de Trailer".html_safe, trailer_types_path
             li
-              = link_item "<i class='fa fa-circle-o'></i> #{t '.categories'}".html_safe, categories_path
+              = link_item "<i class='fas fa-angle-right'></i> Anchura de Trailer".html_safe, trailer_widths_path
+            li
+              = link_item "<i class='fas fa-angle-right'></i> Longitud de Trailer".html_safe, trailer_lengths_path
+            li
+              = link_item "<i class='fas fa-angle-right'></i> Capacidad".html_safe, capacities_path
+            li
+              = link_item "<i class='fas fa-angle-right'></i> Tipo de Piso".html_safe, floor_types_path
+            li
+              = link_item "<i class='fas fa-angle-right'></i> Tipo de Redila".html_safe, redila_types_path
+            li
+              = link_item "<i class='fas fa-angle-right'></i> Tipo de Rampa".html_safe, ramp_types_path
 
-      - if has_policy(SubCategory, %w(new index))
-        li.treeview
-          a href='#'
-            i.fa.fa-map-signs
-            span = t('.sub_categories')
-            i.fa.fa-angle-left.pull-right
-          ul.treeview-menu
-            li
-              = link_item "<i class='fa fa-circle-o'></i> #{t '.new_sub_category'}".html_safe, new_sub_category_path
-            li
-              = link_item "<i class='fa fa-circle-o'></i> #{t '.sub_categories'}".html_safe, sub_categories_path
-
-      - if has_policy(StatusItem, %w(new index))
-        li.treeview
-          a href='#'
-            i.fa.fa-thumbs-up
-            span = t('.status_item')
-            i.fa.fa-angle-left.pull-right
-          ul.treeview-menu
-            li
-              = link_item "<i class='fa fa-circle-o'></i> #{t '.new_status_item'}".html_safe, new_status_item_path
-            li
-              = link_item "<i class='fa fa-circle-o'></i> #{t '.status_item'}".html_safe, status_items_path
-
-      - if has_policy(Brand, %w(new index))
-        li.treeview
-          a href='#'
-            i.fa.fa-registered
-            span = t('.brands')
-            i.fa.fa-angle-left.pull-right
-          ul.treeview-menu
-            li
-              = link_item "<i class='fa fa-circle-o'></i> #{t '.new_brand'}".html_safe, new_brand_path
-            li
-              = link_item "<i class='fa fa-circle-o'></i> #{t '.brands'}".html_safe, brands_path
-
-                /- if has_policy(Provider, %w(new index))
-              li.treeview
-                a href='#'
-                  i.fa.fa-male
-                  span = t('.providers')
-                  i.fa.fa-angle-left.pull-right
-                ul.treeview-menu
-                  li
-                    = link_item "<i class='fa fa-circle-o'></i> #{t '.providers'}".html_safe, providers_path
-                  li
-                    = link_item "<i class='fa fa-circle-o'></i> #{t '.new_provider'}".html_safe, new_provider_path
 
         - if has_policy(Item, %w(new index))
-          li.treeview
-            a href='#'
-              i.fa.fa-truck
-              span Trailers
-              i.fa.fa-angle-left.pull-right
-            ul.treeview-menu
-              li
-                = link_item "<i class='fa fa-circle-o'></i> Trailers".html_safe, trailers_path
-              li
-                = link_item "<i class='fa fa-circle-o'></i> Nuevo Trailer".html_safe, new_trailer_path
           li.treeview
             a href='#'
               i.fa.fa-user
@@ -192,10 +148,10 @@ aside.main-sidebar
               i.fa.fa-angle-left.pull-right
             ul.treeview-menu
               li
-                = link_to "<i class='fa fa-circle-o'></i> #{t '.users'}".html_safe, user_registrations_path
+                = link_to "<i class='fas fa-angle-right'></i> #{t '.users'}".html_safe, user_registrations_path
               li
-                = link_to "<i class='fa fa-circle-o'></i> #{t '.new_user'}".html_safe, new_user_path
-                / = link_to "<i class='fa fa-circle-o'></i> #{t '.new_employee'}".html_safe, new_employee_path
+                = link_to "<i class='fas fa-angle-right'></i> #{t '.new_user'}".html_safe, new_user_path
+                / = link_to "<i class='fas fa-angle-right'></i> #{t '.new_employee'}".html_safe, new_employee_path
 
 
       li.treeview
@@ -206,7 +162,7 @@ aside.main-sidebar
           i.fa.fa-angle-left.pull-right
         ul.treeview-menu
           li
-            = link_to "<i class='fa fa-circle-o'></i> Clientes".html_safe, clients_path
+            = link_to "<i class='fas fa-angle-right'></i> Clientes".html_safe, clients_path
           li
-            = link_to "<i class='fa fa-circle-o'></i> Nuevo Cliente".html_safe, new_client_path
-            / = link_to "<i class='fa fa-circle-o'></i> #{t '.new_employee'}".html_safe, new_employee_path
+            = link_to "<i class='fas fa-angle-right'></i> Nuevo Cliente".html_safe, new_client_path
+            / = link_to "<i class='fas fa-angle-right'></i> #{t '.new_employee'}".html_safe, new_employee_path

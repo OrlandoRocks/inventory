@@ -1,0 +1,2 @@
+class TrailerHeight < ApplicationRecord
+end

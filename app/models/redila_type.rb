@@ -1,0 +1,2 @@
+class RedilaType < ApplicationRecord
+end

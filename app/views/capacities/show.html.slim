@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @capacity.name
+p
+  strong Model part:
+  = @capacity.model_part
+p
+  strong Status:
+  = @capacity.status
+
+=> link_to 'Edit', edit_capacity_path(@capacity)
+'|
+=< link_to 'Back', capacities_path

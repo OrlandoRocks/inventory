@@ -1,0 +1,2 @@
+class FloorType < ApplicationRecord
+end

@@ -1,8 +1,8 @@
-h1 Editing trailer_type
-
-== render 'form'
-
-=> link_to 'Show', @trailer_type
-'|
-=< link_to 'Back', trailer_types_path
-
+section.content
+  .row
+    .col-xs-12
+      .box.box-primary
+        .box-header.with-border
+          h3.box-title
+            = 'Modificar Tipo de Trailer'
+        = render 'form', trailer_type: @trailer_type

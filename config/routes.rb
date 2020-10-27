@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
 
+  resources :trailer_widths
+  resources :trailer_lengths
+  resources :trailer_heights
+  resources :ramp_types
+  resources :redila_types
+  resources :floor_types
+  resources :capacities
   resources :trailer_types
   resources :status_shippings
   resources :fiscal_vouchers

@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @redila_type.name
+p
+  strong Model part:
+  = @redila_type.model_part
+p
+  strong Status:
+  = @redila_type.status
+
+=> link_to 'Edit', edit_redila_type_path(@redila_type)
+'|
+=< link_to 'Back', redila_types_path

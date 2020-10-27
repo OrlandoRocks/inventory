@@ -28,7 +28,7 @@ class TrailerTypesController < ApplicationController
 
     respond_to do |format|
       if @trailer_type.save
-        format.html { redirect_to @trailer_type, notice: 'Trailer type was successfully created.' }
+        format.html { redirect_to trailer_types_url, notice: 'Trailer type was successfully created.' }
         format.json { render :show, status: :created, location: @trailer_type }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class TrailerTypesController < ApplicationController
   def update
     respond_to do |format|
       if @trailer_type.update(trailer_type_params)
-        format.html { redirect_to @trailer_type, notice: 'Trailer type was successfully updated.' }
+        format.html { redirect_to trailer_types_url, notice: 'Trailer type was successfully updated.' }
         format.json { render :show, status: :ok, location: @trailer_type }
       else
         format.html { render :edit }
@@ -69,6 +69,6 @@ class TrailerTypesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def trailer_type_params
-      params.require(:trailer_type).permit(:name, :image, :status)
+      params.require(:trailer_type).permit(:name, :image, :model_part, :status)
     end
 end

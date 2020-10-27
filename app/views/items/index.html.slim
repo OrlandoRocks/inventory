@@ -128,10 +128,6 @@ section.content ng-controller="itemController"
                           td =  "%.2f" % item.price if item.price.present?
                           td = item.direct_branch.present? ? item.direct_branch.name : (item.direct_branch ? item.direct_branch.name : nil)
                           td = item.department.name if item.department.present?
-                          / - if item.image.attached?
-                          /   td = image_tag item.image, class: 'avatar'
-                          / - else
-                          /   td = image_tag 'trailers_default', class: 'avatar', size: "70x70"
                           td = item.status_item.name if item.status_item.present?
                           td
                             .actions

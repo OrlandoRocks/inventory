@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @trailer_height.name
+p
+  strong Model part:
+  = @trailer_height.model_part
+p
+  strong Status:
+  = @trailer_height.status
+
+=> link_to 'Edit', edit_trailer_height_path(@trailer_height)
+'|
+=< link_to 'Back', trailer_heights_path

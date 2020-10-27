@@ -1,0 +1,2 @@
+class RampType < ApplicationRecord
+end

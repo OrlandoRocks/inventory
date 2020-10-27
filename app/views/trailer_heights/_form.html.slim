@@ -1,0 +1,29 @@
+= form_for(trailer_height, trailer_height: 'form', html: {class: 'form-horizontal'}, validate: true) do |f|
+  - if trailer_height.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(trailer_height.errors.count, "error")} prohibited this trailer_height from being saved:"
+      ul
+        - trailer_height.errors.full_messages.each do |message|
+          li = message
+  .box-body
+    .row.form-group
+      = f.label 'Altura del Remolque', class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.text_field :name, class: 'form-control', placeholder: 'Altura del Remolque', autofocus: true
+    .row.form-group
+      = f.label 'Modelo', class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.text_field :model_part, class: 'form-control', placeholder: 'Modelo'
+
+    .row.form-group
+      = f.label 'Estatus', class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.check_box(:status, checked: true)
+
+  .box-footer
+    = f.button "<i class='fa fa-floppy-o'></i> #{t('helpers.submit.submit', model: t('.resource'))}".html_safe,
+            class: 'btn btn-primary btn-flat', type: 'submit'
+    = link_to trailer_heights_path, class: 'btn btn-default btn-flat' do
+      i.fa.fa-list
+      =< t('.back')
+

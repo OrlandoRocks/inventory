@@ -1,0 +1,56 @@
+section.content
+  .row
+    .col-xs-12
+      .box.box-primary
+        .box-header.with-border
+          .row
+            .col-xs-6.col-md-8.col-lg-8
+              h3.box-title
+                = 'Lista de Tipos de Piso'
+            .col-xs-6.col-md-4.col-lg-4
+              .box-tools.pull-right
+                = link_to new_floor_type_path, class: 'btn btn-sm btn-flat btn-success', title: 'Nuevo Tipo de Piso' do
+                  i.fa.fa-plus
+                  span.hidden-xs
+                    =< 'Crear Tipo de Piso'
+        .box-body
+          .dataTables_wrapper
+            .row
+              .col-sm-12
+                .table-responsive
+                  table.table.table-bordered.table-hover.dataTable
+                    thead
+                      tr
+                        /th.table-checkbox
+                          .checkbox.icheck
+                            input [type="checkbox" class="icheck-me" data-skin="square" data-color="blue"]
+                        / th = t('.company')
+                        th = 'Tipo de Piso'
+                        th = 'Modelo'
+                        th = 'Estatus'
+                        th.actions_header
+                          = t('helpers.actions')
+                      tbody
+                        - @floor_types.each do |floor_type|
+                          tr.show_actions
+                            /td.table-checkbox
+                              .checkbox.icheck
+                                input [type="checkbox" class="icheck-me" data-skin="square" data-color="blue"]
+                            / td = floor_type.try(:company).try(:name)
+                            td = floor_type.name
+                            td = floor_type.model_part
+                            td = floor_type.status ? 'Activo' : 'Inhábil'
+                            td
+                              .actions
+                                = link_item '<i class="fa fa-edit"></i>'.html_safe, edit_floor_type_path(floor_type),
+                                        class: 'btn btn-xs btn-primary btn-flat', title: t('helpers.edit')
+                                - if has_policy(floor_type, %w(destroy))
+                                  = link_to '<i class="fas fa-trash"></i>'.html_safe, '#', title: t('helpers.destroy'),
+                                          class: 'btn btn-xs btn-danger btn-flat btn-destroy',
+                                          data: {'resource' => :categories, 'resource-id' => floor_type.id,
+                                                  'resource-message' => t('questions.destroy', resource: t('.resource'),
+                                                          name: floor_type.name)}
+        .row
+          .col-sm-5
+            .dataTables_info
+              = pluralize(@floor_types.count, 'Tipo de piso', 'Tipos de piso')

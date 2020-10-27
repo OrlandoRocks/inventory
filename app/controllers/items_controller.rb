@@ -348,8 +348,13 @@ class ItemsController < ApplicationController
                                  :department_id, :user_id, :brand_id, :status_item_id,:status_shipping_id, :maintenance_date,
                                  :maintenance_done, :branch_id, :accessory, :remission,:color,
                                  :trailer_id, :client_id, :advance_payment, :acquisition_date,
-                                 :fiscal_voucher_id, :payment_type, :sale_price)
+                                 :fiscal_voucher_id, :payment_type, :sale_price, :trailer_length_id, :trailer_height_id,
+                                 :ramp_type_id, :redila_type_id, :trailer_type_id, :floor_type_id, :capacity_id, :trailer_width_id
+                          )
   end
+
+
+
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def item_file_params

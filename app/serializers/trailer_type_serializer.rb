@@ -1,5 +1,5 @@
 class TrailerTypeSerializer < ActiveModel::Serializer
-  attributes :id, :name, :image, :status
+  attributes :id, :name, :image, :model_part, :status
 
 
   def image

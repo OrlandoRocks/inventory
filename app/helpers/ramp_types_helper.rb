@@ -1,0 +1,2 @@
+module RampTypesHelper
+end

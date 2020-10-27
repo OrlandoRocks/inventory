@@ -5,6 +5,14 @@ class Item < ApplicationRecord
   belongs_to :user, optional: true
   belongs_to :brand, optional: true
   belongs_to :trailer, optional: true
+  belongs_to :trailer_type, optional: true
+  belongs_to :trailer_length, optional: true
+  belongs_to :trailer_height, optional: true
+  belongs_to :trailer_width, optional: true
+  belongs_to :ramp_type, optional: true
+  belongs_to :redila_type, optional: true
+  belongs_to :floor_type, optional: true
+  belongs_to :capacity, optional: true
   belongs_to :status_item
   belongs_to :status_shipping
   belongs_to :fiscal_voucher, optional: true

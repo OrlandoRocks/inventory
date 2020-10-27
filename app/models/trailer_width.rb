@@ -1,0 +1,2 @@
+class TrailerWidth < ApplicationRecord
+end

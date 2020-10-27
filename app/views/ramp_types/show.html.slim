@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @ramp_type.name
+p
+  strong Model part:
+  = @ramp_type.model_part
+p
+  strong Status:
+  = @ramp_type.status
+
+=> link_to 'Edit', edit_ramp_type_path(@ramp_type)
+'|
+=< link_to 'Back', ramp_types_path

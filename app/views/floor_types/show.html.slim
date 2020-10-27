@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @floor_type.name
+p
+  strong Model part:
+  = @floor_type.model_part
+p
+  strong Status:
+  = @floor_type.status
+
+=> link_to 'Edit', edit_floor_type_path(@floor_type)
+'|
+=< link_to 'Back', floor_types_path

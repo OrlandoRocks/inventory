@@ -13,6 +13,10 @@ after :roles do
 # Restarts ids to 1.
   ActiveRecord::Base.connection.reset_pk_sequence!('users')
 
+  User.create(email: 'admin@agroplanet.com', username: 'admin', first_name: 'Admin', last_name: 'Agro',
+              maiden_name: 'Planet', role_id: Role.find_by_key('admin').id, password: 'agroplanet',
+              confirmed_at: Time.now, sign_in_count: 0, employee_number: 77777)
+
 # Content.C
   User.create(email: 'god@example.com', username: 'divinity', first_name: 'God', last_name: 'System',
               maiden_name: 'User', role_id: Role.find_by_key('god').id, password: 'inventory',

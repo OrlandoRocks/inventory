@@ -1,30 +1,3 @@
-h1 Listing trailer_types
-
-table
-  thead
-    tr
-      th Name
-      th Image
-      th Status
-      th
-      th
-      th
-
-  tbody
-    - @trailer_types.each do |trailer_type|
-      tr
-        td = trailer_type.name
-        td = trailer_type.image
-        td = trailer_type.status
-        td = link_to 'Show', trailer_type
-        td = link_to 'Edit', edit_trailer_type_path(trailer_type)
-        td = link_to 'Destroy', trailer_type, data: { confirm: 'Are you sure?' }, method: :delete
-
-br
-
-= link_to 'New Trailer type', new_trailer_type_path
-
-
 section.content
   .row
     .col-xs-12
@@ -33,13 +6,13 @@ section.content
           .row
             .col-xs-6.col-md-8.col-lg-8
               h3.box-title
-                = 'Tipo de Trailer'
+                = 'Lista de Tipos de Trailer'
             .col-xs-6.col-md-4.col-lg-4
               .box-tools.pull-right
                 = link_to new_trailer_type_path, class: 'btn btn-sm btn-flat btn-success', title: 'Nuevo Tipo de Trailer' do
                   i.fa.fa-plus
                   span.hidden-xs
-                    | Nuevo Tipo de Trailer
+                    =< 'Crear Tipo de Trailer'
         .box-body
           .dataTables_wrapper
             .row
@@ -48,35 +21,44 @@ section.content
                   table.table.table-bordered.table-hover.dataTable
                     thead
                       tr
-                        th = "Nombre"
-                        th = "Status"
-                        th = "Imagen"
+                        /th.table-checkbox
+                          .checkbox.icheck
+                            input [type="checkbox" class="icheck-me" data-skin="square" data-color="blue"]
+                        / th = t('.company')
+                        th = 'Tipo de Trailer'
+                        th = 'Modelo'
+                        th = 'Imagen'
+                        th = 'Estatus'
                         th.actions_header
                           = t('helpers.actions')
                       tbody
                         - @trailer_types.each do |trailer_type|
                           tr.show_actions
+                            /td.table-checkbox
+                              .checkbox.icheck
+                                input [type="checkbox" class="icheck-me" data-skin="square" data-color="blue"]
+                            / td = trailer_type.try(:company).try(:name)
                             td = trailer_type.name
-                            td = trailer_type.status
+                            td = trailer_type.model_part
                             - if trailer_type.image.attached?
-                              td = link_to image_tag(trailer_type.image, :class => 'download_icon', :size => '65x65'), "#{url_for(trailer_type.image)}", :target => "_blank"
+                              td = image_tag trailer_type.image, class: 'avatar', size: "70x70"
                             - else
-                              td = link_to image_tag('trailers_default', :class => 'download_icon', :size => '65x65'), "trailers_default.png", :target => "_blank"
-
+                              td = image_tag 'trailers_default', class: 'avatar', size: "70x70"
+                            td = trailer_type.status ? 'Activo' : 'Inhábil'
                             td
                               .actions
-                                = link_item '<i class="fa fa-edit"></i>'.html_safe, edit_trailer_type_path(trailer),
+                                = link_item '<i class="fa fa-shopping-bag"></i>'.html_safe, new_order_path(), title: 'Hacer Pedido',
+                                        class: 'btn btn-xs btn-success btn-flat'
+                                = link_item '<i class="fa fa-edit"></i>'.html_safe, edit_trailer_type_path(trailer_type),
                                         class: 'btn btn-xs btn-primary btn-flat', title: t('helpers.edit')
                                 - if has_policy(trailer_type, %w(destroy))
                                   = link_to '<i class="fas fa-trash"></i>'.html_safe, '#', title: t('helpers.destroy'),
                                           class: 'btn btn-xs btn-danger btn-flat btn-destroy',
-                                          data: {'resource' => :trailer_type, 'resource-id' => trailer_type.id,
+                                          data: {'resource' => :categories, 'resource-id' => trailer_type.id,
                                                   'resource-message' => t('questions.destroy', resource: t('.resource'),
                                                           name: trailer_type.name)}
         .row
           .col-sm-5
             .dataTables_info
-              = pluralize(@trailer_types.count, 'tipo trailer', 'tipos de trailers')
-          .col-sm-7
-            .dataTables_paginate.paging_simple_numbers
-              = custom_paginator(@trailer_types)
+              = pluralize(@trailer_types.count, 'Tipo de Trailer', 'Tipos de Trailer')
+

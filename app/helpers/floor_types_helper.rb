@@ -1,0 +1,2 @@
+module FloorTypesHelper
+end

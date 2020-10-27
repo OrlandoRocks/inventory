@@ -1,0 +1,29 @@
+= form_for(ramp_type, ramp_type: 'form', html: {class: 'form-horizontal'}, validate: true) do |f|
+  - if ramp_type.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(ramp_type.errors.count, "error")} prohibited this ramp_type from being saved:"
+      ul
+        - ramp_type.errors.full_messages.each do |message|
+          li = message
+  .box-body
+    .row.form-group
+      = f.label 'Tipo de Rampa', class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.text_field :name, class: 'form-control', placeholder: 'Tipo de Rampa', autofocus: true
+    .row.form-group
+      = f.label 'Modelo', class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.text_field :model_part, class: 'form-control', placeholder: 'Modelo'
+
+    .row.form-group
+      = f.label 'Estatus', class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.check_box(:status, checked: true)
+
+  .box-footer
+    = f.button "<i class='fa fa-floppy-o'></i> #{t('helpers.submit.submit', model: t('.resource'))}".html_safe,
+            class: 'btn btn-primary btn-flat', type: 'submit'
+    = link_to ramp_types_path, class: 'btn btn-default btn-flat' do
+      i.fa.fa-list
+      =< t('.back')
+

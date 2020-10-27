@@ -1,10 +1,9 @@
 class ItemSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
 
-  attributes :id,:name, :code, :description, :image, :model, :serial_number, :purchased_date, :acquisition_date,
-             :in_service_date, :price, :category, :category_id, :sub_category, :sub_category_id, :provider_id,
-             :department_id, :user_id, :brand_id, :status_item_id, :branch_id, :branch, :department, :status_item,
-             :accessory, :status_shipping, :remission, :trailer_id, :payment_type, :fiscal_voucher, :client, :user,
+  attributes :id, :code, :model, :serial_number, :purchased_date, :acquisition_date,
+             :price, :department_id, :user_id, :status_item_id, :branch_id, :branch, :department, :status_item,
+             :accessory, :status_shipping, :remission, :payment_type, :fiscal_voucher, :client, :user,
              :user_departmemnt, :trailer_name
 
   def user_departmemnt
@@ -12,7 +11,7 @@ class ItemSerializer < ActiveModel::Serializer
   end
 
   def trailer_name
-    object.trailer.name if object.trailer
+    object.trailer_type.name if object.trailer
   end
 
   def model
