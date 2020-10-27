@@ -11,7 +11,14 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
 
     $scope.init = function (branches, categories, item) {
         $scope.branches = branches;
+        $scope.model_name = '';
         $scope.get_trailers();
+        $scope.get_floors();
+        $scope.get_ramps();
+        $scope.get_redilas();
+        $scope.get_capacities();
+        $scope.get_widths();
+        $scope.get_lengths();
 
         if (item !== null && item !== undefined) {
 
@@ -24,11 +31,23 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
     $scope.init_order = function (item_id, users) {
         $scope.users = users;
         $scope.get_trailers();
+        $scope.get_floors();
+        $scope.get_ramps();
+        $scope.get_redilas();
+        $scope.get_capacities();
+        $scope.get_widths();
+        $scope.get_lengths();
 
         if (item_id) {
             $scope.get_orders(item_id);
         }
     };
+
+
+    $scope.generate_model = function(model_part){
+        $scope.model_name += model_part;
+    };
+
 
 
     $scope.get_item_json = function (id) {
@@ -106,13 +125,89 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
     $scope.get_trailers = function () {
         $http({
             method: 'GET',
-            url: '/trailers.json'
+            url: '/trailer_types.json'
         }).then(function successCallback(response) {
             $scope.trailers = response.data;
         }, function errorCallback(response) {
             console.log("Algo valio shit!");
         });
     };
+
+
+    $scope.get_ramps = function () {
+        $http({
+            method: 'GET',
+            url: '/ramp_types.json'
+        }).then(function successCallback(response) {
+            $scope.ramps = response.data;
+        }, function errorCallback(response) {
+            console.log("Algo valio shit!");
+        });
+    };
+
+
+    $scope.get_redilas = function () {
+        $http({
+            method: 'GET',
+            url: '/redila_types.json'
+        }).then(function successCallback(response) {
+            $scope.redilas = response.data;
+        }, function errorCallback(response) {
+            console.log("Algo valio shit!");
+        });
+    };
+
+
+    $scope.get_capacities = function () {
+        $http({
+            method: 'GET',
+            url: '/capacities.json'
+        }).then(function successCallback(response) {
+            $scope.capacities = response.data;
+        }, function errorCallback(response) {
+            console.log("Algo valio shit!");
+        });
+    };
+
+
+    $scope.get_floors = function () {
+        $http({
+            method: 'GET',
+            url: '/floor_types.json'
+        }).then(function successCallback(response) {
+            $scope.floors = response.data;
+        }, function errorCallback(response) {
+            console.log("Algo valio shit!");
+        });
+    };
+
+
+    $scope.get_widths = function () {
+        $http({
+            method: 'GET',
+            url: '/trailer_widths.json'
+        }).then(function successCallback(response) {
+            $scope.widths = response.data;
+        }, function errorCallback(response) {
+            console.log("Algo valio shit!");
+        });
+    };
+
+
+    $scope.get_lengths = function () {
+        $http({
+            method: 'GET',
+            url: '/trailer_lengths.json'
+        }).then(function successCallback(response) {
+            $scope.lengths = response.data;
+        }, function errorCallback(response) {
+            console.log("Algo valio shit!");
+        });
+    };
+
+
+
+
 
     $scope.get_fiscal_vouchers = function () {
         $http({
@@ -153,13 +248,11 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
 
     $scope.get_trailer = function (trailer) {
         $http({
-            url: '/trailers/' + trailer + '.json',
+            url: '/trailer_types/' + trailer + '.json',
             method: 'GET'
         }).then(function (response) {
             if (response.data != null) {
-                $scope.model_name = response.data.model;
-                $scope.sub_category_name = response.data.sub_category.name;
-                $scope.category_name = response.data.category.name;
+                $scope.model_name = response.data.model_part;
             }
 
         });
