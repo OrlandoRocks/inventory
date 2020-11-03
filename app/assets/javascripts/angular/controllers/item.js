@@ -60,7 +60,13 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
             if (response.data != null) {
                 $scope.item = response.data;
                 $scope.branch = $scope.item.branch_id;
-                $scope.trailer = $scope.item.trailer_id;
+                $scope.length = $scope.item.trailer_length;
+                $scope.width = $scope.item.trailer_width;
+                $scope.floor = $scope.item.floor_type;
+                $scope.ramp = $scope.item.ramp_type;
+                $scope.capacity = $scope.item.capacity;
+                $scope.redila = $scope.item.redila_type;
+                // $scope.trailer = $scope.item.trailer;
                 if ($scope.branch !== null) {
                     $scope.get_department();
                 }
@@ -69,7 +75,7 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
                     $scope.get_department();
                 }
                 $scope.get_subcategories();
-                $scope.get_trailer($scope.item.trailer_id);
+                $scope.get_trailer($scope.item.trailer_type_id);
                 $scope.get_fiscal_vouchers();
                 $scope.get_clients();
 
@@ -89,9 +95,15 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
 
             if (response.data != null) {
                 $scope.item = response.data;
+                $scope.length = $scope.item.trailer_length;
+                $scope.width = $scope.item.trailer_width;
+                $scope.floor = $scope.item.floor_type;
+                $scope.ramp = $scope.item.ramp_type;
+                $scope.capacity = $scope.item.capacity;
+                $scope.redila = $scope.item.redila_type;
                 $scope.user = parseInt($scope.item.user_id);
                 $scope.trailer = $scope.item.trailer_id;
-                $scope.get_trailer($scope.item.trailer_id);
+                $scope.get_trailer($scope.item.trailer_type_id);
                 $scope.get_branch_user($scope.item.user_id);
 
             }
@@ -253,6 +265,7 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
         }).then(function (response) {
             if (response.data != null) {
                 $scope.model_name = response.data.model_part;
+                $scope.trailer = response.data;
             }
 
         });

@@ -7,7 +7,7 @@ class ItemsController < ApplicationController
     @search_items = policy_scope(Item).ransack(params[:q])
     @items = @search_items.result.paginate(page: params[:page], per_page: 20)
 
-    @all_models = policy_scope(Trailer).pluck(:model)
+    @all_models = policy_scope(TrailerType).pluck(:model_part)
 
     @all_remissions = policy_scope(Item).pluck(:remission)
   end
@@ -31,7 +31,7 @@ class ItemsController < ApplicationController
 
     @items = @search_items.result.paginate(page: params[:page], per_page: 20)
 
-    @all_models = policy_scope(Trailer).pluck(:model)
+    @all_models = policy_scope(TrailerType).pluck(:model_part)
 
     @all_remissions = policy_scope(Item).pluck(:remission)
   end
@@ -45,7 +45,7 @@ class ItemsController < ApplicationController
       @search_items = Item.where(user_id: current_user.id, status_item_id: [StatusItem.find_by_key('vendido').id,StatusItem.find_by_key('pendiente_factura').id, StatusItem.find_by_key('facturado').id]).ransack(params[:q])
     end
 
-    @all_models = policy_scope(Trailer).pluck(:model)
+    @all_models = policy_scope(TrailerType).pluck(:model_part)
 
     @all_remissions = policy_scope(Item).pluck(:remission)
 

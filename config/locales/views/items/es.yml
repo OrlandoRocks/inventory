@@ -84,6 +84,8 @@ es:
         f_sub_category: Filtro por Sub Categoría
         f_orden: Ordenar por
         search: Buscar...
+        advance_payment: Abono
+        client: Cliente
       orders_shipped:
         title: Artículos
         resource: el artículo
@@ -305,6 +307,12 @@ es:
         client: Cliente
         advance_payment: Abono
         color: Color
+        width: Ancho
+        length: Largo
+        floor: Piso
+        ramp: Rampa
+        capacity: Capacidad
+        redila: Redila
       new_order:
         title: Articulos
         resource: el artículo
