@@ -10,12 +10,14 @@ aside.main-sidebar style=('position: fixed;')
             a href='/'
               i.fab.fa-superpowers
               span = ' Inicio'
-          li.treeview
+          li
+            = link_item "<i class='fa fa-list'></i> Inventario ".html_safe, items_path
+          / li.treeview
             a href='#'
               i.fa.fa-list
               span = 'Inventario'
               i.fa.fa-angle-left.pull-right
-            ul.treeview-menu
+            / ul.treeview-menu
               li
                 = link_item "<i class='fas fa-angle-right'></i> #{t '.new_item'}".html_safe, new_item_path
               li
@@ -67,7 +69,9 @@ aside.main-sidebar style=('position: fixed;')
               li
                 = link_item "<i class='fas fa-angle-right'></i> Sucursales".html_safe, branches_path
         - if has_policy(Item, %w(sales))
-          li.treeview
+          li
+            = link_item "<i class='fa fa-dollar-sign'></i> Ventas".html_safe, sales_path
+          / li.treeview
             a href='#'
               i.fa.fa-dollar-sign
               span = 'Ventas'
@@ -91,7 +95,9 @@ aside.main-sidebar style=('position: fixed;')
               = link_item "<i class='fas fa-angle-right'></i> Pedidos Enviados".html_safe, orders_shipped_path
       - if has_policy_catalogo
         - if has_policy(Branch, %w(index))
-          li.treeview
+          li
+            = link_item "<i class='fa fa-store'></i> Sucursales".html_safe, branches_path
+          / li.treeview
             a href='#'
               i.fa.fa-store
               span = 'Sucursales'
@@ -103,7 +109,9 @@ aside.main-sidebar style=('position: fixed;')
                 = link_item "<i class='fas fa-angle-right'></i> Sucursales".html_safe, branches_path
 
         - if has_policy(Department, %w(new index))
-          li.treeview
+          li
+            = link_item "<i class='fa fa-cubes'></i> #{t '.departments'}".html_safe, departments_path
+          / li.treeview
             a href='#'
               i.fa.fa-cubes
               span = t('.departments')
@@ -153,8 +161,9 @@ aside.main-sidebar style=('position: fixed;')
                 = link_to "<i class='fas fa-angle-right'></i> #{t '.new_user'}".html_safe, new_user_path
                 / = link_to "<i class='fas fa-angle-right'></i> #{t '.new_employee'}".html_safe, new_employee_path
 
-
-      li.treeview
+      li
+        = link_to "<i class='fa fa-users'></i> Clientes".html_safe, clients_path
+      / li.treeview
         a href='#'
           i.fa.fa-user
           span
