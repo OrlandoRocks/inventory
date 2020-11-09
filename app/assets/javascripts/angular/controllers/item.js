@@ -47,6 +47,16 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
         $scope.get_capacities();
         $scope.get_widths();
         $scope.get_lengths();
+        $scope.get_brakes();
+        $scope.get_colors();
+        $scope.get_divitions();
+        $scope.get_fenders();
+        $scope.get_hydraulic_jacks();
+        $scope.get_pulls();
+        $scope.get_reinforcements();
+        $scope.get_roofs();
+        $scope.get_suspensions();
+        $scope.get_turns();
 
         if (item_id) {
             $scope.get_orders(item_id);

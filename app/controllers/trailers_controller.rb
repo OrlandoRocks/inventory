@@ -80,6 +80,9 @@ class TrailersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def trailer_params
-      params.require(:trailer).permit(:name, :model, :photo, :image, :category_id, :sub_category_id, :trailer_type_id, :status)
+      params.require(:trailer).permit(:name, :model, :photo, :image, :category_id, :sub_category_id, :trailer_type_id, :status, :trailer_length_id,
+                                      :trailer_height_id, :ramp_type_id, :redila_type_id, :trailer_type_id, :floor_type_id, :capacity_id,
+                                      :trailer_width_id, :brake_type_id, :color_id, :divition_type_id, :fender_type_id, :hydraulic_jack_id,
+                                      :pull_type_id, :reinforcement_type_id, :roof_type_di, :suspension_type_id, :turn_type_id)
     end
 end
