@@ -1,0 +1,99 @@
+<meta charset='utf-8' />
+<%= wicked_pdf_stylesheet_link_tag 'application', media: 'all' %>
+<%= wicked_pdf_javascript_include_tag 'modernizr' %>
+<section class="content">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box box-primary">
+        <div class="box-header with-border">
+          <div class="row">
+            <div class="col-xs-6 col-md-8 col-lg-9">
+              <h3 class="">
+                Ventas
+              </h3>
+            </div>
+          </div>
+        </div>
+        <div class="box-body">
+          <div class="dataTables_wrapper">
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="table-responsive">
+                  <div class="table-responsive">
+                    <table clas="table table-bordered table-hover dataTable">
+                      <thead>
+                      <tr>
+                        <th style="border: 1px solid black; text-align: center">
+                          Código
+                        </th>
+                        <th style="border: 1px solid black; text-align: center">
+                          Nombre del trailer
+                        </th>
+                        <th style="border: 1px solid black; text-align: center">
+                          Modelo
+                        </th>
+                        <th style="border: 1px solid black; text-align: center">
+                          Valor de adquisición
+                        </th>
+                        <th style="border: 1px solid black; text-align: center">
+                          Sucursal
+                        </th>
+                        <th style="border: 1px solid black; text-align: center">
+                          Departamento
+                        </th>
+                        <th style="border: 1px solid black; text-align: center">
+                          Estatus del Artículo
+                        </th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <% @trailers_sold.each do |item| %>
+                        <tr class="show_actions">
+                          <td style="border: 1px solid black; text-align: center">
+                            <%= item.code %>
+                          </td>
+                          <td style="border: 1px solid black; text-align: center">
+                            <%= item.try(:trailer_type).try(:name) %>
+                          </td>
+                          <td style="border: 1px solid black; text-align: center">
+                            <%= item.try(:trailer_type).try(:model_part) %>
+                          </td>
+                          <td style="border: 1px solid black; text-align: center">
+                            <%= "%.2f" % item.price if item.price.present? %>
+                          </td>
+                          <td style="border: 1px solid black; text-align: center">
+                            <%= item.direct_branch.present? ? item.direct_branch.name : (item.direct_branch ? item.direct_branch.name : nil) %>
+                          </td>
+                          <td style="border: 1px solid black; text-align: center">
+                            <%= item.department.name if item.department.present? %>
+                          </td>
+                          <td style="border: 1px solid black; text-align: center">
+                            <%= item.status_item.name if item.status_item.present? %>
+                          </td>
+                        </tr>
+                      <% end %>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                          <h4 class="info-text text-center">Total:</h4>
+                        </td>
+                        <td>
+                          <h4 class="info-text text-center"><%= @total %></h4>
+                        </td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

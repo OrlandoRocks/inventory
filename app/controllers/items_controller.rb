@@ -1,4 +1,6 @@
 class ItemsController < ApplicationController
+  include ActionView::Helpers::NumberHelper
+
   before_action :set_item, only: [:show, :edit, :update, :destroy, :create_maintenance, :create_file, :change_maintenance_done, :edit_order]
   helper_method :sort_column, :sort_direction
   # GET /items
@@ -65,6 +67,35 @@ class ItemsController < ApplicationController
 
     @all_remissions = policy_scope(Item).pluck(:remission)
 
+  end
+
+  def new_report_sales
+
+    titulo_reporte = 'Trailers Vendidos'
+    nombre_reporte = 'trailers_vendidos'
+
+    @trailers_sold = Item.where(status_item_id: [StatusItem.find_by_key('vendido').id, StatusItem.find_by_key('pendiente_factura').id, StatusItem.find_by_key('facturado').id])
+
+    total_sales = get_total_sales @trailers_sold
+
+    @total = number_to_currency total_sales
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "Trailers Vendidos"   # Excluding ".pdf" extension.
+      end
+    end
+
+  end
+
+  def get_total_sales sales
+    total = 0
+    sales.each do |sale|
+      total += sale.price.nil? ? 0 : sale.price
+    end
+
+    return total.to_f
   end
 
   def edit_order
