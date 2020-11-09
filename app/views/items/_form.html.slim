@@ -33,7 +33,7 @@ div ng-controller="itemController"
         .row.form-group
           = f.label :trailer_id, class: 'col-sm-2 control-label'
           .col-md-4
-            select.form-control.select_trailer ng-change="generate_model(trailer.model_part)" ng-model="trailer" ng-options=("trailer as trailer.name for trailer in trailers track by trailer")
+            select.form-control.select_trailer ng-change="generate_model(trailer.model_part)" ng-model="trailer" ng-options=("trailer as trailer.name for trailer in trailers")
               option disabled="" selected="" value=""  Trailers...
             = f.hidden_field :trailer_type_id, value: '{{trailer.id}}'
           = f.label 'Freno', class: 'col-sm-2 control-label'

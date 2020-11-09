@@ -24,9 +24,8 @@ app.controller('trailerController',["$scope", "ModalService", "$http", function(
         language: "es"
     });
 
-    $scope.init = function(categories){
-        $scope.categories = categories;
-        $scope.get_trailer_types_json()
+    $scope.init = function(){
+        $scope.model_name = '';
         $scope.get_trailers();
         $scope.get_floors();
         $scope.get_ramps();
@@ -46,6 +45,9 @@ app.controller('trailerController',["$scope", "ModalService", "$http", function(
         $scope.get_turns();
     };
 
+    $scope.generate_model = function(model_part){
+        $scope.model_name += model_part;
+    };
 
 
     $scope.get_trailers = function () {

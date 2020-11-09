@@ -1,12 +1,12 @@
 header.main-header ng-controller="homeController" ng-init="init(#{current_user.current_company.eql?(0) ? '0' : @current_company.nil? ? 'null' : @current_company.to_json}, #{current_user.god? or current_user.admin?})"
   / Logo
   = link_to authenticated_root_path, class: 'logo' do
-    span.logo-mini style=('position: fixed;')
+    span.logo-mini
 
       /| TORSACORP
       = image_tag "logo1.png", alt:"Planet Agrotrailer"
     / logo for regular state and mobile devices
-    span.logo-lg  style=('position: fixed;')
+    span.logo-lg
       b
       /| TORSACORP
       = image_tag "logo1.png", alt:"Planet Agrotrailer", size: "180x36"

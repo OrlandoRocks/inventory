@@ -1,5 +1,4 @@
 class Trailer < ApplicationRecord
-  belongs_to :sub_category
   belongs_to :trailer_type, optional: true
   belongs_to :trailer_length, optional: true
   belongs_to :trailer_height, optional: true
@@ -19,7 +18,6 @@ class Trailer < ApplicationRecord
   belongs_to :suspension_type, optional: true
   belongs_to :turn_type, optional: true
 
-  has_one :category, through: :sub_category
   has_many :items
   has_one_attached :image
   has_one_attached :photo
