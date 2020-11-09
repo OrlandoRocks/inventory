@@ -135,7 +135,7 @@ end
 
 
 #Gema de apoyo para reportes de jasper
-# 
+#
 # gem 'rjb'
 
 # Easy upload management for ActiveRecord
