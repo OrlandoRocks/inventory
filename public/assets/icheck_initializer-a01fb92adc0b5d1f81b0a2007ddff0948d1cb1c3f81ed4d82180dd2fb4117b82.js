@@ -1,1 +1,0 @@
-(function(){$(window).bind("page:change",function(){return icheck()}),this.icheck=function(){0<$(".icheck-me").length&&$(".icheck-me").each(function(){var c,i,a,t;a={checkboxClass:"icheckbox"+(t=void 0!==(c=$(this)).attr("data-skin")?"_"+c.attr("data-skin"):"")+(i=void 0!==c.attr("data-color")?"-"+c.attr("data-color"):""),radioClass:"iradio"+t+i},c.iCheck(a)})}}).call(this);

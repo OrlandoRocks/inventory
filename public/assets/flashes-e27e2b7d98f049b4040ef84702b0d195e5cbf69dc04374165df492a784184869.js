@@ -1,1 +1,0 @@
-(function(){$(".alert").click(function(){$(this).fadeOut()}),setTimeout(function(){$(".alert").fadeOut()},4e3)}).call(this);
