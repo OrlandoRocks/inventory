@@ -52,7 +52,7 @@ xlsx.sheets.each do |sheet_name|
         #   # end
         # end
       end
-      File.open('./inventory_seed', 'w') { |file| file.write(final_item_string) }
+      File.open('./catalog_seed.rb', 'w') { |file| file.write(final_item_string) }
     else
       puts 'Seems no data in sheet: ' + sheet_name
     end
