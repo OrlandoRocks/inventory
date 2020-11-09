@@ -1,0 +1,2 @@
+module SuspensionTypesHelper
+end

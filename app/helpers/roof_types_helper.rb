@@ -1,0 +1,2 @@
+module RoofTypesHelper
+end

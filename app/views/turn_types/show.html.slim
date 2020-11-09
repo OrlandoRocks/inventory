@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @turn_type.name
+p
+  strong Model part:
+  = @turn_type.model_part
+p
+  strong Status:
+  = @turn_type.status
+
+=> link_to 'Edit', edit_turn_type_path(@turn_type)
+'|
+=< link_to 'Back', turn_types_path

@@ -1,0 +1,2 @@
+module DivitionTypesHelper
+end

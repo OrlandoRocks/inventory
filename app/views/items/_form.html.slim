@@ -11,112 +11,146 @@ div ng-controller="itemController"
     = form_for(item, item: 'form', html: {class: 'form-horizontal'}, validate: true) do |f|
       .box-body ng-init="init(#{@branches.to_json}, #{@categories.to_json}, #{item.id.nil? ? 'nil' :item.id } )"
 
-          .row.form-group
-            = f.label :branch_id, class: 'col-sm-2 control-label'
-            .col-md-10
-              / TODO: Hacer un helper
-              select.form-control ng-change="get_department()" ng-model="branch" ng-options=("branch.id as branch.name for branch in branches") required="true"
-                option disabled="" selected="" value=""  Sucursales...
-              = f.hidden_field :branch_id, value: '{{branch}}'
+        .row.form-group
+          = f.label :branch_id, class: 'col-sm-2 control-label'
+          .col-md-10
+            / TODO: Hacer un helper
+            select.form-control ng-change="get_department()" ng-model="branch" ng-options=("branch.id as branch.name for branch in branches") required="true"
+              option disabled="" selected="" value=""  Sucursales...
+            = f.hidden_field :branch_id, value: '{{branch}}'
 
-          .row.form-group
-            = f.label :department_id, class: 'col-sm-2 control-label'
-            .col-md-10
-              = text_field_tag 'department','', class: 'form-control', placeholder: 'Departamento', disabled: true, 'ng-model'=> 'department.name'
-              input type='hidden' name='item[department_id]' value='{{department.id}}'
+        .row.form-group
+          = f.label :department_id, class: 'col-sm-2 control-label'
+          .col-md-10
+            = text_field_tag 'department','', class: 'form-control', placeholder: 'Departamento', disabled: true, 'ng-model'=> 'department.name'
+            input type='hidden' name='item[department_id]' value='{{department.id}}'
 
-          .row.form-group
-            = label_tag 'Folio', 'Folio', class: 'col-sm-2 control-label'
-            .col-md-10
-              = f.text_field :code, class: 'form-control', placeholder: 'Folio'
+        .row.form-group
+          = f.label :model, class: 'col-sm-2 control-label'
+          .col-md-10
+            = f.text_field :model, class: 'form-control', placeholder: t('.model'), readonly: true, 'ng-model' => 'model_name'
 
-          .row.form-group
-            = label_tag 'Remisión', 'Remisión', class: 'col-sm-2 control-label'
-            .col-md-10
-              = f.text_field :remission, class: 'form-control', placeholder: t('.remission')
+        .row.form-group
+          = f.label :trailer_id, class: 'col-sm-2 control-label'
+          .col-md-4
+            select.form-control.select_trailer ng-change="generate_model(trailer.model_part)" ng-model="trailer" ng-options=("trailer as trailer.name for trailer in trailers track by trailer")
+              option disabled="" selected="" value=""  Trailers...
+            = f.hidden_field :trailer_type_id, value: '{{trailer.id}}'
+          = f.label 'Freno', class: 'col-sm-2 control-label'
+          .col-md-4
+            select.form-control ng-change="generate_model(brake.model_part)" ng-model="brake" ng-options=("brake as brake.name for brake in brakes track by brake")
+              option disabled="" selected="" value=""  Frenos...
+              = f.hidden_field :brake_type_id, value: '{{brake.id}}'
 
-          .row.form-group
-            = label_tag 'Color', 'Color', class: 'col-sm-2 control-label'
-            .col-md-10
-              = f.text_field :color, class: 'form-control', placeholder: 'Color'
-
-          .row.form-group
-            = f.label :trailer_id, class: 'col-sm-2 control-label'
-            .col-md-10
-              select.form-control.select_trailer ng-change="generate_model(trailer.model_part)" ng-model="trailer" ng-options=("trailer as trailer.name for trailer in trailers track by trailer")
-                option disabled="" selected="" value=""  Trailers...
-              = f.hidden_field :trailer_type_id, value: '{{trailer.id}}'
-
-
-          .row.form-group
-            = f.label 'Ancho', class: 'col-sm-2 control-label'
-            .col-md-10
-              select.form-control ng-change="generate_model(width.model_part)" ng-model="width" ng-options=("width as width.name for width in widths track by width")
-                option disabled="" selected="" value=""  Anchuras...
-                = f.hidden_field :trailer_width_id, value: '{{width.id}}'
-
-
-          .row.form-group
-            = f.label 'Largo', class: 'col-sm-2 control-label'
-            .col-md-10
-              select.form-control ng-change="generate_model(length.model_part)" ng-model="length" ng-options=("length as length.name for length in lengths track by length")
-                option disabled="" selected="" value=""  Longitudes...
-                = f.hidden_field :trailer_length_id, value: '{{length.id}}'
+        .row.form-group
+          = f.label 'Ancho', class: 'col-sm-2 control-label'
+          .col-md-4
+            select.form-control ng-change="generate_model(width.model_part)" ng-model="width" ng-options=("width as width.name for width in widths track by width")
+              option disabled="" selected="" value=""  Anchuras...
+              = f.hidden_field :trailer_width_id, value: '{{width.id}}'
+          = f.label 'Color', class: 'col-sm-2 control-label'
+          .col-md-4
+            select.form-control ng-change="generate_model(color.model_part)" ng-model="color" ng-options=("color as color.name for color in colors track by color")
+              option disabled="" selected="" value=""  Colores...
+              = f.hidden_field :color_id, value: '{{color.id}}'
 
 
-          .row.form-group
-            = f.label 'Piso', class: 'col-sm-2 control-label'
-            .col-md-10
-              select.form-control ng-change="generate_model(floor.model_part)" ng-model="floor" ng-options=("floor as floor.name for floor in floors track by floor")
-                option disabled="" selected="" value=""  Pisos...
-                = f.hidden_field :floor_type_id, value: '{{floor.id}}'
+        .row.form-group
+          = f.label 'Largo', class: 'col-sm-2 control-label'
+          .col-md-4
+            select.form-control ng-change="generate_model(length.model_part)" ng-model="length" ng-options=("length as length.name for length in lengths track by length")
+              option disabled="" selected="" value=""  Longitudes...
+              = f.hidden_field :trailer_length_id, value: '{{length.id}}'
+          = f.label 'Division', class: 'col-sm-2 control-label'
+          .col-md-4
+            select.form-control ng-change="generate_model(divition.model_part)" ng-model="divition" ng-options=("divition as divition.name for divition in divitions track by divition")
+              option disabled="" selected="" value=""  Divisiones...
+              = f.hidden_field :divition_type_id, value: '{{divition.id}}'    
 
 
-          .row.form-group
-            = f.label 'Rampa', class: 'col-sm-2 control-label'
-            .col-md-10
-              select.form-control ng-change="generate_model(ramp.model_part)" ng-model="ramp" ng-options=("ramp as ramp.name for ramp in ramps track by ramp")
-                option disabled="" selected="" value=""  Rampas...
-                = f.hidden_field :ramp_type_id, value: '{{ramp.id}}'
+        .row.form-group
+          = f.label 'Piso', class: 'col-sm-2 control-label'
+          .col-md-4
+            select.form-control ng-change="generate_model(floor.model_part)" ng-model="floor" ng-options=("floor as floor.name for floor in floors track by floor")
+              option disabled="" selected="" value=""  Pisos...
+              = f.hidden_field :floor_type_id, value: '{{floor.id}}'
+          = f.label 'Fender', class: 'col-sm-2 control-label'
+          .col-md-4
+            select.form-control ng-change="generate_model(fender.model_part)" ng-model="fender" ng-options=("fender as fender.name for fender in fenders track by fender")
+              option disabled="" selected="" value=""  Fenders...
+              = f.hidden_field :fender_type_id, value: '{{fender.id}}'
 
+        .row.form-group
+          = f.label 'Rampa', class: 'col-sm-2 control-label'
+          .col-md-4
+            select.form-control ng-change="generate_model(ramp.model_part)" ng-model="ramp" ng-options=("ramp as ramp.name for ramp in ramps track by ramp")
+              option disabled="" selected="" value=""  Rampas...
+              = f.hidden_field :ramp_type_id, value: '{{ramp.id}}'
+          = f.label 'Gato Hidraulico', class: 'col-sm-2 control-label'
+          .col-md-4
+            select.form-control ng-change="generate_model(hydraulic_jack.model_part)" ng-model="hydraulic_jack" ng-options=("hydraulic_jack as hydraulic_jack.name for hydraulic_jack in hydraulic_jacks track by hydraulic_jack")
+              option disabled="" selected="" value=""  Gato Hidraulicos...
+              = f.hidden_field :hydraulic_jack_id, value: '{{hydraulic_jack.id}}'
 
-          .row.form-group
-            = f.label 'Capacidad', class: 'col-sm-2 control-label'
-            .col-md-10
-              select.form-control ng-change="generate_model(capacity.model_part)" ng-model="capacity" ng-options=("capacity as capacity.name for capacity in capacities track by capacity")
-                option disabled="" selected="" value=""  Capacidades...
-                = f.hidden_field :capacity_id, value: '{{capacity.id}}'
+        .row.form-group
+          = f.label 'Capacidad', class: 'col-sm-2 control-label'
+          .col-md-4
+            select.form-control ng-change="generate_model(capacity.model_part)" ng-model="capacity" ng-options=("capacity as capacity.name for capacity in capacities track by capacity")
+              option disabled="" selected="" value=""  Capacidades...
+              = f.hidden_field :capacity_id, value: '{{capacity.id}}'
+          = f.label 'Jalon', class: 'col-sm-2 control-label'
+          .col-md-4
+            select.form-control ng-change="generate_model(pull.model_part)" ng-model="pull" ng-options=("pull as pull.name for pull in pulls track by pull")
+              option disabled="" selected="" value=""  Jalones...
+              = f.hidden_field :pull_type_id, value: '{{pull.id}}'    
 
-          .row.form-group
-            = f.label 'Redila', class: 'col-sm-2 control-label'
-            .col-md-10
-              select.form-control ng-change="generate_model(redila.model_part)" ng-model="redila" ng-options=("redila as redila.name for redila in redilas track by redila")
-                option disabled="" selected="" value=""  Redilas...
-                = f.hidden_field :redila_type_id, value: '{{redila.id}}'
+        .row.form-group
+          = f.label 'Redila', class: 'col-sm-2 control-label'
+          .col-md-4
+            select.form-control ng-change="generate_model(redila.model_part)" ng-model="redila" ng-options=("redila as redila.name for redila in redilas track by redila")
+              option disabled="" selected="" value=""  Redilas...
+              = f.hidden_field :redila_type_id, value: '{{redila.id}}'
+          = f.label 'Refuerzo', class: 'col-sm-2 control-label'
+          .col-md-4
+            select.form-control ng-change="generate_model(reinforcement.model_part)" ng-model="reinforcement" ng-options=("reinforcement as reinforcement.name for reinforcement in reinforcements track by reinforcement")
+              option disabled="" selected="" value=""  Refuerzos...
+              = f.hidden_field :reinforcement_type_id, value: '{{reinforcement.id}}'
+              
+        .row.form-group
+          = f.label 'Techo', class: 'col-sm-2 control-label'
+          .col-md-4
+            select.form-control ng-change="generate_model(roof.model_part)" ng-model="roof" ng-options=("roof as roof.name for roof in roofs track by roof")
+              option disabled="" selected="" value=""  Techos...
+              = f.hidden_field :roof_type_id, value: '{{roof.id}}'
+          = f.label 'Suspension', class: 'col-sm-2 control-label'
+          .col-md-4
+            select.form-control ng-change="generate_model(suspension.model_part)" ng-model="suspension" ng-options=("suspension as suspension.name for suspension in suspensions track by suspension")
+              option disabled="" selected="" value=""  Suspensiones...
+              = f.hidden_field :suspension_type_id, value: '{{suspension.id}}'
 
+        .row.form-group
+          = f.label 'Volteo', class: 'col-sm-2 control-label'
+          .col-md-4
+            select.form-control ng-change="generate_model(turn.model_part)" ng-model="turn" ng-options=("turn as turn.name for turn in turns track by turn")
+              option disabled="" selected="" value=""  Volteos...
+              = f.hidden_field :turn_type_id, value: '{{turn.id}}'
+          = f.label :acquisition_date, class: 'col-sm-2 control-label'
+          .col-md-4
+            .input-group.date
+              .input-group-addon
+                i.fa.fa-calendar
+              = f.text_field :acquisition_date, class: 'form-control pull-right datepicker', type: "text", placeholder: t('.acquisition_date')
 
-
-          .row.form-group
-            = f.label :acquisition_date, class: 'col-sm-2 control-label'
-            .col-md-4
-              .input-group.date
-                .input-group-addon
-                  i.fa.fa-calendar
-                = f.text_field :acquisition_date, class: 'form-control pull-right datepicker', type: "text", placeholder: t('.acquisition_date')
-            = f.label :model, class: 'col-sm-2 control-label'
-            .col-md-4
-              = f.text_field :model, class: 'form-control', placeholder: t('.model'), readonly: true,'ng-model'=> 'model_name'
-
-          .row.form-group
-            = f.label :price, class: 'col-sm-2 control-label'
-            .col-md-4
-              .input-group
-                span.input-group-addon $
-                = f.number_field :price, value: number_to_currency(f.object.price.to_f, delimiter: '', unit: ''), step: :any, class: 'form-control text_field', placeholder: t('.price')
-                span.input-group-addon .00
-            = f.label :serial_number, class: 'col-sm-2 control-label'
-            .col-md-4
-              = f.text_field :serial_number, class: 'form-control', placeholder: t('.serial_number')
+        .row.form-group
+          = f.label :price, class: 'col-sm-2 control-label'
+          .col-md-4
+            .input-group
+              span.input-group-addon $
+              = f.number_field :price, value: number_to_currency(f.object.price.to_f, delimiter: '', unit: ''), step: :any, class: 'form-control text_field', placeholder: t('.price')
+              span.input-group-addon .00
+          = f.label :serial_number, class: 'col-sm-2 control-label'
+          .col-md-4
+            = f.text_field :serial_number, class: 'form-control', placeholder: t('.serial_number')
           / .row.form-group
             = f.label :image, class: 'col-sm-2 control-label'
             .col-md-4
@@ -129,22 +163,22 @@ div ng-controller="itemController"
 
 
 
-          .row.form-group
-            = label_tag 'consignatario','Consignatario', class: 'col-sm-2 control-label'
-            .col-md-8
-              = label_tag 'consignee','{{full_name}}',class: 'control-label h3.page-header text-uppercase',id: 'immediate_boss'
-              /h3 id='immediate_boss'
-               .control-label.h2.page-header.text-uppercase
-              input id='immediate_boss_id' name='boss_id' type='hidden'
-              //input id='director_name' name='boss_id' type='hidden' value="#{@users.first.user.to_json({methods: :full_name})}" class="control-label h2.page-header text-uppercase"
+        .row.form-group
+          = label_tag 'consignatario','Consignatario', class: 'col-sm-2 control-label'
+          .col-md-8
+            = label_tag 'consignee','{{full_name}}',class: 'control-label h3.page-header text-uppercase',id: 'immediate_boss'
+            /h3 id='immediate_boss'
+             .control-label.h2.page-header.text-uppercase
+            input id='immediate_boss_id' name='boss_id' type='hidden'
+            //input id='director_name' name='boss_id' type='hidden' value="#{@users.first.user.to_json({methods: :full_name})}" class="control-label h2.page-header text-uppercase"
 
-              input type='hidden' name="item[status_item_id]" value='2'
-              - if item.new_record?
-                input type='hidden' name="item[status_shipping_id]" value='#{StatusShipping.find_by_key('recibido').id}'
-              - else
-               - unless item.status_shipping_id == StatusShipping.find_by_key('recibido').id
-                input type='hidden' name="item[status_shipping_id]" ng-if="branch === 1" value='#{StatusShipping.find_by_key('recibido').id}'
-                input type='hidden' name="item[status_shipping_id]" ng-if="branch !== 1" value='#{StatusShipping.find_by_key('enviado').id}'
+            input type='hidden' name="item[status_item_id]" value='2'
+            - if item.new_record?
+              input type='hidden' name="item[status_shipping_id]" value='#{StatusShipping.find_by_key('recibido').id}'
+            - else
+             - unless item.status_shipping_id == StatusShipping.find_by_key('recibido').id
+              input type='hidden' name="item[status_shipping_id]" ng-if="branch === 1" value='#{StatusShipping.find_by_key('recibido').id}'
+              input type='hidden' name="item[status_shipping_id]" ng-if="branch !== 1" value='#{StatusShipping.find_by_key('enviado').id}'
 
 
       .box-footer

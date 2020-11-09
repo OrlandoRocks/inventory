@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @hydraulic_jack.name
+p
+  strong Model part:
+  = @hydraulic_jack.model_part
+p
+  strong Status:
+  = @hydraulic_jack.status
+
+=> link_to 'Edit', edit_hydraulic_jack_path(@hydraulic_jack)
+'|
+=< link_to 'Back', hydraulic_jacks_path

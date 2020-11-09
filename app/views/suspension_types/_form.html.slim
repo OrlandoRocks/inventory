@@ -1,0 +1,28 @@
+= form_for(suspension_type, suspension_type: 'form', html: {class: 'form-horizontal'}, validate: true) do |f|
+  - if suspension_type.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(suspension_type.errors.count, "error")} prohibited this suspension_type from being saved:"
+      ul
+        - suspension_type.errors.full_messages.each do |message|
+          li = message
+  .box-body
+    .row.form-group
+      = f.label 'Tipo de Suspension', class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.text_field :name, class: 'form-control', placeholder: 'Tipo de Suspension', autofocus: true
+    .row.form-group
+      = f.label 'Modelo', class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.text_field :model_part, class: 'form-control', placeholder: 'Modelo'
+
+    .row.form-group
+      = f.label 'Estatus', class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.check_box(:status, checked: true)
+
+  .box-footer
+    = f.button "<i class='fa fa-floppy-o'></i> #{t('helpers.submit.submit', model: 'Suspensiones')}".html_safe,
+            class: 'btn btn-primary btn-flat', type: 'submit'
+    = link_to suspension_types_path, class: 'btn btn-default btn-flat' do
+      i.fa.fa-list
+      =< t('.back')

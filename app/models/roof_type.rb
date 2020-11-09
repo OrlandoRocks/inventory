@@ -1,0 +1,2 @@
+class RoofType < ApplicationRecord
+end

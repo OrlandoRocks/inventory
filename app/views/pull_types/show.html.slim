@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @pull_type.name
+p
+  strong Model part:
+  = @pull_type.model_part
+p
+  strong Status:
+  = @pull_type.status
+
+=> link_to 'Edit', edit_pull_type_path(@pull_type)
+'|
+=< link_to 'Back', pull_types_path

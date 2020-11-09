@@ -1,5 +1,15 @@
 Rails.application.routes.draw do
 
+  resources :hydraulic_jacks
+  resources :pull_types
+  resources :brake_types
+  resources :reinforcement_types
+  resources :fender_types
+  resources :turn_types
+  resources :divition_types
+  resources :suspension_types
+  resources :roof_types
+  resources :colors
   resources :trailer_widths
   resources :trailer_lengths
   resources :trailer_heights
@@ -167,9 +177,7 @@ Rails.application.routes.draw do
 
 
       #Rutas para la generación de reportes
-      get 'reports/rols' => 'reports#report_rol'
-      get 'reports/item' => 'reports#report_item'
-      get 'reports/items_user' => 'reports#report_check_items_user'
+      get 'reports/sales' => 'reports#report_sales'
 
 
 

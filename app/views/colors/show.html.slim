@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @color.name
+p
+  strong Model part:
+  = @color.model_part
+p
+  strong Status:
+  = @color.status
+
+=> link_to 'Edit', edit_color_path(@color)
+'|
+=< link_to 'Back', colors_path

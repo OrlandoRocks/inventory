@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @brake_type.name
+p
+  strong Model part:
+  = @brake_type.model_part
+p
+  strong Status:
+  = @brake_type.status
+
+=> link_to 'Edit', edit_brake_type_path(@brake_type)
+'|
+=< link_to 'Back', brake_types_path

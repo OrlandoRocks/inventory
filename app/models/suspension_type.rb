@@ -1,0 +1,2 @@
+class SuspensionType < ApplicationRecord
+end

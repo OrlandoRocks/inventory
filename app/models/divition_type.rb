@@ -1,0 +1,2 @@
+class DivitionType < ApplicationRecord
+end

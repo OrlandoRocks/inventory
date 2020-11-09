@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @fender_type.name
+p
+  strong Model part:
+  = @fender_type.model_part
+p
+  strong Status:
+  = @fender_type.status
+
+=> link_to 'Edit', edit_fender_type_path(@fender_type)
+'|
+=< link_to 'Back', fender_types_path

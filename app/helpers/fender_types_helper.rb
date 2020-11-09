@@ -1,0 +1,2 @@
+module FenderTypesHelper
+end

@@ -1,0 +1,2 @@
+class PullType < ApplicationRecord
+end

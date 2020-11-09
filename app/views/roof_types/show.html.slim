@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @roof_type.name
+p
+  strong Model part:
+  = @roof_type.model_part
+p
+  strong Status:
+  = @roof_type.status
+
+=> link_to 'Edit', edit_roof_type_path(@roof_type)
+'|
+=< link_to 'Back', roof_types_path

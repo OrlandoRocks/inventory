@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @divition_type.name
+p
+  strong Model part:
+  = @divition_type.model_part
+p
+  strong Status:
+  = @divition_type.status
+
+=> link_to 'Edit', edit_divition_type_path(@divition_type)
+'|
+=< link_to 'Back', divition_types_path

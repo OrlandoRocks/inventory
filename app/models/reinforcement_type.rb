@@ -1,0 +1,2 @@
+class ReinforcementType < ApplicationRecord
+end

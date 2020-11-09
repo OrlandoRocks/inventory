@@ -3,6 +3,7 @@ source 'https://api.rubygems.org'
 ruby '2.5.1'
 #ruby-gemset=inventory-gemset
 
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'.
 gem 'rails', github: 'rails/rails', branch: '5-2-stable'
 # Use postgresql as the database for Active Record
@@ -134,7 +135,7 @@ end
 
 
 #Gema de apoyo para reportes de jasper
-# gem 'rjb', '~> 1.6.2'
+# gem 'rjb'
 
 # Easy upload management for ActiveRecord
 # gem 'paperclip', '~> 4.3', '>= 4.3.5'

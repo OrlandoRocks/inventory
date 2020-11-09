@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @reinforcement_type.name
+p
+  strong Model part:
+  = @reinforcement_type.model_part
+p
+  strong Status:
+  = @reinforcement_type.status
+
+=> link_to 'Edit', edit_reinforcement_type_path(@reinforcement_type)
+'|
+=< link_to 'Back', reinforcement_types_path

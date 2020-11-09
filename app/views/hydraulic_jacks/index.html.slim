@@ -1,0 +1,52 @@
+section.content
+  .row
+    .col-xs-12
+      .box.box-primary
+        .box-header.with-border
+          .row
+            .col-xs-6.col-md-8.col-lg-8
+              h3.box-title
+                = 'Lista de Gatos Hidraulicos'
+            .col-xs-6.col-md-4.col-lg-4
+              .box-tools.pull-right
+                = link_to new_hydraulic_jack_path, class: 'btn btn-sm btn-flat btn-success', title: 'Nuevo Gato Hidraulico' do
+                  i.fa.fa-plus
+                  span.hidden-xs
+                    =< 'Crear Gato Hidraulico'
+        .box-body
+          .dataTables_wrapper
+            .row
+              .col-sm-12
+                .table-responsive
+                  table.table.table-bordered.table-hover.dataTable
+                    thead
+                      tr
+                        /th.table-checkbox
+                          .checkbox.icheck
+                            input [type="checkbox" class="icheck-me" data-skin="square" data-color="blue"]
+                        / th = t('.company')
+                        th = 'Gato Hidraulico'
+                        th = 'Modelo'
+                        th = 'Estatus'
+                        th.actions_header
+                          = t('helpers.actions')
+                      tbody
+                        - @hydraulic_jacks.each do |hydraulic_jack|
+                          tr.show_actions
+                            td = hydraulic_jack.name
+                            td = hydraulic_jack.model_part
+                            td = hydraulic_jack.status ? 'Activo' : 'Inhábil'
+                            td
+                              .actions
+                                = link_item '<i class="fa fa-edit"></i>'.html_safe, edit_hydraulic_jack_path(hydraulic_jack),
+                                        class: 'btn btn-xs btn-primary btn-flat', title: t('helpers.edit')
+                                - if has_policy(hydraulic_jack, %w(destroy))
+                                  = link_to '<i class="fas fa-trash"></i>'.html_safe, '#', title: t('helpers.destroy'),
+                                          class: 'btn btn-xs btn-danger btn-flat btn-destroy',
+                                          data: {'resource' => :categories, 'resource-id' => hydraulic_jack.id,
+                                                  'resource-message' => t('questions.destroy', resource: t('.resource'),
+                                                          name: hydraulic_jack.name)}
+        .row
+          .col-sm-5
+            .dataTables_info
+              = pluralize(@hydraulic_jacks.count, 'Gato Hidraulico', 'Gatos Hidraulicos')

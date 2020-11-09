@@ -1,0 +1,2 @@
+class BrakeType < ApplicationRecord
+end

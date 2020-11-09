@@ -1,0 +1,2 @@
+class TurnType < ApplicationRecord
+end

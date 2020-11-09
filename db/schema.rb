@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_26_230623) do
+ActiveRecord::Schema.define(version: 2020_11_09_062403) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,14 @@ ActiveRecord::Schema.define(version: 2020_10_26_230623) do
     t.index ["created_at"], name: "index_audits_on_created_at"
     t.index ["request_uuid"], name: "index_audits_on_request_uuid"
     t.index ["user_id", "user_type"], name: "user_index"
+  end
+
+  create_table "brake_types", force: :cascade do |t|
+    t.string "name"
+    t.string "model_part"
+    t.boolean "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "branches", id: :serial, force: :cascade do |t|
@@ -122,6 +130,14 @@ ActiveRecord::Schema.define(version: 2020_10_26_230623) do
     t.string "rfc"
   end
 
+  create_table "colors", force: :cascade do |t|
+    t.string "name"
+    t.string "model_part"
+    t.boolean "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "companies", id: :serial, force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -155,6 +171,22 @@ ActiveRecord::Schema.define(version: 2020_10_26_230623) do
     t.index ["branch_id"], name: "index_departments_on_branch_id"
   end
 
+  create_table "divition_types", force: :cascade do |t|
+    t.string "name"
+    t.string "model_part"
+    t.boolean "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "fender_types", force: :cascade do |t|
+    t.string "name"
+    t.string "model_part"
+    t.boolean "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "fiscal_vouchers", force: :cascade do |t|
     t.string "name"
     t.boolean "status"
@@ -163,6 +195,14 @@ ActiveRecord::Schema.define(version: 2020_10_26_230623) do
   end
 
   create_table "floor_types", force: :cascade do |t|
+    t.string "name"
+    t.string "model_part"
+    t.boolean "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "hydraulic_jacks", force: :cascade do |t|
     t.string "name"
     t.string "model_part"
     t.boolean "status"
@@ -212,9 +252,9 @@ ActiveRecord::Schema.define(version: 2020_10_26_230623) do
     t.string "accessory"
     t.date "acquisition_date"
     t.bigint "trailer_id"
-    t.bigint "client_id"
     t.integer "payment_type"
     t.bigint "fiscal_voucher_id"
+    t.bigint "client_id"
     t.decimal "advance_payment"
     t.bigint "status_shipping_id"
     t.string "color"
@@ -228,25 +268,45 @@ ActiveRecord::Schema.define(version: 2020_10_26_230623) do
     t.boolean "duck_tail"
     t.boolean "gooseneck"
     t.bigint "trailer_width_id"
+    t.bigint "color_id"
+    t.bigint "hydraulic_jack_id"
+    t.bigint "pull_type_id"
+    t.bigint "brake_type_id"
+    t.bigint "reinforcement_type_id"
+    t.bigint "fender_type_id"
+    t.bigint "turn_type_id"
+    t.bigint "divition_type_id"
+    t.bigint "suspension_type_id"
+    t.bigint "roof_type_id"
+    t.index ["brake_type_id"], name: "index_items_on_brake_type_id"
     t.index ["branch_id"], name: "index_items_on_branch_id"
     t.index ["brand_id"], name: "index_items_on_brand_id"
     t.index ["capacity_id"], name: "index_items_on_capacity_id"
     t.index ["category_id"], name: "index_items_on_category_id"
     t.index ["client_id"], name: "index_items_on_client_id"
+    t.index ["color_id"], name: "index_items_on_color_id"
     t.index ["department_id"], name: "index_items_on_department_id"
+    t.index ["divition_type_id"], name: "index_items_on_divition_type_id"
+    t.index ["fender_type_id"], name: "index_items_on_fender_type_id"
     t.index ["fiscal_voucher_id"], name: "index_items_on_fiscal_voucher_id"
     t.index ["floor_type_id"], name: "index_items_on_floor_type_id"
+    t.index ["hydraulic_jack_id"], name: "index_items_on_hydraulic_jack_id"
     t.index ["provider_id"], name: "index_items_on_provider_id"
+    t.index ["pull_type_id"], name: "index_items_on_pull_type_id"
     t.index ["ramp_type_id"], name: "index_items_on_ramp_type_id"
     t.index ["redila_type_id"], name: "index_items_on_redila_type_id"
+    t.index ["reinforcement_type_id"], name: "index_items_on_reinforcement_type_id"
+    t.index ["roof_type_id"], name: "index_items_on_roof_type_id"
     t.index ["status_item_id"], name: "index_items_on_status_item_id"
     t.index ["status_shipping_id"], name: "index_items_on_status_shipping_id"
     t.index ["sub_category_id"], name: "index_items_on_sub_category_id"
+    t.index ["suspension_type_id"], name: "index_items_on_suspension_type_id"
     t.index ["trailer_height_id"], name: "index_items_on_trailer_height_id"
     t.index ["trailer_id"], name: "index_items_on_trailer_id"
     t.index ["trailer_length_id"], name: "index_items_on_trailer_length_id"
     t.index ["trailer_type_id"], name: "index_items_on_trailer_type_id"
     t.index ["trailer_width_id"], name: "index_items_on_trailer_width_id"
+    t.index ["turn_type_id"], name: "index_items_on_turn_type_id"
     t.index ["user_id"], name: "index_items_on_user_id"
   end
 
@@ -310,6 +370,14 @@ ActiveRecord::Schema.define(version: 2020_10_26_230623) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "pull_types", force: :cascade do |t|
+    t.string "name"
+    t.string "model_part"
+    t.boolean "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "ramp_types", force: :cascade do |t|
     t.string "name"
     t.string "model_part"
@@ -326,11 +394,27 @@ ActiveRecord::Schema.define(version: 2020_10_26_230623) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "reinforcement_types", force: :cascade do |t|
+    t.string "name"
+    t.string "model_part"
+    t.boolean "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "roles", id: :serial, force: :cascade do |t|
     t.string "name"
     t.string "key"
     t.text "description"
     t.integer "scope"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "roof_types", force: :cascade do |t|
+    t.string "name"
+    t.string "model_part"
+    t.boolean "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -369,6 +453,14 @@ ActiveRecord::Schema.define(version: 2020_10_26_230623) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_sub_categories_on_category_id"
+  end
+
+  create_table "suspension_types", force: :cascade do |t|
+    t.string "name"
+    t.string "model_part"
+    t.boolean "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "trailer_heights", force: :cascade do |t|
@@ -418,6 +510,14 @@ ActiveRecord::Schema.define(version: 2020_10_26_230623) do
     t.index ["category_id"], name: "index_trailers_on_category_id"
     t.index ["sub_category_id"], name: "index_trailers_on_sub_category_id"
     t.index ["trailer_type_id"], name: "index_trailers_on_trailer_type_id"
+  end
+
+  create_table "turn_types", force: :cascade do |t|
+    t.string "name"
+    t.string "model_part"
+    t.boolean "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", id: :serial, force: :cascade do |t|
@@ -480,25 +580,35 @@ ActiveRecord::Schema.define(version: 2020_10_26_230623) do
   add_foreign_key "companies", "users"
   add_foreign_key "departments", "branches"
   add_foreign_key "item_files", "items"
+  add_foreign_key "items", "brake_types"
   add_foreign_key "items", "branches"
   add_foreign_key "items", "brands"
   add_foreign_key "items", "capacities"
   add_foreign_key "items", "categories"
   add_foreign_key "items", "clients"
+  add_foreign_key "items", "colors"
   add_foreign_key "items", "departments"
+  add_foreign_key "items", "divition_types"
+  add_foreign_key "items", "fender_types"
   add_foreign_key "items", "fiscal_vouchers"
   add_foreign_key "items", "floor_types"
+  add_foreign_key "items", "hydraulic_jacks"
   add_foreign_key "items", "providers"
+  add_foreign_key "items", "pull_types"
   add_foreign_key "items", "ramp_types"
   add_foreign_key "items", "redila_types"
+  add_foreign_key "items", "reinforcement_types"
+  add_foreign_key "items", "roof_types"
   add_foreign_key "items", "status_items"
   add_foreign_key "items", "status_shippings"
   add_foreign_key "items", "sub_categories"
+  add_foreign_key "items", "suspension_types"
   add_foreign_key "items", "trailer_heights"
   add_foreign_key "items", "trailer_lengths"
   add_foreign_key "items", "trailer_types"
   add_foreign_key "items", "trailer_widths"
   add_foreign_key "items", "trailers"
+  add_foreign_key "items", "turn_types"
   add_foreign_key "items", "users"
   add_foreign_key "items_maintenances", "items"
   add_foreign_key "items_maintenances", "maintenances"

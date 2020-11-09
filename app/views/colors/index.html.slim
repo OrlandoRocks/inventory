@@ -1,0 +1,52 @@
+section.content
+  .row
+    .col-xs-12
+      .box.box-primary
+        .box-header.with-border
+          .row
+            .col-xs-6.col-md-8.col-lg-8
+              h3.box-title
+                = 'Lista de Colores'
+            .col-xs-6.col-md-4.col-lg-4
+              .box-tools.pull-right
+                = link_to new_color_path, class: 'btn btn-sm btn-flat btn-success', title: 'Nuevo Color' do
+                  i.fa.fa-plus
+                  span.hidden-xs
+                    =< 'Crear Color'
+        .box-body
+          .dataTables_wrapper
+            .row
+              .col-sm-12
+                .table-responsive
+                  table.table.table-bordered.table-hover.dataTable
+                    thead
+                      tr
+                        /th.table-checkbox
+                          .checkbox.icheck
+                            input [type="checkbox" class="icheck-me" data-skin="square" data-color="blue"]
+                        / th = t('.company')
+                        th = 'Color'
+                        th = 'Modelo'
+                        th = 'Estatus'
+                        th.actions_header
+                          = t('helpers.actions')
+                      tbody
+                        - @colors.each do |color|
+                          tr.show_actions
+                            td = color.name
+                            td = color.model_part
+                            td = color.status ? 'Activo' : 'Inhábil'
+                            td
+                              .actions
+                                = link_item '<i class="fa fa-edit"></i>'.html_safe, edit_color_path(color),
+                                        class: 'btn btn-xs btn-primary btn-flat', title: t('helpers.edit')
+                                - if has_policy(color, %w(destroy))
+                                  = link_to '<i class="fas fa-trash"></i>'.html_safe, '#', title: t('helpers.destroy'),
+                                          class: 'btn btn-xs btn-danger btn-flat btn-destroy',
+                                          data: {'resource' => :categories, 'resource-id' => color.id,
+                                                  'resource-message' => t('questions.destroy', resource: t('.resource'),
+                                                          name: color.name)}
+        .row
+          .col-sm-5
+            .dataTables_info
+              = pluralize(@colors.count, 'Color', 'Colores')

@@ -1,4 +1,4 @@
-aside.main-sidebar style=('position: fixed;')
+aside.main-sidebar
   section.sidebar
     /! Sidebar Menu
     ul.sidebar-menu
@@ -146,6 +146,26 @@ aside.main-sidebar style=('position: fixed;')
               = link_item "<i class='fas fa-angle-right'></i> Tipo de Redila".html_safe, redila_types_path
             li
               = link_item "<i class='fas fa-angle-right'></i> Tipo de Rampa".html_safe, ramp_types_path
+            li
+              = link_item "<i class='fas fa-angle-right'></i> Tipo de Freno".html_safe, brake_types_path
+            li
+              = link_item "<i class='fas fa-angle-right'></i> Color".html_safe, colors_path
+            li
+              = link_item "<i class='fas fa-angle-right'></i> Tipo de Division".html_safe, divition_types_path
+            li
+              = link_item "<i class='fas fa-angle-right'></i> Gato Hidraulico".html_safe, hydraulic_jacks_path
+            li
+              = link_item "<i class='fas fa-angle-right'></i> Tipo de Jalon".html_safe, pull_types_path
+            li
+              = link_item "<i class='fas fa-angle-right'></i> Tipo de Refuerzo".html_safe, reinforcement_types_path
+            li
+              = link_item "<i class='fas fa-angle-right'></i> Tipo de Techo".html_safe, roof_types_path
+            li
+              = link_item "<i class='fas fa-angle-right'></i> Tipo de Suspension".html_safe, suspension_types_path
+            li
+              = link_item "<i class='fas fa-angle-right'></i> Tipo de Volteo".html_safe, turn_types_path
+            li
+              = link_item "<i class='fas fa-angle-right'></i> Tipo de Fender".html_safe, fender_types_path
 
 
         - if has_policy(Item, %w(new index))

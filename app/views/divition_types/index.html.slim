@@ -1,0 +1,52 @@
+section.content
+  .row
+    .col-xs-12
+      .box.box-primary
+        .box-header.with-border
+          .row
+            .col-xs-6.col-md-8.col-lg-8
+              h3.box-title
+                = 'Lista de Tipos de Division'
+            .col-xs-6.col-md-4.col-lg-4
+              .box-tools.pull-right
+                = link_to new_divition_type_path, class: 'btn btn-sm btn-flat btn-success', title: 'Nuevo Tipo de Division' do
+                  i.fa.fa-plus
+                  span.hidden-xs
+                    =< 'Crear Tipo de Division'
+        .box-body
+          .dataTables_wrapper
+            .row
+              .col-sm-12
+                .table-responsive
+                  table.table.table-bordered.table-hover.dataTable
+                    thead
+                      tr
+                        /th.table-checkbox
+                          .checkbox.icheck
+                            input [type="checkbox" class="icheck-me" data-skin="square" data-color="blue"]
+                        / th = t('.company')
+                        th = 'Tipo de Division'
+                        th = 'Modelo'
+                        th = 'Estatus'
+                        th.actions_header
+                          = t('helpers.actions')
+                      tbody
+                        - @divition_types.each do |divition_type|
+                          tr.show_actions
+                            td = divition_type.name
+                            td = divition_type.model_part
+                            td = divition_type.status ? 'Activo' : 'Inhábil'
+                            td
+                              .actions
+                                = link_item '<i class="fa fa-edit"></i>'.html_safe, edit_divition_type_path(divition_type),
+                                        class: 'btn btn-xs btn-primary btn-flat', title: t('helpers.edit')
+                                - if has_policy(divition_type, %w(destroy))
+                                  = link_to '<i class="fas fa-trash"></i>'.html_safe, '#', title: t('helpers.destroy'),
+                                          class: 'btn btn-xs btn-danger btn-flat btn-destroy',
+                                          data: {'resource' => :categories, 'resource-id' => divition_type.id,
+                                                  'resource-message' => t('questions.destroy', resource: t('.resource'),
+                                                          name: divition_type.name)}
+        .row
+          .col-sm-5
+            .dataTables_info
+              = pluralize(@divition_types.count, 'Tipo de Division', 'Tipos de Divisiones')

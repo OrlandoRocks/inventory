@@ -1,0 +1,2 @@
+module BrakeTypesHelper
+end

@@ -13,6 +13,16 @@ class Item < ApplicationRecord
   belongs_to :redila_type, optional: true
   belongs_to :floor_type, optional: true
   belongs_to :capacity, optional: true
+  belongs_to :brake_type, optional: true
+  belongs_to :color, optional: true
+  belongs_to :divition_type, optional: true
+  belongs_to :fender_type, optional: true
+  belongs_to :hydraulic_jack, optional: true
+  belongs_to :pull_type, optional: true
+  belongs_to :reinforcement_type, optional: true
+  belongs_to :roof_type, optional: true
+  belongs_to :suspension_type, optional: true
+  belongs_to :turn_type, optional: true
   belongs_to :status_item
   belongs_to :status_shipping
   belongs_to :fiscal_voucher, optional: true
