@@ -11,15 +11,17 @@
               <i class="fa fa-plus "> Crear y enviar</i>
             <% end %>
 
-            <% if @item.try(:trailer_type).try(:image).attached? %>
-              <%= link_to image_tag('trailers_default.png', :class => 'profile-user-img img-responsive img-circle', :size => '65x65'), "trailers_default.png", :target => "_blank" %>
-            <% else %>
-              <%= link_to image_tag('trailers_default.png', :class => 'profile-user-img img-responsive img-circle', :size => '65x65'), "trailers_default.png", :target => "_blank" %>
+            <%= if @item.try(:trailer_type) %>
+              <% if @item.try(:trailer_type).try(:image).attached? %>
+                <%= link_to image_tag('trailers_default.png', :class => 'profile-user-img img-responsive img-circle', :size => '65x65'), "trailers_default.png", :target => "_blank" %>
+              <% else %>
+                <%= link_to image_tag('trailers_default.png', :class => 'profile-user-img img-responsive img-circle', :size => '65x65'), "trailers_default.png", :target => "_blank" %>
 
 
 
 
-              <%#= link_to image_tag(@item.trailer.image, :class => 'profile-user-img img-responsive img-circle', :size => '65x65'), "#{url_for(@item.trailer.image)}", :target => "_blank" %>
+                <%#= link_to image_tag(@item.trailer.image, :class => 'profile-user-img img-responsive img-circle', :size => '65x65'), "#{url_for(@item.trailer.image)}", :target => "_blank" %>
+              <% end %>
             <% end %>
 
             <h3 class="profile-username text-center"><%= @item.name %></h3>
@@ -131,13 +133,14 @@
               <% end %>
             <% end %>
 
+            <%= if @item.try(:trailer_type) %>
+              <% if @item.try(:trailer_type).try(:image).attached?%>
+                <%= link_to image_tag('trailers_default', :class => 'profile-user-img img-responsive img-circle', :size => '65x65'), "trailers_default.png", :target => "_blank" %>
+              <% else %>
+                <%= link_to image_tag('trailers_default', :class => 'profile-user-img img-responsive img-circle', :size => '65x65'), "trailers_default.png", :target => "_blank" %>
 
-            <% if @item.try(:trailer_type).try(:image).attached?%>
-              <%= link_to image_tag('trailers_default', :class => 'profile-user-img img-responsive img-circle', :size => '65x65'), "trailers_default.png", :target => "_blank" %>
-            <% else %>
-              <%= link_to image_tag('trailers_default', :class => 'profile-user-img img-responsive img-circle', :size => '65x65'), "trailers_default.png", :target => "_blank" %>
-
-              <%#= link_to image_tag(@item.trailer.image, :class => 'profile-user-img img-responsive img-circle', :size => '65x65'), "#{url_for(@item.trailer.image)}", :target => "_blank" %>
+                <%#= link_to image_tag(@item.trailer.image, :class => 'profile-user-img img-responsive img-circle', :size => '65x65'), "#{url_for(@item.trailer.image)}", :target => "_blank" %>
+              <% end %>
             <% end %>
 
             <h3 class="profile-username text-center"><%= @item.name %></h3>
