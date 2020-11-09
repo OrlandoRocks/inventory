@@ -166,7 +166,7 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
         });
     };
 
-    $scope.get_trailers = function () {
+    $scope.get_models = function () {
         $http({
             method: 'GET',
             url: '/trailers.json'
