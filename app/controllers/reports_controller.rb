@@ -1,38 +1,38 @@
-
-require 'fiddle'
-require 'rjb'
-require 'net/http'
-require 'json'
-
-classpath = '.'
-
-Dir["lib/jasper-6.7.0/*.jar"].each do |jar|
-  classpath << File::PATH_SEPARATOR + File.expand_path(jar)
-end
-
-
-p "------------------------------------------------------------------------"
-p classpath
-# Rjb::load 'net.sf.jasperreports.engine.JasperCompileManager'
-Rjb::load( classpath, ['-Djava.awt.headless=true','-Xms128M', '-Xmx256M'] )
-p "ENTRE --------------------------------"
-Rjb::load 'net.sf.jasperreports.engine.export.JRXlsExporter'
-Rjb::load 'net.sf.jasperreports.engine.export.JRXlsExporterParameter'
-Rjb::load 'net.sf.jasperreports.engine.util.JRStyledTextParser'
-Rjb::load 'net.sf.jasperreports.engine.JRRenderable'
-Rjb::load 'net.sf.jasperreports.extensions.ExtensionsEnvironment'
-Rjb::load 'java.awt.Color'
-
-JasperCompileManager    = Rjb::import 'net.sf.jasperreports.engine.JasperCompileManager'
-JsonDataSource          = Rjb::import 'net.sf.jasperreports.engine.data.JsonDataSource'
-JREmptyDataSource       = Rjb::import 'net.sf.jasperreports.engine.JREmptyDataSource'
-JasperFillManager       = Rjb::import 'net.sf.jasperreports.engine.JasperFillManager'
-JasperExportManager     = Rjb::import 'net.sf.jasperreports.engine.JasperExportManager'
-ImageIO                 = Rjb::import 'javax.imageio.ImageIO'
-HashMap                 = Rjb::import 'java.util.HashMap'
-FileInputStream         = Rjb::import 'java.io.FileInputStream'
-ByteArrayOutputStream   = Rjb::import 'java.io.ByteArrayOutputStream'
-ByteArrayInputStream    = Rjb::import 'java.io.ByteArrayInputStream'
+#
+# require 'fiddle'
+# require 'rjb'
+# require 'net/http'
+# require 'json'
+#
+# classpath = '.'
+#
+# Dir["lib/jasper-6.7.0/*.jar"].each do |jar|
+#   classpath << File::PATH_SEPARATOR + File.expand_path(jar)
+# end
+#
+#
+# p "------------------------------------------------------------------------"
+# p classpath
+# # Rjb::load 'net.sf.jasperreports.engine.JasperCompileManager'
+# Rjb::load( classpath, ['-Djava.awt.headless=true','-Xms128M', '-Xmx256M'] )
+# p "ENTRE --------------------------------"
+# Rjb::load 'net.sf.jasperreports.engine.export.JRXlsExporter'
+# Rjb::load 'net.sf.jasperreports.engine.export.JRXlsExporterParameter'
+# Rjb::load 'net.sf.jasperreports.engine.util.JRStyledTextParser'
+# Rjb::load 'net.sf.jasperreports.engine.JRRenderable'
+# Rjb::load 'net.sf.jasperreports.extensions.ExtensionsEnvironment'
+# Rjb::load 'java.awt.Color'
+#
+# JasperCompileManager    = Rjb::import 'net.sf.jasperreports.engine.JasperCompileManager'
+# JsonDataSource          = Rjb::import 'net.sf.jasperreports.engine.data.JsonDataSource'
+# JREmptyDataSource       = Rjb::import 'net.sf.jasperreports.engine.JREmptyDataSource'
+# JasperFillManager       = Rjb::import 'net.sf.jasperreports.engine.JasperFillManager'
+# JasperExportManager     = Rjb::import 'net.sf.jasperreports.engine.JasperExportManager'
+# ImageIO                 = Rjb::import 'javax.imageio.ImageIO'
+# HashMap                 = Rjb::import 'java.util.HashMap'
+# FileInputStream         = Rjb::import 'java.io.FileInputStream'
+# ByteArrayOutputStream   = Rjb::import 'java.io.ByteArrayOutputStream'
+# ByteArrayInputStream    = Rjb::import 'java.io.ByteArrayInputStream'
 
 class ReportsController < ApplicationController
 
