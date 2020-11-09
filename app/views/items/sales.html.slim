@@ -11,7 +11,7 @@ section.content ng-controller="itemController"
                 = 'Ventas'
             .col-xs-6.col-md-4.col-lg-3
               .box-tools.pull-right
-                a.btn.btn-sm.btn-flat.btn-success href="/report/sales.pdf" target="_blank"
+                a.btn.btn-sm.btn-flat.btn-success href="/report/sales/#{@items.pluck(:id)}.pdf" target="_blank"
                   i.fa.fa-file-pdf
                     | Imprimr reporte
 
@@ -27,39 +27,52 @@ section.content ng-controller="itemController"
                         h3.box-title  Buscador de artículos vendidos
                       .col-xs-6
                         .box-tools.pull-right
-                    = search_form_for(@search_items, url: orders_path, id: 'order_index') do |f|
+                    = search_form_for(@search_items, url: sales_path, id: 'order_index') do |f|
                       .col-md-3
                         .box.box-warning.box-solid
                           .box-header.with-border
-                            h3.box-title = t('.f_trailer')
+                            h3.box-title
+                              | Vendedores
                             .box-tools.pull-right
                               button.btn.btn-box-tool data-widget="collapse" type="button"
                                 i.fa.fa-minus
                           .box-body style=('display: block;')
-                            = f.collection_select :trailer_type_id_in, TrailerType.all, :id, :name, {prompt: 'Seleccionar una opción'},
-                                    {class: 'form-control select', data: {placeholder: t('.trailers')}}
+                            = f.collection_select :user_id_eq, @vendors, :id, :full_name, {prompt: 'Seleccionar un vendedor'},
+                                    {class: 'form-control select', data: {placeholder: 'Vendedores'}}
 
                       .col-md-3
                         .box.box-warning.box-solid
                           .box-header.with-border
-                            h3.box-title = t('.f_model')
+                            h3.box-title
+                              | Sucursales
                             .box-tools.pull-right
                               button.btn.btn-box-tool data-widget="collapse" type="button"
                                 i.fa.fa-minus
                           .box-body style=('display: block;')
-                            = f.select :trailer_type_model_part_eq, @all_models.map { |model| [model, model] }, {prompt: 'Seleccionar una opción'},
-                                    {class: 'form-control', data: {placeholder: "t('.models')"}}
+                            = f.collection_select :department_branch_id_eq, Branch.all, :id, :name, {prompt: 'Seleccionar una sucursal'},
+                                    {class: 'form-control select', data: {placeholder: 'Sucursales'}}
 
-                      .col-md-3
-                        .box.box-warning.box-solid
-                          .box-header.with-border
-                            h3.box-title = t('.f_remissions')
-                            .box-tools.pull-right
-                              button.btn.btn-box-tool data-widget="collapse" type="button"
-                                i.fa.fa-minus
-                          .box-body style=('display: block;')
-                            = f.select :remission_eq, @all_remissions.map { |remission| [remission, remission] }, {prompt: 'Seleccionar una opción'},
-                                    {class: 'form-control', data: {placeholder: "t('.remissions')"}}
+                      / .col-md-3
+                      /   .box.box-warning.box-solid
+                      /     .box-header.with-border
+                      /       h3.box-title = t('.f_model')
+                      /       .box-tools.pull-right
+                      /         button.btn.btn-box-tool data-widget="collapse" type="button"
+                      /           i.fa.fa-minus
+                      /     .box-body style=('display: block;')
+                      /       = f.select :trailer_type_model_part_eq, @all_models.map { |model| [model, model] }, {prompt: 'Seleccionar una opción'},
+                      /               {class: 'form-control', data: {placeholder: "t('.models')"}}
+                      /
+                      / .col-md-3
+                      /   .box.box-warning.box-solid
+                      /     .box-header.with-border
+                      /       h3.box-title = t('.f_remissions')
+                      /       .box-tools.pull-right
+                      /         button.btn.btn-box-tool data-widget="collapse" type="button"
+                      /           i.fa.fa-minus
+                      /     .box-body style=('display: block;')
+                      /       = f.select :remission_eq, @all_remissions.map { |remission| [remission, remission] }, {prompt: 'Seleccionar una opción'},
+                      /               {class: 'form-control', data: {placeholder: "t('.remissions')"}}
 
                       .col-xs-12.col-md-12
                         .input-group-btn

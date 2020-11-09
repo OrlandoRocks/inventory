@@ -12,6 +12,7 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
     $scope.init = function (branches, categories, item) {
         $scope.branches = branches;
         $scope.model_name = '';
+        $scope.get_models();
         $scope.get_trailers();
         $scope.get_floors();
         $scope.get_ramps();
@@ -160,6 +161,17 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
             url: '/trailer_types.json'
         }).then(function successCallback(response) {
             $scope.trailers = response.data;
+        }, function errorCallback(response) {
+            console.log("Algo valio shit!");
+        });
+    };
+
+    $scope.get_trailers = function () {
+        $http({
+            method: 'GET',
+            url: '/trailers.json'
+        }).then(function successCallback(response) {
+            $scope.models = response.data;
         }, function errorCallback(response) {
             console.log("Algo valio shit!");
         });

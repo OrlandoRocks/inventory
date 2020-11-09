@@ -11,7 +11,11 @@
               <i class="fa fa-plus "> Crear y enviar</i>
             <% end %>
 
+<<<<<<< HEAD
             <% unless @item.trailer_type.nil? %>
+=======
+            <% if @item.try(:trailer_type) %>
+>>>>>>> 31bb68480acf76edf0b2d429311d4fa3a68dde56
               <% if @item.try(:trailer_type).try(:image).attached? %>
                 <%= link_to image_tag('trailers_default.png', :class => 'profile-user-img img-responsive img-circle', :size => '65x65'), "trailers_default.png", :target => "_blank" %>
               <% else %>
@@ -133,7 +137,11 @@
               <% end %>
             <% end %>
 
+<<<<<<< HEAD
             <% unless @item.trailer_type.nil? %>
+=======
+            <% if @item.try(:trailer_type) %>
+>>>>>>> 31bb68480acf76edf0b2d429311d4fa3a68dde56
               <% if @item.try(:trailer_type).try(:image).attached?%>
                 <%= link_to image_tag('trailers_default', :class => 'profile-user-img img-responsive img-circle', :size => '65x65'), "trailers_default.png", :target => "_blank" %>
               <% else %>

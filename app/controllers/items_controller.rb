@@ -51,6 +51,8 @@ class ItemsController < ApplicationController
 
     @all_remissions = policy_scope(Item).pluck(:remission)
 
+    @vendors = User.where(role_id: Role.find_by(key: 'empleado_sin_acceso'))
+    
     @items = @search_items.result.paginate(page: params[:page], per_page: 20)
   end
 
@@ -73,8 +75,9 @@ class ItemsController < ApplicationController
 
     titulo_reporte = 'Trailers Vendidos'
     nombre_reporte = 'trailers_vendidos'
+    trailers = params[:trailers].tr('[]', '').split(',').map(&:to_i)
 
-    @trailers_sold = Item.where(status_item_id: [StatusItem.find_by_key('vendido').id, StatusItem.find_by_key('pendiente_factura').id, StatusItem.find_by_key('facturado').id])
+    @trailers_sold = Item.where(id: trailers)
 
     total_sales = get_total_sales @trailers_sold
 
