@@ -67,6 +67,24 @@ class ItemsController < ApplicationController
 
   end
 
+  def new_report_sales
+
+    titulo_reporte = 'Trailers Vendidos'
+    nombre_reporte = 'trailers_vendidos'
+
+    @trailers_sold = Item.where(status_item_id: [StatusItem.find_by_key('vendido').id, StatusItem.find_by_key('pendiente_factura').id, StatusItem.find_by_key('facturado').id])
+
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "Trailers Vendidos"   # Excluding ".pdf" extension.
+      end
+    end
+
+
+  end
+
   def edit_order
 
     @users = User.all
