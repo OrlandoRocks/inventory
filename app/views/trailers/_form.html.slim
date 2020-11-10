@@ -15,8 +15,6 @@ div ng-controller="trailerController"
         = label_tag 'Modelo','Modelo', class: 'col-sm-2 control-label'
         .col-sm-10
           = f.text_field :model, class: 'form-control', placeholder: 'Modelo', autofocus: true, 'ng-model' => 'model_name'
-          select.form-control.select_trailer ng-change="" ng-model="model" ng-options=("traimodeller as model.model for model in models")
-            option disabled="" selected="" value=""  Modelos...
       .row.form-group
         = f.label :trailer_id, class: 'col-sm-2 control-label'
         .col-md-4

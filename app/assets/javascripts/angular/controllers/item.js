@@ -69,6 +69,19 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
         $scope.model_name += model_part;
     };
 
+    $scope.set_model = function(model){
+        $scope.model_name = model.model;
+        $scope.length = model.trailer_length;
+        $scope.width = model.trailer_width;
+        $scope.floor = model.floor_type;
+        $scope.ramp = model.ramp_type;
+        $scope.capacity = model.capacity;
+        $scope.redila = model.redila_type;
+        $scope.brakes = model.brakes_type;
+        $scope.colors = model.color
+
+    };
+
 
 
     $scope.get_item_json = function (id) {
@@ -172,6 +185,7 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
             url: '/trailers.json'
         }).then(function successCallback(response) {
             $scope.models = response.data;
+            console.log($scope.models);
         }, function errorCallback(response) {
             console.log("Algo valio shit!");
         });
