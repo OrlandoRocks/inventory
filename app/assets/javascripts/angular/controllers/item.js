@@ -81,13 +81,15 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
         $scope.category_description = '';
 
         if ($scope.trailer && $scope.trailers)                  $scope.modelhs   +=     $scope.trailers.find( elem => elem.id ===         $scope.trailer).model_part;
+        if ($scope.width && $scope.widths)                      $scope.modelhs   +=     $scope.widths.find( elem => elem.id ===           $scope.width).model_part;
         if ($scope.length && $scope.lengths)                    $scope.modelhs   +=     $scope.lengths.find( elem => elem.id ===          $scope.length).model_part;
         if ($scope.height && $scope.heights)                    $scope.modelhs   +=     $scope.heights.find( elem => elem.id ===          $scope.height).model_part;
-        if ($scope.width && $scope.widths)                      $scope.modelhs   +=     $scope.widths.find( elem => elem.id ===           $scope.width).model_part;
-        if ($scope.ramp && $scope.ramps)                        $scope.modelhs   +=     $scope.ramps.find( elem => elem.id ===            $scope.ramp).model_part;
-        if ($scope.redila && $scope.redilas)                    $scope.modelhs   +=     $scope.redilas.find( elem => elem.id ===          $scope.redila).model_part;
         if ($scope.floor && $scope.floors)                      $scope.modelhs   +=     $scope.floors.find( elem => elem.id ===           $scope.floor).model_part;
+        if ($scope.ramp && $scope.ramps)                        $scope.modelhs   +=     $scope.ramps.find( elem => elem.id ===            $scope.ramp).model_part;
         if ($scope.capacity && $scope.capacities)               $scope.modelhs   +=     $scope.capacities.find( elem => elem.id ===       $scope.capacity).model_part;
+        if ($scope.redila && $scope.redilas)                    $scope.modelhs   +=     $scope.redilas.find( elem => elem.id ===          $scope.redila).model_part;
+        if ($scope.roof && $scope.roofs)                        $scope.modelhs   +=     $scope.roofs.find( elem => elem.id ===            $scope.roof).model_part;
+        if ($scope.turn && $scope.turns)                        $scope.modelhs   +=     $scope.turns.find( elem => elem.id ===            $scope.turn).model_part;
         if ($scope.brake && $scope.brakes)                      $scope.modelhs   +=     $scope.brakes.find( elem => elem.id ===           $scope.brake).model_part;
         if ($scope.color && $scope.colors)                      $scope.modelhs   +=     $scope.colors.find( elem => elem.id ===           $scope.color).model_part;
         if ($scope.divition && $scope.divitions)                $scope.modelhs   +=     $scope.divitions.find( elem => elem.id ===        $scope.divition).model_part;
@@ -95,20 +97,20 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
         if ($scope.hydraulic_jack && $scope.hydraulic_jacks)    $scope.modelhs   +=     $scope.hydraulic_jacks.find( elem => elem.id ===  $scope.hydraulic_jack).model_part;
         if ($scope.pull && $scope.pulls)                        $scope.modelhs   +=     $scope.pulls.find( elem => elem.id ===            $scope.pull).model_part;
         if ($scope.reinforcement && $scope.reinforcements)      $scope.modelhs   +=     $scope.reinforcements.find( elem => elem.id ===   $scope.reinforcement).model_part;
-        if ($scope.roof && $scope.roofs)                        $scope.modelhs   +=     $scope.roofs.find( elem => elem.id ===            $scope.roof).model_part;
         if ($scope.suspension && $scope.suspensions)            $scope.modelhs   +=     $scope.suspensions.find( elem => elem.id ===      $scope.suspension).model_part;
-        if ($scope.turn && $scope.turns)                        $scope.modelhs   +=     $scope.turns.find( elem => elem.id ===            $scope.turn).model_part;
 
 
 
         if ($scope.trailer && $scope.trailers)                  $scope.category_description   +=     `TRAILER: ${$scope.trailers.find( elem => elem.id ===         $scope.trailer).name}.`;
+        if ($scope.width && $scope.widths)                      $scope.category_description   +=     `ANCHO: ${$scope.widths.find( elem => elem.id ===           $scope.width).name}.`;
         if ($scope.length && $scope.lengths)                    $scope.category_description   +=     `LARGO: ${$scope.lengths.find( elem => elem.id ===          $scope.length).name}.`;
         if ($scope.height && $scope.heights)                    $scope.category_description   +=     `ALTURA: ${$scope.heights.find( elem => elem.id ===          $scope.height).name}.`;
-        if ($scope.width && $scope.widths)                      $scope.category_description   +=     `ANCHO: ${$scope.widths.find( elem => elem.id ===           $scope.width).name}.`;
-        if ($scope.ramp && $scope.ramps)                        $scope.category_description   +=     `RAMPA: ${$scope.ramps.find( elem => elem.id ===            $scope.ramp).name}.`;
-        if ($scope.redila && $scope.redilas)                    $scope.category_description   +=     `REDILA: ${$scope.redilas.find( elem => elem.id ===          $scope.redila).name}.`;
         if ($scope.floor && $scope.floors)                      $scope.category_description   +=     `PISO: ${$scope.floors.find( elem => elem.id ===           $scope.floor).name}.`;
+        if ($scope.ramp && $scope.ramps)                        $scope.category_description   +=     `RAMPA: ${$scope.ramps.find( elem => elem.id ===            $scope.ramp).name}.`;
         if ($scope.capacity && $scope.capacities)               $scope.category_description   +=     `CAPACIDAD: ${$scope.capacities.find( elem => elem.id ===       $scope.capacity).name}.`;
+        if ($scope.redila && $scope.redilas)                    $scope.category_description   +=     `REDILA: ${$scope.redilas.find( elem => elem.id ===          $scope.redila).name}.`;
+        if ($scope.roof && $scope.roofs)                        $scope.category_description   +=     `TECHO: ${$scope.roofs.find( elem => elem.id ===            $scope.roof).name}.`;
+        if ($scope.turn && $scope.turns)                        $scope.category_description   +=     `VOLTEO: ${$scope.turns.find( elem => elem.id ===            $scope.turn).name}.`;
         if ($scope.brake && $scope.brakes)                      $scope.category_description   +=     `FRENO: ${$scope.brakes.find( elem => elem.id ===           $scope.brake).name}.`;
         if ($scope.color && $scope.colors)                      $scope.category_description   +=     `COLOR: ${$scope.colors.find( elem => elem.id ===           $scope.color).name}.`;
         if ($scope.divition && $scope.divitions)                $scope.category_description   +=     `DIVISION: ${$scope.divitions.find( elem => elem.id ===        $scope.divition).name}.`;
@@ -116,9 +118,7 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
         if ($scope.hydraulic_jack && $scope.hydraulic_jacks)    $scope.category_description   +=     `GATO HIDRAULICO: ${$scope.hydraulic_jacks.find( elem => elem.id ===  $scope.hydraulic_jack).name}.`;
         if ($scope.pull && $scope.pulls)                        $scope.category_description   +=     `JALON: ${$scope.pulls.find( elem => elem.id ===            $scope.pull).name}.`;
         if ($scope.reinforcement && $scope.reinforcements)      $scope.category_description   +=     `REFUERZO: ${$scope.reinforcements.find( elem => elem.id ===   $scope.reinforcement).name}.`;
-        if ($scope.roof && $scope.roofs)                        $scope.category_description   +=     `TECHO: ${$scope.roofs.find( elem => elem.id ===            $scope.roof).name}.`;
         if ($scope.suspension && $scope.suspensions)            $scope.category_description   +=     `SUSPENSION: ${$scope.suspensions.find( elem => elem.id ===      $scope.suspension).name}.`;
-        if ($scope.turn && $scope.turns)                        $scope.category_description   +=     `VOLTEO: ${$scope.turns.find( elem => elem.id ===            $scope.turn).name}.`;
 
 
 
