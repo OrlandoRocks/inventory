@@ -87,26 +87,22 @@ section.content ng-controller="itemController"
                   table.table.table-bordered.table-hover.dataTable
                     thead
                       tr
-                        th = t('.code')
-                        th = t('.name')
+                        th = t('.serial_number')
                         th = t('.model')
-                        th = t('.price')
+                        th = 'Descripcion'
                         th = t('.branch')
                         th = t('.department')
                         / th = t('.image')
-                        th = t('.status_item')
                         th.actions_header
                           = t('helpers.actions')
                     tbody
                       - @items.each do |item|
                         tr.show_actions
-                          td = item.code
-                          td = item.try(:trailer_type).try(:name)
-                          td = item.try(:trailer_type).try(:model_part)
-                          td =  "%.2f" % item.price if item.price.present?
+                          td = item.serial_number
+                          td = item.try(:model)
+                          td = item.categories_description
                           td = item.direct_branch.present? ? item.direct_branch.name : (item.direct_branch ? item.direct_branch.name : nil)
                           td = item.department.name if item.department.present?
-                          td = item.status_item.name if item.status_item.present?
                           td
                             .actions
                               = link_item '<i class="fa fa-search"></i>'.html_safe, item_path(item), title: t('helpers.show'),

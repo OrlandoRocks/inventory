@@ -10,6 +10,11 @@ class TrailerSerializer < ActiveModel::Serializer
     rails_blob_path(object.image, only_path: true) if object.image.attached?
   end
 
+  def trailer_type
+    object.trailer_type.as_json(except: :image) if object.trailer_type
+  end
+
+
   def photo
     rails_blob_path(object.photo, only_path: true) if object.photo.attached?
   end

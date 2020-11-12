@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_09_204657) do
+ActiveRecord::Schema.define(version: 2020_11_12_061844) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -252,9 +252,9 @@ ActiveRecord::Schema.define(version: 2020_11_09_204657) do
     t.string "accessory"
     t.date "acquisition_date"
     t.bigint "trailer_id"
-    t.bigint "client_id"
     t.integer "payment_type"
     t.bigint "fiscal_voucher_id"
+    t.bigint "client_id"
     t.decimal "advance_payment"
     t.bigint "status_shipping_id"
     t.string "color"
@@ -278,6 +278,7 @@ ActiveRecord::Schema.define(version: 2020_11_09_204657) do
     t.bigint "divition_type_id"
     t.bigint "suspension_type_id"
     t.bigint "roof_type_id"
+    t.text "categories_description"
     t.index ["brake_type_id"], name: "index_items_on_brake_type_id"
     t.index ["branch_id"], name: "index_items_on_branch_id"
     t.index ["brand_id"], name: "index_items_on_brand_id"

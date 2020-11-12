@@ -14,6 +14,9 @@
             <li class="list-group-item">
               <b>Estado</b> <a class="pull-right"><%= @branch.try(:state).try(:name)%></a>
             </li>
+            <li class="list-group-item">
+              <b>Estatus</b> <a class="pull-right">Disponible</a>
+            </li>
           </ul>
         </div>
       </div>
@@ -32,20 +35,17 @@
                     <table class="table table-bordered table-hover dataTable">
                       <thead>
                         <tr>
-                          <th>Código</th>
-                          <th> Nombre del artículo</th>
-                          <th>Valor de Adquisición</th>
-                          <th>Estatus del artículo</th>
-                          <th>Acciones</th>
+                          <th>Numero de Serie</th>
+                          <th> Modelo</th>
+                          <th>Descripción</th>
                         </tr>
                       </thead>
                       <tbody>
                       <% @branch.items.each do |item| %>
                       <tr class="show_actions">
                         <td><%= item.code %></td>
-                        <td><%= item.try(:trailer).try(:name) %></td>
-                        <td><%= "%.2f" % item.price if item.price.present? %></td>
-                        <td><%= item.status_item.name if item.status_item.present? %></td>
+                        <td><%= item.try(:model) %></td>
+                        <td><%= item.categories_description %></td>
                         <td>
                           <div class="item.status_item.name if item.status_item.present?">
                             <%= link_item '<i class="fa fa-search"></i>'.html_safe, item_path(item), title: t('helpers.show'),

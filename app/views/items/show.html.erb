@@ -32,33 +32,24 @@
               <li class="list-group-item">
                 <b><%= t("items.form.client") %></b>
                 <p class="text-muted">
-                  <a class="pull-right"><%= @item.client.try(:full_name) %></a>
+                  <a class="text-muted"><%= @item.client.try(:full_name) %></a>
                 </p>
               </li>
               <li class="list-group-item">
                 <b><%= t("items.form.advance_payment") %></b>
-                <a class="pull-right"><%= "$ #{ "%.2f" % @item.advance_payment if @item.advance_payment.present?}" %></a>
+                <p class="text-muted"><%= "$ #{ "%.2f" % @item.advance_payment if @item.advance_payment.present?}" %></p>
               </li>
               <li class="list-group-item">
-                <b><%= t("items.form.model") %></b> <a class="pull-right"><%= @item.try(:trailer_type).try(:model_part) %></a>
+                <b><%= t("items.form.model") %></b> <p class="text-muted"><%= @item.try(:model) %></p>
               </li>
               <li class="list-group-item">
-                <b><%= t("items.form.width") %></b> <a class="pull-right"><%= @item.try(:trailer_width).try(:name) %></a>
-              </li>
-              <li class="list-group-item">
-                <b><%= t("items.form.length") %></b> <a class="pull-right"><%= @item.try(:trailer_length).try(:name) %></a>
-              </li>
-              <li class="list-group-item">
-                <b><%= t("items.form.floor") %></b> <a class="pull-right"><%= @item.try(:floor_type).try(:name) %></a>
-              </li>
-              <li class="list-group-item">
-                <b><%= t("items.form.capacity") %></b> <a class="pull-right"><%= @item.try(:capacity).try(:name) %></a>
-              </li>
-              <li class="list-group-item">
-                <b><%= t("items.form.redila") %></b> <a class="pull-right"><%= @item.try(:redila_type).try(:name) %></a>
+                <b>Descripción del Modelo (Categorias)</b>
+                <p class="text-muted">
+                  <%= @item.try(:categories_description) %>
+                </p>
               </li>
               <!--<li class="list-group-item">-->
-              <!--<b><%#= t("items.form.provider") %></b> <a class="pull-right"><%#= @item.provider.try("name") %></a>-->
+              <!--<b><%#= t("items.form.provider") %></b> <a class="text-muted"><%#= @item.provider.try("name") %></a>-->
               <!--</li>-->
               <li class="list-group-item">
                 <strong><i class="fa fa-store margin-r-5"></i><%= "#{t("items.form.branch")}" %></strong>
@@ -88,7 +79,7 @@
 
               <li class="list-group-item">
                 <b><%= t("items.form.status_item") %></b>
-                <a class="pull-right"><%= @item.status_item.try("description") %></a>
+                <p class="text-muted"><%= @item.status_item.try("description") %></p>
               </li>
 
               <!-- <li class="list-group-item">
@@ -149,42 +140,35 @@
 
             <ul class="list-group list-group-unbordered">
               <li class="list-group-item">
-                <b><%= t("items.form.model") %></b> <a class="pull-right"><%= @item.try(:trailer_type).try(:model_part) %></a>
+                <b><%= t("items.form.model") %></b>
+                <p class="text-muted">
+                  <%= @item.try(:model) %>
+                </p>
+              </li>
+              <li class="list-group-item">
+                <b>Descripción del Modelo (Categorias)</b>
+                <p class="text-muted">
+                  <%= @item.try(:categories_description) %>
+                </p>
               </li>
               <li class="list-group-item">
                 <b><%= t("items.form.serial_number") %></b>
                 <p class="text-muted">
-                  <a class="pull-right"><%= @item.serial_number %></a>
+                  <%= @item.serial_number %>
                 </p>
               </li>
               <li class="list-group-item">
-                <b><%= t("items.form.acquisition_date") %></b> <a class="pull-right"><%= @item.acquisition_date %></a>
+                <b><%= t("items.form.acquisition_date") %></b>
+                <p class="text-muted">
+                  <%= @item.acquisition_date %>
+                </p>
               </li>
               <li class="list-group-item">
                 <b><%= t("items.form.price") %></b>
-                <a class="pull-right"><%= "$ #{ "%.2f" % @item.price if @item.price.present?}" %></a>
-              </li>
-              <li class="list-group-item">
-                <b><%= t("items.form.color") %></b>
-                <a class="pull-right"><%= @item.color %></a>
-              </li>
-              <li class="list-group-item">
-                <b><%= t("items.form.width") %></b> <a class="pull-right"><%= @item.try(:trailer_width).try(:name) %></a>
-              </li>
-              <li class="list-group-item">
-                <b><%= t("items.form.length") %></b> <a class="pull-right"><%= @item.try(:trailer_length).try(:name) %></a>
-              </li>
-              <li class="list-group-item">
-                <b><%= t("items.form.floor") %></b> <a class="pull-right"><%= @item.try(:floor_type).try(:name) %></a>
-              </li>
-              <li class="list-group-item">
-                <b><%= t("items.form.capacity") %></b> <a class="pull-right"><%= @item.try(:capacity).try(:name) %></a>
-              </li>
-              <li class="list-group-item">
-                <b><%= t("items.form.redila") %></b> <a class="pull-right"><%= @item.try(:redila_type).try(:name) %></a>
+                <p class="text-muted"><%= "$ #{ "%.2f" % @item.price if @item.price.present?}" %></p>
               </li>
               <!--<li class="list-group-item">-->
-              <!--<b><%#= t("items.form.provider") %></b> <a class="pull-right"><%#= @item.provider.try("name") %></a>-->
+              <!--<b><%#= t("items.form.provider") %></b> <a class="text-muted"><%#= @item.provider.try("name") %></a>-->
               <!--</li>-->
               <li class="list-group-item">
                 <strong><i class="fa fa-home margin-r-5"></i><%= "#{t("items.form.branch")}" %></strong>
@@ -206,11 +190,11 @@
               </li>
 
               <li class="list-group-item">
-                <b><%= t("items.form.brand") %></b> <a class="pull-right"><%= @item.brand.try("name") %></a>
+                <b><%= t("items.form.brand") %></b> <p class="text-muted"><%= @item.brand.try("name") %></p>
               </li>
               <li class="list-group-item">
                 <b><%= t("items.form.status_item") %></b>
-                <a class="pull-right"><%= @item.status_item.try("description") %></a>
+                <p class="text-muted"><%= @item.status_item.try("description") %></p>
               </li>
 
 
