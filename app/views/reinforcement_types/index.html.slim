@@ -41,7 +41,7 @@ section.content
                                 = link_item '<i class="fa fa-edit"></i>'.html_safe, edit_reinforcement_type_path(reinforcement_type),
                                         class: 'btn btn-xs btn-primary btn-flat', title: t('helpers.edit')
                                 - if has_policy(reinforcement_type, %w(destroy))
-                                  = link_to '<i class="fas fa-trash"></i>'.html_safe, '#', title: t('helpers.destroy'),
+                                  = link_to '<i class="fas fa-trash"></i>'.html_safe, reinforcement_type_path(reinforcement_type), method: :delete, title: t('helpers.destroy'),
                                           class: 'btn btn-xs btn-danger btn-flat btn-destroy',
                                           data: {'resource' => :categories, 'resource-id' => reinforcement_type.id,
                                                   'resource-message' => t('questions.destroy', resource: t('.resource'),
