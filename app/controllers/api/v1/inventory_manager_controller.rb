@@ -25,7 +25,10 @@ class Api::V1::InventoryManagerController < ActionController::Base
 
 
   def get_categories
-    render json: Category.all
+    render json: {trailers: TrailerType.all.as_json(except: :image), widths: TrailerWidth.all, lengths: TrailerLength.all, floors: FloorType.all, ramps: RampType.all,
+                  capacities: Capacity.all, redilas: RedilaType.all, roofs:RoofType.all, turns:TurnType.all, brakes: BrakeType.all, colors:Color.all,
+                  divitios:DivitionType.all, fenders: FenderType.all, hydraulic_jacks: HydraulicJack.all, pulls: PullType.all, brands: Brand.all,
+                  suspensions:SuspensionType.all}
   end
 
   def get_sub_categories
@@ -90,9 +93,57 @@ class Api::V1::InventoryManagerController < ActionController::Base
       item_params[:fiscal_voucher_id]   =    params[:fiscal_voucher_id]   if params[:fiscal_voucher_id]
       item_params[:client_id]           =    params[:client_id]           if params[:client_id]
       item_params[:advance_payment]     =    params[:advance_payment]     if params[:advance_payment]
+      item_params[:brand]                     =    params[:brand]                      if params[:brand]
+      item_params[:trailer_length_id]         =    params[:trailer_length_id]          if params[:trailer_length_id]
+      item_params[:trailer_height_id]         =    params[:trailer_height_id]          if params[:trailer_height_id]
+      item_params[:ramp_type_id]              =    params[:ramp_type_id]               if params[:ramp_type_id]
+      item_params[:redila_type_id]            =    params[:redila_type_id]             if params[:redila_type_id]
+      item_params[:trailer_type_id]           =    params[:trailer_type_id]            if params[:trailer_type_id]
+      item_params[:floor_type_id]             =    params[:floor_type_id]              if params[:floor_type_id]
+      item_params[:capacity_id]               =    params[:capacity_id]                if params[:capacity_id]
+      item_params[:trailer_width_id]          =    params[:trailer_width_id]           if params[:trailer_width_id]
+      item_params[:color_id]                  =    params[:color_id]                   if params[:color_id]
+      item_params[:hydraulic_jack_id]         =    params[:hydraulic_jack_id]          if params[:hydraulic_jack_id]
+      item_params[:pull_type_id]              =    params[:pull_type_id]               if params[:pull_type_id]
+      item_params[:brake_type_id]             =    params[:brake_type_id]              if params[:brake_type_id]
+      item_params[:reinforcement_type_id]     =    params[:reinforcement_type_id]      if params[:reinforcement_type_id]
+      item_params[:fender_type_id]            =    params[:fender_type_id]             if params[:fender_type_id]
+      item_params[:turn_type_id]              =    params[:turn_type_id]               if params[:turn_type_id]
+      item_params[:divition_type_id]          =    params[:divition_type_id]           if params[:divition_type_id]
+      item_params[:suspension_type_id]        =    params[:suspension_type_id]         if params[:suspension_type_id]
+      item_params[:roof_type_id]              =    params[:roof_type_id]               if params[:roof_type_id]
+      item_params[:categories_description]    =    params[:categories_description]     if params[:categories_description]
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
 
 
       @new_item = Item.new(item_params)
@@ -151,6 +202,27 @@ class Api::V1::InventoryManagerController < ActionController::Base
       item_params[:fiscal_voucher_id]   =    params[:fiscal_voucher_id]   if params[:fiscal_voucher_id]
       item_params[:client_id]           =    params[:client_id]           if params[:client_id]
       item_params[:advance_payment]     =    params[:advance_payment]     if params[:advance_payment]
+      item_params[:brand]                     =    params[:brand]                      if params[:brand]
+      item_params[:trailer_length_id]         =    params[:trailer_length_id]          if params[:trailer_length_id]
+      item_params[:trailer_height_id]         =    params[:trailer_height_id]          if params[:trailer_height_id]
+      item_params[:ramp_type_id]              =    params[:ramp_type_id]               if params[:ramp_type_id]
+      item_params[:redila_type_id]            =    params[:redila_type_id]             if params[:redila_type_id]
+      item_params[:trailer_type_id]           =    params[:trailer_type_id]            if params[:trailer_type_id]
+      item_params[:floor_type_id]             =    params[:floor_type_id]              if params[:floor_type_id]
+      item_params[:capacity_id]               =    params[:capacity_id]                if params[:capacity_id]
+      item_params[:trailer_width_id]          =    params[:trailer_width_id]           if params[:trailer_width_id]
+      item_params[:color_id]                  =    params[:color_id]                   if params[:color_id]
+      item_params[:hydraulic_jack_id]         =    params[:hydraulic_jack_id]          if params[:hydraulic_jack_id]
+      item_params[:pull_type_id]              =    params[:pull_type_id]               if params[:pull_type_id]
+      item_params[:brake_type_id]             =    params[:brake_type_id]              if params[:brake_type_id]
+      item_params[:reinforcement_type_id]     =    params[:reinforcement_type_id]      if params[:reinforcement_type_id]
+      item_params[:fender_type_id]            =    params[:fender_type_id]             if params[:fender_type_id]
+      item_params[:turn_type_id]              =    params[:turn_type_id]               if params[:turn_type_id]
+      item_params[:divition_type_id]          =    params[:divition_type_id]           if params[:divition_type_id]
+      item_params[:suspension_type_id]        =    params[:suspension_type_id]         if params[:suspension_type_id]
+      item_params[:roof_type_id]              =    params[:roof_type_id]               if params[:roof_type_id]
+      item_params[:categories_description]    =    params[:categories_description]     if params[:categories_description]
+
 
       item.image.attach(io: image_io, filename: 'Comprobante de Pago') if params[:image]
 
