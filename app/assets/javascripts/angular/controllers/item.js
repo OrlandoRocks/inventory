@@ -33,7 +33,8 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
         $scope.get_fenders();
         $scope.get_hydraulic_jacks();
         $scope.get_pulls();
-        $scope.get_reinforcements();
+        $scope.get_brands();
+        // $scope.get_reinforcements();
         $scope.get_roofs();
         $scope.get_suspensions();
         $scope.get_turns();
@@ -63,7 +64,8 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
         $scope.get_fenders();
         $scope.get_hydraulic_jacks();
         $scope.get_pulls();
-        $scope.get_reinforcements();
+        $scope.get_brands();
+        // $scope.get_reinforcements();
         $scope.get_roofs();
         $scope.get_suspensions();
         $scope.get_turns();
@@ -96,7 +98,8 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
         if ($scope.fender && $scope.fenders)                    $scope.modelhs   +=     $scope.fenders.find( elem => elem.id ===          $scope.fender).model_part;
         if ($scope.hydraulic_jack && $scope.hydraulic_jacks)    $scope.modelhs   +=     $scope.hydraulic_jacks.find( elem => elem.id ===  $scope.hydraulic_jack).model_part;
         if ($scope.pull && $scope.pulls)                        $scope.modelhs   +=     $scope.pulls.find( elem => elem.id ===            $scope.pull).model_part;
-        if ($scope.reinforcement && $scope.reinforcements)      $scope.modelhs   +=     $scope.reinforcements.find( elem => elem.id ===   $scope.reinforcement).model_part;
+        if ($scope.brand && $scope.brands)                      $scope.modelhs   +=     $scope.brands.find( elem => elem.id ===           $scope.brand).model_part;
+        // if ($scope.reinforcement && $scope.reinforcements)      $scope.modelhs   +=     $scope.reinforcements.find( elem => elem.id ===   $scope.reinforcement).model_part;
         if ($scope.suspension && $scope.suspensions)            $scope.modelhs   +=     $scope.suspensions.find( elem => elem.id ===      $scope.suspension).model_part;
 
 
@@ -117,7 +120,8 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
         if ($scope.fender && $scope.fenders)                    $scope.category_description   +=     `FENDER: ${$scope.fenders.find( elem => elem.id ===          $scope.fender).name}.`;
         if ($scope.hydraulic_jack && $scope.hydraulic_jacks)    $scope.category_description   +=     `GATO HIDRAULICO: ${$scope.hydraulic_jacks.find( elem => elem.id ===  $scope.hydraulic_jack).name}.`;
         if ($scope.pull && $scope.pulls)                        $scope.category_description   +=     `JALON: ${$scope.pulls.find( elem => elem.id ===            $scope.pull).name}.`;
-        if ($scope.reinforcement && $scope.reinforcements)      $scope.category_description   +=     `REFUERZO: ${$scope.reinforcements.find( elem => elem.id ===   $scope.reinforcement).name}.`;
+        if ($scope.brand && $scope.brands)      $scope.category_description   +=     `MARCA: ${$scope.brands.find( elem => elem.id ===   $scope.brand).name}.`;
+        // if ($scope.reinforcement && $scope.reinforcements)      $scope.category_description   +=     `REFUERZO: ${$scope.reinforcements.find( elem => elem.id ===   $scope.reinforcement).name}.`;
         if ($scope.suspension && $scope.suspensions)            $scope.category_description   +=     `SUSPENSION: ${$scope.suspensions.find( elem => elem.id ===      $scope.suspension).name}.`;
 
 
@@ -144,7 +148,8 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
         $scope.fender           = '';
         $scope.pull             = '';
         $scope.hydraulic_jack   = '';
-        $scope.reinforcement    = '';
+        // $scope.reinforcement    = '';
+        $scope.brand            = '';
         $scope.roof             = '';
         $scope.suspension       = '';
         $scope.turn             = '';
@@ -202,10 +207,14 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
             $scope.hydraulic_jack   = model.hydraulic_jack.id;
             // $scope.category_description += `GATO HIDRAULICO:  ${model.hydraulic_jack.name}. `;
         }
-        if (model.reinforcement_type)   {
-            $scope.reinforcement    = model.reinforcement_type.id;
+        if (model.brand)   {
+            $scope.brand    = model.brand.id;
             // $scope.category_description += `REFUERZO:  ${model.reinforcement_type.name}. `;
         }
+        // if (model.reinforcement_type)   {
+        //     $scope.reinforcement    = model.reinforcement_type.id;
+        //     // $scope.category_description += `REFUERZO:  ${model.reinforcement_type.name}. `;
+        // }
         if (model.roof_type)            {
             $scope.roof             = model.roof_type.id;
             // $scope.category_description += `TECHO:  ${model.roof_type.name}. `;
@@ -470,16 +479,27 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
         });
     };
 
-    $scope.get_reinforcements = function () {
+    $scope.get_brands = function () {
         $http({
             method: 'GET',
-            url: '/reinforcement_types.json'
+            url: '/brands.json'
         }).then(function successCallback(response) {
-            $scope.reinforcements = response.data;
+            $scope.brands = response.data;
         }, function errorCallback(response) {
             console.log("Algo valio shit!");
         });
     };
+    //
+    // $scope.get_reinforcements = function () {
+    //     $http({
+    //         method: 'GET',
+    //         url: '/reinforcement_types.json'
+    //     }).then(function successCallback(response) {
+    //         $scope.reinforcements = response.data;
+    //     }, function errorCallback(response) {
+    //         console.log("Algo valio shit!");
+    //     });
+    // };
 
     $scope.get_roofs = function () {
         $http({
