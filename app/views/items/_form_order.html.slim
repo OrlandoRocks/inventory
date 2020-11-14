@@ -13,7 +13,7 @@
       .row.form-group
         = f.label 'Cliente', class: 'col-sm-2 control-label'
         .col-md-10
-          = f.select :client_id, Client.all.map { |client| [client.name, client.id] },
+          = f.select :client_id, Client.all.map { |client| [client.full_name, client.id] },
                   {include_blank: t('.select.prompt')}, class: 'form-control'
 
       .row.form-group

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_13_002031) do
+ActiveRecord::Schema.define(version: 2020_11_14_202609) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -130,6 +130,11 @@ ActiveRecord::Schema.define(version: 2020_11_13_002031) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "rfc"
+    t.string "suburb"
+    t.bigint "state_id"
+    t.bigint "city_id"
+    t.index ["city_id"], name: "index_clients_on_city_id"
+    t.index ["state_id"], name: "index_clients_on_state_id"
   end
 
   create_table "colors", force: :cascade do |t|
@@ -614,6 +619,8 @@ ActiveRecord::Schema.define(version: 2020_11_13_002031) do
   add_foreign_key "branches", "states"
   add_foreign_key "categories", "companies"
   add_foreign_key "cities", "states"
+  add_foreign_key "clients", "cities"
+  add_foreign_key "clients", "states"
   add_foreign_key "companies", "users"
   add_foreign_key "departments", "branches"
   add_foreign_key "item_files", "items"

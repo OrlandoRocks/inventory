@@ -31,6 +31,20 @@
       .col-sm-10
         = f.text_field :address, class: 'form-control', placeholder: "Dirección"
     .row.form-group
+      = f.label 'Colonia', class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.text_field :suburb, class: 'form-control', placeholder: "Colonia"
+    .row.form-group
+      = f.label :estado, class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.collection_select(:state_id, State.all, :id, :name,
+                {prompt: t('helpers.select.prompt')}, {class: 'form-control'})
+    .row.form-group
+      = f.label :ciudad, class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.collection_select(:city_id, City.all.uniq, :id, :name,
+                {prompt: t('helpers.select.prompt')}, {class: 'form-control', :disabled => "disabled"})
+    .row.form-group
       = f.label 'Codigo Postal', class: 'col-sm-2 control-label'
       .col-sm-10
         = f.text_field :postal_code, class: 'form-control', placeholder: "Codigo Postal"
@@ -54,3 +68,43 @@
       = link_to clients_path, class: 'btn btn-default btn-flat' do
         i.fa.fa-list
           | Ir a clientes
+
+
+
+  javascript:
+      $(document).ready(function () {
+          $('.datepicker').datepicker({
+              format: 'dd/mm/yyyy',
+              language: "es",
+              beforeShow: function () {
+                  $('.datepicker').addClass('datepicker');
+              }
+          });
+
+    jQuery(document).ready(function () {
+          jQuery('#client_state_id').change(function () {
+            var data = $('#client_state_id').val();
+            $("#client_city_id").prop( "disabled", true );
+            $('#client_city_id').html('');
+            if (data != "") {
+              $.ajax({
+                type: "GET",
+                url: "/cities/" + data,
+                data: data,
+                success: function (result) {
+                  $("#client_city_id").prop( "disabled", false );
+                  $('#client_city_id').html('');
+                  for (var i in result) {
+                    var id = result[i].id;
+                    var name = result[i].name;
+                    $("#client_city_id").append(new Option(name, id));
+
+      }
+      }
+      });
+      } else {
+        $('#price_item').text("");
+      }
+      });
+    }); //Fin del document ready
+    }); //Fin
