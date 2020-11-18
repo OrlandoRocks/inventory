@@ -89,6 +89,7 @@ class Api::V1::InventoryManagerController < ActionController::Base
       item_params[:price]               =    params[:price]               if params[:price]
       item_params[:user_id]             =    params[:user_id]             if params[:user_id]
       item_params[:code]                =    params[:code]                if params[:code]
+      item_params[:model]               =    params[:model]               if params[:model]
       item_params[:payment_type]        =    params[:payment_type]        if params[:payment_type]
       item_params[:fiscal_voucher_id]   =    params[:fiscal_voucher_id]   if params[:fiscal_voucher_id]
       item_params[:client_id]           =    params[:client_id]           if params[:client_id]
@@ -116,34 +117,6 @@ class Api::V1::InventoryManagerController < ActionController::Base
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      
 
 
       @new_item = Item.new(item_params)
@@ -198,6 +171,7 @@ class Api::V1::InventoryManagerController < ActionController::Base
       item_params[:price]               =    params[:price]               if params[:price]
       item_params[:user_id]             =    params[:user_id]             if params[:user_id]
       item_params[:code]                =    params[:code]                if params[:code]
+      item_params[:model]               =    params[:model]               if params[:model]
       item_params[:payment_type]        =    params[:payment_type]        if params[:payment_type]
       item_params[:fiscal_voucher_id]   =    params[:fiscal_voucher_id]   if params[:fiscal_voucher_id]
       item_params[:client_id]           =    params[:client_id]           if params[:client_id]
