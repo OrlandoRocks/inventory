@@ -77,7 +77,7 @@ section.content
                                     td = item.model
                                     td = item.categories_description
                                     td = item.price
-                                    td = item.client
+                                    td = item.try(:client).try(:full_name)
                                     td
                                       .actions
                                         = link_item '<i class="fa fa-search"></i>'.html_safe, item_path(item), title: t('helpers.show'),
