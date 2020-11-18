@@ -5,7 +5,7 @@ json.array!(@items) do |item|
                 :department_id, :user_id, :brand, :status_item_id, :status_shipping_id, :advance_payment,
                 :trailer_length, :trailer_height, :ramp_type, :redila_type, :floor_type, :capacity,
                 :trailer_width, :brake_type, :color, :divition_type, :fender_type, :hydraulic_jack,
-                :pull_type, :reinforcement_type, :roof_type, :suspension_type, :turn_type
+                :pull_type, :reinforcement_type, :roof_type, :suspension_type, :turn_type, :categories_description
   json.trailer_type item.trailer_type.as_json(except: :image) if item.trailer_type
   json.image_url url_for(item.image) if item.image.attached?
   json.url item_url(item, format: :json)

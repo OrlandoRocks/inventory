@@ -10,8 +10,8 @@ section.content ng-controller="userController" ng-init=("accessless = #{@role_ac
           .box-body
             = f.hidden_field :department_id
             = f.hidden_field :email, value: "#{rand(36**8).to_s(36)}@inventory.com"
-            = f.hidden_field :password , value: "0000_0000"
-            = f.hidden_field :password_confirmation , value: "0000_0000"
+            = f.hidden_field :password , value: "agrotrailerplanet"
+            = f.hidden_field :password_confirmation , value: "agrotrailerplanet"
             .row.form-group
               = f.label :boss, class: 'col-sm-2 control-label'
               .col-sm-10

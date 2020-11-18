@@ -6,7 +6,7 @@ class ItemSerializer < ActiveModel::Serializer
              :accessory, :status_shipping, :remission, :payment_type, :fiscal_voucher, :client, :user,
              :user_departmemnt, :trailer_length, :trailer_height, :ramp_type, :redila_type, :floor_type, :capacity,
              :trailer_width, :brake_type, :color, :divition_type, :fender_type, :hydraulic_jack,
-             :pull_type, :reinforcement_type, :roof_type, :suspension_type, :turn_type, :trailer_type, :brand
+             :pull_type, :reinforcement_type, :roof_type, :suspension_type, :turn_type, :trailer_type, :brand, :categories_description
 
   def user_departmemnt
     object.user.department if object.user
@@ -15,11 +15,6 @@ class ItemSerializer < ActiveModel::Serializer
   def trailer_type
     object.trailer_type.as_json(except: :image) if object.trailer_type
   end
-
-  def model
-    object.trailer.model if object.trailer
-  end
-
 
   def image
     rails_blob_path(object.image, only_path: true) if object.image.attached?
