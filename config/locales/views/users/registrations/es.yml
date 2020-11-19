@@ -54,8 +54,8 @@ es:
         back: Ir a usuarios
         resource: Nuevo
       new_employee_department:
-        title: Nuevo empleado responsable
-        resource: empleado responsable
+        title: Nuevo Vendedor
+        resource: vendedor
         back: Ir a Punto de Ventas
       edit_user:
         resource: usuario
@@ -86,18 +86,18 @@ es:
         price: Precio
         department: Punto de Venta
         boss: Jefe inmediato
-        employees: Empleados
+        employees: Vendedores
         status_item: Estatus
       change_password:
         change_password: Cambiar contraseña
         resource: contraseña
       employees_index:
-        title: Lista de empleados responsables
-        resource: el empleado
+        title: Lista de Vendedores
+        resource: el vendedor
         email: Correo electrónico
         actions: Acciones
-        one: Empleado
-        other: Empleados
+        one: Vendedor
+        other: Vendedores
         first_name: Nombre
         last_name: Apellido paterno
         maiden_name: Apellido materno
@@ -105,8 +105,8 @@ es:
         branch: Sucursal
         department: Punto de Venta
       assign_work_articles:
-        back: Ir a empleados
-        resource: empleado
+        back: Ir a Vendedores
+        resource: Vendedor
         title: Artículos de trabajo asignados
         title_assign_work_articles: Asignar artículos de trabajo
         work_articles: Artículos de trabajo

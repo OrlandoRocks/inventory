@@ -9,7 +9,7 @@ es:
       manager_id: Coordinador
       one: Punto de Venta
       other: Punto de Venta
-      new_employee: Nuevo empleado
+      new_employee: Nuevo Vendedor
       new_department: Nuevo Punto de Venta
     form:
 #Origin
@@ -32,16 +32,16 @@ es:
       manager: Coordinador
       back: Ir a Punto de Ventas
       delete_confirmation: Estas seguro que deseas eliminar la sucursal
-      new_employee: Nuevo empleado
-      employees_count: Empleados
+      new_employee: Nuevo Vendedor
+      employees_count: Vendedores
       items_count: Artículos
       items_value: Valor
       manager_value: Coordinador
-      employees_table_title: Empleados responsables pertenecientes a la sucursal
+      employees_table_title: Vendedores pertenecientes a la sucursal
       email: Correo electrónico
       actions: Acciones
-      one: Empleado
-      other: Empleados
+      one: Vendedor
+      other: Vendedores
       first_name: Nombre
       last_name: Apellido paterno
       maiden_name: Apellido materno
@@ -50,7 +50,7 @@ es:
       role: Rol
       report: Reporte
       articles_assign: Artículos asignados
-      resource: el empleado
+      resource: el Vendedor
       items: Artículos
       info: Información general de la sucursal
       company: Compañia
@@ -67,7 +67,7 @@ es:
       price: Precio
       serial_number: Numero de Serie
       department: Punto de Venta
-      employee: Artículos asignados al empleado con número
+      employee: Artículos asignados al Vendedor con número
       name_employee: con nombre
       of: perteneciente a la Punto de Venta
       user: Usuario
@@ -83,7 +83,7 @@ es:
       branch: Sucursal
       deparmento: Punto de Venta
       manager: Coordinador
-      resource: empleado
+      resource: Vendedor
       title_assign_work_articles: Asignar artículos de trabajo
       work_articles: Artículos de trabajo
   breadcrumbs:

@@ -21,15 +21,15 @@ es:
       roles: Roles
       new_permission: Nuevo permiso
       permissions: Permisos
-      users: Usuarios / Empleados
+      users: Usuarios / Vendedores
       new_user: Nuevo usuario
-      new_employee: Nuevo Empleado
+      new_employee: Nuevo Vendedor
       work_articles: Artículos de trabajo
       new_work_article: Nuevo artículo de trabajo
       new_item: Nuevo artículo
       items: Articulos
-      employees: Empleados
-      employees_asig: Empleados responsables
+      employees: Vendedores
+      employees_asig: Vendedores
       companies: Compañias
       new_company: Nueva compañia
       branches: Sucursales

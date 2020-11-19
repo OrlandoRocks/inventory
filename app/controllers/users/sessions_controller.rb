@@ -16,17 +16,9 @@ class Users::SessionsController < Devise::SessionsController
     yield resource if block_given?
 
 
-    if current_user.god? or current_user.admin?
-      respond_with resource, location: after_sign_in_path_for(resource)
-    else
-      if current_user.current_company.to_s.eql? params[:user][:current_company].to_s
-        respond_with resource, location: after_sign_in_path_for(resource)
-      else
-        Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name)
-        set_flash_message(:notice, :no_company )
-        respond_to_on_destroy
-      end
-    end
+    respond_with resource, location: after_sign_in_path_for(resource)
+
+
 
 
 
