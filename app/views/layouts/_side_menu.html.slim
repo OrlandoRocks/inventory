@@ -108,7 +108,7 @@ aside.main-sidebar
               li
                 = link_item "<i class='fas fa-angle-right'></i> Sucursales".html_safe, branches_path
 
-        - if has_policy(Department, %w(new index))
+        - if has_policy(Department, %w(index))
           li
             = link_item "<i class='fa fa-cubes'></i> #{t '.departments'}".html_safe, departments_path
           / li.treeview
