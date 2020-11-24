@@ -64,6 +64,11 @@ class Api::V1::InventoryManagerController < ActionController::Base
   end
 
 
+  def get_items_by_branch
+
+    items = Branch.find(params[:id]).items
+    render json: items.as_json
+  end
 
 
   def create_item
