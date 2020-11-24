@@ -67,7 +67,7 @@ class Api::V1::InventoryManagerController < ActionController::Base
   def get_items_by_branch
 
     items = Branch.find(params[:id]).items
-    render json: items.as_json
+    render json: items.as_json.as_json(except: :image)
   end
 
 
