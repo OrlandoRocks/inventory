@@ -52,6 +52,28 @@ section.content ng-controller="itemController"
                             = f.collection_select :department_branch_id_eq, Branch.all, :id, :name, {prompt: 'Seleccionar una sucursal'},
                                     {class: 'form-control select', data: {placeholder: 'Sucursales'}}
 
+                      .col-md-3
+                        .box.box-warning.box-solid
+                          .box-header.with-border
+                            h3.box-title
+                              | Fecha inicial
+                            .box-tools.pull-right
+                              button.btn.btn-box-tool data-widget="collapse" type="button"
+                                i.fa.fa-minus
+                          .box-body style=('display: block;')
+                            = f.text_field :purchased_date_gteq, class: 'form-control pull-right datepicker', type: "text", placeholder: "Fecha inical"
+
+                      .col-md-3
+                        .box.box-warning.box-solid
+                          .box-header.with-border
+                            h3.box-title
+                              | Fecha final
+                            .box-tools.pull-right
+                              button.btn.btn-box-tool data-widget="collapse" type="button"
+                                i.fa.fa-minus
+                          .box-body style=('display: block;')
+                            = f.text_field :purchased_date_lteq, class: 'form-control pull-right datepicker', type: "text", placeholder: "Fecha final"
+
                       / .col-md-3
                       /   .box.box-warning.box-solid
                       /     .box-header.with-border
