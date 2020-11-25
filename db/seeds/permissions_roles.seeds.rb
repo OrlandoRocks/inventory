@@ -7,6 +7,8 @@ PermissionRole.create!([
   {role_id: 4, permission_id: 23},
   {role_id: 4, permission_id: 24},
   {role_id: 4, permission_id: 26},
+  {role_id: 4, permission_id: 44},
+  {role_id: 4, permission_id: 45},
   {role_id: 4, permission_id: 53},
   {role_id: 4, permission_id: 54},
   {role_id: 4, permission_id: 55},

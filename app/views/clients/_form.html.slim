@@ -19,6 +19,10 @@
       .col-sm-10
         = f.text_field :maiden_name, class: 'form-control', placeholder: "Segundo Apellido"
     .row.form-group
+      = f.label 'Compañia', class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.text_field :company, class: 'form-control', placeholder: "Segundo Apellido"
+    .row.form-group
       = f.label 'RFC', class: 'col-sm-2 control-label'
       .col-sm-10
         = f.text_field :rfc, class: 'form-control', placeholder: "R.F.C"

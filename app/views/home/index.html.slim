@@ -13,55 +13,43 @@ section.content
       - if has_policy(Item, %w(new index))
         .col-lg-3.col-xs-6
           /! small box
-          .small-box.bg-green
+          a.small-box.bg-green href="/items"
             .inner
               h3 = @items_count
               p Inventario
             .icon
               i.fa.fa-list
-            a.small-box-footer href="/items"
-              | Inventario
-              i.fa.fa-arrow-circle-right
       - if has_policy(Branch, %w(new index))
         .col-lg-3.col-xs-6
           /! small box
-          .small-box.bg-blue
+          a.small-box.bg-blue href="/branches"
             .inner
               h3 = @branches_count
               p Sucursales
             .icon
               i.fa.fa-store
-            a.small-box-footer href="/branches"
-              | Sucursales
-              i.fa.fa-arrow-circle-right
 
       - if has_policy(Trailer, %w(new index))
         .col-lg-3.col-xs-6
           /! small box
-          .small-box.bg-aqua
+          a.small-box.bg-aqua href="/trailers"
             .inner
               h3 = @trailers_count
               p Catalogo
             .icon
               i.fa.fa-truck
-            a.small-box-footer href="/trailers"
-              | Catalogo
-              i.fa.fa-arrow-circle-right
         /! ./col
 
       /! ./col
       - unless current_user.user_employee?
         .col-lg-3.col-xs-6
           /! small box
-          .small-box.bg-yellow
+          a.small-box.bg-yellow href="/sales"
             .inner
               h3 = @items_sold_count
               p Ventas
             .icon
               i.fa.fa-dollar-sign
-            a.small-box-footer href="/sales"
-              | Ventas
-              i.fa.fa-arrow-circle-right
     .row
       .col-md-12
         .box

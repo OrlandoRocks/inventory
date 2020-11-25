@@ -18,10 +18,10 @@ section.content ng-controller="itemController"
                     .input-group-btn
                       button [class="btn btn-default" type="submit"]
                         i [class="fa fa-search"]
-                = link_to new_order_path, class: 'btn btn-sm btn-flat btn-success', title: 'Nuevo pedido' do
+                = link_to new_order_path, class: 'btn btn-sm btn-flat btn-success', title: 'Generar pedido' do
                   i.fa.fa-plus
                   span.hidden-xs
-                    | Nuevo pedido
+                    | Generar pedido
                 .tools
                   button [type="button" class="btn btn-default btn-box-tool dropdown-toggle" data-toggle="dropdown" aria-expanded="false"]
                     i.fa.fa-cog = t('helpers.actions')

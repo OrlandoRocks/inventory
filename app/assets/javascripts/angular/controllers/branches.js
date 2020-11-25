@@ -39,4 +39,39 @@ app.controller('branchesController', ["$scope", "$http", "$window", function ($s
 
     }
 
+    $scope.delete_item = function (id) {
+        swal({
+            title: 'Eliminar',
+            text: '¿Estas seguro de eliminar este artículo?',
+            type: 'question',
+            showCancelButton: true
+        }).then(function (isConfirm) {
+            if (isConfirm) {
+                $http({
+                    url: '/items/' + id + '.json',
+                    method: 'DELETE'
+                }).then(function (response) {
+                    if (response.data) {
+                        swal({
+                            title: 'Eliminado',
+                            text: 'El artículo ha sido eliminado',
+                            type: 'success',
+                            showCancelButton: false
+                        }).then(function (isConfirm) {
+                            if (isConfirm) {
+                                location.reload();
+                            }
+
+                        }, function (iSConfirm) {
+
+                        });
+                    }
+                });
+            }
+
+        }, function (iSConfirm) {
+
+        });
+    };
+
 }]);

@@ -8,7 +8,7 @@ section.content ng-controller="itemController"
           .row
             .col-xs-6.col-md-8.col-lg-9
               h3.box-title
-                | Pedidos Enviados
+                | Enviados
             .col-xs-6.col-md-4.col-lg-3
               .box-tools.pull-right
                 = search_form_for @search_items do |f|
@@ -18,10 +18,10 @@ section.content ng-controller="itemController"
                     .input-group-btn
                       button [class="btn btn-default" type="submit"]
                         i [class="fa fa-search"]
-                = link_to new_order_path, class: 'btn btn-sm btn-flat btn-success', title: 'Nuevo pedido' do
+                = link_to new_order_path, class: 'btn btn-sm btn-flat btn-success', title: 'Generar pedido' do
                   i.fa.fa-plus
                   span.hidden-xs
-                    | Nuevo pedido
+                    | Generar pedido
                 .tools
                   button [type="button" class="btn btn-default btn-box-tool dropdown-toggle" data-toggle="dropdown" aria-expanded="false"]
                     i.fa.fa-cog = t('helpers.actions')
@@ -48,28 +48,6 @@ section.content ng-controller="itemController"
                           .box-body style=('display: block;')
                             = f.collection_select :trailer_id_in, Trailer.all, :id, :name, {prompt: 'Seleccionar una opción'},
                                     {class: 'form-control select', data: {placeholder: t('.trailers')}}
-
-                      / .col-md-3
-                      /   .box.box-warning.box-solid
-                      /     .box-header.with-border
-                      /       h3.box-title = t('.f_category')
-                      /       .box-tools.pull-right
-                      /         button.btn.btn-box-tool data-widget="collapse" type="button"
-                      /           i.fa.fa-minus
-                      /     .box-body style=('display: block;')
-                      /       = f.collection_select :sub_category_category_id_in, Category.all.order(:name), :id, :name, {prompt: 'Seleccionar una opción'},
-                      /               {class: 'form-control', data: {placeholder: t('.category')}}
-                      /
-                      / .col-md-3
-                      /   .box.box-warning.box-solid
-                      /     .box-header.with-border
-                      /       h3.box-title = t('.f_sub_category')
-                      /       .box-tools.pull-right
-                      /         button.btn.btn-box-tool data-widget="collapse" type="button"
-                      /           i.fa.fa-minus
-                      /     .box-body style=('display: block;')
-                      /       = f.collection_select :sub_category_id_in, SubCategory.all.order(:name), :id, :name, {prompt: 'Seleccionar una opción'},
-                      /               {class: 'form-control', data: {placeholder: "t('.sub_category')"}}
 
                       .col-md-3
                         .box.box-warning.box-solid
@@ -103,12 +81,11 @@ section.content ng-controller="itemController"
                   table.table.table-bordered.table-hover.dataTable
                     thead
                       tr
-                        th = t('.name')
+                        th = t('.serial_number')
                         th = t('.model')
-                        th = t('.advance_payment')
+                        th = 'Descripcion'
                         th = t('.branch')
                         th = t('.department')
-                        th = t('.status_item')
                         th = t('.client')
                         th = 'Vendedor'
                         th.actions_header
@@ -116,12 +93,11 @@ section.content ng-controller="itemController"
                     tbody
                       - @items.each do |item|
                         tr.show_actions
-                          td = item.try(:trailer).try(:name)
-                          td = item.try(:trailer).try(:model)
-                          td = "%.2f" % item.advance_payment if item.advance_payment.present?
-                          td = item.try(:user).try(:department).try(:branch).try(:name)
-                          td = item.try(:user).try(:department).try(:name)
-                          td = item.status_item.name if item.status_item.present?
+                          td = item.serial_number
+                          td = item.try(:model)
+                          td = item.categories_description
+                          td = item.direct_branch.present? ? item.direct_branch.name : (item.direct_branch ? item.direct_branch.name : nil)
+                          td = item.department.name if item.department.present?
                           td = item.try(:client).try(:full_name)
                           td = item.try(:user).try(:full_name)
                           td

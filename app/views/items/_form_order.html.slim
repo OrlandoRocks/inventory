@@ -8,7 +8,7 @@
 
 
   = form_for(@item, item: 'form', html: {class: 'form-horizontal'}, validate: true) do |f|
-    .box-body ng-init="init_order(#{@item.try(:id).nil? ? false : @item.try(:id)}, #{@users.to_json})"
+    .box-body ng-init="init_order(#{@item.try(:id).nil? ? false : @item.try(:id)}, #{@users.to_json}); get_model(#{params[:trailer]});"
 
       .row.form-group
         = f.label 'Cliente', class: 'col-sm-2 control-label'
@@ -24,9 +24,10 @@
       .row.form-group
         = f.label 'Vendedor', class: 'col-sm-2 control-label'
         .col-md-10
-          select.form-control ng-change="get_branch_user(user)" ng-model="user" ng-options=("user.id as user.first_name for user in users")
-            option disabled="" selected="" value=""  Vendedores...
-            = f.hidden_field :user_id, value: '{{user}}'
+          = f.text_field :user, class: 'form-control', placeholder: 'Vendedor', readonly: true, value: current_user.full_name
+          / select.form-control ng-change="get_branch_user(user)" ng-model="user" ng-options=("user.id as user.first_name for user in users")
+          /   option disabled="" selected="" value=""  Vendedores...
+          = f.hidden_field :user_id, value: current_user.id
 
       .row.form-group
         = label_tag 'Sucursal', 'Sucursal', class: 'col-sm-2 control-label'
@@ -49,7 +50,7 @@
         .col-md-10
           select.form-control ng-change="set_model(model); " ng-model="model" ng-options=("model as model.model for model in models")
             option selected="" value=""  Modelos...
-          = f.hidden_field :categories_description, value: '{{category_description}}'
+          / = f.hidden_field :categories_description, value: '{{category_description}}'
 
       .row.form-group
         = f.label :trailer_id, class: 'col-sm-2 control-label'
@@ -161,6 +162,11 @@
 
           input type='hidden' name="item[status_item_id]" value='#{StatusItem.find_by_key('pendiente').id}'
           input type='hidden' name="item[status_shipping_id]" value='#{StatusShipping.find_by_key('pedido').id}'
+
+      .row.form-group
+        = f.label 'Descripcion del modelo', class: 'col-sm-2 control-label'
+        .col-lg-10
+          = f.text_area :categories_description, class: 'form-control', placeholder: "Descripcion", value: '{{category_description}}', disabled: true
 
     .box-footer
       = f.button "<i class='fa fa-floppy-o'></i> #{t('helpers.submit.submit', model: t('.resource'))}".html_safe,

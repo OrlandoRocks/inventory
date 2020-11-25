@@ -1,6 +1,3 @@
-/**
- * Created by orlando on 11/12/16.
- */
 app.controller('clientController',["$scope", "ModalService", "$http", function($scope, ModalService, $http) {
 
 

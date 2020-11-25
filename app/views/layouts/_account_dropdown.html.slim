@@ -10,10 +10,12 @@ li.dropdown.user.user-menu
   ul.dropdown-menu
     / The user image in the menu
     li.user-header
-      / = image_tag current_user.avatar.url(:medium), class: 'img-circle',
+      = image_tag 'user_image.png', class: 'img-circle',
                   onerror: "this.src='#{image_path 'user_image.png'}'"
       p
         = "#{current_user.try(:employee_number)} #{current_user.try(:full_name)}"
+      p
+        = "#{current_user.try(:role).try(:name)} #{current_user.try(:branch).try(:name)}"
     / Menu Footer
     li.user-footer
       .pull-left

@@ -589,6 +589,23 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
     };
 
 
+    $scope.get_model = function (trailer) {
+        if(trailer) {
+            $http({
+                url: '/trailers/' + trailer + '.json',
+                method: 'GET'
+            }).then(function (response) {
+                if (response.data != null) {
+                    $scope.model = response.data;
+                    $scope.set_model($scope.model);
+                }
+
+            });
+        }
+    };
+
+
+
     $scope.delete_order = function (id) {
         swal({
             title: 'Eliminar',
