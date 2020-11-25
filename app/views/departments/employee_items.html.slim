@@ -45,7 +45,7 @@ section.content
           .box.box-primary
             .box-header.with-border
               .row
-                .col-xs-6.col-md-8.col-lg-9
+                .col-md-12
                   h3.box-title
                     strong Aticulos Vendidos
                       "#{@employee.full_name}"
@@ -60,12 +60,11 @@ section.content
                                   /th.table-checkbox
                                     .checkbox.icheck
                                       input [type="checkbox" class="icheck-me" data-skin="square" data-color="blue"]
-                                  th = t('.name')
-                                  th = t('.description')
+                                  th = 'Numero de Serie'
                                   th = t('.model')
+                                  th = 'Categorias'
                                   th = t('.price')
-                                  th = t('.department')
-                                  th = t('.status_item')
+                                  th = 'Cliente'
                                   th.actions_header
                                     = t('helpers.actions')
                               tbody
@@ -74,207 +73,20 @@ section.content
                                     /td.table-checkbox
                                       .checkbox.icheck
                                         input [type="checkbox" class="icheck-me" data-skin="square" data-color="blue"]
-                                    td = item.name
-                                    td = item.description
+                                    td = item.serial_number
                                     td = item.model
-                                    td = item.price
-                                    td = item.department.try(:name)
-                                    td = item.status_item.try(:name)
+                                    td = item.categories_description
+                                    td = item.sale_price
+                                    td = item.try(:client).try(:full_name)
                                     td
                                       .actions
-                                        = link_to '<i class="fa fa-arrow-down"></i>'.html_safe, '#',
-                                                data: {target: '#modal-unassign-item', toggle: 'modal', 'item-name' => item.name, 'item-id' => item.id},
-                                                class: 'btn btn-xs btn-warning btn-flat', title: t('helpers.show')
+                                        = link_item '<i class="fa fa-search"></i>'.html_safe, item_path(item), title: t('helpers.show'),
+                                                class: 'btn btn-xs btn-success btn-flat'
                       .row
                         .col-sm-5
                           .dataTables_info
                             = pluralize(@items.count, t('.one'), t('.other'))
 
-            / .row
-              .col-xs-12
-                .box.box-primary
-                  .box-header.with-border
-                    .row
-                      .col-xs-6.col-md-8.col-lg-9
-                        h3.box-title
-                          strong = t('.title_unassigned')
-                  .box-body
-                    .dataTables_wrapper
-                      .row
-                        .col-sm-12
-                          .table-responsive
-                            table.table.table-bordered.table-hover.dataTable
-                              thead
-                                tr
-                                  /th.table-checkbox
-                                    .checkbox.icheck
-                                      input [type="checkbox" class="icheck-me" data-skin="square" data-color="blue"]
-                                  th = t('.code')
-                                  th = t('.name')
-                                  th = t('.description')
-                                  th = t('.model')
-                                  th = t('.price')
-                                  th = t('.department')
-                                  th = t('.status_item')
-                                  th = t('.assigned_to')
-                                  th.actions_header
-                                    = t('helpers.actions')
-                              tbody
-                                - @unassigned_items.each do |item|
-                                  tr.show_actions
-                                    /td.table-checkbox
-                                      .checkbox.icheck
-                                        input [type="checkbox" class="icheck-me" data-skin="square" data-color="blue"]
-                                    td = item.code
-                                    td = item.name
-                                    td = item.description
-                                    td = item.model
-                                    td = item.price
-                                    td = item.department.try(:name)
-                                    td = item.status_item.try(:name)
-                                    td = item.user.try(:full_name)
-                                    td
-                                      .actions
-                                        = link_to '<i class="fa fa-arrow-up"></i>'.html_safe, '#',
-                                                data: {target: '#modal-assign-item', toggle: 'modal', 'item-name' => item.name, 'item-id' => item.id, 'item-user-id' => @employee.id},
-                                                class: 'btn btn-xs btn-warning btn-flat', title: t('.assign'), type: 'button'
-                                        //
-                                            = link_to '<i class="fa fa-arrow-up"></i>'.html_safe, 'javascript:;',
-                                                  class: 'btn btn-xs btn-warning btn-flat', title: t('.unassign'), type: 'button'
-
-                      .row
-                        .col-sm-5
-                          .dataTables_info
-                            = pluralize(@unassigned_items.count, t('.one'), t('.other'))
-          /! /.row articulos asignados
-          /! /.tab-pane ARTICULOS LABORALES.
-          /#timeline.tab-pane
-            section.content
-              .row#work-articles-assigned
-                .col-xs-12
-                  .box.box-primary
-                    .box-header.with-border
-                      .row
-                        .col-xs-6.col-md-8.col-lg-9
-                          h3.box-title
-                            = t('.title')
-                        .col-xs-6.col-md-4.col-lg-3
-                          .box-tools.pull-right
-                            = search_form_for @search_users_work_articles,
-                                    url: url_for(controller: 'users/registrations', action: 'search_work_articles', id: @employee.id, search_type: 'assigned'),
-                                    id: 'search-work-articles-assigned' do |f|
-                              .input-group.input-group-sm.search
-                                = f.text_field :work_article_name_cont,
-                                        class: 'form-control', placeholder: t('helpers.search')
-                                .input-group-btn
-                                  button#search-work-articles-assigned [class="btn btn-default" type="submit"]
-                                    i [class="fa fa-search"]
-                    .box-body#content-work-articles-assigned
-              .row#work-articles
-                .col-xs-12
-                  .box.box-primary
-                    .box-header.with-border
-                      .row
-                        .col-xs-6.col-md-8.col-lg-9
-                          h3.box-title
-                            = t('.title_assign_work_articles')
-                        .col-xs-6.col-md-4.col-lg-3
-                          .box-tools.pull-right
-                            = search_form_for @search_work_articles,
-                                    url: url_for(controller: 'users/registrations', action: 'search_work_articles', id: @employee.id, search_type: 'not_assigned'),
-                                    id: 'search-work-articles' do |f|
-                              .input-group.input-group-sm.search
-                                = f.text_field :name_cont,
-                                        class: 'form-control', placeholder: t('helpers.search')
-                                .input-group-btn
-                                  button#search-work-articles [class="btn btn-default" type="submit"]
-                                    i [class="fa fa-search"]
-                    .box-body#content-work-articles
-
-
-            /! Articulos de
-
-            //ul.timeline.timeline-inverse
-              /! timeline time label
-              li.time-label
-                span.bg-red
-                  | 10 Feb. 2014
-              /! /.timeline-label
-              /! timeline item
-              li
-                i.fa.fa-envelope.bg-blue
-                .timeline-item
-                  span.time
-                    i.fa.fa-clock-o
-                    | 12:05
-                  h3.timeline-header
-                    a href="#"  Support Team
-                    | sent you an email
-                  .timeline-body
-                    | Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                    | weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                    | jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                    | quora plaxo ideeli hulu weebly balihoo...
-                  .timeline-footer
-                    a.btn.btn-primary.btn-xs Read more
-                    a.btn.btn-danger.btn-xs Delete
-              /! END timeline item
-              /! timeline item
-              li
-                i.fa.fa-user.bg-aqua
-                .timeline-item
-                  span.time
-                    i.fa.fa-clock-o
-                    | 5 mins ago
-                  h3.timeline-header.no-border
-                    a href="#"  Sarah Young
-                    | accepted your friend request
-              /! END timeline item
-              /! timeline item
-              li
-                i.fa.fa-comments.bg-yellow
-                .timeline-item
-                  span.time
-                    i.fa.fa-clock-o
-                    | 27 mins ago
-                  h3.timeline-header
-                    a href="#"  Jay White
-                    | commented on your post
-                  .timeline-body
-                    | Take me to your leader!
-                    | Switzerland is small and neutral!
-                    | We are more like Germany, ambitious and misunderstood!
-                  .timeline-footer
-                    a.btn.btn-warning.btn-flat.btn-xs View comment
-              /! END timeline item
-              /! timeline time label
-              li.time-label
-                span.bg-green
-                  | 3 Jan. 2014
-              /! /.timeline-label
-              /! timeline item
-              li
-                i.fa.fa-camera.bg-purple
-                .timeline-item
-                  span.time
-                    i.fa.fa-clock-o
-                    | 2 days ago
-                  h3.timeline-header
-                    a href="#"  Mina Lee
-                    | uploaded new photos
-                  .timeline-body
-                    img.margin alt="..." src="http://placehold.it/150x100" /
-                    img.margin alt="..." src="http://placehold.it/150x100" /
-                    img.margin alt="..." src="http://placehold.it/150x100" /
-                    img.margin alt="..." src="http://placehold.it/150x100" /
-              /! END timeline item
-              li
-                i.fa.fa-clock-o.bg-gray
-  /! /.tab-pane
-  /! /.tab-content
-  /! /.nav-tabs-custom
-  /! /.col
-  /! /.row
 
 
 #modal-unassign-item.modal.fade aria-labelledby="myModalLabel" role="dialog" tabindex="-1"

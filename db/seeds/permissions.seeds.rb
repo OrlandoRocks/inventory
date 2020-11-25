@@ -95,4 +95,5 @@ Permission.create!([
   {name: "Crear Cliente", description: "Permite crear los cliente.", action: "create", controller: "Clients"},
   {name: "Actualizar Cliente", description: "Permite actualizar los cliente.", action: "update", controller: "Clients"},
   {name: "Editar Cliente", description: "Permite visualizar la vista editar cliente.", action: "edit", controller: "Clients"},
-                   ])
+  {name: "Crear Vendedor para departamento", description: "Permite crear un Vendedor al departamento. ", action: "new_employee_department", controller: "Users::Registrations"}
+ ])

@@ -98,7 +98,7 @@ section.content ng-controller="userController"
                                       class: 'btn btn-xs btn-warning btn-flat', title: t('helpers.edit_password')
                               - if has_policy(User, %w(destroy), 'Users::Registration')
                                 a ng-click="delete_user(#{user.id})" class="btn btn-xs btn-danger btn-flat btn-destroy"
-                                  i.fa.fa-trash-o
+                                  i.fas.fa-trash
 
                                 / = link_to '<i class="fa fa-trash-o"></i>'.html_safe, user_path(user),method: :delete, title: t('helpers.destroy'),
                                         class: 'btn btn-xs btn-danger btn-flat btn-destroy',

@@ -7,7 +7,7 @@ es:
       branch: Sucursal
       manager_id: Coordinador
       remission: Remisión
-      new_employee: Nuevo empleado
+      new_employee: Nuevo Vendedor
       new_department: Nueva Punto de Venta
       title: Reporteador de artículos
       resource: el artículo
@@ -113,19 +113,19 @@ es:
       manager: Coordinador
       back: Ir a Punto de Ventas
       delete_confirmation: Estas seguro que deseas eliminar el Punto de Venta
-      new_employee: Nuevo empleado
-      employees_table_title: Empleados
+      new_employee: Nuevo Vendedor
+      employees_table_title: Vendedor
       email: Correo electrónico
       actions: Acciones
-      one: Empleado
-      other: Empleados
+      one: Vendedor
+      other: Vendedores
       first_name: Nombre
       last_name: Apellido paterno
       maiden_name: Apellido materno
       username: Nombre de usuario
       department: Punto de Venta
       role: Rol
-      resource: el empleado
+      resource: el vendedor
       items: Artículos
       info: Información general de la sucursal
       company: Compañia

@@ -41,6 +41,8 @@ section.content
                             td = trailer.color.name if trailer.color
                             td
                               .actions
+                                = link_item '<i class="fa fa-truck"></i>'.html_safe, new_order_path(trailer: trailer),
+                                        class: 'btn btn-xs btn-success btn-flat', title: 'Generar Pedido'
                                 = link_item '<i class="fa fa-edit"></i>'.html_safe, edit_trailer_path(trailer),
                                         class: 'btn btn-xs btn-primary btn-flat', title: t('helpers.edit')
                                 - if has_policy(trailer, %w(destroy))

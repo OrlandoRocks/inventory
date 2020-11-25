@@ -11,12 +11,18 @@
       .col-sm-10
         = f.text_field :name, class: 'form-control', placeholder: t('.name'), autofocus: true
     .row.form-group
-      = f.label :description, class: 'col-sm-2 control-label'
+      = f.label 'Modelo', class: 'col-sm-2 control-label'
       .col-sm-10
-        = f.text_field :description, class: 'form-control', placeholder: t('.description')
+        = f.text_field :model_part, class: 'form-control', placeholder: 'Modelo'
+
+    .row.form-group
+      = f.label 'Estatus', class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.check_box(:status, checked: true)
   .box-footer
     = f.button "<i class='fa fa-floppy-o'></i> #{t('helpers.submit.submit', model: t('.resource'))}".html_safe,
             class: 'btn btn-primary btn-flat', type: 'submit'
     = link_to brands_path, class: 'btn btn-default btn-flat' do
       i.fa.fa-list
       =< t('.back')
+

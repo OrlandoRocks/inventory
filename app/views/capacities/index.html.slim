@@ -1,4 +1,6 @@
-section.content
+p.flash-notice
+  = params[:notice]
+section.content ng-controller="categoriesController"
   .row
     .col-xs-12
       .box.box-primary
@@ -45,11 +47,9 @@ section.content
                                 = link_item '<i class="fa fa-edit"></i>'.html_safe, edit_capacity_path(capacity),
                                         class: 'btn btn-xs btn-primary btn-flat', title: t('helpers.edit')
                                 - if has_policy(capacity, %w(destroy))
-                                  = link_to '<i class="fas fa-trash"></i>'.html_safe, '#', title: t('helpers.destroy'),
-                                          class: 'btn btn-xs btn-danger btn-flat btn-destroy',
-                                          data: {'resource' => :categories, 'resource-id' => capacity.id,
-                                                  'resource-message' => t('questions.destroy', resource: t('.resource'),
-                                                          name: capacity.name)}
+                                  a ng-click="delete_capacity(#{capacity.id})" class="btn btn-xs btn-danger btn-flat btn-destroy"
+                                    | Eliminar
+                                    i.fas.fa-trash
         .row
           .col-sm-5
             .dataTables_info

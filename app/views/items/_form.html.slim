@@ -115,12 +115,13 @@ div ng-controller="itemController"
             select.form-control ng-change="generate_model()" ng-model="redila" ng-options=("redila.id as redila.name for redila in redilas")
               option  selected="" value=""  No Aplica
               = f.hidden_field :redila_type_id, value: '{{redila}}'
-          = f.label 'Refuerzo', class: 'col-sm-2 control-label'
+          = f.label 'Marca', class: 'col-sm-2 control-label'
           .col-md-4
-            select.form-control ng-change="generate_model()" ng-model="reinforcement" ng-options=("reinforcement.id as reinforcement.name for reinforcement in reinforcements")
+            select.form-control ng-change="generate_model()" ng-model="brand" ng-options=("brand.id as brand.name for brand in brands")
               option  selected="" value=""  No Aplica
-              = f.hidden_field :reinforcement_type_id, value: '{{reinforcement}}'
+              = f.hidden_field :brand_id, value: '{{brand}}'
               
+        .row.form-group
         .row.form-group
           = f.label 'Techo', class: 'col-sm-2 control-label'
           .col-md-4

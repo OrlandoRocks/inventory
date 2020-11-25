@@ -31,6 +31,7 @@ class ItemsController < ApplicationController
       @search_items = Item.where(user_id: current_user.id, status_item_id: StatusItem.find_by_key('pendiente').id).ransack(params[:q])
     end
 
+
     @items = @search_items.result.paginate(page: params[:page], per_page: 20)
 
     @all_models = policy_scope(TrailerType).pluck(:model_part)
