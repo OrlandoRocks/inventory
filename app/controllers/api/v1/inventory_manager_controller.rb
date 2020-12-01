@@ -6,9 +6,13 @@ class Api::V1::InventoryManagerController < ActionController::Base
   def get_clients
     render json: Client.all
   end
+
+
   def get_fiscal_vouchers
     render json: FiscalVoucher.all
   end
+
+
   def get_branches
     @branches = Branch.all
     render json: @branches
@@ -18,6 +22,7 @@ class Api::V1::InventoryManagerController < ActionController::Base
   def get_trailers
     render json: Trailer.all
   end
+
 
   def get_status_item
     render json: StatusItem.all
@@ -31,9 +36,11 @@ class Api::V1::InventoryManagerController < ActionController::Base
                   suspensions:SuspensionType.all}
   end
 
+
   def get_sub_categories
     render json: SubCategory.all
   end
+
 
   def get_status_shipping
     render json: StatusShipping.all
@@ -227,6 +234,17 @@ class Api::V1::InventoryManagerController < ActionController::Base
 
 
   end
+
+
+  def destroy_item
+    item = Item.find(params[:id])
+    if item.destroy
+      render json: {status:200, success: true, message:'se elimino el Articulo correctamente!'}
+    else
+      render json: {status:400, success: false, message:'NO se elimino el Articulo, verifique relaciones!'}
+    end
+  end
+
 
   private
 
