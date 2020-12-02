@@ -114,11 +114,9 @@ class Api::V1::TrailerManagerController < ActionController::Base
 
   def destroy_trailer
     trailer = Trailer.find(params[:id])
-    if trailer.destroy
-      render json: {status:200, success: true, message:'se elimino el Trailer correctamente en el Catalogo!'}
-    else
-      render json: {status:400, success: false, message:'NO se elimino el Trailer, verifique relaciones!'}
-    end
+    trailer.destroy
+    render json: {status:200, success: true, message:'se elimino el Trailer correctamente en el Catalogo!'}
+
   end
 
 

@@ -238,11 +238,9 @@ class Api::V1::InventoryManagerController < ActionController::Base
 
   def destroy_item
     item = Item.find(params[:id])
-    if item.destroy
-      render json: {status:200, success: true, message:'se elimino el Articulo correctamente!'}
-    else
-      render json: {status:400, success: false, message:'NO se elimino el Articulo, verifique relaciones!'}
-    end
+    item.destroy
+    render json: {status:200, success: true, message:'se elimino el Articulo correctamente!'}
+
   end
 
 
