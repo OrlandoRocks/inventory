@@ -92,7 +92,7 @@ class Api::V1::InventoryManagerController < ActionController::Base
       item_params[:price]               =    params[:price]               if params[:price]
       item_params[:department_id]       =    params[:department_id]       if params[:department_id]
       item_params[:status_item_id]      =    params[:status_item_id]      if params[:status_item_id]
-      item_params[:status_shipping_id]  =    params[:department_id] == 1 ? StatusShipping.find_by_key('recibido').try(:id) :  StatusShipping.find_by_key('enviado').try(:id)
+      item_params[:status_shipping_id]  =    params[:client_id] ? StatusShipping.find_by_key('pedido').try(:id) : params[:department_id] == 1 ? StatusShipping.find_by_key('recibido').try(:id) :  StatusShipping.find_by_key('enviado').try(:id)
       item_params[:sale_price]          =    params[:sale_price]          if params[:sale_price]
       item_params[:remission]           =    params[:remission]           if params[:remission]
       item_params[:accessory]           =    params[:accessory]           if params[:accessory]
@@ -174,7 +174,7 @@ class Api::V1::InventoryManagerController < ActionController::Base
       item_params[:price]               =    params[:price]               if params[:price]
       item_params[:department_id]       =    params[:department_id]       if params[:department_id]
       item_params[:status_item_id]      =    params[:status_item_id]      if params[:status_item_id]
-      item_params[:status_shipping_id]  =    params[:status_shipping_id]  if params[:status_shipping_id]
+      item_params[:status_shipping_id]  =    params[:department_id] == 1 ? StatusShipping.find_by_key('recibido').try(:id) :  StatusShipping.find_by_key('enviado').try(:id)
       item_params[:sale_price]          =    params[:sale_price]          if params[:sale_price]
       item_params[:remission]           =    params[:remission]           if params[:remission]
       item_params[:accessory]           =    params[:accessory]           if params[:accessory]
