@@ -1,3 +1,3 @@
 class StatusShippingSerializer < ActiveModel::Serializer
-  attributes :id
+  attributes :id, :name, :description, :status, :key
 end
