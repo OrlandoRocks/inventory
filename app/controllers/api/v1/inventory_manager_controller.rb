@@ -66,7 +66,27 @@ class Api::V1::InventoryManagerController < ActionController::Base
   end
 
   def get_items_order
-    @items = Item.where(status_item_id: StatusItem.find_by_key('pendiente'))
+    @user = User.find(params[:id])
+    if @user.god? or @user.admin?
+      @items = Item.where(status_item_id: StatusItem.find_by_key('pendiente'))
+    else
+      @items = Item.where(status_item_id: StatusItem.find_by_key('pendiente'), department_id: @user.department_id)
+    end
+
+    render json: @items
+  end
+
+
+  def get_orders_shipped
+
+    @user = User.find(params[:id])
+    if @user.god? or @user.admin?
+      @items = Item.where(status_shipping_id: StatusShipping.find_by_key('enviado').try(:id))
+    else
+      @items = Item.where(status_shipping_id: StatusShipping.find_by_key('enviado').try(:id), department_id: @user.department_id)
+    end
+
+    @items = Item.where(status_shipping_id: StatusShipping.find_by_key('enviado').try(:id))
     render json: @items
   end
 
