@@ -17,6 +17,7 @@ class Trailer < ApplicationRecord
   belongs_to :roof_type, optional: true
   belongs_to :suspension_type, optional: true
   belongs_to :turn_type, optional: true
+  belongs_to :brand, optional: true
 
   has_many :items
   has_one_attached :image

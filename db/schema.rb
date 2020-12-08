@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_24_211342) do
+ActiveRecord::Schema.define(version: 2020_11_27_222706) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -533,7 +533,9 @@ ActiveRecord::Schema.define(version: 2020_11_24_211342) do
     t.bigint "divition_type_id"
     t.bigint "suspension_type_id"
     t.bigint "roof_type_id"
+    t.bigint "brand_id"
     t.index ["brake_type_id"], name: "index_trailers_on_brake_type_id"
+    t.index ["brand_id"], name: "index_trailers_on_brand_id"
     t.index ["capacity_id"], name: "index_trailers_on_capacity_id"
     t.index ["category_id"], name: "index_trailers_on_category_id"
     t.index ["color_id"], name: "index_trailers_on_color_id"
@@ -664,6 +666,7 @@ ActiveRecord::Schema.define(version: 2020_11_24_211342) do
   add_foreign_key "states", "countries"
   add_foreign_key "sub_categories", "categories"
   add_foreign_key "trailers", "brake_types"
+  add_foreign_key "trailers", "brands"
   add_foreign_key "trailers", "capacities"
   add_foreign_key "trailers", "categories"
   add_foreign_key "trailers", "colors"
