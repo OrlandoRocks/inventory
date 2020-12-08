@@ -216,6 +216,18 @@ class ItemsController < ApplicationController
     end
   end
 
+  def send_email
+    respond_to do |format|
+      if ApplicationMailer.item_sold(params[:id]).deliver_now
+
+        format.json { render json: true }
+      else
+        format.html { render :edit }
+        format.json { render json: @item.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   # POST /items
   # POST /items.json
   def create_file

@@ -281,7 +281,6 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
 
             if (response.data != null) {
                 $scope.item = response.data;
-                console.log($scope.item );
                 $scope.set_model($scope.item);
                 $scope.user = $scope.item.user_id
                 $scope.get_branch_user($scope.item.user_id);
@@ -863,6 +862,7 @@ app.controller('ModalVentaController', ['$scope', 'close', 'Upload', '$http', 'i
 
     $scope.uploadSell = function (status_vendido, status_pendiente_factura) {
 
+
         swal({
             title: '¿Estas seguro de vender este artículo?',
             text: 'una vez vendido no podras modificarlo',
@@ -872,6 +872,17 @@ app.controller('ModalVentaController', ['$scope', 'close', 'Upload', '$http', 'i
             showCancelButton: true
         }).then(function (isConfirm) {
             if (isConfirm) {
+                swal({
+                    title: 'Espere un momento',
+                    text: '',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    allowEnterKey: false,
+                    showConfirmButton: false,
+                    onOpen: function () {
+                        swal.showLoading()
+                    }
+                });
                 if ($scope.item.image) {
 
                     $scope.item.image.upload = Upload.upload({
@@ -894,19 +905,27 @@ app.controller('ModalVentaController', ['$scope', 'close', 'Upload', '$http', 'i
                         $timeout(function () {
                             $scope.item.image.result = response.data;
                             if (response.data) {
-                                swal({
-                                    title: 'Vendido',
-                                    text: 'El artículo ha sido Vendido correctamente. La factura esta en proceso',
-                                    type: 'success',
-                                    showCancelButton: false
-                                }).then(function (isConfirm) {
-                                    if (isConfirm) {
-                                        location.reload();
+                                $http({
+                                    url: '/send_email/ '+ $scope.item.id + '.json',
+                                    method: 'GET'
+                                }).then(function (response) {
+                                    if (response.data) {
+                                        swal({
+                                            title: 'Vendido',
+                                            text: 'El artículo ha sido Vendido correctamente. La factura esta en proceso',
+                                            type: 'success',
+                                            showCancelButton: false
+                                        }).then(function (isConfirm) {
+                                            if (isConfirm) {
+                                                location.reload();
+                                            }
+
+                                        }, function (iSConfirm) {
+
+                                        });
                                     }
-
-                                }, function (iSConfirm) {
-
                                 });
+
                             }
                         });
                     }, function (response) {
@@ -939,19 +958,39 @@ app.controller('ModalVentaController', ['$scope', 'close', 'Upload', '$http', 'i
                         }
                     }).then(function (response) {
                         if (response.data) {
-                            swal({
-                                title: 'Vendido (Falta Comprobante)',
-                                text: 'El artículo ha sido Vendido y se facturara cuando se agregue el comprobante de pago',
-                                type: 'success',
-                                showCancelButton: false
-                            }).then(function (isConfirm) {
-                                if (isConfirm) {
-                                    location.reload();
+                            $http({
+                                url: '/send_email/ '+ $scope.item.id + '.json',
+                                method: 'GET'
+                            }).then(function (response) {
+                                if (response.data) {
+                                    swal({
+                                        title: 'Vendido (Falta Comprobante)',
+                                        text: 'El artículo ha sido Vendido y se facturara cuando se agregue el comprobante de pago',
+                                        type: 'success',
+                                        showCancelButton: false
+                                    }).then(function (isConfirm) {
+                                        if (isConfirm) {
+                                            location.reload();
+                                        }
+
+                                    }, function (iSConfirm) {
+
+                                    });
                                 }
-
-                            }, function (iSConfirm) {
-
                             });
+                            // swal({
+                            //     title: 'Vendido (Falta Comprobante)',
+                            //     text: 'El artículo ha sido Vendido y se facturara cuando se agregue el comprobante de pago',
+                            //     type: 'success',
+                            //     showCancelButton: false
+                            // }).then(function (isConfirm) {
+                            //     if (isConfirm) {
+                            //         location.reload();
+                            //     }
+                            //
+                            // }, function (iSConfirm) {
+                            //
+                            // });
                         }
                     });
                 }

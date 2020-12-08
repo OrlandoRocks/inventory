@@ -29,7 +29,7 @@ Rails.application.configure do
 
     config.cache_store = :memory_store
     config.public_file_server.headers = {
-      'Cache-Control' => "public, max-age=#{2.days.to_i}"
+        'Cache-Control' => "public, max-age=#{2.days.to_i}"
     }
   else
     config.action_controller.perform_caching = false
@@ -49,21 +49,21 @@ Rails.application.configure do
   # config.action_mailer.deliver_later_queue_name = :new_queue_name
 
   # Don't care if the mailer can't send.
-  config.action_mailer.perform_caching = true
-  config.action_mailer.perform_deliveries = true
-  config.action_mailer.default_url_options = {host: 'localhost', port: 3000}
-  config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-      address:              'smtp.gmail.com',
-      port:                 587,
-      domain:               'localhost',
-      user_name:            'activos.corporativos@gmail.com',
-      password:             'tormenz123',
-      openssl_verify_mode: OpenSSL::SSL::VERIFY_NONE,
-      authentication:      :login,#'plain',
-      enable_starttls_auto: true  }
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.default_url_options = {:host => 'a271578.uach.mx'}
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default :charset => 'utf-8'
 
+  config.action_mailer.smtp_settings = {
+      address: 'smtp.gmail.com',
+      port: 587,
+      domain: 'gmail.com',
+      user_name: 'a271578@uach.mx',
+      password: 'sf2df2gg',
+      authentication: :plain
+      # enable_starttls_auto: true
+  }
 
 
   # Print deprecation notices to the Rails logger.
@@ -88,7 +88,7 @@ Rails.application.configure do
   config.assets.quiet = true
 
   # Set the following in your config to enable HSTS when using subdomains:
-  config.ssl_options = { hsts: { subdomains: true } }
+  config.ssl_options = {hsts: {subdomains: true}}
 
 
   # Raises error for missing translations

@@ -59,20 +59,20 @@ Rails.application.configure do
 
 
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-      address:              'smtp.gmail.com',
-      port:                 587,
-      domain:               'gmail.com',
-      user_name:            'activos.corporativos@gmail.com',
-      password:             'tormenz123',
-      openssl_verify_mode: OpenSSL::SSL::VERIFY_NONE,
-      authentication:      :login,#'plain',
-      enable_starttls_auto: true  }
-
   config.action_mailer.perform_deliveries = true
-  config.action_mailer.default_url_options = { :host => 'tranquil-taiga-01571.herokuapp.com' }
-  #config.action_mailer.asset_host = 'assets.tiempo.com.mx'
+  config.action_mailer.default_url_options = {:host => 'a271578.uach.mx'}
   config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default :charset => 'utf-8'
+
+  config.action_mailer.smtp_settings = {
+      address: 'smtp.gmail.com',
+      port: 587,
+      domain: 'gmail.com',
+      user_name: 'a271578@uach.mx',
+      password: 'sf2df2gg',
+      authentication: :plain
+      # enable_starttls_auto: true
+  }
 
 
   # Prepend all log lines with the following tags.
