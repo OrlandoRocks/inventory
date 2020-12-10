@@ -114,6 +114,9 @@ section.content ng-controller="itemController"
                         th = t('.department')
                         / th = t('.image')
                         th = t('.status_item')
+                        th = t('.percentage_planet')
+                        th = t('.percentage_branch')
+                        th = t('.percentage_seller')
                         th.actions_header
                           = t('helpers.actions')
                     tbody
@@ -130,6 +133,9 @@ section.content ng-controller="itemController"
                           / - else
                           /   td = image_tag 'trailers_default', class: 'avatar', size: "70x70"
                           td = item.status_item.name if item.status_item.present?
+                          td = item.planet_percentage.nil? ? 0 : get_percentage_value(item.planet_percentage, item.price)
+                          td = item.branch_percentage.nil? ? 0 : get_percentage_value(item.branch_percentage, item.price)
+                          td = item.seller_percentage.nil? ? 0 : get_percentage_value(item.seller_percentage, item.price)
                           td
                             .actions
                               = link_item '<i class="fa fa-search"></i>'.html_safe, item_path(item), title: t('helpers.show'),

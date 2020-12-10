@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+    <style type="text/css">/* RESET STYLES */
+    body {
+      background-color: #f6f6ff;
+      font-family: Calibri, Myriad;
+    }
+    #main {
+      width: 780px;
+      padding: 20px;
+      margin: auto;
+    }
+    table.timecard {
+      margin: auto;
+      width: 600px;
+      border-collapse: collapse;
+      border: 1px solid #fff; /*for older IE*/
+      border-style: hidden;
+    }
+    table.timecard caption {
+      background-color: #00004B;
+      color: #fff;
+      font-size: x-large;
+      font-weight: bold;
+      letter-spacing: .3em;
+    }
+    table.timecard thead th {
+      padding: 8px;
+      background-color: #d33724;
+      font-size: large;
+      color: #0c0c0c;
+    }
+    table.timecard thead th#thDay {
+      width: 40%;
+    }
+    table.timecard thead th#thRegular, table.timecard thead th#thOvertime, table.timecard thead th#thTotal {
+      width: 20%;
+    }
+    table.timecard th, table.timecard td {
+      padding: 3px;
+      border-width: 1px;
+      border-style: solid;
+      border-color: #00004B #ccc;
+      color: #0c0c0c;
+    }
+    table.timecard td {
+      text-align: right;
+    }
+    table.timecard tbody th {
+      text-align: left;
+      font-weight: normal;
+    }
+    table.timecard tfoot {
+      font-weight: bold;
+      font-size: large;
+      background-color: #687886;
+      color: #fff;
+    }
+    table.timecard tr.even {
+      background-color: #fde9d9;
+    }
+
+    </style>
+  </head>
+  <body>
+
+  <div id="main">
+    <table class="timecard">
+      <caption>Trailers Vendidos</caption>
+      <thead>
+      <tr>
+        <th>Cliente</th>
+        <th>Vendedor</th>
+        <th>Número de serie</th>
+        <th>Categorias</th>
+        <th>Precio de Venta</th>
+        <th>Modelo</th>
+        <th>Ver</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="show_actions">
+        <td>
+          <%= @item.client.full_name %>
+        </td>
+        <td>
+          <%= @item.user.full_name %>
+        </td>
+        <td>
+          <%= @item.try(:serial_number) %>
+        </td>
+        <td>
+          <%= @item.try(:categories_description) %>
+        </td>
+        <td>
+          $ <%= @item.try(:price) %>
+        </td>
+        <td>
+          <%= @item.try(:model) %>
+        </td>
+        <td>
+          <a href="/items/<%= @item.try(:id) %>">Ver Trailer</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+<!--  <section class="content">-->
+<!--    <div class="row">-->
+<!--      <div class="col-xs-12">-->
+<!--        <div class="box box-primary">-->
+<!--          <div class="box-header with-border">-->
+<!--            <div class="row">-->
+<!--              <div class="col-xs-6 col-md-8 col-lg-9">-->
+<!--                <h3 class="box-title">-->
+<!--                  Trailer vendido-->
+<!--                </h3>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="box-body">-->
+<!--            <div class="dataTables_wrapper">-->
+<!--              <div class="row">-->
+<!--                <div class="col-md-12">-->
+<!--                  <div class="table-responsive">-->
+<!--                    <table class="table table-bordered table-hover dataTable">-->
+<!--                      <thead>-->
+<!--                        <tr>-->
+<!--                          <th>Cliente</th>-->
+<!--                          <th>Vendedor</th>-->
+<!--                          <th>Número de serie</th>-->
+<!--                          <th>Categorias</th>-->
+<!--                          <th>Ver</th>-->
+<!--                        </tr>-->
+<!--                      </thead>-->
+<!--                      <tbody>-->
+<!--                        <tr class="show_actions">-->
+<!--                          <td>-->
+                            <%#= @item.client.full_name %>
+<!--                          </td>-->
+<!--                          <td>-->
+                            <%#= @item.user.full_name %>
+<!--                          </td>-->
+<!--                          <td>-->
+                            <%#= @item.try(:serial_number) %>
+<!--                          </td>-->
+<!--                          <td>-->
+                            <%#= @item.try(:categories_description) %>
+<!--                          </td>-->
+<!--                          <td>-->
+<!--                            <a href="/items/<%#= @item.id %>">Ver Trailer</a>-->
+<!--                          </td>-->
+<!--                        </tr>-->
+<!--                      </tbody>-->
+<!--                    </table>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+
+<!--    </div>-->
+<!--  </section>-->
+  </body>
+</html>

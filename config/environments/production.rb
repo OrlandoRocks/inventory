@@ -55,24 +55,22 @@ Rails.application.configure do
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.action_controller.asset_host = 'http://assets.example.com'
-  config.action_mailer.default_url_options = { :host => '107.170.238.185' }
-
-
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-      address:              'smtp.gmail.com',
-      port:                 587,
-      domain:               'gmail.com',
-      user_name:            'activos.corporativos@gmail.com',
-      password:             'tormenz123',
-      openssl_verify_mode: OpenSSL::SSL::VERIFY_NONE,
-      authentication:      :login,#'plain',
-      enable_starttls_auto: true  }
-
   config.action_mailer.perform_deliveries = true
-  config.action_mailer.default_url_options = { :host => 'tranquil-taiga-01571.herokuapp.com' }
-  #config.action_mailer.asset_host = 'assets.tiempo.com.mx'
+  config.action_mailer.default_url_options = {:host => 'contacto@planetagrotrailer.com'}
   config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default :charset => 'utf-8'
+
+  config.action_mailer.smtp_settings = {
+      address: 'mail.planetagrotrailer.com',
+      port: 465,
+      domain: 'planetagrotrailer.com',
+      user_name: 'contacto@planetagrotrailer.com',
+      password: 'u&*1gG)AshnX',
+      authentication: :plain,
+      tls: true,
+      :openssl_verify_mode  => 'none'
+  }
 
 
   # Prepend all log lines with the following tags.

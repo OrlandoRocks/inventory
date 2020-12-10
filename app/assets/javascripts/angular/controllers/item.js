@@ -281,7 +281,6 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
 
             if (response.data != null) {
                 $scope.item = response.data;
-                console.log($scope.item );
                 $scope.set_model($scope.item);
                 $scope.user = $scope.item.user_id
                 $scope.get_branch_user($scope.item.user_id);
@@ -770,6 +769,22 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
             });
         });
     };
+    $scope.show_percentage = function(id, current_user, user_branch){
+        ModalService.showModal({
+            templateUrl: 'modal_percentage.html',
+            controller: "ModalPercentageController as modal",
+            inputs: {
+                id: id,
+                current_user: current_user,
+                user_branch: user_branch
+            }
+        }).then(function (modal) {
+            modal.element.modal();
+            modal.close.then(function (sale_detail) {
+
+            });
+        });
+    };
 
     $scope.accept_voucher = function (id) {
         swal({
@@ -863,6 +878,7 @@ app.controller('ModalVentaController', ['$scope', 'close', 'Upload', '$http', 'i
 
     $scope.uploadSell = function (status_vendido, status_pendiente_factura) {
 
+
         swal({
             title: '¿Estas seguro de vender este artículo?',
             text: 'una vez vendido no podras modificarlo',
@@ -872,6 +888,17 @@ app.controller('ModalVentaController', ['$scope', 'close', 'Upload', '$http', 'i
             showCancelButton: true
         }).then(function (isConfirm) {
             if (isConfirm) {
+                swal({
+                    title: 'Espere un momento',
+                    text: '',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    allowEnterKey: false,
+                    showConfirmButton: false,
+                    onOpen: function () {
+                        swal.showLoading()
+                    }
+                });
                 if ($scope.item.image) {
 
                     $scope.item.image.upload = Upload.upload({
@@ -894,19 +921,27 @@ app.controller('ModalVentaController', ['$scope', 'close', 'Upload', '$http', 'i
                         $timeout(function () {
                             $scope.item.image.result = response.data;
                             if (response.data) {
-                                swal({
-                                    title: 'Vendido',
-                                    text: 'El artículo ha sido Vendido correctamente. La factura esta en proceso',
-                                    type: 'success',
-                                    showCancelButton: false
-                                }).then(function (isConfirm) {
-                                    if (isConfirm) {
-                                        location.reload();
+                                $http({
+                                    url: '/send_email/ '+ $scope.item.id + '.json',
+                                    method: 'GET'
+                                }).then(function (response) {
+                                    if (response.data) {
+                                        swal({
+                                            title: 'Vendido',
+                                            text: 'El artículo ha sido Vendido correctamente. La factura esta en proceso',
+                                            type: 'success',
+                                            showCancelButton: false
+                                        }).then(function (isConfirm) {
+                                            if (isConfirm) {
+                                                location.reload();
+                                            }
+
+                                        }, function (iSConfirm) {
+
+                                        });
                                     }
-
-                                }, function (iSConfirm) {
-
                                 });
+
                             }
                         });
                     }, function (response) {
@@ -939,19 +974,39 @@ app.controller('ModalVentaController', ['$scope', 'close', 'Upload', '$http', 'i
                         }
                     }).then(function (response) {
                         if (response.data) {
-                            swal({
-                                title: 'Vendido (Falta Comprobante)',
-                                text: 'El artículo ha sido Vendido y se facturara cuando se agregue el comprobante de pago',
-                                type: 'success',
-                                showCancelButton: false
-                            }).then(function (isConfirm) {
-                                if (isConfirm) {
-                                    location.reload();
+                            $http({
+                                url: '/send_email/ '+ $scope.item.id + '.json',
+                                method: 'GET'
+                            }).then(function (response) {
+                                if (response.data) {
+                                    swal({
+                                        title: 'Vendido (Falta Comprobante)',
+                                        text: 'El artículo ha sido Vendido y se facturara cuando se agregue el comprobante de pago',
+                                        type: 'success',
+                                        showCancelButton: false
+                                    }).then(function (isConfirm) {
+                                        if (isConfirm) {
+                                            location.reload();
+                                        }
+
+                                    }, function (iSConfirm) {
+
+                                    });
                                 }
-
-                            }, function (iSConfirm) {
-
                             });
+                            // swal({
+                            //     title: 'Vendido (Falta Comprobante)',
+                            //     text: 'El artículo ha sido Vendido y se facturara cuando se agregue el comprobante de pago',
+                            //     type: 'success',
+                            //     showCancelButton: false
+                            // }).then(function (isConfirm) {
+                            //     if (isConfirm) {
+                            //         location.reload();
+                            //     }
+                            //
+                            // }, function (iSConfirm) {
+                            //
+                            // });
                         }
                     });
                 }
@@ -1139,6 +1194,81 @@ app.controller('ModalFileController', ['$scope', 'close', 'Upload', '$http', '$t
                     evt.loaded / evt.total));
             });
         }
+    }
+
+
+}]);
+
+app.controller('ModalPercentageController', ['$scope', 'close', 'Upload', '$http', '$timeout', 'id','current_user', 'user_branch',function ($scope, close, Upload, $http, $timeout, id, current_user,user_branch) {
+
+    $scope.open = function ($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+
+        $scope.opened = true;
+    };
+
+    $('input').change(function() {
+        $(this).val(function(index, old) { return old.replace() + '%'; });
+    });
+
+    $scope.init = function(){
+        $http({
+            url: '/items/' + id + '.json',
+            method: 'GET'
+        }).then(function (response) {
+            $scope.seller_percentage = response.data.seller_percentage;
+            $scope.planet_percentage = response.data.planet_percentage;
+            $scope.branch_percentage = response.data.branch_percentage;
+            $scope.is_same_branch = response.data.branch_id === user_branch.id ? true : false
+        });
+    };
+
+    $scope.init();
+
+    $scope.close = function (result) {
+        close(result, 500); // close, but give 500ms for bootstrap to animate
+    };
+
+
+    $scope.uploadPercentage = function () {
+        swal({
+            title: 'Espere un momento',
+            text: 'Guardando',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false,
+            showConfirmButton: false,
+            onOpen: function () {
+                swal.showLoading()
+            }
+        });
+
+        $http({
+            url: '/items/' + id + '.json',
+            method: 'PUT',
+            data: {
+                item: {
+                    seller_percentage: $scope.seller_percentage,
+                    planet_percentage: $scope.planet_percentage,
+                    branch_percentage: $scope.branch_percentage
+                }
+            }
+        }).then(function (response) {
+            swal({
+                title: 'Guardado',
+                text: 'Se han guardado los porcentajes',
+                type: 'success',
+                showCancelButton: false
+            }).then(function (isConfirm) {
+                if (isConfirm) {
+                    location.reload();
+                }
+
+            }, function (iSConfirm) {
+
+            });
+        });
     }
 
 

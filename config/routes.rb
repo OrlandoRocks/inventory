@@ -185,6 +185,8 @@ Rails.application.routes.draw do
 
       #Rutas para la generación de reportes
       get 'reports/sales' => 'reports#report_sales'
+      #Rutas para enviar correos
+      get '/send_email/:id' => 'items#send_email'
 
 
 

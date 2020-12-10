@@ -164,6 +164,9 @@ es:
         f_sub_category: Filtro por Sub Categoría
         f_orden: Ordenar por
         search: Buscar...
+        percentage_seller: Porcentaje del Vendedor
+        percentage_branch: Porcentaje de la Sucursal
+        percentage_planet: Porcentaje de Planet
       items_import:
         title: Importar archivo csv para artículos
         code: Folio
@@ -313,6 +316,9 @@ es:
         ramp: Rampa
         capacity: Capacidad
         redila: Redila
+        percentage_seller: Porcentaje del Vendedor
+        percentage_branch: Porcentaje de la Sucursal
+        percentage_planet: Porcentaje de Planet
       new_order:
         title: Articulos
         resource: el artículo
