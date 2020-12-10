@@ -769,6 +769,22 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
             });
         });
     };
+    $scope.show_percentage = function(id, current_user, user_branch){
+        ModalService.showModal({
+            templateUrl: 'modal_percentage.html',
+            controller: "ModalPercentageController as modal",
+            inputs: {
+                id: id,
+                current_user: current_user,
+                user_branch: user_branch
+            }
+        }).then(function (modal) {
+            modal.element.modal();
+            modal.close.then(function (sale_detail) {
+
+            });
+        });
+    };
 
     $scope.accept_voucher = function (id) {
         swal({
@@ -1178,6 +1194,81 @@ app.controller('ModalFileController', ['$scope', 'close', 'Upload', '$http', '$t
                     evt.loaded / evt.total));
             });
         }
+    }
+
+
+}]);
+
+app.controller('ModalPercentageController', ['$scope', 'close', 'Upload', '$http', '$timeout', 'id','current_user', 'user_branch',function ($scope, close, Upload, $http, $timeout, id, current_user,user_branch) {
+
+    $scope.open = function ($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+
+        $scope.opened = true;
+    };
+
+    $('input').change(function() {
+        $(this).val(function(index, old) { return old.replace() + '%'; });
+    });
+
+    $scope.init = function(){
+        $http({
+            url: '/items/' + id + '.json',
+            method: 'GET'
+        }).then(function (response) {
+            $scope.seller_percentage = response.data.seller_percentage;
+            $scope.planet_percentage = response.data.planet_percentage;
+            $scope.branch_percentage = response.data.branch_percentage;
+            $scope.is_same_branch = response.data.branch_id === user_branch.id ? true : false
+        });
+    };
+
+    $scope.init();
+
+    $scope.close = function (result) {
+        close(result, 500); // close, but give 500ms for bootstrap to animate
+    };
+
+
+    $scope.uploadPercentage = function () {
+        swal({
+            title: 'Espere un momento',
+            text: 'Guardando',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false,
+            showConfirmButton: false,
+            onOpen: function () {
+                swal.showLoading()
+            }
+        });
+
+        $http({
+            url: '/items/' + id + '.json',
+            method: 'PUT',
+            data: {
+                item: {
+                    seller_percentage: $scope.seller_percentage,
+                    planet_percentage: $scope.planet_percentage,
+                    branch_percentage: $scope.branch_percentage
+                }
+            }
+        }).then(function (response) {
+            swal({
+                title: 'Guardado',
+                text: 'Se han guardado los porcentajes',
+                type: 'success',
+                showCancelButton: false
+            }).then(function (isConfirm) {
+                if (isConfirm) {
+                    location.reload();
+                }
+
+            }, function (iSConfirm) {
+
+            });
+        });
     }
 
 

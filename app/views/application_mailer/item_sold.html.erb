@@ -75,6 +75,8 @@
         <th>Vendedor</th>
         <th>Número de serie</th>
         <th>Categorias</th>
+        <th>Precio de Venta</th>
+        <th>Modelo</th>
         <th>Ver</th>
       </tr>
       </thead>
@@ -93,7 +95,13 @@
           <%= @item.try(:categories_description) %>
         </td>
         <td>
-          <a href="/items/<%= @item.id %>">Ver Trailer</a>
+          $ <%= @item.try(:price) %>
+        </td>
+        <td>
+          <%= @item.try(:model) %>
+        </td>
+        <td>
+          <a href="/items/<%= @item.try(:id) %>">Ver Trailer</a>
         </td>
       </tr>
       </tbody>

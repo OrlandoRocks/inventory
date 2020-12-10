@@ -4,7 +4,7 @@
     <div class="col-md-6">
       <!-- Profile Image -->
       <div class="box box-primary">
-        <% if @item.status_item.key == 'pendiente' %>
+        <% if @item.try(:status_item).key == 'pendiente' %>
           <div class="box-body box-profile">
 
             <%= link_to edit_item_path(@item.id), :class => "btn btn-block btn-info btn-lg" do %>
@@ -40,7 +40,8 @@
                 <p class="text-muted"><%= "$ #{ "%.2f" % @item.advance_payment if @item.advance_payment.present?}" %></p>
               </li>
               <li class="list-group-item">
-                <b><%= t("items.form.model") %></b> <p class="text-muted"><%= @item.try(:model) %></p>
+                <b><%= t("items.form.model") %></b>
+                <p class="text-muted"><%= @item.try(:model) %></p>
               </li>
               <li class="list-group-item">
                 <b>Descripción del Modelo (Categorias)</b>
@@ -107,7 +108,7 @@
           <div class="box-body box-profile">
 
             <% unless @item.status_item.key == 'facturado' %>
-              <% if @item.status_shipping.key === 'enviado' %>
+              <% if @item.try(:status_shipping).key === 'enviado' %>
                 <a class="btn btn-block btn-success btn-lg" ng-click="show_receive()">
                   <i class="fa fa-handshake "> Recibido</i>
                 </a>
@@ -125,7 +126,7 @@
             <% end %>
 
             <% unless @item.trailer_type.nil? %>
-              <% if @item.try(:trailer_type).try(:image).attached?%>
+              <% if @item.try(:trailer_type).try(:image).attached? %>
                 <%= link_to image_tag('trailers_default', :class => 'profile-user-img img-responsive img-circle', :size => '65x65'), "trailers_default.png", :target => "_blank" %>
               <% else %>
                 <%= link_to image_tag('trailers_default', :class => 'profile-user-img img-responsive img-circle', :size => '65x65'), "trailers_default.png", :target => "_blank" %>
@@ -167,6 +168,18 @@
                 <b><%= t("items.form.price") %></b>
                 <p class="text-muted"><%= "$ #{ "%.2f" % @item.price if @item.price.present?}" %></p>
               </li>
+              <li class="list-group-item">
+                <b><i class="fa fa-percent margin-r-5"></i><%= t("items.form.percentage_planet") %></b>
+                <p class="text-muted"><%= "$ #{ @item.planet_percentage.nil? ? 0 : get_percentage_value(@item.planet_percentage, @item.price)}" %></p>
+              </li>
+              <li class="list-group-item">
+                <b><i class="fa fa-percent margin-r-5"></i><%= t("items.form.percentage_branch") %></b>
+                <p class="text-muted"><%= "$ #{ @item.branch_percentage.nil? ? 0 : get_percentage_value(@item.branch_percentage, @item.price)}" %></p>
+              </li>
+              <li class="list-group-item">
+                <b><i class="fa fa-percent margin-r-5"></i><%= t("items.form.percentage_seller") %></b>
+                <p class="text-muted"><%= "$ #{ @item.seller_percentage.nil? ? 0 : get_percentage_value(@item.seller_percentage, @item.price)}" %></p>
+              </li>
               <!--<li class="list-group-item">-->
               <!--<b><%#= t("items.form.provider") %></b> <a class="text-muted"><%#= @item.provider.try("name") %></a>-->
               <!--</li>-->
@@ -190,7 +203,8 @@
               </li>
 
               <li class="list-group-item">
-                <b><%= t("items.form.brand") %></b> <p class="text-muted"><%= @item.brand.try("name") %></p>
+                <b><%= t("items.form.brand") %></b>
+                <p class="text-muted"><%= @item.brand.try("name") %></p>
               </li>
               <li class="list-group-item">
                 <b><%= t("items.form.status_item") %></b>
@@ -226,12 +240,16 @@
                   Aceptar Comprobante
                 </a>
               <% end %>
+              <% if current_user.god? or current_user.admin_branch? %>
+                <a class="btn btn-block btn-warning btn-lg" ng-click="show_percentage(<%= params[:id] %>, <%= current_user.to_json %>, <%= current_user.branch.to_json %>)">
+                  <i class="fa fa-percent "> Capturar Porcentajes</i>
+                </a>
+              <% end %>
             <% else %>
               <%= link_to edit_item_path(@item.id), :class => "btn btn-block btn-danger btn-lg" do %>
                 <i class="fa fa-pencil "> Editar</i>
               <% end %>
             <% end %>
-
 
           </div>
 
@@ -257,30 +275,30 @@
               <% @audits.reverse_each do |audit| %>
                 <% if audit.action == "create" and audit.associated_id.nil? %>
 
-                    <li class="time-label">
+                  <li class="time-label">
                             <span class="bg-red">
                               <%= audit.created_at.strftime("%d / %m / %Y") %>
                             </span>
-                    </li>
-                    <!-- /.timeline-label -->
-                    <!-- timeline item -->
-                    <li>
-                      <i class="fa fa-plus bg-green"></i>
+                  </li>
+                  <!-- /.timeline-label -->
+                  <!-- timeline item -->
+                  <li>
+                    <i class="fa fa-plus bg-green"></i>
 
-                      <div class="timeline-item">
-                        <span class="time"><i class="fa fa-clock-o"></i> <%= audit.created_at.strftime("%H:%M") %></span>
+                    <div class="timeline-item">
+                      <span class="time"><i class="fa fa-clock-o"></i> <%= audit.created_at.strftime("%H:%M") %></span>
 
-                        <h3 class="timeline-header"><strong><%= t(".audit.create") %> </strong></h3>
+                      <h3 class="timeline-header"><strong><%= t(".audit.create") %> </strong></h3>
 
-                        <div class="timeline-body">
-                          Se Creó el Remolque
-                        </div>
-                        <!--<div class="timeline-footer">-->
-                        <!--<a class="btn btn-primary btn-xs">Read more</a>-->
-                        <!--<a class="btn btn-danger btn-xs">Delete</a>-->
-                        <!--</div>-->
+                      <div class="timeline-body">
+                        Se Creó el Remolque
                       </div>
-                    </li>
+                      <!--<div class="timeline-footer">-->
+                      <!--<a class="btn btn-primary btn-xs">Read more</a>-->
+                      <!--<a class="btn btn-danger btn-xs">Delete</a>-->
+                      <!--</div>-->
+                    </div>
+                  </li>
                 <% elsif audit.action == "create" and audit.associated_id %>
                   <li class="time-label">
                           <span class="bg-red">
@@ -489,7 +507,7 @@
               </label>
               <div class="col-md-6">
 
-<!--                <input type='file' ng-model='item.image' base-sixty-four-input>-->
+                <!--                <input type='file' ng-model='item.image' base-sixty-four-input>-->
                 <input type="file" ngf-select ng-model="item.image" name="image"
                        accept="image/*" ngf-max-size="2MB" required
                        ngf-model-invalid="errorFile">
@@ -572,7 +590,7 @@
             </h4>
           </div>
 
-          <div class="box-body" >
+          <div class="box-body">
             <div class="row form-group" ng-show="item.image_url !== null && item.image_url !== undefined && item.image_url !== ''">
               <label class="col-md-3 control-label">
                 Factura:
@@ -606,6 +624,72 @@
         </div>
 
 
+      </div>
+    </div>
+
+  </script>
+  <script id="modal_percentage.html" type='text/ng-template'>
+    <div class="modal modal-fullscreen">
+      <div class="modal-dialog">
+        <div class="modal-content form-horizontal" style="width: 900px">
+          <div class="modal-header">
+            <button class="button close" aria-hidden="true" data-dismiss="modal" type="button">x</button>
+            <h4 class="modal-title">
+              Porcentajes
+            </h4>
+          </div>
+
+          <div class="box-body">
+            <div class="row form-group">
+              <label class="col-md-3 control-label">
+                Porcentaje de Planet:
+              </label>
+              <div class="col-md-3">
+                <div class="input-group">
+                  <input type="text" class="form-control text_field" ng-model="planet_percentage">
+                  <span class="input-group-addon">
+                    %
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row form-group">
+              <label class="col-md-3 control-label">
+                Porcentaje de la Sucursal:
+              </label>
+              <div class="col-md-3">
+                <div class="input-group">
+                  <input type="text" class="form-control text_field" ng-model="branch_percentage">
+                  <span class="input-group-addon">
+                    %
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row form-group" ng-hide="is_same_branch" ng-cloak>
+              <label class="col-md-3 control-label">
+                Porcentaje del vendedor:
+              </label>
+              <div class="col-md-3">
+                <div class="input-group">
+                  <input type="text" class="form-control text_field" ng-model="seller_percentage">
+                  <span class="input-group-addon">
+                    %
+                  </span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="uploadPercentage()" data-dismiss="modal">
+              Guardar
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 

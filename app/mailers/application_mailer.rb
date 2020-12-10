@@ -1,5 +1,5 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "a271578@uach.mx"
+  default from: "contacto@planetagrotrailer.com"
   layout 'mailer'
 
   def item_sold item

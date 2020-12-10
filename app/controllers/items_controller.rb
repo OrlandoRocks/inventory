@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
   include ActionView::Helpers::NumberHelper
 
   before_action :set_item, only: [:show, :edit, :update, :destroy, :create_maintenance, :create_file, :change_maintenance_done, :edit_order]
-  helper_method :sort_column, :sort_direction
+  helper_method :sort_column, :sort_direction, :get_percentage_value
   # GET /items
   # GET /items.json
   def index
@@ -367,6 +367,12 @@ class ItemsController < ApplicationController
     redirect_to items_import_path, notice: 'Artículos actualizados correctamente.'
   end
 
+  def get_percentage_value(percentage, price)
+    final_percentage = price * (percentage / 100)
+    return final_percentage
+  end
+
+
 
   private
 
@@ -399,7 +405,8 @@ class ItemsController < ApplicationController
                                  :ramp_type_id, :redila_type_id, :trailer_type_id, :floor_type_id, :capacity_id,
                                  :brake_type_id, :color_id, :divition_type_id, :fender_type_id, :hydraulic_jack_id,
                                  :pull_type_id, :reinforcement_type_id, :roof_type_id, :suspension_type_id, :turn_type_id,
-                                 :trailer_width_id, :categories_description
+                                 :trailer_width_id, :categories_description, :seller_percentage, :planet_percentage,
+                                 :branch_percentage
                           )
   end
 
