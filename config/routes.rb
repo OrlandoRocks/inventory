@@ -60,8 +60,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       put 'login_user' => 'users_manager#login_user'
       get 'get_items/:token' => 'inventory_manager#get_items'
-      get 'get_items_not_sell/:token' => 'inventory_manager#get_items_not_sell'
-      get 'get_items_sell/:token' => 'inventory_manager#get_items_sell'
+      get 'get_items_not_sell/:user_id/:token' => 'inventory_manager#get_items_not_sell'
+      get 'get_items_sell/:user_id/:token' => 'inventory_manager#get_items_sell'
       get 'get_items_order/:user_id/:token' => 'inventory_manager#get_items_order'
       get 'get_orders_shipped/:user_id/:token' => 'inventory_manager#get_orders_shipped'
       get 'get_branches/:token' => 'inventory_manager#get_branches'
