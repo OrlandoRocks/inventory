@@ -66,7 +66,7 @@ class Api::V1::InventoryManagerController < ActionController::Base
   end
 
   def get_items_order
-    @user = User.find(params[:id])
+    @user = User.find(params[:user_id])
     if @user.god? or @user.admin?
       @items = Item.where(status_item_id: StatusItem.find_by_key('pendiente'))
     else
@@ -79,7 +79,7 @@ class Api::V1::InventoryManagerController < ActionController::Base
 
   def get_orders_shipped
 
-    @user = User.find(params[:id])
+    @user = User.find(params[:user_id])
     if @user.god? or @user.admin?
       @items = Item.where(status_shipping_id: StatusShipping.find_by_key('enviado').try(:id))
     else
