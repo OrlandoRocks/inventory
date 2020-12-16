@@ -79,7 +79,10 @@ Rails.application.routes.draw do
       put 'update_item' => 'inventory_manager#update_item'
       put 'create_trailer' => 'trailer_manager#create_trailer'
       put 'update_trailer' => 'trailer_manager#update_trailer'
+      put 'create_client' => 'client_manager#create_client'
+      put 'update_client' => 'client_manager#update_client'
 
+      delete 'destroy_client' => 'client_manager#destroy_client'
       delete 'destroy_trailer' => 'trailer_manager#destroy_trailer'
       delete 'destroy_item' => 'inventory_manager#destroy_item'
 

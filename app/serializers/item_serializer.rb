@@ -6,7 +6,8 @@ class ItemSerializer < ActiveModel::Serializer
              :accessory, :status_shipping, :remission, :payment_type, :fiscal_voucher, :client, :user,
              :user_departmemnt, :trailer_length, :trailer_height, :ramp_type, :redila_type, :floor_type, :capacity,
              :trailer_width, :brake_type, :color, :divition_type, :fender_type, :hydraulic_jack, :advance_payment,
-             :pull_type, :reinforcement_type, :roof_type, :suspension_type, :turn_type, :trailer_type, :brand, :categories_description
+             :pull_type, :reinforcement_type, :roof_type, :suspension_type, :turn_type, :trailer_type, :brand, :categories_description,
+             :seller_percentage, :planet_percentage, :branch_percentage
 
   def user_departmemnt
     object.user.department if object.user

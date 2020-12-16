@@ -165,7 +165,9 @@ class Api::V1::InventoryManagerController < ActionController::Base
       item_params[:suspension_type_id]        =    params[:suspension_type_id]         if params[:suspension_type_id]
       item_params[:roof_type_id]              =    params[:roof_type_id]               if params[:roof_type_id]
       item_params[:categories_description]    =    params[:categories_description]     if params[:categories_description]
-
+      item_params[:seller_percentage]    =    params[:seller_percentage]     if params[:seller_percentage]
+      item_params[:planet_percentage]    =    params[:planet_percentage]     if params[:planet_percentage]
+      item_params[:branch_percentage]    =    params[:branch_percentage]     if params[:branch_percentage]
 
 
 
@@ -247,7 +249,9 @@ class Api::V1::InventoryManagerController < ActionController::Base
       item_params[:suspension_type_id]        =    params[:suspension_type_id]         if params[:suspension_type_id]
       item_params[:roof_type_id]              =    params[:roof_type_id]               if params[:roof_type_id]
       item_params[:categories_description]    =    params[:categories_description]     if params[:categories_description]
-
+      item_params[:seller_percentage]    =    params[:seller_percentage]     if params[:seller_percentage]
+      item_params[:planet_percentage]    =    params[:planet_percentage]     if params[:planet_percentage]
+      item_params[:branch_percentage]    =    params[:branch_percentage]     if params[:branch_percentage]
 
       item.image.attach(io: image_io, filename: 'Comprobante de Pago') if params[:image]
 
