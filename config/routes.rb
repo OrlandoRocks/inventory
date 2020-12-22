@@ -65,6 +65,8 @@ Rails.application.routes.draw do
       get 'get_items_order/:user_id/:token' => 'inventory_manager#get_items_order'
       get 'get_orders_shipped/:user_id/:token' => 'inventory_manager#get_orders_shipped'
       get 'get_branches/:token' => 'inventory_manager#get_branches'
+      get 'get_cities/:token' => 'inventory_manager#get_cities'
+      get 'get_states/:token' => 'inventory_manager#get_states'
       get 'get_trailers/:token' => 'inventory_manager#get_trailers'
       get 'get_categories/:token' => 'inventory_manager#get_categories'
       get 'get_sub_categories/:token' => 'inventory_manager#get_sub_categories'
