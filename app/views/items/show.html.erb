@@ -646,7 +646,7 @@
               </label>
               <div class="col-md-3">
                 <div class="input-group">
-                  <input type="text" class="form-control text_field" ng-model="planet_percentage">
+                  <input type="text" class="form-control text_field" ng-model="planet_percentage" ng-change="validate_inputs_values()">
                   <span class="input-group-addon">
                     %
                   </span>
@@ -660,7 +660,7 @@
               </label>
               <div class="col-md-3">
                 <div class="input-group">
-                  <input type="text" class="form-control text_field" ng-model="branch_percentage">
+                  <input type="text" class="form-control text_field" ng-model="branch_percentage" ng-disabled="disable_percentages">
                   <span class="input-group-addon">
                     %
                   </span>
@@ -674,8 +674,8 @@
               </label>
               <div class="col-md-3">
                 <div class="input-group">
-                  <input type="text" class="form-control text_field" ng-model="seller_percentage">
-                  <span class="input-group-addon">
+                  <input type="text" class="form-control text_field" ng-model="seller_percentage" ng-disabled="disable_percentages">
+                  <span class="input-group-addon" >
                     %
                   </span>
                 </div>
