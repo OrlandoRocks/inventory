@@ -1199,7 +1199,8 @@ app.controller('ModalFileController', ['$scope', 'close', 'Upload', '$http', '$t
 
 }]);
 
-app.controller('ModalPercentageController', ['$scope', 'close', 'Upload', '$http', '$timeout', 'id','current_user', 'user_branch',function ($scope, close, Upload, $http, $timeout, id, current_user,user_branch) {
+app.controller('ModalPercentageController', ['$scope', 'close', 'Upload', '$http', '$timeout', 'id','current_user',
+    'user_branch',function ($scope, close, Upload, $http, $timeout, id, current_user,user_branch) {
 
     $scope.open = function ($event) {
         $event.preventDefault();
@@ -1213,6 +1214,7 @@ app.controller('ModalPercentageController', ['$scope', 'close', 'Upload', '$http
     });
 
     $scope.init = function(){
+        $scope.disable_percentages = true;
         $http({
             url: '/items/' + id + '.json',
             method: 'GET'
@@ -1220,14 +1222,37 @@ app.controller('ModalPercentageController', ['$scope', 'close', 'Upload', '$http
             $scope.seller_percentage = response.data.seller_percentage;
             $scope.planet_percentage = response.data.planet_percentage;
             $scope.branch_percentage = response.data.branch_percentage;
-            $scope.is_same_branch = response.data.branch_id === user_branch.id ? true : false
+            $scope.is_same_branch = response.data.department_user.branch_id === response.data.branch_id ? true : false
         });
     };
 
     $scope.init();
 
     $scope.close = function (result) {
+
         close(result, 500); // close, but give 500ms for bootstrap to animate
+    };
+
+    $scope.validate_inputs_values = function(){
+        if($scope.is_same_branch){
+
+            $scope.branch_percentage = 100 - parseFloat($scope.planet_percentage);
+            if($scope.branch_percentage){
+                $scope.disable_percentages = false;
+            }
+        }else{
+
+            rest_cuantity = 100 - parseFloat($scope.planet_percentage);
+
+            $scope.branch_percentage = rest_cuantity / 2;
+            $scope.seller_percentage = rest_cuantity / 2;
+
+            if($scope.branch_percentage && $scope.seller_percentage){
+                $scope.disable_percentages = false;
+            }
+
+
+        }
     };
 
 
