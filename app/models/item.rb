@@ -47,6 +47,7 @@ class Item < ApplicationRecord
   # mount_uploader :image, ItemUploader
   has_one_attached :image
 
+  validate :price_gt_zero
   # validates :name ,:description  , presence: true
 
 
@@ -203,6 +204,16 @@ class Item < ApplicationRecord
     #   product.attributes = row.to_hash
     #   product.save!
     # end
+  end
+
+
+
+
+
+  def price_gt_zero
+    if self.price <= 0
+      self.errors.add(:price, "El Valor de Adquisicion debe ser mayor a cero")
+    end
   end
 
 end

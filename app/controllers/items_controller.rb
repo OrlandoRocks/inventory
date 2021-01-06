@@ -22,6 +22,13 @@ class ItemsController < ApplicationController
     @items_electric = policy_scope(Item).next_maintenances.where(sub_category: SubCategory.where(category_id: 2).ids)
   end
 
+
+  def income_statement
+
+    @sales = Item.where(status_item_id: StatusItem.find_by_key('vendido').id)
+
+  end
+
   def orders
     if current_user.god? or current_user.admin?
       @search_items = Item.where(status_item_id: StatusItem.find_by_key('pendiente').id).ransack(params[:q])
@@ -158,12 +165,14 @@ class ItemsController < ApplicationController
     @branches = current_user.current_company.eql?(0) ? policy_scope(Branch).order(:name) : policy_scope(Branch).where(company_id: @current_company.try(:id)).order(:name);
 
     new_params = item_params
-    if item_params[:user_id].eql?('')
-      new_params[:user_id] = params[:boss_id]
-    end
-
+    # if item_params[:user_id].eql?('')
+    #   new_params[:user_id] = params[:boss_id]
+    # end
 
     @item = Item.new(new_params)
+
+
+    # finantial_balance @item
 
     respond_to do |format|
       if @item.save
@@ -375,6 +384,57 @@ class ItemsController < ApplicationController
 
 
   private
+
+  def finantial_balance item
+
+
+
+
+    if item.status_item.key == 'no_vendido'
+
+      entry = Plutus::Entry.new(
+          :description => "Compra de Remolque",
+          :date => item.acquisition_date,
+          :debits => [
+              {:account_name => "Compras", :amount => item.price},
+              {:account_name => "IVA Acreditable", :amount => (item.price*0.16)}],
+          :credits => [
+              {:account_name => "Bancos", :amount => (item.price*1.16)}])
+
+      entry.save
+
+      entry = Plutus::Entry.new(
+          :description => "Compra de Remolque ER",
+          :date => item.acquisition_date,
+          :debits => [
+              {:account_name => "Inventarios", :amount => item.price}],
+          :credits => [
+              {:account_name => "Costo Ventas", :amount => item.price}])
+
+      entry.save
+
+
+
+
+    elsif item.status_item.key == 'pendiente'
+
+      entry = Plutus::Entry.new(
+          :description => "Pedido Pendiente Remolque",
+          :date => item.acquisition_date,
+          :debits => [
+              {:account_name => "Inventarios", :amount => item.price}],
+          :credits => [
+              {:account_name => "Costo Ventas", :amount => item.price}])
+
+      entry.save
+
+    end
+
+
+
+
+
+  end
 
   def sortable_columns
     ["branch", "department", "category", "code", "model", "Responsable", "name", "description", "price", "brand", "sub_category"]

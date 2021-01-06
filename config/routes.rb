@@ -41,6 +41,8 @@ Rails.application.routes.draw do
 
   mount ActionCable.server, at: '/cable'
 
+  mount Plutus::Engine => "/plutus", :as => "plutus"
+
   resources :items
   resources :providers
   resources :maintenances
@@ -193,6 +195,8 @@ Rails.application.routes.draw do
       #Rutas para enviar correos
       get '/send_email/:id' => 'items#send_email'
 
+
+      get '/income_statement' => 'items#income_statement'
 
 
       #add Files to Items details from angular

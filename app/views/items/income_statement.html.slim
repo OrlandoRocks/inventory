@@ -1,0 +1,15 @@
+section.content
+  .row
+    .col-xs-12
+      .box.box-primary
+        .box-body.box-profile
+          h3.profile-username.text-center
+            | AgroTrailer Planet
+          p.text-muted.text-center
+            = "Estado de Resultados al #{Time.now.strftime("%Y/%m/%d")}"
+          ul.list-group.list-group-unbordered
+            li.list-group-item
+              b
+                | Ventas:
+              p.text-center
+                = @sales.sum(:sale_price)

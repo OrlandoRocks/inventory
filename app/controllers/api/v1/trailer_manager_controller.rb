@@ -112,6 +112,16 @@ class Api::V1::TrailerManagerController < ActionController::Base
   end
 
 
+  entry = Plutus::Entry.build(
+      :description => "Venta de Remolque",
+      :debits => [
+          {:account_name => "Bancos", :amount => 50}],
+      :credits => [
+          {:account_name => "Ventas", :amount => 45},
+          {:account_name => "IVA Trasladado", :amount => 5}])
+
+
+
   def destroy_trailer
     trailer = Trailer.find(params[:id])
     trailer.destroy
