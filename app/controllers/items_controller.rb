@@ -7,7 +7,7 @@ class ItemsController < ApplicationController
   # GET /items.json
   def index
     @search_items = policy_scope(Item).ransack(params[:q])
-    @items = @search_items.result.paginate(page: params[:page], per_page: 20)
+    @items = @search_items.result.paginate(page: params[:page], per_page: 200)
 
     @all_models = policy_scope(TrailerType).pluck(:model_part)
 
@@ -24,8 +24,12 @@ class ItemsController < ApplicationController
 
 
   def income_statement
+    vendido = StatusItem.find_by_key('vendido').id
+    facturado = StatusItem.find_by_key('facturado').id
+    pendiente_factura = StatusItem.find_by_key('pendiente_factura').id
 
-    @sales = Item.where(status_item_id: StatusItem.find_by_key('vendido').id)
+    @income_sales = Item.where(status_item_id: [vendido,facturado,pendiente_factura])
+
 
   end
 
@@ -198,7 +202,12 @@ class ItemsController < ApplicationController
 
     @branches = current_user.current_company.eql?(0) ? policy_scope(Branch).order(:name) : policy_scope(Branch).where(company_id: @current_company.try(:id)).order(:name);
 
+
     new_params = item_params
+
+    p '-----------------------------------'
+    p new_params
+
 
     if item_params[:user_id].eql?('')
 
@@ -211,6 +220,9 @@ class ItemsController < ApplicationController
       end
 
     end
+
+    p '-----------------------------------'
+    p new_params
 
     respond_to do |format|
       if @item.update(new_params)

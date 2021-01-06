@@ -282,7 +282,7 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
             if (response.data != null) {
                 $scope.item = response.data;
                 $scope.set_model($scope.item);
-                $scope.user = $scope.item.user_id
+                $scope.user = $scope.item.user_id;
                 $scope.get_branch_user($scope.item.user_id);
 
             }
@@ -913,7 +913,8 @@ app.controller('ModalVentaController', ['$scope', 'close', 'Upload', '$http', 'i
                                 status_item_id: status_vendido,
                                 branch_id: $scope.item.branch_id,
                                 department_id: $scope.item.department_id,
-                                user_id: $scope.item.user_id
+                                user_id: $scope.item.user_id,
+                                purchased_date: Date.now()
                             }
                         }
                     });
@@ -969,7 +970,8 @@ app.controller('ModalVentaController', ['$scope', 'close', 'Upload', '$http', 'i
                                 user_id: $scope.item.user_id,
                                 client_id: $scope.item.client_id,
                                 fiscal_voucher_id: $scope.item.fiscal_voucher_id,
-                                description: $scope.item.description
+                                description: $scope.item.description,
+                                purchased_date: Date.now()
                             }
                         }
                     }).then(function (response) {

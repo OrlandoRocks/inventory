@@ -36,8 +36,16 @@ aside.main-sidebar
               = link_item "<i class='fas fa-angle-right'></i> Pedidos".html_safe, orders_path
             li
               = link_item "<i class='fas fa-angle-right'></i> Pedidos Enviados".html_safe, orders_shipped_path
-          li
+          li.treeview
+            a href='#'
+              i.fa.fa-dollar-sign
+              span Ventas
+              i.fa.fa-angle-left.pull-right
+            ul.treeview-menu
+              li
                 = link_item "<i class='fa fa-dollar-sign'></i> Ventas".html_safe, sales_path
+              li
+                = link_item "<i class='fa fa-dollar-sign'></i> Estado de Resultados".html_safe, income_statement_path
 
       - if has_policy_employee || has_policy_branch
         li.header MENU
@@ -63,8 +71,17 @@ aside.main-sidebar
               li
                 = link_item "<i class='fas fa-angle-right'></i> Sucursales".html_safe, branches_path
         - if has_policy(Item, %w(sales))
-          li
-            = link_item "<i class='fa fa-dollar-sign'></i> Ventas".html_safe, sales_path
+          li.treeview
+            a href='#'
+              i.fa.fa-dollar-sign
+              span Ventas
+              i.fa.fa-angle-left.pull-right
+            ul.treeview-menu
+              li
+                = link_item "<i class='fa fa-dollar-sign'></i> Ventas".html_safe, sales_path
+              li
+                = link_item "<i class='fas fa-dollar-sign'></i> Estado de Resultados".html_safe, income_statement_path
+
           / li.treeview
             a href='#'
               i.fa.fa-dollar-sign
