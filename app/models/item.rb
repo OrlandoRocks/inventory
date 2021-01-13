@@ -126,6 +126,25 @@ class Item < ApplicationRecord
   }
 
 
+
+  def self.fcm_push_notification message, seller_name, user_token
+    fcm_client = FCM.new("AAAAPMlsVAc:APA91bGSTjpLnvba_GAVSoAfPLC5xgml5ZpsT-MPYB7YXDGaCW0ObspNUBR_YDdZjpobwhMoMd-_r7UwYCc7WalbH3wXnKeMqu36ktAt2x_12-XH0hJMmWpE554uiV0rhQq41VD1Idrn")
+
+# See https://firebase.google.com/docs/cloud-messaging/http-server-ref for all available options.
+    options = {   priority: 'high',
+                  data: {message:message, icon: nil},
+                  notification: {
+                      title: "Se Vendio Un remolque",
+                      body: "El vendedor #{seller_name} ha echo una venta",
+                      sound: 'default'
+                  }
+    }
+    response = fcm_client.send(user_token, options)
+
+    p response
+
+  end
+
   #require 'CSV'
   def self.import(file)
 

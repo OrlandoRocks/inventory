@@ -31,6 +31,7 @@
 #
 
 class User < ApplicationRecord
+  require 'fcm'
   # Include defaults devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable #, :confirmable
@@ -148,6 +149,8 @@ class User < ApplicationRecord
   def unassigned_items
     self.department.items.where('user_id != ? or user_id IS NULL', self.id)
   end
+
+
 
   private
   def set_default_role

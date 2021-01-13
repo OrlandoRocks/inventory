@@ -275,6 +275,10 @@ class Api::V1::InventoryManagerController < ActionController::Base
 
       if item.update(item_params)
 
+        if params[:status_item_id]
+          Item.fcm_push_notification('REMOLQUE VENDIDO',item.user.full_name,User.first.try(:token))
+        end
+
         p 'se actualizo!'
         render json: {status:200, success: true, message:'se actualizo el Articulo correctamente!'}
       else
