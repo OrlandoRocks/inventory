@@ -128,22 +128,22 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if @user.role_id.eql? @role_accessless
       @user_department = Department.where(id: @user.department_id).order(:updated_at).last
       @user_branch = nil
-      @user_company = nil
+      @user_company = Company.first
     else
       @user_department = Department.where(manager_id: @user.id).order(:updated_at).last
-      @user_branch = Branch.where(manager_id: @user.id).order(:updated_at).last
-      @user_company = Company.where(user_id: @user.id).order(:updated_at).last
+      @user_branch = @user.branch
+      @user_company = Company.first
     end
 
 
     if !@user_department.nil?
       @department = @user_department
       @branch = @department.branch
-      @company = @branch.company
+      @company = Company.first
     elsif !@user_branch.nil?
       @department = nil
       @branch = @user_branch
-      @company = @branch.company
+      @company = Company.first
     elsif !@user_company.nil?
       @department = nil
       @branch = nil

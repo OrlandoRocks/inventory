@@ -5,7 +5,7 @@
     .row.form-group
       = f.label :role_id, class: 'col-sm-2 control-label'
       .col-sm-10
-        select.form-control name='user[role_id]' ng-change="set_role(user_type);company=''; branch_selected=''; department_selected='';" ng-model="user_type" ng-options=("role as role.name for role in roles track by role.id")
+        select.form-control name='user[role_id]' ng-change="set_role(user_type); branch_selected=''; department_selected='';" ng-model="user_type" ng-options=("role as role.name for role in roles track by role.id")
           option value=""  Seleccione un Rol...
 
         / = f.collection_select(:role_id, @roles, :id, :name,
@@ -83,6 +83,15 @@
         = f.label :password_confirmation, class: 'col-sm-2 control-label'
         .col-sm-10
           = f.password_field :password_confirmation, class: 'form-control'
+
+    .row.form-group
+      = f.label 'Foto', class: 'col-sm-2 control-label'
+      .col-sm-5
+        = f.file_field :avatar, class: 'form-control', accept: "image/*"
+      .col-sm-5
+        - unless @user.avatar.url.nil?
+          = link_to image_tag(@user.try(:avatar).try(:url), :class => 'img-circle', :size => '65x65'), "#{url_for(@user.try(:avatar).try(:url))}", :target => "_blank"
+
           / input name="user[password_confirmation]" ng-if="accessless==user_type.id" type="hidden" value="0000_0000"
   .box-footer
     /= f.button "<i class='fa fa-floppy-o'></i> Guardar Usuario".html_safe,

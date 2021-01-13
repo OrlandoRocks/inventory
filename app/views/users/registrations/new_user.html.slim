@@ -1,4 +1,4 @@
-section.content ng-controller="userController" ng-init=("accessless = #{@role_accessless}; roles=#{@roles.to_json}; companies=#{@companies.to_json}")
+section.content ng-controller="userController" ng-init=("accessless = #{@role_accessless}; roles=#{@roles.to_json}; companies=#{@companies.to_json}; company=#{@companies.first.to_json}; set_branches(company.id)")
   .row
     .col-xs-12
       .box.box-primary
