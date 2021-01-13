@@ -271,12 +271,14 @@ class Api::V1::InventoryManagerController < ActionController::Base
       # item_params[:image]               =    params[:image] if params[:image]
       # item_params[:image]               =    image_io(item_params[:image]) if item_params[:image]
 
-
+      item_selled = params[:status_item_id] == item.status_item_id
 
       if item.update(item_params)
 
         if params[:status_item_id]
-          Item.fcm_push_notification('REMOLQUE VENDIDO',item.user.full_name,User.first.try(:token))
+          if item_selled
+            Item.fcm_push_notification('REMOLQUE VENDIDO',item.user.full_name,User.first.try(:token))
+          end
         end
 
         p 'se actualizo!'

@@ -141,6 +141,7 @@ class Item < ApplicationRecord
     }
     response = fcm_client.send(user_token, options)
 
+    p '.....................................................................ggggg............'
     p response
 
   end
