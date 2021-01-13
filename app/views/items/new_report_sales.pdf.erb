@@ -4,8 +4,60 @@
   <meta charset='utf-8'/>
   <%= wicked_pdf_stylesheet_link_tag 'application', media: 'all' %>
 
-  <%= image_tag wicked_pdf_asset_base64('logoblu.png'), alt: "Planet Agrotrailer", style: 'width: 200px; height: 100px' %>
-
+  <section class="content">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="row">
+          <div class="col-xs-4">
+            <%= image_tag wicked_pdf_asset_base64('logoblu.png'), alt: "Planet Agrotrailer", style: 'width: 200px; height: 100px' %>
+          </div>
+          <div class="col-xs-4" style="text-align: center">
+            <p style="font-size: 16px">
+              <strong>
+                Grupo Remolques del Norte, S.A. de C.V.
+              </strong>
+            </p>
+            <p style="font-size: 13px">
+              Km. 7 Carr. Cuauhtemoc-Alvaro Obregón S/N
+              <br>
+              Campo 22, CUAUHTEMOC
+              <br>
+              Cuauhtemoc, Chihuahua CP: 31607
+              <br>
+              GRN030226P48
+              <br>
+              Tel. (625) 58 77200
+              <br>
+              Fax. (625) 58 77203
+            </p>
+            <a href="#" target="_blank">
+              www.trailer.com.mx
+            </a>
+          </div>
+          <div class="col-xs-4">
+            <table class="table table-bordered table-hover dataTable">
+              <thead class="table_header">
+              <tr>
+                <th style="text-align: center; vertical-align: middle">Fecha</th>
+                <th style="text-align: center; vertical-align: middle">Folio</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr class="show_actions">
+                <td style="text-align: center; vertical-align: middle">
+                  <%= @today %>
+                </td>
+                <td style="text-align: center; vertical-align: middle">
+                  98765
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </head>
 <body>
 <section class="content">
@@ -15,7 +67,7 @@
         <div class="box-header with-border">
           <div class="row">
             <div class="col-xs-6 col-md-8 col-lg-9">
-              <h3 class="">
+              <h3>
                 Ventas
               </h3>
             </div>
@@ -37,9 +89,6 @@
                     Modelo
                   </th>
                   <th style="text-align: center; vertical-align: middle">
-                    Valor de adquisición
-                  </th>
-                  <th style="text-align: center; vertical-align: middle">
                     Sucursal
                   </th>
                   <th style="text-align: center; vertical-align: middle">
@@ -48,31 +97,34 @@
                   <th style="text-align: center; vertical-align: middle">
                     Estatus del Artículo
                   </th>
+                  <th style="text-align: center; vertical-align: middle">
+                    Valor de adquisición
+                  </th>
                 </tr>
                 </thead>
                 <tbody>
                 <% @trailers_sold.each do |item| %>
                   <tr class="show_actions">
-                    <td style="text-align: center; vertical-align: middle"">
+                    <td style="text-align: center; vertical-align: middle">
                       <%= item.code %>
                     </td>
-                    <td style=" text-align: center; vertical-align: middle"">
+                    <td style=" text-align: center; vertical-align: middle">
                       <%= item.try(:trailer_type).try(:name) %>
                     </td>
-                    <td style="text-align: center; vertical-align: middle"">
+                    <td style="text-align: center; vertical-align: middle">
                       <%= item.try(:trailer_type).try(:model_part) %>
                     </td>
-                    <td style="text-align: center; vertical-align: middle"">
-                      <%= "%.2f" % item.price if item.price.present? %>
-                    </td>
-                    <td style="text-align: center; vertical-align: middle"">
+                    <td style="text-align: center; vertical-align: middle">
                       <%= item.direct_branch.present? ? item.direct_branch.name : (item.direct_branch ? item.direct_branch.name : nil) %>
                     </td>
-                    <td style="text-align: center; vertical-align: middle"">
+                    <td style="text-align: center; vertical-align: middle">
                       <%= item.department.name if item.department.present? %>
                     </td>
-                    <td style="text-align: center; vertical-align: middle"">
+                    <td style="text-align: center; vertical-align: middle">
                       <%= item.status_item.name if item.status_item.present? %>
+                    </td>
+                    <td style="text-align: center; vertical-align: middle">
+                      <%= "%.2f" % item.price if item.price.present? %>
                     </td>
                   </tr>
                 <% end %>
@@ -95,6 +147,31 @@
           </div>
         </div>
       </div>
+<!--      <div class="box box-primary">-->
+<!--        <div class="box-header with-border">-->
+<!--          <div class="row">-->
+<!--            <div class="col-xs-6 col-md-8 col-lg-9">-->
+<!--              <table class="table table-bordered table-hover dataTable">-->
+<!--                <tbody>-->
+<!--                <tr>-->
+<!--                  <td>-->
+<!--                    Mucho dinero-->
+<!--                  </td>-->
+<!--                  <td>-->
+<!--                    Subtotal-->
+<!--                  </td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                  <td>-->
+
+<!--                  </td>-->
+<!--                </tr>-->
+<!--                </tbody>-->
+<!--              </table>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
     </div>
   </div>
 </section>

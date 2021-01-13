@@ -107,7 +107,11 @@
         <% else %>
           <div class="box-body box-profile">
 
-            <% unless @item.status_item.key == 'facturado' %>
+            <% if @item.status_item.key == 'facturado' %>
+              <a class="btn btn-block btn-success btn-lg" href="/report/item_sale/<%= @item.id %>.pdf" target="_blank">
+                <i class="fa fa-file-pdf "> PDF</i>
+              </a>
+            <% else %>
               <% if @item.try(:status_shipping).key === 'enviado' %>
                 <a class="btn btn-block btn-success btn-lg" ng-click="show_receive()">
                   <i class="fa fa-handshake "> Recibido</i>
@@ -169,6 +173,14 @@
                 <p class="text-muted"><%= "$ #{ "%.2f" % @item.price if @item.price.present?}" %></p>
               </li>
               <li class="list-group-item">
+                <b><%= t("items.form.sale_price") %></b>
+                <p class="text-muted"><%= "$ #{ "%.2f" % @item.sale_price if @item.sale_price.present?}" %></p>
+              </li>
+              <li class="list-group-item">
+                <b><%= t("items.form.price") %></b>
+                <p class="text-muted"><%= "$ #{ "%.2f" % @item.price if @item.price.present?}" %></p>
+              </li>
+              <li class="list-group-item">
                 <b><i class="fa fa-percent margin-r-5"></i><%= t("items.form.percentage_planet") %></b>
                 <p class="text-muted"><%= "$ #{ @item.planet_percentage.nil? ? 0 : get_percentage_value(@item.planet_percentage, @item.price)}" %></p>
               </li>
@@ -176,10 +188,12 @@
                 <b><i class="fa fa-percent margin-r-5"></i><%= t("items.form.percentage_branch") %></b>
                 <p class="text-muted"><%= "$ #{ @item.branch_percentage.nil? ? 0 : get_percentage_value(@item.branch_percentage, @item.price)}" %></p>
               </li>
-              <li class="list-group-item">
-                <b><i class="fa fa-percent margin-r-5"></i><%= t("items.form.percentage_seller") %></b>
-                <p class="text-muted"><%= "$ #{ @item.seller_percentage.nil? ? 0 : get_percentage_value(@item.seller_percentage, @item.price)}" %></p>
-              </li>
+              <% if @item.try(:user).try(:department).try(:branch_id) != @item.try(:branch_id) %>
+                <li class="list-group-item">
+                  <b><i class="fa fa-percent margin-r-5"></i><%= t("items.form.percentage_seller") %></b>
+                  <p class="text-muted"><%= "$ #{ @item.seller_percentage.nil? ? 0 : get_percentage_value(@item.seller_percentage, @item.price)}" %></p>
+                </li>
+              <% end %>
               <!--<li class="list-group-item">-->
               <!--<b><%#= t("items.form.provider") %></b> <a class="text-muted"><%#= @item.provider.try("name") %></a>-->
               <!--</li>-->
@@ -646,7 +660,7 @@
               </label>
               <div class="col-md-3">
                 <div class="input-group">
-                  <input type="text" class="form-control text_field" ng-model="planet_percentage" ng-change="validate_inputs_values()">
+                  <input type="number" class="form-control text_field" min="0" ng-change="validate_planet_percentage(planet_percentage)" ng-model="planet_percentage" ng-change="validate_inputs_values()">
                   <span class="input-group-addon">
                     %
                   </span>
@@ -660,7 +674,7 @@
               </label>
               <div class="col-md-3">
                 <div class="input-group">
-                  <input type="text" class="form-control text_field" ng-model="branch_percentage" ng-disabled="disable_percentages">
+                  <input type="number" class="form-control text_field" min="0" ng-change="validate_branch_percentage(branch_percentage)" ng-model="branch_percentage" ng-disabled="disable_percentages">
                   <span class="input-group-addon">
                     %
                   </span>
@@ -674,8 +688,8 @@
               </label>
               <div class="col-md-3">
                 <div class="input-group">
-                  <input type="text" class="form-control text_field" ng-model="seller_percentage" ng-disabled="disable_percentages">
-                  <span class="input-group-addon" >
+                  <input type="number" class="form-control text_field" min="0" ng-change="validate_seller_percentage(seller_percentage)" ng-model="seller_percentage" ng-disabled="disable_percentages">
+                  <span class="input-group-addon">
                     %
                   </span>
                 </div>

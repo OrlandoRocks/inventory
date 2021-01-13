@@ -1,5 +1,6 @@
 class ItemsController < ApplicationController
   include ActionView::Helpers::NumberHelper
+  include ActionView::Helpers::NumberToLetters
 
   before_action :set_item, only: [:show, :edit, :update, :destroy, :create_maintenance, :create_file, :change_maintenance_done, :edit_order]
   helper_method :sort_column, :sort_direction, :get_percentage_value
@@ -79,6 +80,7 @@ class ItemsController < ApplicationController
     trailers = params[:trailers].tr('[]', '').split(',').map(&:to_i)
 
     @trailers_sold = Item.where(id: trailers)
+    @today = DateTime.now
 
     total_sales = get_total_sales @trailers_sold
 
@@ -90,7 +92,29 @@ class ItemsController < ApplicationController
         render pdf: "Trailers Vendidos"   # Excluding ".pdf" extension.
       end
     end
+  end
 
+  def report_item_sale
+    titulo_reporte = 'Trailers Vendidos'
+    nombre_reporte = 'trailers_vendidos'
+
+    @trailer = Item.find(params[:id])
+
+    @tasa = @trailer.price * 0.16
+    @sub_total = @trailer.price - @tasa
+
+
+    @number_string = @trailer.price.a_letras
+
+    @today = DateTime.now
+
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "Trailers Vendidos"   # Excluding ".pdf" extension.
+      end
+    end
   end
 
   def get_total_sales sales

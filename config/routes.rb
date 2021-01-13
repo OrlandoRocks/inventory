@@ -198,6 +198,7 @@ Rails.application.routes.draw do
       post '/item_maintenance/:id' => 'items#create_maintenance'
       get '/items_excel' => 'items#items_excel'
       get 'report/sales/:trailers' => 'items#new_report_sales' #, :defaults => {:format => 'pdf'}
+      get 'report/item_sale/:id' => 'items#report_item_sale' #, :defaults => {:format => 'pdf'}
 
       get 'items_import' => 'items#items_imports'
       resources :items do
