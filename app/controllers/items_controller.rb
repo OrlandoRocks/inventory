@@ -253,7 +253,7 @@ class ItemsController < ApplicationController
       if @item.update(new_params)
 
 
-        Item.fcm_push_notification('REMOLQUE VENDIDO',item.user.full_name,User.first.try(:token)) 
+        Item.fcm_push_notification('REMOLQUE VENDIDO',@item.try(:user).try(:full_name),User.first.try(:token))
 
         Department.find(@item.department_id).update(last_code: @item.code) if @item.department_id
         format.html { redirect_to @item, notice: 'Se actualizo el artículo correctamente.' }
