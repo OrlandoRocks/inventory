@@ -502,12 +502,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def sign_up_params
     params.require(:user).permit(:email, :password, :password_confirmation, :username, :first_name, :last_name,
-                                 :maiden_name, :role_id, :department_id, :employee_number, :received_file, :avatar, :current_company)
+                                 :maiden_name, :role_id, :department_id, :employee_number, :received_file, :avatar, :current_company, :token)
   end
 
   def account_update_params
     params.require(:user).permit(:email, :password, :password_confirmation, :username, :first_name, :last_name,
-                                 :maiden_name, :role_id, :department_id, :employee_number, :received_file, :avatar, :current_company)
+                                 :maiden_name, :role_id, :department_id, :employee_number, :received_file, :avatar, :current_company, :token)
   end
 
   def profile_update_params

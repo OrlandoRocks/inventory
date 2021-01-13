@@ -60,7 +60,7 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: {format: 'json'} do
     namespace :v1 do
-      put 'login_user' => 'users_manager#login_user'
+
       get 'get_items/:token' => 'inventory_manager#get_items'
       get 'get_items_not_sell/:user_id/:token' => 'inventory_manager#get_items_not_sell'
       get 'get_items_sell/:user_id/:token' => 'inventory_manager#get_items_sell'
@@ -85,6 +85,8 @@ Rails.application.routes.draw do
       put 'update_trailer' => 'trailer_manager#update_trailer'
       put 'create_client' => 'client_manager#create_client'
       put 'update_client' => 'client_manager#update_client'
+      put 'save_token' => 'users_manager#save_token'
+      put 'login_user' => 'users_manager#login_user'
 
       delete 'destroy_client' => 'client_manager#destroy_client'
       delete 'destroy_trailer' => 'trailer_manager#destroy_trailer'
