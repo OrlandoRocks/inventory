@@ -13,6 +13,19 @@ class Api::V1::InventoryManagerController < ActionController::Base
   end
 
 
+
+  def get_cities
+    render json: City.all
+  end
+
+
+  def get_states
+    render json: State.all
+  end
+
+
+
+
   def get_branches
     @branches = Branch.all
     render json: @branches

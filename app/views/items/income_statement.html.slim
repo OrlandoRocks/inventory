@@ -1,0 +1,70 @@
+section.content
+  .row
+    .col-xs-12
+      .box.box-primary
+        .box-body.box-profile
+          h3.profile-username.text-center
+            | AgroTrailer Planet
+          p.text-muted.text-center
+            = "Estado de Resultados al #{Time.now.strftime("%Y/%m/%d")}"
+          ul.list-group.list-group-unbordered
+            li.list-group-item
+              .col-sm-2
+              p.text-center
+                strong
+                  |  IMPORTE
+              / .row.form-group
+              /   = label_tag 'ventas','Ventas', class: 'col-sm-2 control-label'
+              /   .col-sm-10
+              /     p.control-label.text-muted.text-center
+              /       = Money.from_amount(@income_sales.sum(:sale_price)).format
+            li.list-group-item
+              .row.form-group
+                = label_tag 'ventas', 'Ventas Netas', class: 'col-sm-2 control-label'
+                .col-sm-10
+                  p.control-label.text-muted.text-center
+                    = Money.from_amount(@income_sales.sum(:sale_price)).format
+              .row.form-group
+                = label_tag 'costo_ventas', 'Costo de Ventas', class: 'col-sm-2 control-label'
+                .col-sm-10
+                  p.control-label.text-muted.text-center
+                    = Money.from_amount(@income_sales.sum(:price)).format
+            li.list-group-item
+              .row.form-group
+                = label_tag 'utilidad_bruta', 'Utilidad Bruta', class: 'col-sm-2 control-label'
+                .col-sm-10
+                  p.control-label.text-muted.text-center
+                    = Money.from_amount(@income_sales.sum(:sale_price)-@income_sales.sum(:price)).format
+                    input type='hidden' ng-init='utilidad_bruta=#{@income_sales.sum(:sale_price)-@income_sales.sum(:price)}; utilidad_antes = utilidad_bruta - gastos'
+              .row.form-group
+                = label_tag 'gastos', 'Gastos ', class: 'col-sm-2 control-label'
+                .col-sm-10.text-center
+                  input format="currency" ng-model='gastos' ng-change='utilidad_antes = utilidad_bruta - gastos'
+            li.list-group-item
+              .row.form-group
+                = label_tag 'utilidad_antes_isr', 'Utilidades antes de impuestos', class: 'col-sm-2 control-label'
+                .col-sm-10.text-center
+                  p.control-label.text-muted.text-center
+                    | {{utilidad_bruta - gastos | currency}}
+              .row.form-group
+                = label_tag 'impuestos_utilidad', 'Impuestos a la Utilidad (30%)', class: 'col-sm-2 control-label'
+                .col-sm-10.text-center
+                  p.control-label.text-muted.text-center ng-show='utilidad_antes>0'
+                    | {{(utilidad_bruta - gastos)*0.3 | currency}}
+                  p.control-label.text-muted.text-center ng-show='utilidad_antes<0'
+                    | {{0.0 | currency}}
+            li.list-group-item
+              .row.form-group
+                = label_tag 'resultado', 'Resultado del Ejercicio', class: 'col-sm-2 control-label'
+                .col-sm-10.text-center
+                  p.control-label.text-muted.text-center ng-show='utilidad_antes<0'
+                    | {{(utilidad_bruta - gastos) | currency}}
+                  p.control-label.text-muted.text-center ng-show='utilidad_antes>0'
+                    | {{(utilidad_bruta - gastos) - ((utilidad_bruta - gastos)*0.3) | currency}}
+
+
+
+
+
+
+

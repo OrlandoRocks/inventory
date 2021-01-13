@@ -83,10 +83,10 @@
       <tbody>
       <tr class="show_actions">
         <td>
-          <%= @item.client.full_name %>
+          <%= @item.client.try(:full_name) %>
         </td>
         <td>
-          <%= @item.user.full_name %>
+          <%= @item.user.try(:full_name) %>
         </td>
         <td>
           <%= @item.try(:serial_number) %>

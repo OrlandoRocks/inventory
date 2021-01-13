@@ -270,7 +270,7 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
             if (response.data != null) {
                 $scope.item = response.data;
                 $scope.set_model($scope.item);
-                $scope.user = $scope.item.user_id
+                $scope.user = $scope.item.user_id;
                 $scope.get_branch_user($scope.item.user_id);
 
             }
@@ -885,40 +885,41 @@ app.controller('ModalVentaController', ['$scope', 'close', 'Upload', '$http', 'i
                     });
                     if ($scope.item.image) {
 
-                        $scope.item.image.upload = Upload.upload({
-                            url: `/items/${$scope.item.id}.json`,
-                            method: 'PUT',
-                            //  data: {file: file}
-                            data: {
-                                item: {
-                                    sale_price: $scope.item.sale_price,
-                                    payment_type: $scope.item.payment_type,
-                                    image: $scope.item.image,
-                                    status_item_id: status_vendido,
-                                    branch_id: $scope.item.branch_id,
-                                    department_id: $scope.item.department_id,
-                                    user_id: $scope.item.user_id
-                                }
+                    $scope.item.image.upload = Upload.upload({
+                        url: `/items/${$scope.item.id}.json`,
+                        method: 'PUT',
+                        //  data: {file: file}
+                        data: {
+                            item: {
+                                sale_price: $scope.item.sale_price,
+                                payment_type: $scope.item.payment_type,
+                                image: $scope.item.image,
+                                status_item_id: status_vendido,
+                                branch_id: $scope.item.branch_id,
+                                department_id: $scope.item.department_id,
+                                user_id: $scope.item.user_id,
+                                purchased_date: Date.now()
                             }
-                        });
-                        $scope.item.image.upload.then(function (response) {
-                            $timeout(function () {
-                                $scope.item.image.result = response.data;
-                                if (response.data) {
-                                    $http({
-                                        url: '/send_email/ ' + $scope.item.id + '.json',
-                                        method: 'GET'
-                                    }).then(function (response) {
-                                        if (response.data) {
-                                            swal({
-                                                title: 'Vendido',
-                                                text: 'El artículo ha sido Vendido correctamente. La factura esta en proceso',
-                                                type: 'success',
-                                                showCancelButton: false
-                                            }).then(function (isConfirm) {
-                                                if (isConfirm) {
-                                                    location.reload();
-                                                }
+                        }
+                    });
+                    $scope.item.image.upload.then(function (response) {
+                        $timeout(function () {
+                            $scope.item.image.result = response.data;
+                            if (response.data) {
+                                $http({
+                                    url: '/send_email/ '+ $scope.item.id + '.json',
+                                    method: 'GET'
+                                }).then(function (response) {
+                                    if (response.data) {
+                                        swal({
+                                            title: 'Vendido',
+                                            text: 'El artículo ha sido Vendido correctamente. La factura esta en proceso',
+                                            type: 'success',
+                                            showCancelButton: false
+                                        }).then(function (isConfirm) {
+                                            if (isConfirm) {
+                                                location.reload();
+                                            }
 
                                             }, function (iSConfirm) {
 
@@ -938,40 +939,41 @@ app.controller('ModalVentaController', ['$scope', 'close', 'Upload', '$http', 'i
                                 evt.loaded / evt.total));
                         });
 
-                    } else {
-                        $http({
-                            url: `/items/${$scope.item.id}.json`,
-                            method: 'PUT',
-                            //  data: {file: file}
-                            data: {
-                                item: {
-                                    sale_price: $scope.item.sale_price,
-                                    payment_type: $scope.item.payment_type,
-                                    status_item_id: status_pendiente_factura,
-                                    branch_id: $scope.item.branch_id,
-                                    department_id: $scope.item.department_id,
-                                    user_id: $scope.item.user_id,
-                                    client_id: $scope.item.client_id,
-                                    fiscal_voucher_id: $scope.item.fiscal_voucher_id,
-                                    description: $scope.item.description
-                                }
+                } else {
+                    $http({
+                        url: `/items/${$scope.item.id}.json`,
+                        method: 'PUT',
+                        //  data: {file: file}
+                        data: {
+                            item: {
+                                sale_price: $scope.item.sale_price,
+                                payment_type: $scope.item.payment_type,
+                                status_item_id: status_pendiente_factura,
+                                branch_id: $scope.item.branch_id,
+                                department_id: $scope.item.department_id,
+                                user_id: $scope.item.user_id,
+                                client_id: $scope.item.client_id,
+                                fiscal_voucher_id: $scope.item.fiscal_voucher_id,
+                                description: $scope.item.description,
+                                purchased_date: Date.now()
                             }
-                        }).then(function (response) {
-                            if (response.data) {
-                                $http({
-                                    url: '/send_email/ ' + $scope.item.id + '.json',
-                                    method: 'GET'
-                                }).then(function (response) {
-                                    if (response.data) {
-                                        swal({
-                                            title: 'Vendido (Falta Comprobante)',
-                                            text: 'El artículo ha sido Vendido y se facturara cuando se agregue el comprobante de pago',
-                                            type: 'success',
-                                            showCancelButton: false
-                                        }).then(function (isConfirm) {
-                                            if (isConfirm) {
-                                                location.reload();
-                                            }
+                        }
+                    }).then(function (response) {
+                        if (response.data) {
+                            $http({
+                                url: '/send_email/ '+ $scope.item.id + '.json',
+                                method: 'GET'
+                            }).then(function (response) {
+                                if (response.data) {
+                                    swal({
+                                        title: 'Vendido (Falta Comprobante)',
+                                        text: 'El artículo ha sido Vendido y se facturara cuando se agregue el comprobante de pago',
+                                        type: 'success',
+                                        showCancelButton: false
+                                    }).then(function (isConfirm) {
+                                        if (isConfirm) {
+                                            location.reload();
+                                        }
 
                                         }, function (iSConfirm) {
 

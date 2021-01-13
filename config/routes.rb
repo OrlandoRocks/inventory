@@ -41,6 +41,8 @@ Rails.application.routes.draw do
 
   mount ActionCable.server, at: '/cable'
 
+  mount Plutus::Engine => "/plutus", :as => "plutus"
+
   resources :items
   resources :providers
   resources :maintenances
@@ -58,13 +60,15 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: {format: 'json'} do
     namespace :v1 do
-      put 'login_user' => 'users_manager#login_user'
+
       get 'get_items/:token' => 'inventory_manager#get_items'
       get 'get_items_not_sell/:user_id/:token' => 'inventory_manager#get_items_not_sell'
       get 'get_items_sell/:user_id/:token' => 'inventory_manager#get_items_sell'
       get 'get_items_order/:user_id/:token' => 'inventory_manager#get_items_order'
       get 'get_orders_shipped/:user_id/:token' => 'inventory_manager#get_orders_shipped'
       get 'get_branches/:token' => 'inventory_manager#get_branches'
+      get 'get_cities/:token' => 'inventory_manager#get_cities'
+      get 'get_states/:token' => 'inventory_manager#get_states'
       get 'get_trailers/:token' => 'inventory_manager#get_trailers'
       get 'get_categories/:token' => 'inventory_manager#get_categories'
       get 'get_sub_categories/:token' => 'inventory_manager#get_sub_categories'
@@ -81,6 +85,8 @@ Rails.application.routes.draw do
       put 'update_trailer' => 'trailer_manager#update_trailer'
       put 'create_client' => 'client_manager#create_client'
       put 'update_client' => 'client_manager#update_client'
+      put 'save_token' => 'users_manager#save_token'
+      put 'login_user' => 'users_manager#login_user'
 
       delete 'destroy_client' => 'client_manager#destroy_client'
       delete 'destroy_trailer' => 'trailer_manager#destroy_trailer'
@@ -191,6 +197,8 @@ Rails.application.routes.draw do
       #Rutas para enviar correos
       get '/send_email/:id' => 'items#send_email'
 
+
+      get '/income_statement' => 'items#income_statement'
 
 
       #add Files to Items details from angular

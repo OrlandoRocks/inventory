@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui/datepicker
 //= require bootstrap-sprockets
 //= require AdminLTE/datatables.min
 //= require AdminLTE/app

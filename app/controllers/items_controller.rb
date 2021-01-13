@@ -8,7 +8,7 @@ class ItemsController < ApplicationController
   # GET /items.json
   def index
     @search_items = policy_scope(Item).ransack(params[:q])
-    @items = @search_items.result.paginate(page: params[:page], per_page: 20)
+    @items = @search_items.result.paginate(page: params[:page], per_page: 200)
 
     @all_models = policy_scope(TrailerType).pluck(:model_part)
 
@@ -21,6 +21,17 @@ class ItemsController < ApplicationController
     @items = @search_items.result.order('maintenance_date').paginate(page: params[:page], per_page: 20)
     #@items_electric = Item.where(sub_category: SubCategory.where(category_id: 2).ids)
     @items_electric = policy_scope(Item).next_maintenances.where(sub_category: SubCategory.where(category_id: 2).ids)
+  end
+
+
+  def income_statement
+    vendido = StatusItem.find_by_key('vendido').id
+    facturado = StatusItem.find_by_key('facturado').id
+    pendiente_factura = StatusItem.find_by_key('pendiente_factura').id
+
+    @income_sales = Item.where(status_item_id: [vendido,facturado,pendiente_factura])
+
+
   end
 
   def orders
@@ -182,12 +193,14 @@ class ItemsController < ApplicationController
     @branches = current_user.current_company.eql?(0) ? policy_scope(Branch).order(:name) : policy_scope(Branch).where(company_id: @current_company.try(:id)).order(:name);
 
     new_params = item_params
-    if item_params[:user_id].eql?('')
-      new_params[:user_id] = params[:boss_id]
-    end
-
+    # if item_params[:user_id].eql?('')
+    #   new_params[:user_id] = params[:boss_id]
+    # end
 
     @item = Item.new(new_params)
+
+
+    # finantial_balance @item
 
     respond_to do |format|
       if @item.save
@@ -213,7 +226,12 @@ class ItemsController < ApplicationController
 
     @branches = current_user.current_company.eql?(0) ? policy_scope(Branch).order(:name) : policy_scope(Branch).where(company_id: @current_company.try(:id)).order(:name);
 
+
     new_params = item_params
+
+    p '-----------------------------------'
+    p new_params
+
 
     if item_params[:user_id].eql?('')
 
@@ -226,6 +244,9 @@ class ItemsController < ApplicationController
       end
 
     end
+
+    p '-----------------------------------'
+    p new_params
 
     respond_to do |format|
       if @item.update(new_params)
@@ -399,6 +420,57 @@ class ItemsController < ApplicationController
 
 
   private
+
+  def finantial_balance item
+
+
+
+
+    if item.status_item.key == 'no_vendido'
+
+      entry = Plutus::Entry.new(
+          :description => "Compra de Remolque",
+          :date => item.acquisition_date,
+          :debits => [
+              {:account_name => "Compras", :amount => item.price},
+              {:account_name => "IVA Acreditable", :amount => (item.price*0.16)}],
+          :credits => [
+              {:account_name => "Bancos", :amount => (item.price*1.16)}])
+
+      entry.save
+
+      entry = Plutus::Entry.new(
+          :description => "Compra de Remolque ER",
+          :date => item.acquisition_date,
+          :debits => [
+              {:account_name => "Inventarios", :amount => item.price}],
+          :credits => [
+              {:account_name => "Costo Ventas", :amount => item.price}])
+
+      entry.save
+
+
+
+
+    elsif item.status_item.key == 'pendiente'
+
+      entry = Plutus::Entry.new(
+          :description => "Pedido Pendiente Remolque",
+          :date => item.acquisition_date,
+          :debits => [
+              {:account_name => "Inventarios", :amount => item.price}],
+          :credits => [
+              {:account_name => "Costo Ventas", :amount => item.price}])
+
+      entry.save
+
+    end
+
+
+
+
+
+  end
 
   def sortable_columns
     ["branch", "department", "category", "code", "model", "Responsable", "name", "description", "price", "brand", "sub_category"]
