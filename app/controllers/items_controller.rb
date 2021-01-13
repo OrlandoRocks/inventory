@@ -247,13 +247,13 @@ class ItemsController < ApplicationController
 
     p '-----------------------------------'
     p new_params
-    item_selled = @item.status_item_id == params[:status_item_id]
+    item_selled = @item.status_item_id != params[:status_item_id]
 
     respond_to do |format|
       if @item.update(new_params)
 
 
-        Item.fcm_push_notification('REMOLQUE VENDIDO',item.user.full_name,User.first.try(:token)) if item_selled
+        Item.fcm_push_notification('REMOLQUE VENDIDO',item.user.full_name,User.first.try(:token)) 
 
         Department.find(@item.department_id).update(last_code: @item.code) if @item.department_id
         format.html { redirect_to @item, notice: 'Se actualizo el artículo correctamente.' }
