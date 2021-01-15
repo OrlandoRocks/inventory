@@ -174,11 +174,11 @@
               </li>
               <li class="list-group-item">
                 <b><%= t("items.form.sale_price") %></b>
-                <p class="text-muted"><%= "$ #{ "%.2f" % @item.sale_price if @item.sale_price.present?}" %></p>
+                <p class="text-muted"><%= "$ #{ Money.from_amount(@item.sale_price).format if @item.sale_price.present?}" %></p>
               </li>
               <li class="list-group-item">
                 <b><%= t("items.form.price") %></b>
-                <p class="text-muted"><%= "$ #{ "%.2f" % @item.price if @item.price.present?}" %></p>
+                <p class="text-muted"><%= "$ #{ Money.from_amount(@item.price).format if @item.price.present?}" %></p>
               </li>
               <li class="list-group-item">
                 <b><i class="fa fa-percent margin-r-5"></i><%= t("items.form.percentage_planet") %></b>
@@ -226,8 +226,8 @@
 
               <% if @item.image.attached? %>
                 <li class="list-group-item">
-                  <b>Factura</b>
-                  <%= link_to 'Ver Factura', "#{url_for(@item.image)}", :target => "_blank", class: 'pull-right' %>
+                  <b>Comprobante de Pago</b>
+                  <%= link_to 'Ver Comprobante', "#{url_for(@item.image)}", :target => "_blank", class: 'pull-right' %>
                 </li>
               <% end %>
 
