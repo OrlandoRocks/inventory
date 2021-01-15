@@ -70,6 +70,8 @@ app.controller('userController',["$scope", "$http", function($scope, $http) {
         }
     };
 
+    // $scope.set_branches();
+
     
     $scope.set_department = function (branch) {
         // $scope.departments = [];
