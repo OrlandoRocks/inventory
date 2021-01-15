@@ -282,7 +282,7 @@ class Api::V1::InventoryManagerController < ActionController::Base
         end
 
         p 'se actualizo!'
-        render json: {status:200, success: true, message:'se actualizo el Articulo correctamente!', item: Item.find(params[:id]).as_json}
+        render json: {status:200, success: true, message:'se actualizo el Articulo correctamente!', item: item.as_json(except: :image)}
       else
         p 'algo valio shit'
         render json: {status:400, success: false, error:item.errors.as_json}
