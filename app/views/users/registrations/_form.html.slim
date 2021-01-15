@@ -90,7 +90,10 @@
         = f.file_field :avatar, class: 'form-control', accept: "image/*"
       .col-sm-5
         - unless @user.avatar.url.nil?
-          = link_to image_tag(@user.try(:avatar).try(:url), :class => 'img-circle', :size => '65x65'), "#{url_for(@user.try(:avatar).try(:url))}", :target => "_blank"
+          = link_to url_for(@user.try(:avatar).try(:url)), :class => "btn btn-block btn-info btn-lg", :target => "_blank"
+            i.fa.fa-image
+              | Ver foto
+          / = link_to image_tag(@user.try(:avatar).try(:url), :class => 'img-circle', :size => '65x65'), "#{url_for(@user.try(:avatar).try(:url))}", :target => "_blank"
 
           / input name="user[password_confirmation]" ng-if="accessless==user_type.id" type="hidden" value="0000_0000"
   .box-footer
