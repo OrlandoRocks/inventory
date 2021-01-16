@@ -7,7 +7,7 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.json
   def index
-    @search_items = policy_scope(Item).ransack(params[:q]).order(created_at: :desc)
+    @search_items = policy_scope(Item).ransack(params[:q])
     @items = @search_items.result.paginate(page: params[:page], per_page: 200)
 
     @all_models = policy_scope(TrailerType).pluck(:model_part)
@@ -36,11 +36,11 @@ class ItemsController < ApplicationController
 
   def orders
     if current_user.god? or current_user.admin?
-      @search_items = Item.where(status_item_id: StatusItem.find_by_key('pendiente').id).ransack(params[:q]).order(created_at: :desc)
+      @search_items = Item.where(status_item_id: StatusItem.find_by_key('pendiente').id).ransack(params[:q])
     elsif current_user.admin_branch?
-      @search_items =  Item.joins(:branch).where('branches.manager_id = ? AND items.status_item_id = ?', current_user.id, StatusItem.find_by_key('pendiente')).ransack(params[:q]).order(created_at: :desc)
+      @search_items =  Item.joins(:branch).where('branches.manager_id = ? AND items.status_item_id = ?', current_user.id, StatusItem.find_by_key('pendiente')).ransack(params[:q])
     elsif current_user.user_employee?
-      @search_items = Item.where(user_id: current_user.id, status_item_id: StatusItem.find_by_key('pendiente').id).ransack(params[:q]).order(created_at: :desc)
+      @search_items = Item.where(user_id: current_user.id, status_item_id: StatusItem.find_by_key('pendiente').id).ransack(params[:q])
     end
 
 
@@ -53,11 +53,11 @@ class ItemsController < ApplicationController
 
   def sales
     if current_user.god? or current_user.admin?
-      @search_items = Item.where(status_item_id: [StatusItem.find_by_key('vendido').id,StatusItem.find_by_key('pendiente_factura').id, StatusItem.find_by_key('facturado').id]).ransack(params[:q]).order(purchased_date: :desc)
+      @search_items = Item.where(status_item_id: [StatusItem.find_by_key('vendido').id,StatusItem.find_by_key('pendiente_factura').id, StatusItem.find_by_key('facturado').id]).ransack(params[:q])
     elsif current_user.admin_branch?
-      @search_items = Item.joins(:branch).where('branches.manager_id = ?', current_user.id).where(status_item_id: [StatusItem.find_by_key('vendido').id,StatusItem.find_by_key('pendiente_factura').id, StatusItem.find_by_key('facturado').id]).ransack(params[:q]).order(purchased_date: :desc)
+      @search_items = Item.joins(:branch).where('branches.manager_id = ?', current_user.id).where(status_item_id: [StatusItem.find_by_key('vendido').id,StatusItem.find_by_key('pendiente_factura').id, StatusItem.find_by_key('facturado').id]).ransack(params[:q])
     elsif current_user.user_employee?
-      @search_items = Item.where(user_id: current_user.id, status_item_id: [StatusItem.find_by_key('vendido').id,StatusItem.find_by_key('pendiente_factura').id, StatusItem.find_by_key('facturado').id]).ransack(params[:q]).order(purchased_date: :desc)
+      @search_items = Item.where(user_id: current_user.id, status_item_id: [StatusItem.find_by_key('vendido').id,StatusItem.find_by_key('pendiente_factura').id, StatusItem.find_by_key('facturado').id]).ransack(params[:q])
     end
 
     @all_models = policy_scope(TrailerType).pluck(:model_part)
@@ -71,11 +71,11 @@ class ItemsController < ApplicationController
 
   def orders_shipped
     if current_user.god? or current_user.admin?
-      @search_items = Item.where(status_shipping_id: StatusShipping.find_by_key('enviado').id).ransack(params[:q]).order(created_at: :desc)
+      @search_items = Item.where(status_shipping_id: StatusShipping.find_by_key('enviado').id).ransack(params[:q])
     elsif current_user.admin_branch?
-      @search_items =  Item.joins(:branch).where('branches.manager_id = ? AND items.status_shipping_id = ?', current_user.id, StatusShipping.find_by_key('enviado')).ransack(params[:q]).order(created_at: :desc)
+      @search_items =  Item.joins(:branch).where('branches.manager_id = ? AND items.status_shipping_id = ?', current_user.id, StatusShipping.find_by_key('enviado')).ransack(params[:q])
     elsif current_user.user_employee?
-      @search_items = Item.where(user_id: current_user.id, status_item_id: StatusShipping.find_by_key('enviado').id).ransack(params[:q]).order(created_at: :desc)
+      @search_items = Item.where(user_id: current_user.id, status_item_id: StatusShipping.find_by_key('enviado').id).ransack(params[:q])
     end
     @items = @search_items.result.paginate(page: params[:page], per_page: 20)
     @all_models = policy_scope(Trailer).pluck(:model)
@@ -190,7 +190,7 @@ class ItemsController < ApplicationController
     @users = Company.where(id: current_user.current_company)
 
 
-    @branches = current_user.current_company.eql?(0) ? policy_scope(Branch).order(:name) : policy_scope(Branch).where(company_id: @current_company.try(:id)).order(:name);
+    @branches = current_user.current_company.eql?(0) ? policy_scope(Branch).order(:name) : policy_scope(Branch).where(company_id: @current_company.try(:id)).order(:name)
 
     new_params = item_params
     # if item_params[:user_id].eql?('')
@@ -224,7 +224,7 @@ class ItemsController < ApplicationController
       @users = Company.where(id: current_user.current_company)
     end
 
-    @branches = current_user.current_company.eql?(0) ? policy_scope(Branch).order(:name) : policy_scope(Branch).where(company_id: @current_company.try(:id)).order(:name);
+    @branches = current_user.current_company.eql?(0) ? policy_scope(Branch).order(:name) : policy_scope(Branch).where(company_id: @current_company.try(:id)).order(:name)
 
 
     new_params = item_params
