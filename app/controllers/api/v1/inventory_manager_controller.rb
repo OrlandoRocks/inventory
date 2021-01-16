@@ -71,7 +71,7 @@ class Api::V1::InventoryManagerController < ActionController::Base
   def get_items_not_sell
     @user = User.find(params[:user_id])
     if @user.god? or @user.admin?
-      @items = Item.where(status_item_id: StatusItem.find_by_key('no_vendido')).as_json(except: :image, include: {user: [{except: [:avatar, :received_file], include: :department}}, :status_item])
+      @items = Item.where(status_item_id: StatusItem.find_by_key('no_vendido')).as_json(except: :image, include: [{user: {except: [:avatar, :received_file], include: :department}}, :status_item])
     else
       @items = Item.where(status_item_id: StatusItem.find_by_key('no_vendido'), department_id: @user.department_id).as_json(except: :image, include: [{user: {except: [:avatar, :received_file], include: :department}}, :status_item])
     end
