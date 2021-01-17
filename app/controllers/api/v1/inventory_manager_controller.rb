@@ -71,12 +71,12 @@ class Api::V1::InventoryManagerController < ActionController::Base
   def get_items_not_sell
     @user = User.find(params[:user_id])
     if @user.god? or @user.admin?
-      @items = Item.where(status_item_id: StatusItem.find_by_key('no_vendido')).as_json(except: :image, include: [{user: {except: [:avatar, :received_file], include: :department}}, :status_item])
+      @items = Item.where(status_item_id: StatusItem.find_by_key('no_vendido'))
     else
-      @items = Item.where(status_item_id: StatusItem.find_by_key('no_vendido'), department_id: @user.department_id).as_json(except: :image, include: [{user: {except: [:avatar, :received_file], include: :department}}, :status_item])
+      @items = Item.where(status_item_id: StatusItem.find_by_key('no_vendido'), department_id: @user.department_id)
     end
 
-    render json: @items
+    render json: item_json(@item)
 
 
 
@@ -87,12 +87,12 @@ class Api::V1::InventoryManagerController < ActionController::Base
     @user = User.find(params[:user_id])
     if @user.god? or @user.admin?
 
-      @items = Item.where(status_item_id: StatusItem.where(key:['vendido', 'pendiente_factura', 'facturado']).pluck(:id)).as_json(except: :image, include: [{user: {except: [:avatar, :received_file], include: :department}}, :status_item])
+      @items = Item.where(status_item_id: StatusItem.where(key:['vendido', 'pendiente_factura', 'facturado']).pluck(:id))
     else
-      @items = Item.where(status_item_id: StatusItem.where(key:['vendido', 'pendiente_factura', 'facturado']).pluck(:id), department_id: @user.department_id).as_json(except: :image, include: [{user: {except: [:avatar, :received_file], include: :department}},  :status_item])
+      @items = Item.where(status_item_id: StatusItem.where(key:['vendido', 'pendiente_factura', 'facturado']).pluck(:id), department_id: @user.department_id)
     end
 
-    render json: @items
+    render json: item_json(@item)
 
 
   end
@@ -100,12 +100,12 @@ class Api::V1::InventoryManagerController < ActionController::Base
   def get_items_order
     @user = User.find(params[:user_id])
     if @user.god? or @user.admin?
-      @items = Item.where(status_item_id: StatusItem.find_by_key('pendiente')).as_json(except: :image, include: [{user: {except: [:avatar, :received_file], include: :department}, status_item: :status_item}, :status_item] )
+      @items = Item.where(status_item_id: StatusItem.find_by_key('pendiente'))
     else
-      @items = Item.where(status_item_id: StatusItem.find_by_key('pendiente'), department_id: @user.department_id).as_json(except: :image, include: [{user: {except: [:avatar, :received_file], include: :department}}, :status_item])
+      @items = Item.where(status_item_id: StatusItem.find_by_key('pendiente'), department_id: @user.department_id)
     end
 
-    render json: @items
+    render json: item_json(@item)
   end
 
 
@@ -193,7 +193,7 @@ class Api::V1::InventoryManagerController < ActionController::Base
 
       if @new_item.save
         p 'se salvo'
-        render json: {status:200, success: true, message:'se creo el Articulo correctamente!'}
+        render json: {status:200, success: true, message:'se creo el Articulo correctamente!', item: item_json(@new_item)}
       else
         p 'algo valio shit'
         render json: {status:400, success: false, error:@new_item.errors.as_json}
@@ -282,7 +282,7 @@ class Api::V1::InventoryManagerController < ActionController::Base
         end
 
         p 'se actualizo!'
-        render json: {status:200, success: true, message:'se actualizo el Articulo correctamente!', item: item.as_json(except: :image, include: [{user: {except: [:avatar, :received_file], include: :department}}, :status_item])}
+        render json: {status:200, success: true, message:'se actualizo el Articulo correctamente!', item: item_json(item)}
       else
         p 'algo valio shit'
         render json: {status:400, success: false, error:item.errors.as_json}
@@ -307,6 +307,10 @@ class Api::V1::InventoryManagerController < ActionController::Base
 
 
   private
+
+  def item_json item
+    item.as_json(except: :image, include: [{user: {except: [:avatar, :received_file], include: :department}}, :status_item, :branch, :departmnt, :client])
+  end
 
   def image_io
 
