@@ -47,7 +47,7 @@ class Item < ApplicationRecord
   # mount_uploader :image, ItemUploader
   has_one_attached :image
 
-  validate :price_gt_zero
+  # validate :price_gt_zero
   # validates :name ,:description  , presence: true
 
 
