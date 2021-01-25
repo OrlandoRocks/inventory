@@ -12,7 +12,7 @@ class Api::V1::UsersManagerController < ActionController::Base
       if resource.valid_password?(params[:password])
         sign_in("user", resource)
         render :json=> {status: 200,success: true, auth_token: resource.authenticatable_salt, email: resource.email,
-                        name:"#{resource.first_name} #{resource.last_name}", role: resource.role_name, user_id: resource.id,
+                        name:"#{resource.first_name} #{resource.last_name}", role: resource.try(:role).try(:key), user_id: resource.id,
                         department_name: resource.try(:department).try(:name), branch_name: resource.try(:branch).try(:name),
                         department_id: resource.try(:department_id), branch_id: resource.try(:branch_id),
                         token: resource.try(:token) }
