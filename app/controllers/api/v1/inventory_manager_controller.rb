@@ -71,7 +71,6 @@ class Api::V1::InventoryManagerController < ActionController::Base
   def get_items_not_sell
     @user = User.find(params[:user_id])
     if @user.god? or @user.admin?
-
       @items = Item.where(status_item_id: StatusItem.find_by_key('no_vendido'))
     else
       @items = Item.where(status_item_id: StatusItem.find_by_key('no_vendido'), department_id: @user.department_id)
@@ -89,6 +88,8 @@ class Api::V1::InventoryManagerController < ActionController::Base
     if @user.god? or @user.admin?
 
       @items = Item.where(status_item_id: StatusItem.where(key:['vendido', 'pendiente_factura', 'facturado']).pluck(:id))
+    elsif @user.user_employee?
+      @items = Item.where(status_item_id: StatusItem.where(key:['vendido', 'pendiente_factura', 'facturado']).pluck(:id), department_id: @user.department_id, user_id: @user.id)
     else
       @items = Item.where(status_item_id: StatusItem.where(key:['vendido', 'pendiente_factura', 'facturado']).pluck(:id), department_id: @user.department_id)
     end
@@ -102,6 +103,10 @@ class Api::V1::InventoryManagerController < ActionController::Base
     @user = User.find(params[:user_id])
     if @user.god? or @user.admin?
       @items = Item.where(status_item_id: StatusItem.find_by_key('pendiente'))
+
+    elsif @user.user_employee?
+      @items = Item.where(status_item_id: StatusItem.find_by_key('pendiente'), department_id: @user.department_id, user_id: @user.id)
+
     else
       @items = Item.where(status_item_id: StatusItem.find_by_key('pendiente'), department_id: @user.department_id)
     end
@@ -115,6 +120,9 @@ class Api::V1::InventoryManagerController < ActionController::Base
     @user = User.find(params[:user_id])
     if @user.god? or @user.admin?
       @items = Item.where(status_shipping_id: StatusShipping.find_by_key('enviado').try(:id))
+    elsif @user.user_employee?
+      @items = Item.where(status_shipping_id: StatusShipping.find_by_key('enviado').try(:id), department_id: @user.department_id, user_id: @user.id)
+
     else
       @items = Item.where(status_shipping_id: StatusShipping.find_by_key('enviado').try(:id), department_id: @user.department_id)
     end
