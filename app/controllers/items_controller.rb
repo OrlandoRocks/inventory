@@ -3,12 +3,13 @@ class ItemsController < ApplicationController
   include ActionView::Helpers::NumberToLetters
 
   before_action :set_item, only: [:show, :edit, :update, :destroy, :create_maintenance, :create_file, :change_maintenance_done, :edit_order]
-  helper_method :sort_column, :sort_direction, :get_percentage_value
+  helper_method :sort_column, :sort_direction, :get_percentage_value, :sort_column_orders
   # GET /items
   # GET /items.json
   def index
     @search_items = policy_scope(Item).ransack(params[:q])
-    @items = @search_items.result.paginate(page: params[:page], per_page: 200)
+
+    @items = @search_items.result.order(sort_column + " " + sort_direction).paginate(page: params[:page], per_page: 200)
 
     @all_models = policy_scope(TrailerType).pluck(:model_part)
 
@@ -29,22 +30,22 @@ class ItemsController < ApplicationController
     facturado = StatusItem.find_by_key('facturado').id
     pendiente_factura = StatusItem.find_by_key('pendiente_factura').id
 
-    @income_sales = Item.where(status_item_id: [vendido,facturado,pendiente_factura])
+    @income_sales = Item.where(status_item_id: [vendido, facturado, pendiente_factura])
 
 
   end
 
   def orders
     if current_user.god? or current_user.admin?
-      @search_items = Item.where(status_item_id: StatusItem.find_by_key('pendiente').id).ransack(params[:q])
+      @search_items = Item.where(status_item_id: StatusItem.find_by_key('pendiente').id).includes(:user).includes(:client).includes(:user => :department).includes(:user => :branches).ransack(params[:q])
     elsif current_user.admin_branch?
-      @search_items =  Item.joins(:branch).where('branches.manager_id = ? AND items.status_item_id = ?', current_user.id, StatusItem.find_by_key('pendiente')).ransack(params[:q])
+      @search_items = Item.joins(:branch).where('branches.manager_id = ? AND items.status_item_id = ?', current_user.id, StatusItem.find_by_key('pendiente')).includes(:user).includes(:client).includes(:user => :department).includes(:user => :branches).ransack(params[:q])
     elsif current_user.user_employee?
-      @search_items = Item.where(user_id: current_user.id, status_item_id: StatusItem.find_by_key('pendiente').id).ransack(params[:q])
+      @search_items = Item.where(user_id: current_user.id, status_item_id: StatusItem.find_by_key('pendiente').id).includes(:user).includes(:client).includes(:user => :department).includes(:user => :branches).ransack(params[:q])
     end
 
 
-    @items = @search_items.result.paginate(page: params[:page], per_page: 20)
+    @items = @search_items.result.order(sort_column + " " + sort_direction).paginate(page: params[:page], per_page: 20)
 
     @all_models = policy_scope(TrailerType).pluck(:model_part)
 
@@ -53,11 +54,11 @@ class ItemsController < ApplicationController
 
   def sales
     if current_user.god? or current_user.admin?
-      @search_items = Item.where(status_item_id: [StatusItem.find_by_key('vendido').id,StatusItem.find_by_key('pendiente_factura').id, StatusItem.find_by_key('facturado').id]).ransack(params[:q])
+      @search_items = Item.where(status_item_id: [StatusItem.find_by_key('vendido').id, StatusItem.find_by_key('pendiente_factura').id, StatusItem.find_by_key('facturado').id]).includes(:branch).includes(:department).includes(:status_item).ransack(params[:q])
     elsif current_user.admin_branch?
-      @search_items = Item.joins(:branch).where('branches.manager_id = ?', current_user.id).where(status_item_id: [StatusItem.find_by_key('vendido').id,StatusItem.find_by_key('pendiente_factura').id, StatusItem.find_by_key('facturado').id]).ransack(params[:q])
+      @search_items = Item.joins(:branch).where('branches.manager_id = ?', current_user.id).where(status_item_id: [StatusItem.find_by_key('vendido').id, StatusItem.find_by_key('pendiente_factura').id, StatusItem.find_by_key('facturado').id]).includes(:branch).includes(:department).includes(:status_item).ransack(params[:q])
     elsif current_user.user_employee?
-      @search_items = Item.where(user_id: current_user.id, status_item_id: [StatusItem.find_by_key('vendido').id,StatusItem.find_by_key('pendiente_factura').id, StatusItem.find_by_key('facturado').id]).ransack(params[:q])
+      @search_items = Item.where(user_id: current_user.id, status_item_id: [StatusItem.find_by_key('vendido').id, StatusItem.find_by_key('pendiente_factura').id, StatusItem.find_by_key('facturado').id]).includes(:branch).includes(:department).includes(:status_item).ransack(params[:q])
     end
 
     @all_models = policy_scope(TrailerType).pluck(:model_part)
@@ -65,19 +66,21 @@ class ItemsController < ApplicationController
     @all_remissions = policy_scope(Item).pluck(:remission)
 
     @vendors = User.where(role_id: Role.find_by(key: 'empleado_sin_acceso'))
-    
-    @items = @search_items.result.paginate(page: params[:page], per_page: 20)
+
+    @items = @search_items.result.order(sort_column + " " + sort_direction).paginate(page: params[:page], per_page: 20)
   end
 
   def orders_shipped
     if current_user.god? or current_user.admin?
-      @search_items = Item.where(status_shipping_id: StatusShipping.find_by_key('enviado').id).ransack(params[:q])
+      @search_items = Item.where(status_shipping_id: StatusShipping.find_by_key('enviado').id).includes(:user).includes(:client).includes(:branch).includes(:department).ransack(params[:q])
     elsif current_user.admin_branch?
-      @search_items =  Item.joins(:branch).where('branches.manager_id = ? AND items.status_shipping_id = ?', current_user.id, StatusShipping.find_by_key('enviado')).ransack(params[:q])
+      @search_items = Item.joins(:branch).where('branches.manager_id = ? AND items.status_shipping_id = ?', current_user.id, StatusShipping.find_by_key('enviado')).includes(:user).includes(:client).includes(:branch).includes(:department).ransack(params[:q])
     elsif current_user.user_employee?
-      @search_items = Item.where(user_id: current_user.id, status_item_id: StatusShipping.find_by_key('enviado').id).ransack(params[:q])
+      @search_items = Item.where(user_id: current_user.id, status_item_id: StatusShipping.find_by_key('enviado').id).includes(:user).includes(:client).includes(:branch).includes(:department).ransack(params[:q])
     end
-    @items = @search_items.result.paginate(page: params[:page], per_page: 20)
+
+
+    @items = @search_items.result.order(sort_column + " " + sort_direction).paginate(page: params[:page], per_page: 20)
     @all_models = policy_scope(Trailer).pluck(:model)
 
     @all_remissions = policy_scope(Item).pluck(:remission)
@@ -100,7 +103,7 @@ class ItemsController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render pdf: "Trailers Vendidos"   # Excluding ".pdf" extension.
+        render pdf: "Trailers Vendidos" # Excluding ".pdf" extension.
       end
     end
   end
@@ -123,7 +126,7 @@ class ItemsController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render pdf: "Trailers Vendidos"   # Excluding ".pdf" extension.
+        render pdf: "Trailers Vendidos" # Excluding ".pdf" extension.
       end
     end
   end
@@ -164,10 +167,10 @@ class ItemsController < ApplicationController
 
   # GET /items/new
   def new
-      @item = Item.new
-      @users = Company.where(id: current_user.current_company)
-      @branches =  Branch.all  #current_user.current_company.eql?(0) ? policy_scope(Branch).order(:name) : policy_scope(Branch).where(company_id: @current_company.try(:id)).order(:name)
-      @categories = Category.all
+    @item = Item.new
+    @users = Company.where(id: current_user.current_company)
+    @branches = Branch.all #current_user.current_company.eql?(0) ? policy_scope(Branch).order(:name) : policy_scope(Branch).where(company_id: @current_company.try(:id)).order(:name)
+    @categories = Category.all
 
   end
 
@@ -229,9 +232,6 @@ class ItemsController < ApplicationController
 
     new_params = item_params
 
-    p '-----------------------------------'
-    p new_params
-
 
     if item_params[:user_id].eql?('')
 
@@ -245,15 +245,13 @@ class ItemsController < ApplicationController
 
     end
 
-    p '-----------------------------------'
-    p new_params
     item_selled = @item.status_item_id != params[:status_item_id]
 
     respond_to do |format|
       if @item.update(new_params)
 
 
-        Item.fcm_push_notification('REMOLQUE VENDIDO',@item.try(:user).try(:full_name),User.first.try(:token))
+        Item.fcm_push_notification('REMOLQUE VENDIDO', @item.try(:user).try(:full_name), User.first.try(:token))
 
         Department.find(@item.department_id).update(last_code: @item.code) if @item.department_id
         format.html { redirect_to @item, notice: 'Se actualizo el artículo correctamente.' }
@@ -318,9 +316,9 @@ class ItemsController < ApplicationController
     respond_to do |format|
       if @item.destroy
         format.html { redirect_to items_url, notice: 'Item was successfully destroyed.' }
-        format.json { render json: true  }
+        format.json { render json: true }
       else
-        format.json { render json: false  }
+        format.json { render json: false }
       end
     end
   end
@@ -422,12 +420,9 @@ class ItemsController < ApplicationController
   end
 
 
-
   private
 
   def finantial_balance item
-
-
 
 
     if item.status_item.key == 'no_vendido'
@@ -437,9 +432,9 @@ class ItemsController < ApplicationController
           :date => item.acquisition_date,
           :debits => [
               {:account_name => "Compras", :amount => item.price},
-              {:account_name => "IVA Acreditable", :amount => (item.price*0.16)}],
+              {:account_name => "IVA Acreditable", :amount => (item.price * 0.16)}],
           :credits => [
-              {:account_name => "Bancos", :amount => (item.price*1.16)}])
+              {:account_name => "Bancos", :amount => (item.price * 1.16)}])
 
       entry.save
 
@@ -452,8 +447,6 @@ class ItemsController < ApplicationController
               {:account_name => "Costo Ventas", :amount => item.price}])
 
       entry.save
-
-
 
 
     elsif item.status_item.key == 'pendiente'
@@ -471,17 +464,70 @@ class ItemsController < ApplicationController
     end
 
 
-
-
-
   end
 
   def sortable_columns
-    ["branch", "department", "category", "code", "model", "Responsable", "name", "description", "price", "brand", "sub_category"]
+    # ["branch", "Punto de Venta","Descripcion","Modelo","Numero de serie","Numero de serie","department", "category", "code", "model", "Responsable", "name", "description", "price", "brand", "sub_category", "serial_number"]
+    ["branches.name", "serial_number", "model", "categories_description", 'departments.name','price', 'status_items.name',
+     'purchased_date', 'sale_price', 'planet_percentage', 'branch_percentage', 'seller_percentage', 'trailer_types.name',
+     'advance_payment', 'clients.name, clients.last_name', 'users.first_name, users.last_name']
+  end
+  def sortable_columns_orders
+    ["users.branches.name", "user_departments.name"]
   end
 
+
   def sort_column
-    sortable_columns.include?(params[:column]) ? params[:column] : "code"
+
+    if params[:sort] === 'Sucursal'
+      sort = 'branches.name'
+    elsif params[:sort] === 'Numero de serie'
+      sort = 'serial_number'
+    elsif params[:sort] === 'Modelo'
+      sort = 'model'
+    elsif params[:sort] === 'Descripcion'
+      sort = 'categories_description'
+    elsif params[:sort] === 'Punto de Venta'
+      sort = 'departments.name'
+    elsif params[:sort] === 'Valor de Adquisición'
+      sort = 'price'
+    elsif params[:sort] === 'Estatus del Artículo'
+      sort = 'status_items.name'
+    elsif params[:sort] === 'Fecha de venta'
+      sort = 'purchased_date'
+    elsif params[:sort] === 'Precio de venta'
+      sort = 'sale_price'
+    elsif params[:sort] === '% Planet'
+      sort = 'planet_percentage'
+    elsif params[:sort] === '% Sucursal'
+      sort = 'branch_percentage'
+    elsif params[:sort] === '% Vendedor'
+      sort = 'seller_percentage'
+    elsif params[:sort] === 'Nombre del trailer'
+      sort = 'trailer_types.name'
+    elsif params[:sort] === 'Abono'
+      sort = 'advance_payment'
+    elsif params[:sort] === 'Cliente'
+      sort = 'clients.name, clients.last_name'
+    elsif params[:sort] === 'Vendedor'
+      sort = 'users.first_name, users.last_name'
+    else
+      sort = params[:sort]
+    end
+    sortable_columns.include?(sort) ? sort : "serial_number"
+  end
+
+  def sort_column_orders
+    if params[:sort] === 'Sucursal'
+      sort = 'user.branches.name'
+    elsif params[:sort] === 'Punto de Venta'
+      sort = 'user_departments.name'
+    else
+      sort = params[:sort]
+    end
+    sortable_columns_orders.include?(sort) ? sort : "serial_number"
+    
+
   end
 
   def sort_direction
@@ -498,8 +544,8 @@ class ItemsController < ApplicationController
     params.require(:item).permit(:name, :code, :description, :image, :model, :serial_number, :purchased_date,
                                  :in_service_date, :time_unit_service, :time_quantity_service, :price, :category_id,
                                  :time_unit_depreciation, :time_quantity_depreciation, :sub_category_id, :provider_id,
-                                 :department_id, :user_id, :brand_id, :status_item_id,:status_shipping_id, :maintenance_date,
-                                 :maintenance_done, :branch_id, :accessory, :remission,:color,
+                                 :department_id, :user_id, :brand_id, :status_item_id, :status_shipping_id, :maintenance_date,
+                                 :maintenance_done, :branch_id, :accessory, :remission, :color,
                                  :trailer_id, :client_id, :advance_payment, :acquisition_date,
                                  :fiscal_voucher_id, :payment_type, :sale_price, :trailer_length_id, :trailer_height_id,
                                  :ramp_type_id, :redila_type_id, :trailer_type_id, :floor_type_id, :capacity_id,
@@ -507,11 +553,8 @@ class ItemsController < ApplicationController
                                  :pull_type_id, :reinforcement_type_id, :roof_type_id, :suspension_type_id, :turn_type_id,
                                  :trailer_width_id, :categories_description, :seller_percentage, :planet_percentage,
                                  :branch_percentage
-                          )
+    )
   end
-
-
-
 
 
   # Never trust parameters from the scary internet, only allow the white list through.

@@ -81,25 +81,34 @@ section.content ng-controller="itemController"
                   table.table.table-bordered.table-hover.dataTable
                     thead
                       tr
-                        th = t('.name')
-                        th = t('.model')
-                        th = t('.advance_payment')
-                        th = t('.branch')
-                        th = t('.department')
-                        th = t('.status_item')
-                        th = t('.client')
-                        th = 'Vendedor'
+                        th
+                          = sortable t('.model')
+                          i.fa.fa-sort-down
+                        th
+                          = sortable t('.advance_payment')
+                          i.fa.fa-sort-down
+                        th
+                          = sortable_orders t('.branch')
+                          i.fa.fa-sort-down
+                        th
+                          = sortable_orders t('.department')
+                          i.fa.fa-sort-down
+                        th
+                          = sortable t('.client')
+                          i.fa.fa-sort-down
+                        th
+                          = sortable 'Vendedor'
+                          i.fa.fa-sort-down
+
                         th.actions_header
                           = t('helpers.actions')
                     tbody
                       - @items.each do |item|
                         tr.show_actions
-                          td = item.try(:trailer_type).try(:name)
-                          td = item.try(:trailer_type).try(:model_part)
+                          td = item.try(:model)
                           td = "%.2f" % item.advance_payment if item.advance_payment.present?
                           td = item.try(:user).try(:department).try(:branch).try(:name)
                           td = item.try(:user).try(:department).try(:name)
-                          td = item.status_item.name if item.status_item.present?
                           td = item.try(:client).try(:full_name)
                           td = item.try(:user).try(:full_name)
                           td
