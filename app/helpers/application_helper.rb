@@ -108,4 +108,17 @@ module ApplicationHelper
     end
   end
 
+  def sortable(column, title = nil)
+    title ||= column.titleize
+    css_class = sort_column ? "#{sort_direction}" : "current"
+    direction = column == sort_column && sort_direction == "asc" ? "desc" : "asc"
+    link_to title, {:sort => column, :direction => direction}, {:class => 'link-to-text-color'}
+  end
+
+  def sortable_orders(column, title = nil)
+    title ||= column.titleize
+    css_class = sort_column_orders ? "#{sort_direction}" : "current"
+    direction = column == sort_column_orders && sort_direction == "asc" ? "desc" : "asc"
+    link_to title, {:sort => column, :direction => direction}, {:class => 'link-to-text-color'}
+  end
 end

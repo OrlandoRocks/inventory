@@ -658,7 +658,7 @@
               </label>
               <div class="col-md-3">
                 <div class="input-group">
-                  <input type="number" class="form-control text_field" min="0" ng-change="validate_planet_percentage(planet_percentage)" ng-model="planet_percentage" ng-change="validate_inputs_values()">
+                  <input type="number" class="form-control text_field" min="0" ng-change="validate_inputs_values(); validate_planet_percentage(planet_percentage)" ng-model="planet_percentage">
                   <span class="input-group-addon">
                     %
                   </span>

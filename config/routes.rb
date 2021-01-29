@@ -41,7 +41,7 @@ Rails.application.routes.draw do
 
   mount ActionCable.server, at: '/cable'
 
-  mount Plutus::Engine => "/plutus", :as => "plutus"
+  # mount Plutus::Engine => "/plutus", :as => "plutus"
 
   resources :items
   resources :providers

@@ -33,6 +33,8 @@ class Item < ApplicationRecord
   has_one :company, through: :branch
   has_one :sub_category, through: :trailer
   has_one :category, through: :sub_category
+  has_one :user_department, :through => :user, :source => :department
+
 
 
   has_many :item_files, dependent: :destroy
@@ -42,6 +44,9 @@ class Item < ApplicationRecord
 
   scope :next_maintenances, -> { order('maintenance_date ASC') }
 
+  scope :unsold, -> { where(status_item_id: 2) }
+
+
   has_associated_audits
 
   # mount_uploader :image, ItemUploader
@@ -49,6 +54,7 @@ class Item < ApplicationRecord
 
   # validate :price_gt_zero
   # validates :name ,:description  , presence: true
+  #
 
 
   #validates :time_unit_service, :time_quantity_service, :purchased_date, :name, presence: true

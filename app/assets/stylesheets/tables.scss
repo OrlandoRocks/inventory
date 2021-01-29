@@ -68,3 +68,31 @@ div.dataTables_info {
     border-radius: 0 !important;
   }
 }
+
+.pretty th .current {
+  color: black;
+  padding-right: 12px;
+  background-repeat: no-repeat;
+  background-position: right center;
+}
+
+.arrow {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+.asc {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
+.desc {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}
+
+.link-to-text-color {
+  color: black;
+}

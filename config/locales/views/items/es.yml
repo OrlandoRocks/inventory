@@ -94,6 +94,8 @@ es:
         name: Nombre del trailer
         description: Descripción
         model: Modelo
+        advance_payment: Abono
+        client: Cliente
         serial_number: Numero de Serie
         acquisition_date: Fecha de Adquisición
         purchased_date: Fecha de Compra
@@ -145,7 +147,7 @@ es:
         sub_category: Sub Categoría
         provider: Proveedor
         branch: Sucursal
-        department: Departamento
+        department: Punto de Venta
         user: Usuario
         brand: Marca
         status_item: Estatus del Artículo

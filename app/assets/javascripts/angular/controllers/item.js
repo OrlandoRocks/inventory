@@ -1208,10 +1208,11 @@ app.controller('ModalPercentageController', ['$scope', 'close', 'Upload', '$http
                 url: '/items/' + id + '.json',
                 method: 'GET'
             }).then(function (response) {
-                $scope.seller_percentage = response.data.seller_percentage;
-                $scope.planet_percentage = response.data.planet_percentage;
-                $scope.branch_percentage = response.data.branch_percentage;
-                $scope.is_same_branch = response.data.department_user.branch_id === response.data.branch_id ? true : false
+                $scope.seller_percentage = parseFloat(response.data.seller_percentage);
+                $scope.planet_percentage = parseFloat(response.data.planet_percentage);
+                $scope.branch_percentage = parseFloat(response.data.branch_percentage);
+                $scope.is_same_branch = response.data.department_user.branch_id === response.data.branch_id ? true : false;
+                $scope.validate_inputs_values();
             });
         };
 

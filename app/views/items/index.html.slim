@@ -87,12 +87,22 @@ section.content ng-controller="itemController"
                   table.table.table-bordered.table-hover.dataTable
                     thead
                       tr
-                        th = t('.serial_number')
-                        th = t('.model')
-                        th = 'Descripcion'
-                        th = t('.branch')
-                        th = t('.department')
-                        / th = t('.image')
+                        th
+                          = sortable t('.serial_number')
+                          i.fa.fa-sort-down
+                        th
+                          = sortable t('.model')
+                          i.fa.fa-sort-down
+                        th
+                          = sortable 'Descripcion'
+                          i.fa.fa-sort-down
+                        th
+                          = sortable t('.branch')
+                          i.fa.fa-sort-down
+                        th
+                          = sortable t('.department')
+                          i.fa.fa-sort-down
+
                         th.actions_header
                           = t('helpers.actions')
                     tbody

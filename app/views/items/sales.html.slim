@@ -106,15 +106,36 @@ section.content ng-controller="itemController"
                   table.table.table-bordered.table-hover.dataTable
                     thead
                       tr
-                        th = t('.model')
-                        th = t('.price')
-                        th = "#{t('.branch')} - #{t('.department')}"
-                        th = t('.status_item')
-                        th = t('.sale_date')
-                        th = t('.sale_price')
-                        th = '% Planet'
-                        th = '% Sucursal'
-                        th = '% Vendedor'
+                        th
+                          = sortable t('.model')
+                          i.fa.fa-sort-down
+                        th
+                          = sortable t('.price')
+                          i.fa.fa-sort-down
+                        th
+                          = sortable "#{t('.branch')}"
+                          i.fa.fa-sort-down
+                        th
+                          = sortable "#{t('.department')}"
+                          i.fa.fa-sort-down
+                        th
+                          = sortable t('.status_item')
+                          i.fa.fa-sort-down
+                        th
+                          = sortable t('.sale_date')
+                          i.fa.fa-sort-down
+                        th
+                          = sortable t('.sale_price')
+                          i.fa.fa-sort-down
+                        th
+                          = sortable '% Planet'
+                          i.fa.fa-sort-down
+                        th
+                          = sortable '% Sucursal'
+                          i.fa.fa-sort-down
+                        th
+                          = sortable '% Vendedor'
+                          i.fa.fa-sort-down
 
                         th.actions_header
                           = t('helpers.actions')
@@ -122,14 +143,15 @@ section.content ng-controller="itemController"
                       - @items.each do |item|
                         tr.show_actions
                           td = item.model
-                          td =  Money.from_amount(item.price).format if item.price.present?
-                          td = "#{item.try(:branch).try(:name)} - #{item.try(:department).try(:name)}"
+                          td = Money.from_amount(item.price).format if item.price.present?
+                          td = "#{item.try(:branch).try(:name)}"
+                          td = "#{item.try(:department).try(:name)}"
                           td = item.status_item.name if item.status_item.present?
                           td = item.try(:purchased_date)
-                          td =  Money.from_amount(item.sale_price).format if item.sale_price.present?
-                          td =  "#{  Money.from_amount(item.planet_percentage.nil? ? 0 : get_percentage_value(item.planet_percentage, item.price)).format}"
-                          td =  "#{  Money.from_amount(item.branch_percentage.nil? ? 0 : get_percentage_value(item.branch_percentage, item.price)).format}"
-                          td =  "#{  Money.from_amount(item.seller_percentage.nil? ? 0 : get_percentage_value(item.seller_percentage, item.price)).format}"
+                          td = Money.from_amount(item.sale_price).format if item.sale_price.present?
+                          td = "#{  Money.from_amount(item.planet_percentage.nil? ? 0 : get_percentage_value(item.planet_percentage, item.price)).format}"
+                          td = "#{  Money.from_amount(item.branch_percentage.nil? ? 0 : get_percentage_value(item.branch_percentage, item.price)).format}"
+                          td = "#{  Money.from_amount(item.seller_percentage.nil? ? 0 : get_percentage_value(item.seller_percentage, item.price)).format}"
 
                           td
                             .actions

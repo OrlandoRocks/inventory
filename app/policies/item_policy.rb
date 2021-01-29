@@ -4,11 +4,11 @@ class ItemPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       if @user.god? or @user.admin?
-        scope.where('items.status_item_id = 2')
+        scope.unsold.includes(:branch).includes(:department)
       elsif @user.admin_branch?
-        scope.where('items.status_item_id = 2')
+        scope.unsold.includes(:branch).includes(:department)
       elsif @user.user_employee?
-        scope.where(status_item_id: 2)
+        scope.unsold.includes(:branch).includes(:department)
       else
         scope.not
       end
