@@ -21,7 +21,7 @@ after :departments do
     User.create(email: 'peter.loewen@agroplanet.com', username: 'Admin Peter', first_name: 'Pedro', last_name: 'Loewen',
                 maiden_name: '', role_id: Role.find_by_key('gerente').id, password: 'agroplanet',
                 confirmed_at: Time.now, sign_in_count: 0, employee_number: 0000, department_id: Department.where(name: 'Oficina Central').first.id)
-    Branch.where(name: 'Cuauhtémoc').first.update(manager_id: User.last.id)
+    Branch.where(name: 'Cuauhtemoc').first.update(manager_id: User.last.id)
     Department.where(name: 'Oficina Central').first.update(manager_id: User.last.id)
 
 
@@ -48,7 +48,7 @@ after :departments do
     Department.where(name: 'Arteaga').first.update(manager_id: User.last.id)
 
 
-    User.create(email: 'oscar.guevara@agroplanet.com', username: 'Gerente Arteaga', first_name: 'Óscar', last_name: 'Guevara',
+    User.create(email: 'oscar.guevara@agroplanet.com', username: 'Gerente Arteaga', first_name: 'Oscar', last_name: 'Guevara',
                 maiden_name: 'Rangel', role_id: Role.find_by_key('admin_sucursal').id, password: 'agroplanet',
                 confirmed_at: Time.now, sign_in_count: 0, employee_number: 3000, department_id: Department.where(name: 'Irapuato').first.id)
     Branch.where(name: 'Irapuato').first.update(manager_id: User.last.id)
@@ -70,26 +70,26 @@ after :departments do
 
     User.create(email: 'raymundo.leon@agroplanet.com', username: 'Gerente Irapuato', first_name: 'Raymundo', last_name: 'Leon',
                 maiden_name: 'Valenzuela', role_id: Role.find_by_key('admin_sucursal').id, password: 'agroplanet',
-                confirmed_at: Time.now, sign_in_count: 0, employee_number: 4000, department_id: Department.where(name: 'Cuerámaro').first.id)
+                confirmed_at: Time.now, sign_in_count: 0, employee_number: 4000, department_id: Department.where(name: 'Cueramaro').first.id)
 
-    Branch.where(name: 'Cuerámaro').first.update(manager_id: User.last.id)
-    Department.where(name: 'Cuerámaro').first.update(manager_id: User.last.id)
+    Branch.where(name: 'Cueramaro').first.update(manager_id: User.last.id)
+    Department.where(name: 'Cueramaro').first.update(manager_id: User.last.id)
 
 
     User.create(email: 'maria.elena.guevara@agroplanet.com', username: 'Vendedor Maria Elena', first_name: 'Maria Elena', last_name: 'Guevara',
                 maiden_name: 'Rivera', role_id: Role.find_by_key('empleado_sin_acceso').id, password: 'agroplanet',
-                confirmed_at: Time.now, sign_in_count: 0, employee_number: 3101, department_id: Department.where(name: 'Cuerámaro').first.id)
+                confirmed_at: Time.now, sign_in_count: 0, employee_number: 3101, department_id: Department.where(name: 'Cueramaro').first.id)
 
 
     User.create(email: 'eduardo.ramos@agroplanet.com', username: 'Vendedor Marcos Eduardos', first_name: 'Marcos Eduardo', last_name: 'Ramos',
                 maiden_name: 'Gonzalez', role_id: Role.find_by_key('empleado_sin_acceso').id, password: 'agroplanet',
-                confirmed_at: Time.now, sign_in_count: 0, employee_number: 3101, department_id: Department.where(name: 'Cuerámaro').first.id)
+                confirmed_at: Time.now, sign_in_count: 0, employee_number: 3101, department_id: Department.where(name: 'Cueramaro').first.id)
 
 
 
 
     User.create(email: 'eduardo.turner@agroplanet.com', username: 'Gerente Manclova', first_name: 'Eduardo', last_name: 'Turner',
-                maiden_name: 'López', role_id: Role.find_by_key('admin_sucursal').id, password: 'agroplanet',
+                maiden_name: 'Lopez', role_id: Role.find_by_key('admin_sucursal').id, password: 'agroplanet',
                 confirmed_at: Time.now, sign_in_count: 0, employee_number: 5000, department_id: Department.where(name: 'Monclova').first.id)
     Branch.where(name: 'Monclova').first.update(manager_id: User.last.id)
     Department.where(name: 'Monclova').first.update(manager_id: User.last.id)
@@ -102,7 +102,7 @@ after :departments do
     #
     #
     #
-    # Department.where(name: 'Tultitlán').first.update(manager_id: User.last.id)
+    # Department.where(name: 'Tultitlan').first.update(manager_id: User.last.id)
     # Department.where(name: 'Hasta Bandera').first.update(manager_id: User.last.id)
     #
 
