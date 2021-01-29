@@ -19,7 +19,7 @@ after :departments do
                 confirmed_at: Time.now, sign_in_count: 0, employee_number: 12345, department_id: Department.where(name: 'Oficina Central').first.id)
 
     User.create(email: 'peter.loewen@agroplanet.com', username: 'Admin Peter', first_name: 'Pedro', last_name: 'Loewen',
-                maiden_name: '', role_id: Role.find_by_key('gerente').id, password: 'agroplanet',
+                maiden_name: '', role_id: Role.find_by_key('admin_sucursal').id, password: 'agroplanet',
                 confirmed_at: Time.now, sign_in_count: 0, employee_number: 0000, department_id: Department.where(name: 'Oficina Central').first.id)
     Branch.where(name: 'Cuauhtémoc').first.update(manager_id: User.last.id)
     Department.where(name: 'Oficina Central').first.update(manager_id: User.last.id)
