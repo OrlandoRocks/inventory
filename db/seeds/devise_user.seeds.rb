@@ -111,5 +111,7 @@ after :departments do
                    address: 'Cambiar Direccion', phone: 'Cambiar Telefono',
                    user_id: 1)
 
+    Branch.all.each{|b| b.update(company_id:1)}
+
   end
 end

@@ -1,5 +1,5 @@
 class Branch < ApplicationRecord
-  # belongs_to :company
+  belongs_to :company, optional: true
 
   # belongs_to :state , :class_name => 'State' , foreign_key: 'state_id'
   belongs_to :city , :class_name => 'City' , foreign_key: 'city_id'
