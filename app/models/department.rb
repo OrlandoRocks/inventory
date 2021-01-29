@@ -3,7 +3,7 @@ class Department < ApplicationRecord
   has_one :company, through: :branch
   has_one :city, through: :branch
   has_one :state, through: :city
-  belongs_to :manager, class_name: 'User', foreign_key: 'manager_id'
+  belongs_to :manager, class_name: 'User', foreign_key: 'manager_id', optional: true
 
   has_many :items
   has_many :employees,
