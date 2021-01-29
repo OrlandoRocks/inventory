@@ -10,6 +10,6 @@ class Branch < ApplicationRecord
   has_one :manager, through: :department
   has_many :items, through: :department
 
-  delegate :name, to: :company, prefix: true, allow_nil: true
+  # delegate :name, to: :company, prefix: true, allow_nil: true
 
 end

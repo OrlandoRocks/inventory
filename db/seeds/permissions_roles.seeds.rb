@@ -81,16 +81,13 @@ PermissionRole.create!([
   {role_id: 4, permission_id: 94},
   {role_id: 6, permission_id: 94},
   {role_id: 4, permission_id: 95},
-<<<<<<< Updated upstream
   {role_id: 6, permission_id: 95},
   {role_id: 4, permission_id: 96},
-  {role_id: 6, permission_id: 96}
-=======
+  {role_id: 6, permission_id: 96},
   {role_id: 3, permission_id: 96},
   {role_id: 4, permission_id: 96},
   {role_id: 3, permission_id: 97},
   {role_id: 4, permission_id: 97}
->>>>>>> Stashed changes
  ])
 end
 
