@@ -21,7 +21,7 @@ after :departments do
     User.create(email: 'peter.loewen@agroplanet.com', username: 'Admin Peter', first_name: 'Pedro', last_name: 'Loewen',
                 maiden_name: '', role_id: Role.find_by_key('gerente').id, password: 'agroplanet',
                 confirmed_at: Time.now, sign_in_count: 0, employee_number: 0000, department_id: Department.where(name: 'Oficina Central').first.id)
-    Branch.where(name: 'Cuauhtemoc').first.update(manager_id: User.last.id)
+    Branch.where(name: 'Cuauhtémoc').first.update(manager_id: User.last.id)
     Department.where(name: 'Oficina Central').first.update(manager_id: User.last.id)
 
 
@@ -48,7 +48,7 @@ after :departments do
     Department.where(name: 'Arteaga').first.update(manager_id: User.last.id)
 
 
-    User.create(email: 'oscar.guevara@agroplanet.com', username: 'Gerente Arteaga', first_name: 'Oscar', last_name: 'Guevara',
+    User.create(email: 'oscar.guevara@agroplanet.com', username: 'Gerente Arteaga', first_name: 'Óscar', last_name: 'Guevara',
                 maiden_name: 'Rangel', role_id: Role.find_by_key('admin_sucursal').id, password: 'agroplanet',
                 confirmed_at: Time.now, sign_in_count: 0, employee_number: 3000, department_id: Department.where(name: 'Irapuato').first.id)
     Branch.where(name: 'Irapuato').first.update(manager_id: User.last.id)
@@ -89,7 +89,7 @@ after :departments do
 
 
     User.create(email: 'eduardo.turner@agroplanet.com', username: 'Gerente Manclova', first_name: 'Eduardo', last_name: 'Turner',
-                maiden_name: 'Lopez', role_id: Role.find_by_key('admin_sucursal').id, password: 'agroplanet',
+                maiden_name: 'López', role_id: Role.find_by_key('admin_sucursal').id, password: 'agroplanet',
                 confirmed_at: Time.now, sign_in_count: 0, employee_number: 5000, department_id: Department.where(name: 'Monclova').first.id)
     Branch.where(name: 'Monclova').first.update(manager_id: User.last.id)
     Department.where(name: 'Monclova').first.update(manager_id: User.last.id)
