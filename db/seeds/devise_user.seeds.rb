@@ -13,6 +13,7 @@ after :departments do
 
 # Restarts ids to 1.
     ActiveRecord::Base.connection.reset_pk_sequence!('users')
+    ActiveRecord::Base.connection.reset_pk_sequence!('companies')
 
     User.create(email: 'god@example.com', username: 'divinity', first_name: 'God', last_name: 'System',
                 maiden_name: 'User', role_id: Role.find_by_key('god').id, password: 'inventory',
@@ -78,12 +79,12 @@ after :departments do
 
     User.create(email: 'maria.elena.guevara@agroplanet.com', username: 'Vendedor Maria Elena', first_name: 'Maria Elena', last_name: 'Guevara',
                 maiden_name: 'Rivera', role_id: Role.find_by_key('empleado_sin_acceso').id, password: 'agroplanet',
-                confirmed_at: Time.now, sign_in_count: 0, employee_number: 3101, department_id: Department.where(name: 'Cueramaro').first.id)
+                confirmed_at: Time.now, sign_in_count: 0, employee_number: 4101, department_id: Department.where(name: 'Cueramaro').first.id)
 
 
     User.create(email: 'eduardo.ramos@agroplanet.com', username: 'Vendedor Marcos Eduardos', first_name: 'Marcos Eduardo', last_name: 'Ramos',
                 maiden_name: 'Gonzalez', role_id: Role.find_by_key('empleado_sin_acceso').id, password: 'agroplanet',
-                confirmed_at: Time.now, sign_in_count: 0, employee_number: 3101, department_id: Department.where(name: 'Cueramaro').first.id)
+                confirmed_at: Time.now, sign_in_count: 0, employee_number: 4102, department_id: Department.where(name: 'Cueramaro').first.id)
 
 
 
