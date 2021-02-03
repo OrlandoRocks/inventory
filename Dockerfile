@@ -57,5 +57,6 @@ COPY . .
 EXPOSE 3000:3000
 
 CMD rm -f tmp/pids/server.pid && \
+  bundle exec rake db:seed && \
   bundle exec rake db:migrate && \
   bundle exec puma -t 5:5 -p ${PORT} -e ${RACK_ENV}
