@@ -10,10 +10,12 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Cloning repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: dokku
         shell: bash
-        with:
-          fetch-depth: 1
         run: |
           sudo apt update && sudo apt install -yy openssh-client git
 
