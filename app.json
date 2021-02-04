@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "dokku": {
+      "predeploy": "bundle exec rake db:migrate",
+      "postdeploy": "curl -X GET -I -k https://admin.planetagrotrailer.com/"
+    }
+  }
+}
