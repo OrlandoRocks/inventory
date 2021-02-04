@@ -10,14 +10,22 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Cloning repo
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: Push to dokku
-        uses: dokku/github-action@master
-        with:
+      - shell: bash
+        env:
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
           git_remote_url: ${{ secrets.GIT_REMOTE_URL }}
-          ssh_host_key: '104.131.78.234'
+        run: |
+          apt update && apt install -yy openssh-client git
+
+          mkdir -p /root/.ssh
+          echo "$ssh_private_key" | tr -d '\r' > /root/.ssh/id_rsa
+          chmod 600 /root/.ssh/id_rsa
+          chmod 700 /root/.ssh
+
+          ssh-keyscan -H -p "22" "104.131.78.234" >> /root/.ssh/known_hosts
+
+          eval "$(ssh-agent -s)"
+          ssh-add /root/.ssh/id_rsa
+
+          git remote add dokku dokku@104.131.78.234:inventory
+          git push dokku "$commit_sha:refs/heads/master"
