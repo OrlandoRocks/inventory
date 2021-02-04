@@ -21,11 +21,10 @@ jobs:
 
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          
+
           chmod 600 ~/.ssh/id_rsa
           chmod 700 ~/.ssh
 
-          ssh-keygen -p -N "" -m pem -f ~/.ssh/id_rsa
           ssh-keyscan -H -p "22" "104.131.78.234" >> ~/.ssh/known_hosts
 
           eval "$(ssh-agent -s)"
