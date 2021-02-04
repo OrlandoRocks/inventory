@@ -56,7 +56,7 @@ COPY . .
 # RUN bundle config --local path vendor/bundle
 ENV PORT=5000
 
-EXPOSE 5000:5000
+EXPOSE 5000
 
 CMD rm -f tmp/pids/server.pid && \
   bundle exec rake db:migrate && \
