@@ -21,14 +21,14 @@ jobs:
 
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          openssl rsa -in ~/.ssh/id_rsa -outform pem > ~/.ssh/id_rsa.pem
-          chmod 600 ~/.ssh/id_rsa.pem
+          ssh-keygen -p -N "" -m pem -f ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
           chmod 700 ~/.ssh
 
           ssh-keyscan -H -p "22" "104.131.78.234" >> ~/.ssh/known_hosts
 
           eval "$(ssh-agent -s)"
-          ssh-add ~/.ssh/id_rsa.pem
+          ssh-add ~/.ssh/id_rsa
 
           git remote add dokku dokku@104.131.78.234:inventory
           git push dokku "$commit_sha:refs/heads/master"
