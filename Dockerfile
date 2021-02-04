@@ -25,6 +25,7 @@ ENV PORT=3000
 ENV SECRET_KEY_BASE mykey
 
 RUN gem install bundler -v 1.17.3
+RUN gem install puma
 RUN bundle install --jobs=4
 
 COPY yarn.lock /app/
