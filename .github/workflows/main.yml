@@ -10,13 +10,13 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Cloning repo
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
         with:
-          fetch-depth: 0
-
-      - name: Push to dokku
-        uses: dokku/github-action@master
+            fetch-depth: 0
+      - id: deploy
+        name: Deploy to dokku
+        uses: idoberko2/dokku-deploy-github-action@v1
         with:
-          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
-          git_remote_url: ${{ secrets.GIT_REMOTE_URL }}
+            ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+            dokku-host: '104.131.78.234'
+            app-name: 'inventory'
