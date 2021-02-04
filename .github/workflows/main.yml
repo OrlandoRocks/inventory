@@ -17,17 +17,18 @@ jobs:
       - name: dokku
         shell: bash
         run: |
-          sudo apt update && sudo apt install -yy openssh-client git
+          sudo apt update && sudo apt install -yy openssh-client git openssl
 
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
+          openssl rsa -in ~/.ssh/id_rsa -outform pem > ~/.ssh/id_rsa.pem
+          chmod 600 ~/.ssh/id_rsa.pem
           chmod 700 ~/.ssh
 
           ssh-keyscan -H -p "22" "104.131.78.234" >> ~/.ssh/known_hosts
 
           eval "$(ssh-agent -s)"
-          ssh-add ~/.ssh/id_rsa
+          ssh-add ~/.ssh/id_rsa.pem
 
           git remote add dokku dokku@104.131.78.234:inventory
           git push dokku "$commit_sha:refs/heads/master"
