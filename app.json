@@ -1,7 +1,0 @@
-{
-  "scripts": {
-    "dokku": {
-      "postdeploy": "curl -X GET -I -k https://admin.planetagrotrailer.com/"
-    }
-  }
-}
