@@ -60,4 +60,4 @@ EXPOSE 5000:5000
 
 CMD rm -f tmp/pids/server.pid && \
   bundle exec rake db:migrate && \
-  bundle exec puma -t 5:5 -p ${PORT} -e production
+  bundle exec puma -C config/puma.rb
