@@ -21,24 +21,24 @@ after :departments do
 
     User.create(email: 'peter.loewen@agroplanet.com', username: 'Admin Peter', first_name: 'Pedro', last_name: 'Loewen',
                 maiden_name: '', role_id: Role.find_by_key('admin_sucursal').id, password: 'agroplanet',
-                confirmed_at: Time.now, sign_in_count: 0, employee_number: 0000, department_id: Department.where(name: 'Oficina Central').first.id)
+                confirmed_at: Time.now, sign_in_count: 0, employee_number: 1000, department_id: Department.where(name: 'Oficina Central').first.id)
     Branch.where(name: 'Cuauhtemoc').first.update(manager_id: User.last.id)
     Department.where(name: 'Oficina Central').first.update(manager_id: User.last.id)
 
 
     User.create(email: 'cesar.guerrero@agroplanet.com', username: 'Vendedor Cesar', first_name: 'Cesar', last_name: 'Guerrero',
                 maiden_name: '', role_id: Role.find_by_key('empleado_sin_acceso').id, password: 'agroplanet',
-                confirmed_at: Time.now, sign_in_count: 0, employee_number: 0101, department_id: Department.where(name: 'Oficina Central').first.id)
+                confirmed_at: Time.now, sign_in_count: 0, employee_number: 1101, department_id: Department.where(name: 'Oficina Central').first.id)
 
 
     User.create(email: 'isaac.gutierrez@agroplanet.com', username: 'Vendedor Isaac', first_name: 'Isaac', last_name: 'Gutierrez',
                 maiden_name: '', role_id: Role.find_by_key('empleado_sin_acceso').id, password: 'agroplanet',
-                confirmed_at: Time.now, sign_in_count: 0, employee_number: 0102, department_id: Department.where(name: 'Oficina Central').first.id)
+                confirmed_at: Time.now, sign_in_count: 0, employee_number: 1102, department_id: Department.where(name: 'Oficina Central').first.id)
 
 
     User.create(email: 'francisco.orozco@agroplanet.com', username: 'Vendedor Francisco', first_name: 'Francisco', last_name: 'Orozco',
                 maiden_name: '', role_id: Role.find_by_key('empleado_sin_acceso').id, password: 'agroplanet',
-                confirmed_at: Time.now, sign_in_count: 0, employee_number: 0103, department_id: Department.where(name: 'Oficina Central').first.id)
+                confirmed_at: Time.now, sign_in_count: 0, employee_number: 1103, department_id: Department.where(name: 'Oficina Central').first.id)
 
 
 
@@ -110,9 +110,10 @@ after :departments do
 
     Company.create(name: 'AgroTrailers Planet', description: 'AgroTrailers Planet',
                    address: 'Cambiar Direccion', phone: 'Cambiar Telefono',
-                   user_id: 1)
+                   user_id: User.first.id)
 
-    Branch.all.each{|b| b.update(company_id:1)}
+    Branch.all.each{|b| b.update(company_id:Company.first.id)}
+    User.all.each{|b| b.update(current_company:Company.first.id)}
 
   end
 end
