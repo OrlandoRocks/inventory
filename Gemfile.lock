@@ -130,13 +130,14 @@ GEM
     breadcrumbs_on_rails (2.3.1)
     builder (3.2.4)
     byebug (11.1.3)
-    carrierwave (2.1.0)
+    carrierwave (2.1.1)
       activemodel (>= 5.0.0)
       activesupport (>= 5.0.0)
       addressable (~> 2.6)
       image_processing (~> 1.1)
       mimemagic (>= 0.3.0)
       mini_mime (>= 0.1.3)
+      ssrf_filter (~> 1.0)
     case_transform (0.2)
       activesupport
     caxlsx (3.0.3)
@@ -162,7 +163,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    concurrent-ruby (1.1.7)
+    concurrent-ruby (1.1.8)
     crass (1.0.6)
     debug_inspector (1.0.0)
     devise (4.7.3)
@@ -196,7 +197,7 @@ GEM
       hirb (~> 0.5)
       unicode-display_width (~> 1.1)
     htmlentities (4.3.4)
-    i18n (1.8.7)
+    i18n (1.8.8)
       concurrent-ruby (~> 1.0)
     icheck-rails (1.0.2.2)
       jquery-rails
@@ -256,7 +257,7 @@ GEM
     mini_magick (4.11.0)
     mini_mime (1.0.2)
     mini_portile2 (2.5.0)
-    minitest (5.14.2)
+    minitest (5.14.3)
     modernizr-rails (2.7.1)
     momentjs-rails (2.11.1)
       railties (>= 3.1)
@@ -376,6 +377,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    ssrf_filter (1.0.7)
     temple (0.8.2)
     terminal-table (1.8.0)
       unicode-display_width (~> 1.1, >= 1.1.1)
@@ -420,7 +422,7 @@ DEPENDENCIES
   brakeman (~> 3.1.4)
   breadcrumbs_on_rails (~> 2.3.1)
   byebug
-  carrierwave (~> 2.0)
+  carrierwave (~> 2.1)
   caxlsx
   caxlsx_rails
   client_side_validations (~> 12.0.0)

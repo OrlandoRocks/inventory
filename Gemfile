@@ -146,7 +146,7 @@ end
 # Easy upload management for ActiveRecord
 # gem 'paperclip', '~> 4.3', '>= 4.3.5'
 gem 'mini_magick'
-gem 'carrierwave', '~> 2.0'
+gem 'carrierwave', '~> 2.1'
 #
 
 #Gema para el manejo del componente de fecha
