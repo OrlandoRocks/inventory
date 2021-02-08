@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   helper_method :sort_column, :sort_direction
-  before_action :authenticate_user!, only: [:terminos_condiciones]
+  before_action :authenticate_user!, except: [:terminos_condiciones]
   layout false, only: [:terminos_condiciones]
 
   def index
