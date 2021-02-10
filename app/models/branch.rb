@@ -6,9 +6,9 @@ class Branch < ApplicationRecord
 
   has_one :state, through: :city
 
-  has_one :department
-  has_one :manager, through: :department
-  has_many :items, through: :department
+  has_many :departments
+  has_many :managers, through: :departments
+  has_many :items, through: :departments
 
   # delegate :name, to: :company, prefix: true, allow_nil: true
 
