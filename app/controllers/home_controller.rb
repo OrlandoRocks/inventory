@@ -1,5 +1,7 @@
 class HomeController < ApplicationController
   helper_method :sort_column, :sort_direction
+  before_action :authenticate_user!, except: [:terminos_condiciones]
+  layout false, only: [:terminos_condiciones]
 
   def index
 
@@ -85,6 +87,11 @@ class HomeController < ApplicationController
       format.html
       format.js
     end
+  end
+
+
+  def terminos_condiciones
+
   end
 
   private
