@@ -7,3 +7,23 @@ class BranchSerializer < ActiveModel::Serializer
   end
 
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
