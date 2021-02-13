@@ -20,3 +20,4 @@ Role.create(name: 'God', key: 'god', description: 'Super administrador del siste
 Role.create(name: 'Administrador General', key: 'admin', description: 'Administrador general del corporativo.', scope: 0)
 Role.create(name: 'Gerente', key: 'admin_sucursal', description: 'Administrador de Sucursal.', scope: 0)
 Role.create(name: 'Vendedor', key: 'empleado_sin_acceso', description: 'Empleado sin acceso al sistema.', scope: 0)
+Role.create(name: 'Guest', key: 'guest', description: 'Invitado.', scope: 0)
