@@ -31,7 +31,7 @@ class Api::V1::UsersManagerController < ActionController::Base
   def sign_up_guest
     begin
 
-    num_last_guest = User.where(role_id: Role.where(key:'guest').first.id).last.try(:id)
+    num_last_guest = User.where(role_id: Role.where(key:'guest').first.id).last.try(:employee_number)
 
       user_params = Hash.new
 
