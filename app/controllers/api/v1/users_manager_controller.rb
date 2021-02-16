@@ -42,7 +42,7 @@ class Api::V1::UsersManagerController < ActionController::Base
       user_params[:password]     =    params[:password]     if params[:password]
       user_params[:password_confirmation]     =    params[:password_confirmation]     if params[:password_confirmation]
       user_params[:current_company]   =    Company.first.id
-      user_params[:employee_number]   = num_last_guest.nil ? 9000 : num_last_guest+1
+      user_params[:employee_number]   = num_last_guest.nil? ? 9000 : num_last_guest+1
 
 
       @new_user = User.new(user_params)
