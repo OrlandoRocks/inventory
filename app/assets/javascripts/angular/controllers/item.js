@@ -898,7 +898,7 @@ app.controller('ModalVentaController', ['$scope', 'close', 'Upload', '$http', 'i
                                 branch_id: $scope.item.branch_id,
                                 department_id: $scope.item.department_id,
                                 user_id: $scope.item.user_id,
-                                purchased_date: Date.now()
+                                purchased_date: new Date()
                             }
                         }
                     });
@@ -955,7 +955,7 @@ app.controller('ModalVentaController', ['$scope', 'close', 'Upload', '$http', 'i
                                 client_id: $scope.item.client_id,
                                 fiscal_voucher_id: $scope.item.fiscal_voucher_id,
                                 description: $scope.item.description,
-                                purchased_date: Date.now()
+                                purchased_date: new Date()
                             }
                         }
                     }).then(function (response) {
