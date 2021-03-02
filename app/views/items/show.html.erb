@@ -182,15 +182,15 @@
               </li>
               <li class="list-group-item">
                 <b><i class="fa fa-percent margin-r-5"></i><%= t("items.form.percentage_planet") %></b>
-                <p class="text-muted"><%= "#{  Money.from_amount(@item.planet_percentage.nil? ? 0 : get_percentage_value(@item.planet_percentage, @item.price)).format}" %></p>
+                <p class="text-muted"><%= "#{  Money.from_amount(@item.planet_percentage.nil? ? 0 : get_percentage_value(@item.planet_percentage, @item.sale_price - @item.price)).format}" %></p>
               </li>
               <li class="list-group-item">
                 <b><i class="fa fa-percent margin-r-5"></i><%= t("items.form.percentage_branch") %></b>
-                <p class="text-muted"><%= "#{ Money.from_amount(@item.branch_percentage.nil? ? 0 : get_percentage_value(@item.branch_percentage, @item.price)).format}" %></p>
+                <p class="text-muted"><%= "#{ Money.from_amount(@item.branch_percentage.nil? ? 0 : get_percentage_value(@item.branch_percentage, @item.sale_price - @item.price)).format}" %></p>
               </li>
               <li class="list-group-item">
                 <b><i class="fa fa-percent margin-r-5"></i><%= t("items.form.percentage_seller") %></b>
-                <p class="text-muted"><%= "#{ Money.from_amount(@item.seller_percentage.nil? ? 0 : get_percentage_value(@item.seller_percentage, @item.price)).format}" %></p>
+                <p class="text-muted"><%= "#{ Money.from_amount(@item.seller_percentage.nil? ? 0 : get_percentage_value(@item.seller_percentage, @item.sale_price - @item.price)).format}" %></p>
               </li>
               <!--<li class="list-group-item">-->
               <!--<b><%#= t("items.form.provider") %></b> <a class="text-muted"><%#= @item.provider.try("name") %></a>-->
