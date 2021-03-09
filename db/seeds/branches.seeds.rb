@@ -1,4 +1,4 @@
-# after :cities do
+after :cities do
   puts '==> Filling the \'Branches\' table...'
 
   # Deletes all existing records.
@@ -17,5 +17,5 @@
   Branch.create(name: 'Cueramaro', description: '', city_id: 331)
   Branch.create(name: 'Irapuato', description: '' , city_id: 327)
   Branch.create(name: 'CDMX', description: '', city_id: 739)
-
-# end
+  puts ">>>>>>>>>>>>>>>>>>>>> first  branch #{Branch.first.id}"
+end
