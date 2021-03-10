@@ -917,32 +917,45 @@ app.controller('ModalVentaController', ['$scope', 'close', 'Upload', '$http', 'i
                             }
                         });
                         $scope.item.image.upload.then(function (response) {
-                            $timeout(function () {
+                            // $timeout(function () {
                                 $scope.item.image.result = response.data;
                                 if (response.data) {
-                                    $http({
-                                        url: '/send_email/ ' + $scope.item.id + '.json',
-                                        method: 'GET'
-                                    }).then(function (response) {
-                                        if (response.data) {
-                                            swal({
-                                                title: 'Vendido',
-                                                text: 'El artículo ha sido Vendido correctamente. La factura esta en proceso',
-                                                type: 'success',
-                                                showCancelButton: false
-                                            }).then(function (isConfirm) {
-                                                if (isConfirm) {
-                                                    location.reload();
-                                                }
-
-                                            }, function (iSConfirm) {
-
-                                            });
+                                    swal({
+                                        title: 'Vendido',
+                                        text: 'El artículo ha sido Vendido correctamente.',
+                                        type: 'success',
+                                        showCancelButton: false
+                                    }).then(function (isConfirm) {
+                                        if (isConfirm) {
+                                            location.reload();
                                         }
+
+                                    }, function (iSConfirm) {
+
                                     });
+                                    // $http({
+                                    //     url: '/send_email/ ' + $scope.item.id + '.json',
+                                    //     method: 'GET'
+                                    // }).then(function (response) {
+                                    //     if (response.data) {
+                                    //         swal({
+                                    //             title: 'Vendido',
+                                    //             text: 'El artículo ha sido Vendido correctamente.',
+                                    //             type: 'success',
+                                    //             showCancelButton: false
+                                    //         }).then(function (isConfirm) {
+                                    //             if (isConfirm) {
+                                    //                 location.reload();
+                                    //             }
+                                    //
+                                    //         }, function (iSConfirm) {
+                                    //
+                                    //         });
+                                    //     }
+                                    // });
 
                                 }
-                            });
+                            // });
                         }, function (response) {
                             if (response.status > 0)
                                 $scope.errorMsg = response.status + ': ' + response.data;
@@ -973,32 +986,45 @@ app.controller('ModalVentaController', ['$scope', 'close', 'Upload', '$http', 'i
                                 }
                             });
                             $scope.item.image.upload.then(function (response) {
-                                $timeout(function () {
+                                // $timeout(function () {
                                     $scope.item.image.result = response.data;
                                     if (response.data) {
-                                        $http({
-                                            url: '/send_email/ ' + $scope.item.id + '.json',
-                                            method: 'GET'
-                                        }).then(function (response) {
-                                            if (response.data) {
-                                                swal({
-                                                    title: 'Vendido',
-                                                    text: 'El artículo ha sido Vendido correctamente. La factura esta en proceso',
-                                                    type: 'success',
-                                                    showCancelButton: false
-                                                }).then(function (isConfirm) {
-                                                    if (isConfirm) {
-                                                        location.reload();
-                                                    }
-
-                                                }, function (iSConfirm) {
-
-                                                });
+                                        swal({
+                                            title: 'Vendido',
+                                            text: 'El artículo ha sido Vendido correctamente. La factura esta en proceso',
+                                            type: 'success',
+                                            showCancelButton: false
+                                        }).then(function (isConfirm) {
+                                            if (isConfirm) {
+                                                location.reload();
                                             }
+
+                                        }, function (iSConfirm) {
+
                                         });
+                                        // $http({
+                                        //     url: '/send_email/ ' + $scope.item.id + '.json',
+                                        //     method: 'GET'
+                                        // }).then(function (response) {
+                                        //     if (response.data) {
+                                        //         swal({
+                                        //             title: 'Vendido',
+                                        //             text: 'El artículo ha sido Vendido correctamente. La factura esta en proceso',
+                                        //             type: 'success',
+                                        //             showCancelButton: false
+                                        //         }).then(function (isConfirm) {
+                                        //             if (isConfirm) {
+                                        //                 location.reload();
+                                        //             }
+                                        //
+                                        //         }, function (iSConfirm) {
+                                        //
+                                        //         });
+                                        //     }
+                                        // });
 
                                     }
-                                });
+                                // });
                             }, function (response) {
                                 if (response.status > 0)
                                     $scope.errorMsg = response.status + ': ' + response.data;
@@ -1030,38 +1056,38 @@ app.controller('ModalVentaController', ['$scope', 'close', 'Upload', '$http', 'i
                                 }
                             }).then(function (response) {
                                 if (response.data) {
-                                    $http({
-                                        url: '/send_email/ ' + $scope.item.id + '.json',
-                                        method: 'GET'
-                                    }).then(function (response) {
-                                        if (response.data) {
-                                            swal({
-                                                title: 'Vendido (Falta Comprobante)',
-                                                text: 'El artículo ha sido Vendido y se facturara cuando se agregue el comprobante de pago',
-                                                type: 'success',
-                                                showCancelButton: false
-                                            }).then(function (isConfirm) {
-                                                if (isConfirm) {
-                                                    location.reload();
-                                                }
-
-                                            }, function (iSConfirm) {
-
-                                            });
+                                    swal({
+                                        title: 'Vendido (Falta Comprobante)',
+                                        text: 'El artículo ha sido Vendido y se facturara cuando se agregue el comprobante de pago',
+                                        type: 'success',
+                                        showCancelButton: false
+                                    }).then(function (isConfirm) {
+                                        if (isConfirm) {
+                                            location.reload();
                                         }
+
+                                    }, function (iSConfirm) {
+
                                     });
-                                    // swal({
-                                    //     title: 'Vendido (Falta Comprobante)',
-                                    //     text: 'El artículo ha sido Vendido y se facturara cuando se agregue el comprobante de pago',
-                                    //     type: 'success',
-                                    //     showCancelButton: false
-                                    // }).then(function (isConfirm) {
-                                    //     if (isConfirm) {
-                                    //         location.reload();
+                                    // $http({
+                                    //     url: '/send_email/ ' + $scope.item.id + '.json',
+                                    //     method: 'GET'
+                                    // }).then(function (response) {
+                                    //     if (response.data) {
+                                    //         swal({
+                                    //             title: 'Vendido (Falta Comprobante)',
+                                    //             text: 'El artículo ha sido Vendido y se facturara cuando se agregue el comprobante de pago',
+                                    //             type: 'success',
+                                    //             showCancelButton: false
+                                    //         }).then(function (isConfirm) {
+                                    //             if (isConfirm) {
+                                    //                 location.reload();
+                                    //             }
+                                    //
+                                    //         }, function (iSConfirm) {
+                                    //
+                                    //         });
                                     //     }
-                                    //
-                                    // }, function (iSConfirm) {
-                                    //
                                     // });
                                 }
                             });
