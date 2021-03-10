@@ -159,10 +159,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # POST /users
   # POST /users.json
   def create_user
-
-
     @user = User.new(sign_up_params)
-
+    @user.current_company = current_user.current_company
 
     respond_to do |format|
       if @user.save
@@ -230,6 +228,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     #
     params[:user].delete(:password)
     params[:user].delete(:password_confirmation)
+    @user.current_company = current_user.current_company
 
 
     respond_to do |format|
@@ -253,7 +252,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         format.json { render :show, status: :created, location: @user }
       else
         @role_accessless = Role.find_by_key("empleado_sin_acceso").id
-        format.html { render :new_user }
+        format.html { render :edit_user }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
@@ -500,7 +499,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def sign_up_params
     params.require(:user).permit(:email, :password, :password_confirmation, :username, :first_name, :last_name,
-                                 :maiden_name, :role_id, :department_id, :employee_number, :received_file, :avatar, :current_company, :token)
+                                 :maiden_name, :role_id, :department_id, :employee_number, :received_file, :avatar, :token)
   end
 
   def account_update_params

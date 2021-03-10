@@ -120,6 +120,7 @@ Rails.application.routes.draw do
 
     unauthenticated do
       root 'users/sessions#new', as: :unauthenticated_root
+      get '/users/sessions/remolques_new' => 'users/sessions#remolques_new', as: :login_remolques
     end
 
     authenticate :user do

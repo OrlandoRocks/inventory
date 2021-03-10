@@ -8,3 +8,10 @@ es:
         employee_number: Numero de Empleado
         password: Contraseña
         remember: Recuérdame
+      remolques_new:
+        template: Administración Remolques del Norte
+        sign_in: Iniciar sesión
+        email: Correo
+        employee_number: Numero de Empleado
+        password: Contraseña
+        remember: Recuérdame
