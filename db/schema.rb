@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_12_031131) do
+ActiveRecord::Schema.define(version: 2021_03_09_031136) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(version: 2021_02_12_031131) do
     t.integer "state_id"
     t.string "code"
     t.integer "last_code"
+    t.decimal "fleet_cost", default: "0.0"
     t.index ["city_id"], name: "index_branches_on_city_id"
     t.index ["company_id"], name: "index_branches_on_company_id"
     t.index ["state_id"], name: "index_branches_on_state_id"

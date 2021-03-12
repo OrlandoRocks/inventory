@@ -288,6 +288,8 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
             $scope.department = response.data;
             $scope.consignee = response.data.manager;
             $scope.full_name = $scope.consignee.first_name + ' ' + $scope.consignee.last_name;
+            $scope.branch    = response.data.branch;
+            $scope.fleet_cost = $scope.branch.fleet_cost ; 
         });
     };
 

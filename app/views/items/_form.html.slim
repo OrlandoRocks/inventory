@@ -6,8 +6,6 @@ div ng-controller="itemController"
         ul
           - @item.errors.full_messages.each do |message|
             li = message
-
-
     = form_for(item, item: 'form', html: {class: 'form-horizontal'}, validate: true) do |f|
       .box-body ng-init="init(#{@branches.to_json}, #{@categories.to_json}, #{item.id.nil? ? 'nil' :item.id } )"
 
@@ -58,8 +56,6 @@ div ng-controller="itemController"
             select.form-control ng-change="generate_model()" ng-model="color" ng-options=("color.id as color.name for color in colors")
               option  selected="" value=""  No Aplica
               = f.hidden_field :color_id, value: '{{color}}'
-
-
         .row.form-group
           = f.label 'Largo', class: 'col-sm-2 control-label'
           .col-md-4
@@ -71,8 +67,6 @@ div ng-controller="itemController"
             select.form-control ng-change="generate_model()" ng-model="divition" ng-options=("divition.id as divition.name for divition in divitions")
               option  selected="" value=""  No Aplica
               = f.hidden_field :divition_type_id, value: '{{divition}}'
-
-
         .row.form-group
           = f.label 'Piso', class: 'col-sm-2 control-label'
           .col-md-4
@@ -120,8 +114,6 @@ div ng-controller="itemController"
             select.form-control ng-change="generate_model()" ng-model="brand" ng-options=("brand.id as brand.name for brand in brands")
               option  selected="" value=""  No Aplica
               = f.hidden_field :brand_id, value: '{{brand}}'
-              
-        .row.form-group
         .row.form-group
           = f.label 'Techo', class: 'col-sm-2 control-label'
           .col-md-4
@@ -146,25 +138,25 @@ div ng-controller="itemController"
               .input-group-addon
                 i.fa.fa-calendar
               = f.text_field :acquisition_date, class: 'form-control pull-right datepicker', type: "text", placeholder: t('.acquisition_date')
-
         .row.form-group
-          = f.label :price, class: 'col-sm-2 control-label'
+          = f.label :pre_price, class: 'col-md-2 control-label'
           .col-md-4
             .input-group
               span.input-group-addon $
-              = f.number_field :price, value: number_to_currency(f.object.price.to_f, delimiter: '', unit: ''), step: :any, class: 'form-control text_field', placeholder: t('.price')
-              span.input-group-addon .00
-          = f.label :serial_number, class: 'col-sm-2 control-label'
+              = f.number_field :pre_price, value: number_to_currency(f.object.price.to_f, delimiter: '', unit: ''), step: :any, class: 'form-control text_field', placeholder: t('.price')
+              span.input-group-addon .00              
+          = f.label :serial_number, class: 'col-md-2 control-label'
           .col-md-4
-            = f.text_field :serial_number, class: 'form-control', placeholder: t('.serial_number')
-
+            = f.text_field :serial_number, class: 'form-control', placeholder: t('.serial_number')        
+        .row.form-group
+          = f.hidden_field :fleet_cost, value: '{{fleet_cost}}'
+          = label_tag "price", "Total + Flete", class: 'col-sm-2 control-label'
+          .col-md-8
+            = label_tag "price",  class: 'control-label h3.page-header',id: 'item_price'
         .row.form-group
           = label_tag "accessory", "Accesorios", class: 'col-sm-2 control-label'
           .col-md-10
             = f.text_area :accessory, class: 'form-control', placeholder: "Accesorios"
-
-
-
           / .row.form-group
             = f.label :image, class: 'col-sm-2 control-label'
             .col-md-4
@@ -173,10 +165,6 @@ div ng-controller="itemController"
               /= image_tag @item.image_url(:thumb).to_s  if @item.image?
               - if @item.image.attached?
                  = link_to image_tag(@item.image, :class => 'download_icon', :size => '65x65'), "#{url_for(f.object.image)}", :target => "_blank"
-
-
-
-
         .row.form-group
           = label_tag 'consignatario','Consignatario', class: 'col-sm-2 control-label'
           .col-md-8
@@ -193,11 +181,24 @@ div ng-controller="itemController"
              - unless item.status_shipping_id == StatusShipping.find_by_key('recibido').id
               input type='hidden' name="item[status_shipping_id]" ng-if="branch === 1" value='#{StatusShipping.find_by_key('recibido').id}'
               input type='hidden' name="item[status_shipping_id]" ng-if="branch !== 1" value='#{StatusShipping.find_by_key('enviado').id}'
-
-
       .box-footer
         = f.button "<i class='fa fa-floppy-o'></i> #{t('helpers.submit.submit', model: t('.resource'))}".html_safe,
                 class: 'btn btn-primary btn-flat', type: 'submit'
         = link_to items_path, class: 'btn btn-default btn-flat' do
           i.fa.fa-list
           =< t('helpers.back')
+
+
+javascript:
+     $(document).ready(function(){
+         $('#item_pre_price').change(function () {
+           fleet_cost = parseFloat($('#item_fleet_cost').val());
+           price = parseFloat($('#item_pre_price').val());
+           inc = parseFloat( 1 + (fleet_cost/100));
+           total = parseFloat(  price * inc   );
+            if($('#item_pre_price').val() > 0){
+               $('#item_price').text(total.toFixed(1) ) ;
+            }
+         });
+
+     });  

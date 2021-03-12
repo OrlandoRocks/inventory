@@ -1,105 +1,113 @@
-= form_for(branch, branch: 'form', html: {class: 'form-horizontal'}, validate: true) do |f|
-  - if @branch.errors.any?
-    #error_explanation
-      h2 = "#{pluralize(branch.errors.count, "error")} prohibited this branch from being saved:"
-      ul
-        - @branch.errors.full_messages.each do |message|
-          li = message
-  .box-body
-    - if selected_company_id.equal?(0)
+  = form_for(branch, branch: 'form', html: {class: 'form-horizontal'}, validate: true) do |f|
+    - if @branch.errors.any?
+      #error_explanation
+        h2 = "#{pluralize(branch.errors.count, "error")} prohibited this branch from being saved:"
+        ul
+          - @branch.errors.full_messages.each do |message|
+            li = message
+    .box-body
+      - if selected_company_id.equal?(0)
+        .row.form-group
+          = f.label :company, class: 'col-sm-2 control-label'
+          .col-sm-10
+            = f.collection_select(:company_id, policy_scope(Company), :id, :name,
+                    {prompt: t('helpers.select.prompt')}, {class: 'form-control'})
+      - else
+        .row.form-group
+          = f.label :company, class: 'col-sm-2 control-label'
+          .col-sm-10
+            /= f.collection_select(:company_id, policy_scope(Company), :id, :name,
+                        {prompt: false,:selected => selected_company}, {class: 'form-control', :disabled => "disabled"} )
+            /= f.button "<i class='fa fa-home'></i> #{t('helpers.submit.submit', model: t('.resource'))}".html_safe,
+                      class: 'btn btn-primary btn-flat disabled'
+            = f.label selected_company, class: 'control-label h2.page-header text-uppercase'
+            = f.hidden_field :company_id, value: selected_company_id
+
+      /- else
+        .row.form-group
+          = f.label :company, class: 'col-sm-2 control-label'
+          .col-sm-10
+            = f.collection_select(:company_id, policy_scope(Company), :id, :name,
+                    {prompt: false }, {class: 'form-control',:disabled => "disabled" })
+
       .row.form-group
-        = f.label :company, class: 'col-sm-2 control-label'
+        = f.label :name, class: 'col-sm-2 control-label'
         .col-sm-10
-          = f.collection_select(:company_id, policy_scope(Company), :id, :name,
+          = f.text_field :name, class: 'form-control', placeholder: t('.name'), autofocus: true
+      / .row.form-group
+        = f.label :description, class: 'col-sm-2 control-label'
+        .col-sm-10
+          = f.text_field :description, class: 'form-control', placeholder: t('.description')
+      .row.form-group
+        = f.label :state, class: 'col-sm-2 control-label'
+        .col-sm-10
+          = f.collection_select(:state_id, State.all, :id, :name,
                   {prompt: t('helpers.select.prompt')}, {class: 'form-control'})
-    - else
       .row.form-group
-        = f.label :company, class: 'col-sm-2 control-label'
+        = f.label :city, class: 'col-sm-2 control-label'
         .col-sm-10
-          /= f.collection_select(:company_id, policy_scope(Company), :id, :name,
-                      {prompt: false,:selected => selected_company}, {class: 'form-control', :disabled => "disabled"} )
-          /= f.button "<i class='fa fa-home'></i> #{t('helpers.submit.submit', model: t('.resource'))}".html_safe,
-                    class: 'btn btn-primary btn-flat disabled'
-          = f.label selected_company, class: 'control-label h2.page-header text-uppercase'
-          = f.hidden_field :company_id, value: selected_company_id
-
-    /- else
+          = f.collection_select(:city_id, City.all.uniq, :id, :name,
+                  {prompt: t('helpers.select.prompt')}, {class: 'form-control', :disabled => "disabled"})
       .row.form-group
-        = f.label :company, class: 'col-sm-2 control-label'
+        = f.label :code, class: 'col-sm-2 control-label'
         .col-sm-10
-          = f.collection_select(:company_id, policy_scope(Company), :id, :name,
-                  {prompt: false }, {class: 'form-control',:disabled => "disabled" })
-
-    .row.form-group
-      = f.label :name, class: 'col-sm-2 control-label'
-      .col-sm-10
-        = f.text_field :name, class: 'form-control', placeholder: t('.name'), autofocus: true
-    / .row.form-group
-      = f.label :description, class: 'col-sm-2 control-label'
-      .col-sm-10
-        = f.text_field :description, class: 'form-control', placeholder: t('.description')
-    .row.form-group
-      = f.label :state, class: 'col-sm-2 control-label'
-      .col-sm-10
-        = f.collection_select(:state_id, State.all, :id, :name,
-                {prompt: t('helpers.select.prompt')}, {class: 'form-control'})
-    .row.form-group
-      = f.label :city, class: 'col-sm-2 control-label'
-      .col-sm-10
-        = f.collection_select(:city_id, City.all.uniq, :id, :name,
-                {prompt: t('helpers.select.prompt')}, {class: 'form-control', :disabled => "disabled"})
-    .row.form-group
-      = f.label :code, class: 'col-sm-2 control-label'
-      .col-sm-10
-        = f.text_field :code, class: 'form-control', placeholder: t('.code')
-    .row.form-group
-      = f.label :manager_id, class: 'col-sm-2 control-label'
-      .col-sm-10
-        = f.collection_select(:manager_id, User.all, :id, :full_name,
-                {prompt: t('helpers.select.prompt')}, {class: 'form-control'})
-  .box-footer
-    = f.button "<i class='fa fa-floppy-o'></i> #{t('helpers.submit.submit', model: t('.resource'))}".html_safe,
-            class: 'btn btn-primary btn-flat', type: 'submit'
-    - if has_policy(Branch, %w(index))
-      = link_to branches_path, class: 'btn btn-default btn-flat' do
-        i.fa.fa-list
-        =< t('.back')
+          = f.text_field :code, class: 'form-control', placeholder: t('.code')
+      .row.form-group
+        = f.label :manager_id, class: 'col-sm-2 control-label'
+        .col-sm-10
+          = f.collection_select(:manager_id, User.all, :id, :full_name,
+                  {prompt: t('helpers.select.prompt')}, {class: 'form-control'})
+          = f.text_field :code, class: 'form-control', placeholder: t('.code')
+      - unless branch.name == 'Cuauhtemoc'
+        .row.form-group
+          = f.label "Costo de Flete " , class: 'col-sm-2 control-label'
+          .col-sm-10.col-md-1
+            .input-group
+              = f.number_field :fleet_cost, class: 'form-control text_field', step: 5.0, min:0.0
+              span.input-group-addon %
+    .box-footer
+      = f.button "<i class='fa fa-floppy-o'></i> #{t('helpers.submit.submit', model: t('.resource'))}".html_safe,
+              class: 'btn btn-primary btn-flat', type: 'submit'
+      - if has_policy(Branch, %w(index))
+        = link_to branches_path, class: 'btn btn-default btn-flat' do
+          i.fa.fa-list
+          =< t('.back')
 
 
-  javascript:
-    $(document).ready(function () {
-      $('.datepicker').datepicker({
-        format: 'dd/mm/yyyy',
-        language: "es",
-        beforeShow: function () {
-          $('.datepicker').addClass('datepicker');
-        }
-      });
-
-      jQuery(document).ready(function () {
-        jQuery('#branch_state_id').change(function () {
-          var data = $('#branch_state_id').val();
-          $("#branch_city_id").prop( "disabled", true );
-          $('#branch_city_id').html('');
-          if (data != "") {
-            $.ajax({
-              type: "GET",
-              url: "/cities/" + data,
-              data: data,
-              success: function (result) {
-                $("#branch_city_id").prop( "disabled", false );
-                $('#branch_city_id').html('');
-                for (var i in result) {
-                  var id = result[i].id;
-                  var name = result[i].name;
-                  $("#branch_city_id").append(new Option(name, id));
-
-                }
-              }
-            });
-          } else {
-            $('#price_item').text("");
+    javascript:
+      $(document).ready(function () {
+        $('.datepicker').datepicker({
+          format: 'dd/mm/yyyy',
+          language: "es",
+          beforeShow: function () {
+            $('.datepicker').addClass('datepicker');
           }
         });
+
+        jQuery(document).ready(function () {
+          jQuery('#branch_state_id').change(function () {
+            var data = $('#branch_state_id').val();
+            $("#branch_city_id").prop( "disabled", true );
+            $('#branch_city_id').html('');
+            if (data != "") {
+              $.ajax({
+                type: "GET",
+                url: "/cities/" + data,
+                data: data,
+                success: function (result) {
+                  $("#branch_city_id").prop( "disabled", false );
+                  $('#branch_city_id').html('');
+                  for (var i in result) {
+                    var id = result[i].id;
+                    var name = result[i].name;
+                    $("#branch_city_id").append(new Option(name, id));
+
+                  }
+                }
+              });
+            } else {
+              $('#price_item').text("");
+            }
+          });
+        }); //Fin del document ready
       }); //Fin del document ready
-    }); //Fin del document ready

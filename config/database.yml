@@ -4,7 +4,9 @@ development:
   database: inventory
   username: inventory
   password: inventory
-  port: 5432
-  host: database
-  pool: 5
-  timeout: 5000
+  host: localhost
+test:
+  database: inventory
+  username: inventory
+  password: inventory
+  host: localhost
