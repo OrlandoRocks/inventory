@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  require 'rqrcode'
+  #require 'rqrcode'
   include ActionView::Helpers::NumberHelper
   include ActionView::Helpers::NumberToLetters
 
@@ -421,7 +421,7 @@ class ItemsController < ApplicationController
 
   def item_qr
     @item = Item.find(params[:id])
-    data = "{"id:"+ 'id': '#{@item.id}', 'status_shipping': '#{@item.status_shipping_id}'}"
+    data = "{'id': '#{@item.id}', 'status_shipping': '#{@item.status_shipping_id}'}"
     qrcode = RQRCode::QRCode.new(data, :size => 5, :level => :h)
     @svg = qrcode.as_svg(
         offset: 0,
