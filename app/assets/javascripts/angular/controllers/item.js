@@ -856,11 +856,25 @@ app.controller('ModalVentaController', ['$scope', 'close', 'Upload', '$http', 'i
         $scope.payment_types = {
             0: {id: 1, type: 'Cash'},
             1: {id: 2, type: 'Deposito'},
-            2: {id: 3, type: 'Transferencia'}
+            2: {id: 3, type: 'Transferencia'},
+            4: {id: 4, type: 'Crédito'}
         };
 
 
-        $scope.uploadSell = function (status_vendido, status_pendiente_factura) {
+        $scope.uploadSell = function (status) {
+
+            angular.forEach(status, function (stats) {
+                if (stats.key === 'vendido') {
+                    status_vendido = stats.id;
+
+                } else if (stats.key === 'pendiente_factura') {
+                    status_pendiente_factura = stats.id;
+                } else if (stats.key === 'vendido_credito') {
+                    status_credito = stats.id;
+                }
+
+
+            });
 
 
             swal({
@@ -883,33 +897,97 @@ app.controller('ModalVentaController', ['$scope', 'close', 'Upload', '$http', 'i
                             swal.showLoading()
                         }
                     });
-                    if ($scope.item.image) {
-
-                    $scope.item.image.upload = Upload.upload({
-                        url: `/items/${$scope.item.id}.json`,
-                        method: 'PUT',
-                        //  data: {file: file}
-                        data: {
-                            item: {
-                                sale_price: $scope.item.sale_price,
-                                payment_type: $scope.item.payment_type,
-                                image: $scope.item.image,
-                                status_item_id: status_vendido,
-                                branch_id: $scope.item.branch_id,
-                                department_id: $scope.item.department_id,
-                                user_id: $scope.item.user_id,
-                                purchased_date: new Date()
+                    if ($scope.item.payment_type === 4) {
+                        $scope.item.image.upload = Upload.upload({
+                            url: `/items/${$scope.item.id}.json`,
+                            method: 'PUT',
+                            //  data: {file: file}
+                            data: {
+                                item: {
+                                    sale_price: $scope.item.sale_price,
+                                    payment_type: $scope.item.payment_type,
+                                    advance_payment: $scope.item.advance_payment,
+                                    image: $scope.item.image,
+                                    status_item_id: status_credito,
+                                    branch_id: $scope.item.branch_id,
+                                    department_id: $scope.item.department_id,
+                                    user_id: $scope.item.user_id,
+                                    purchased_date: new Date()
+                                }
                             }
-                        }
-                    });
-                    $scope.item.image.upload.then(function (response) {
-                        $timeout(function () {
-                            $scope.item.image.result = response.data;
-                            if (response.data) {
-                                $http({
-                                    url: '/send_email/ '+ $scope.item.id + '.json',
-                                    method: 'GET'
-                                }).then(function (response) {
+                        });
+                        $scope.item.image.upload.then(function (response) {
+                            // $timeout(function () {
+                                $scope.item.image.result = response.data;
+                                if (response.data) {
+                                    swal({
+                                        title: 'Vendido',
+                                        text: 'El artículo ha sido Vendido correctamente.',
+                                        type: 'success',
+                                        showCancelButton: false
+                                    }).then(function (isConfirm) {
+                                        if (isConfirm) {
+                                            location.reload();
+                                        }
+
+                                    }, function (iSConfirm) {
+
+                                    });
+                                    // $http({
+                                    //     url: '/send_email/ ' + $scope.item.id + '.json',
+                                    //     method: 'GET'
+                                    // }).then(function (response) {
+                                    //     if (response.data) {
+                                    //         swal({
+                                    //             title: 'Vendido',
+                                    //             text: 'El artículo ha sido Vendido correctamente.',
+                                    //             type: 'success',
+                                    //             showCancelButton: false
+                                    //         }).then(function (isConfirm) {
+                                    //             if (isConfirm) {
+                                    //                 location.reload();
+                                    //             }
+                                    //
+                                    //         }, function (iSConfirm) {
+                                    //
+                                    //         });
+                                    //     }
+                                    // });
+
+                                }
+                            // });
+                        }, function (response) {
+                            if (response.status > 0)
+                                $scope.errorMsg = response.status + ': ' + response.data;
+
+
+                        }, function (evt) {
+                            $scope.item.image.progress = Math.min(100, parseInt(100.0 *
+                                evt.loaded / evt.total));
+                        });
+                    }else{
+                        if ($scope.item.image) {
+
+                            $scope.item.image.upload = Upload.upload({
+                                url: `/items/${$scope.item.id}.json`,
+                                method: 'PUT',
+                                //  data: {file: file}
+                                data: {
+                                    item: {
+                                        sale_price: $scope.item.sale_price,
+                                        payment_type: $scope.item.payment_type,
+                                        image: $scope.item.image,
+                                        status_item_id: status_vendido,
+                                        branch_id: $scope.item.branch_id,
+                                        department_id: $scope.item.department_id,
+                                        user_id: $scope.item.user_id,
+                                        purchased_date: new Date()
+                                    }
+                                }
+                            });
+                            $scope.item.image.upload.then(function (response) {
+                                // $timeout(function () {
+                                    $scope.item.image.result = response.data;
                                     if (response.data) {
                                         swal({
                                             title: 'Vendido',
@@ -921,48 +999,61 @@ app.controller('ModalVentaController', ['$scope', 'close', 'Upload', '$http', 'i
                                                 location.reload();
                                             }
 
-                                            }, function (iSConfirm) {
+                                        }, function (iSConfirm) {
 
-                                            });
-                                        }
-                                    });
+                                        });
+                                        // $http({
+                                        //     url: '/send_email/ ' + $scope.item.id + '.json',
+                                        //     method: 'GET'
+                                        // }).then(function (response) {
+                                        //     if (response.data) {
+                                        //         swal({
+                                        //             title: 'Vendido',
+                                        //             text: 'El artículo ha sido Vendido correctamente. La factura esta en proceso',
+                                        //             type: 'success',
+                                        //             showCancelButton: false
+                                        //         }).then(function (isConfirm) {
+                                        //             if (isConfirm) {
+                                        //                 location.reload();
+                                        //             }
+                                        //
+                                        //         }, function (iSConfirm) {
+                                        //
+                                        //         });
+                                        //     }
+                                        // });
 
-                                }
+                                    }
+                                // });
+                            }, function (response) {
+                                if (response.status > 0)
+                                    $scope.errorMsg = response.status + ': ' + response.data;
+
+
+                            }, function (evt) {
+                                $scope.item.image.progress = Math.min(100, parseInt(100.0 *
+                                    evt.loaded / evt.total));
                             });
-                        }, function (response) {
-                            if (response.status > 0)
-                                $scope.errorMsg = response.status + ': ' + response.data;
 
-
-                        }, function (evt) {
-                            $scope.item.image.progress = Math.min(100, parseInt(100.0 *
-                                evt.loaded / evt.total));
-                        });
-
-                } else {
-                    $http({
-                        url: `/items/${$scope.item.id}.json`,
-                        method: 'PUT',
-                        //  data: {file: file}
-                        data: {
-                            item: {
-                                sale_price: $scope.item.sale_price,
-                                payment_type: $scope.item.payment_type,
-                                status_item_id: status_pendiente_factura,
-                                branch_id: $scope.item.branch_id,
-                                department_id: $scope.item.department_id,
-                                user_id: $scope.item.user_id,
-                                client_id: $scope.item.client_id,
-                                fiscal_voucher_id: $scope.item.fiscal_voucher_id,
-                                description: $scope.item.description,
-                                purchased_date: new Date()
-                            }
-                        }
-                    }).then(function (response) {
-                        if (response.data) {
+                        } else {
                             $http({
-                                url: '/send_email/ '+ $scope.item.id + '.json',
-                                method: 'GET'
+                                url: `/items/${$scope.item.id}.json`,
+                                method: 'PUT',
+                                //  data: {file: file}
+                                data: {
+                                    item: {
+                                        sale_price: $scope.item.sale_price,
+                                        payment_type: $scope.item.payment_type,
+                                        status_item_id: status_pendiente_factura,
+                                        branch_id: $scope.item.branch_id,
+                                        department_id: $scope.item.department_id,
+                                        user_id: $scope.item.user_id,
+                                        client_id: $scope.item.client_id,
+                                        fiscal_voucher_id: $scope.item.fiscal_voucher_id,
+                                        description: $scope.item.description,
+                                        purchased_date: new Date()
+                                    }
+                                }
                             }).then(function (response) {
                                 if (response.data) {
                                     swal({
@@ -975,27 +1066,34 @@ app.controller('ModalVentaController', ['$scope', 'close', 'Upload', '$http', 'i
                                             location.reload();
                                         }
 
-                                        }, function (iSConfirm) {
+                                    }, function (iSConfirm) {
 
-                                        });
-                                    }
-                                });
-                                // swal({
-                                //     title: 'Vendido (Falta Comprobante)',
-                                //     text: 'El artículo ha sido Vendido y se facturara cuando se agregue el comprobante de pago',
-                                //     type: 'success',
-                                //     showCancelButton: false
-                                // }).then(function (isConfirm) {
-                                //     if (isConfirm) {
-                                //         location.reload();
-                                //     }
-                                //
-                                // }, function (iSConfirm) {
-                                //
-                                // });
-                            }
-                        });
+                                    });
+                                    // $http({
+                                    //     url: '/send_email/ ' + $scope.item.id + '.json',
+                                    //     method: 'GET'
+                                    // }).then(function (response) {
+                                    //     if (response.data) {
+                                    //         swal({
+                                    //             title: 'Vendido (Falta Comprobante)',
+                                    //             text: 'El artículo ha sido Vendido y se facturara cuando se agregue el comprobante de pago',
+                                    //             type: 'success',
+                                    //             showCancelButton: false
+                                    //         }).then(function (isConfirm) {
+                                    //             if (isConfirm) {
+                                    //                 location.reload();
+                                    //             }
+                                    //
+                                    //         }, function (iSConfirm) {
+                                    //
+                                    //         });
+                                    //     }
+                                    // });
+                                }
+                            });
+                        }
                     }
+
 
                 }
 
