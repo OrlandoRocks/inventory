@@ -13,7 +13,7 @@ after :devise_user do
     # Category.create(name: 'EQUIPO DE ELECTRÓNICA', description: 'EQUIPO DE ELECTRÓNICA', status: 'true', company_id: 1)
     # Category.create(name: 'TRANSPORTE', description: 'TRANSPORTE', status: 'true', company_id: 1)
     # Category.create(name: 'OTROS', description: 'OTROS', status: 'true', company_id: 1)
-
+    # agregar atributo modelo 
     Category.create(name: 'Cama Baja',  status: 'true', company_id: Company.first.id) 
     Category.create(name: 'Ganaderos',  status: 'true', company_id: Company.first.id) 
     Category.create(name: 'Caja Seca',  status: 'true', company_id: Company.first.id) 

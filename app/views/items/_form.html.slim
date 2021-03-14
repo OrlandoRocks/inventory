@@ -188,21 +188,3 @@ div ng-controller="itemController"
         = link_to items_path, class: 'btn btn-default btn-flat' do
           i.fa.fa-list
           =< t('helpers.back')
-
-
-/ javascript:
-/      $(document).ready(function(){
-/          $('#item_price').change(function () {
-/            fleet_cost = parseFloat($('#item_fleet_cost').val());
-/            price = parseFloat($('#item_price').val());
-/            inc   = parseFloat( 1 + (fleet_cost/100));
-/            total = parseFloat(  price * inc   );
-/             if ( price > 0  ){
-/               console.log(total.toFixed(1));
-/               $('#item_price_show').text('$ ' + total.toFixed(1) ) ;
-/             }else{
-/               $('#item_price_show').text('') ;
-/             }
-/          });
-
-/      });  
