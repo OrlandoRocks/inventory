@@ -241,18 +241,19 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
 
 
                 $scope.set_model($scope.item);
-                $scope.branch = $scope.item.branch_id;
+                $scope.branch = $scope.item.branch;
                 if ($scope.branch !== null) {
                     $scope.get_department();
                 }
                 if ($scope.item.status_shipping_id === 1) {
-                    $scope.branch = $scope.item.department_user.branch_id;
+                    $scope.branch = $scope.item.department_user.branch;
                     $scope.get_department();
                 }
                 // $scope.get_trailer($scope.item.trailer_type_id);
                 $scope.get_fiscal_vouchers();
                 $scope.get_clients();
-
+                $scope.item.price =parseFloat($scope.item.price);
+                $scope.fleet = $scope.item.price * ( 1 + ( $scope.branch.fleet_cost) /100 );
             }
         }, function errorCallback(response) {
             console.log("Algo valio shit!");
@@ -282,14 +283,15 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
 
     $scope.get_department = function () {
         $http({
-            url: '/departments_by_branch/' + $scope.branch + '.json',
+            url: '/departments_by_branch/' + $scope.branch.id + '.json',
             method: 'GET'
         }).then(function (response) {
             $scope.department = response.data;
             $scope.consignee = response.data.manager;
-            $scope.full_name = $scope.consignee.first_name + ' ' + $scope.consignee.last_name;
             $scope.branch    = response.data.branch;
             $scope.fleet_cost = $scope.branch.fleet_cost ; 
+            console.log(response);
+            $scope.full_name = $scope.consignee ? $scope.consignee.first_name + ' ' + $scope.consignee.last_name : 'Sin Gerente' ;
         });
     };
 

@@ -60,7 +60,7 @@
           = f.text_field :code, class: 'form-control', placeholder: t('.code')
       - unless branch.name == 'Cuauhtemoc'
         .row.form-group
-          = f.label "Costo de Flete " , class: 'col-sm-2 control-label'
+          = f.label "Costo de Flete" , class: 'col-sm-2 control-label'
           .col-sm-10.col-md-1
             .input-group
               = f.number_field :fleet_cost, class: 'form-control text_field', step: 5.0, min:0.0

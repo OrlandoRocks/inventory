@@ -4,7 +4,7 @@ div ng-controller="itemController"
       #error_explanation
         h2 = "#{pluralize(@item.errors.count, "error(es)")}, No se permitio almacenar el artículo debido a:"
         ul
-          - @item.errors.full_messages.each do |message|
+        - @item.errors.full_messages.each do |message|
             li = message
     = form_for(item, item: 'form', html: {class: 'form-horizontal'}, validate: true) do |f|
       .box-body ng-init="init(#{@branches.to_json}, #{@categories.to_json}, #{item.id.nil? ? 'nil' :item.id } )"
@@ -13,13 +13,12 @@ div ng-controller="itemController"
           = f.label :branch_id, class: 'col-sm-2 control-label'
           .col-md-10
             / TODO: Hacer un helper
-            select.form-control ng-change="get_department()" ng-model="branch" ng-options=("branch.id as branch.name for branch in branches") required="true"
+            select.form-control ng-change="get_department()" ng-model="branch.id" ng-options=("branch.id as branch.name for branch in branches") required="true"
               option disabled="" selected="" value=""  Sucursales...
-            = f.hidden_field :branch_id, value: '{{branch}}'
-
+            = f.hidden_field :branch_id, value: '{{branch.id}}'
         .row.form-group
           = f.label :department_id, class: 'col-sm-2 control-label'
-          .col-md-10
+          .col-md-10  
             = text_field_tag 'department','', class: 'form-control', placeholder: 'Departamento', disabled: true, 'ng-model'=> 'department.name'
             input type='hidden' name='item[department_id]' value='{{department.id}}'
 
@@ -139,20 +138,22 @@ div ng-controller="itemController"
                 i.fa.fa-calendar
               = f.text_field :acquisition_date, class: 'form-control pull-right datepicker', type: "text", placeholder: t('.acquisition_date')
         .row.form-group
-          = f.label :pre_price, class: 'col-md-2 control-label'
+          = f.label :price, class: 'col-md-2 control-label'
           .col-md-4
             .input-group
               span.input-group-addon $
-              = f.number_field :pre_price, value: number_to_currency(f.object.price.to_f, delimiter: '', unit: ''), step: :any, class: 'form-control text_field', placeholder: t('.price')
+              = f.number_field :price, value: number_to_currency(f.object.price.to_f, delimiter: '', unit: ''), step: :any, class: 'form-control text_field', placeholder: t('.price') , min:0.0, 'ng-model'=> 'item.price ', 'ng-change' => 'fleet = item.price * ( 1 + ( fleet_cost || "0") /100 )'  
               span.input-group-addon .00              
           = f.label :serial_number, class: 'col-md-2 control-label'
           .col-md-4
-            = f.text_field :serial_number, class: 'form-control', placeholder: t('.serial_number')        
+            = f.text_field :serial_number, class: 'form-control', placeholder: t('.serial_number')                    
         .row.form-group
-          = f.hidden_field :fleet_cost, value: '{{fleet_cost}}'
-          = label_tag "price", "Total + Flete", class: 'col-sm-2 control-label'
-          .col-md-8
-            = label_tag "price",  class: 'control-label h3.page-header',id: 'item_price'
+          = f.hidden_field :fleet_cost, value: '{{ fleet_cost || "0"  }}'
+          = label_tag "price_lbl", "Precio Total", class: 'col-sm-2 control-label', style: "font-size:20px;"
+          .col-md-8            
+            = label_tag :price_show, '{{ fleet | currency }}',  class: 'control-label h2.page-header',  style: "font-size:20px;"             
+        .row.form-group
+          = label_tag "fleet_cost_caption", "(+ {{ fleet_cost || '0'  }}% de Flete)", class: 'col-sm-2 control-label', style: "font-size: 12px; font-style: italic; color: gray; margin-top: -21px;"
         .row.form-group
           = label_tag "accessory", "Accesorios", class: 'col-sm-2 control-label'
           .col-md-10
@@ -168,7 +169,7 @@ div ng-controller="itemController"
         .row.form-group
           = label_tag 'consignatario','Consignatario', class: 'col-sm-2 control-label'
           .col-md-8
-            = label_tag 'consignee','{{full_name}}',class: 'control-label h3.page-header text-uppercase',id: 'immediate_boss'
+            = label_tag 'consignee','{{full_name}}',class: 'control-label h3.page-header text-uppercase',id: 'immediate_boss' 
             /h3 id='immediate_boss'
              .control-label.h2.page-header.text-uppercase
             input id='immediate_boss_id' name='boss_id' type='hidden'
@@ -189,16 +190,19 @@ div ng-controller="itemController"
           =< t('helpers.back')
 
 
-javascript:
-     $(document).ready(function(){
-         $('#item_pre_price').change(function () {
-           fleet_cost = parseFloat($('#item_fleet_cost').val());
-           price = parseFloat($('#item_pre_price').val());
-           inc = parseFloat( 1 + (fleet_cost/100));
-           total = parseFloat(  price * inc   );
-            if($('#item_pre_price').val() > 0){
-               $('#item_price').text(total.toFixed(1) ) ;
-            }
-         });
+/ javascript:
+/      $(document).ready(function(){
+/          $('#item_price').change(function () {
+/            fleet_cost = parseFloat($('#item_fleet_cost').val());
+/            price = parseFloat($('#item_price').val());
+/            inc   = parseFloat( 1 + (fleet_cost/100));
+/            total = parseFloat(  price * inc   );
+/             if ( price > 0  ){
+/               console.log(total.toFixed(1));
+/               $('#item_price_show').text('$ ' + total.toFixed(1) ) ;
+/             }else{
+/               $('#item_price_show').text('') ;
+/             }
+/          });
 
-     });  
+/      });  
