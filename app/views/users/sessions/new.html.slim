@@ -3,7 +3,7 @@
   .login-logo
     div.center
       /= t('.template')
-      = image_tag "logo1.png", alt:"Planet Agrotrailer"
+      = image_tag "logo1.png", alt:"Planet Agrotrailer", width:'100%'
   .login-box-body ng-init="companies = #{Company.all.to_json}"
     p.login-box-msg
       = t('.sign_in')

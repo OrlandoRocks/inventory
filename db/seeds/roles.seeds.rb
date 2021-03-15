@@ -5,7 +5,7 @@
 #Role.where(key: 'empleado_sin_acceso').update_all name:'Empleado Responsable'
 
 
-
+after :departments do
 puts '==> Filling the \'roles\' table...'
 
 # Deletes all existing records.
@@ -20,3 +20,6 @@ Role.create(name: 'God', key: 'god', description: 'Super administrador del siste
 Role.create(name: 'Administrador General', key: 'admin', description: 'Administrador general del corporativo.', scope: 0)
 Role.create(name: 'Gerente', key: 'admin_sucursal', description: 'Administrador de Sucursal.', scope: 0)
 Role.create(name: 'Vendedor', key: 'empleado_sin_acceso', description: 'Empleado sin acceso al sistema.', scope: 0)
+Role.create(name: 'Guest', key: 'guest', description: 'Invitado.', scope: 0)
+puts ">>>>>>>>>>>>>>>>>>>>> first  role #{Role.find_by_key('god').id}"
+end

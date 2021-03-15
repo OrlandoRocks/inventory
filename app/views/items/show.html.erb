@@ -170,27 +170,19 @@
               </li>
               <li class="list-group-item">
                 <b><%= t("items.form.price") %></b>
-                <p class="text-muted"><%= "#{ Money.from_amount(@item.price).format if @item.price.present?}" %></p>
-              </li>
-              <li class="list-group-item">
-                <b><%= t("items.form.sale_price") %></b>
-                <p class="text-muted"><%= "$ #{ Money.from_amount(@item.sale_price).format if @item.sale_price.present?}" %></p>
-              </li>
-              <li class="list-group-item">
-                <b><%= t("items.form.price") %></b>
-                <p class="text-muted"><%= "$ #{ Money.from_amount(@item.price).format if @item.price.present?}" %></p>
+                <p class="text-muted"><%= "#{ Money.from_amount(@item.price_total).format if @item.price_total.present?}" %></p>
               </li>
               <li class="list-group-item">
                 <b><i class="fa fa-percent margin-r-5"></i><%= t("items.form.percentage_planet") %></b>
-                <p class="text-muted"><%= "#{  Money.from_amount(@item.planet_percentage.nil? ? 0 : get_percentage_value(@item.planet_percentage, @item.price)).format}" %></p>
+                <p class="text-muted"><%= "#{  Money.from_amount(@item.planet_percentage.nil? ? 0 : get_percentage_value(@item.planet_percentage, @item.sale_price - @item.price)).format}" %></p>
               </li>
               <li class="list-group-item">
                 <b><i class="fa fa-percent margin-r-5"></i><%= t("items.form.percentage_branch") %></b>
-                <p class="text-muted"><%= "#{ Money.from_amount(@item.branch_percentage.nil? ? 0 : get_percentage_value(@item.branch_percentage, @item.price)).format}" %></p>
+                <p class="text-muted"><%= "#{ Money.from_amount(@item.branch_percentage.nil? ? 0 : get_percentage_value(@item.branch_percentage, @item.sale_price - @item.price)).format}" %></p>
               </li>
               <li class="list-group-item">
                 <b><i class="fa fa-percent margin-r-5"></i><%= t("items.form.percentage_seller") %></b>
-                <p class="text-muted"><%= "#{ Money.from_amount(@item.seller_percentage.nil? ? 0 : get_percentage_value(@item.seller_percentage, @item.price)).format}" %></p>
+                <p class="text-muted"><%= "#{ Money.from_amount(@item.seller_percentage.nil? ? 0 : get_percentage_value(@item.seller_percentage, @item.sale_price - @item.price)).format}" %></p>
               </li>
               <!--<li class="list-group-item">-->
               <!--<b><%#= t("items.form.provider") %></b> <a class="text-muted"><%#= @item.provider.try("name") %></a>-->
@@ -246,7 +238,7 @@
               <!--</li>-->
 
             </ul>
-            <% if @item.status_item.key == 'facturado' || @item.status_item.key == 'vendido' || @item.status_item.key == 'pendiente_factura' %>
+            <% if @item.status_item.key == 'facturado' || @item.status_item.key == 'vendido' || @item.status_item.key == 'pendiente_factura' || @item.status_item.key == 'vendido_credito' %>
               <% if @item.status_item.key == 'vendido' || @item.status_item.key == 'facturado' %>
                 <a ng-click="accept_voucher(<%= @item.id %>)" class="btn btn-block btn-info btn-lg">
                   Aceptar Comprobante
@@ -512,8 +504,18 @@
 
             </div>
 
+            <div class="row form-group" ng-show="item.payment_type === 4" ng-cloak>
+              <label class="col-md-3 control-label">
+                Abono:
+              </label>
+              <div class="col-md-6">
+                <input type="text" ng-model="item.advance_payment" format="currency" placeholder="$0.00" class="form-control"/>
+              </div>
 
-            <div class="row form-group" ng-show="item.payment_type>1">
+            </div>
+
+
+            <div class="row form-group" ng-show="item.payment_type > 1" ng-cloak>
               <label class="col-md-3 control-label">
                 Comprobante:
               </label>
@@ -576,7 +578,7 @@
           </div>
 
           <div class="modal-footer">
-            <button class="btn btn-primary" ng-click="uploadSell(<%= @status_item_vendidos.first.id if @status_item_vendidos.first %>, <%= @status_item_vendidos.last.id if @status_item_vendidos.last %>)" data-dismiss="modal">
+            <button class="btn btn-primary" ng-click="uploadSell(<%= @status_item_vendidos.to_json %>)" data-dismiss="modal">
               Aceptar
             </button>
 

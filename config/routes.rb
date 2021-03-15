@@ -35,6 +35,8 @@ Rails.application.routes.draw do
 
   get '/branches/:id/departments', to: 'branches#departments_for_select'
 
+  get '/terminos_condiciones', to: 'home#terminos_condiciones'
+
   get '/user_employee_nomber/:employee_nomber', to: 'application#user_employee_nomber'
 
   delete 'departments/:department_id/employee/:id', to: 'departments#destroy_employee', as: :destroy_department_employee
@@ -79,6 +81,7 @@ Rails.application.routes.draw do
       get 'get_clients/:token' => 'inventory_manager#get_clients'
       get 'get_items_by_branch/:token/:id' => 'inventory_manager#get_items_by_branch'
 
+      put 'sign_up_guest' => 'users_manager#sign_up_guest'
       put 'create_item' => 'inventory_manager#create_item'
       put 'update_item' => 'inventory_manager#update_item'
       put 'create_trailer' => 'trailer_manager#create_trailer'

@@ -1,6 +1,8 @@
 class ItemsController < ApplicationController
+  #require 'rqrcode'
   include ActionView::Helpers::NumberHelper
   include ActionView::Helpers::NumberToLetters
+
 
   before_action :set_item, only: [:show, :edit, :update, :destroy, :create_maintenance, :create_file, :change_maintenance_done, :edit_order]
   helper_method :sort_column, :sort_direction, :get_percentage_value, :sort_column_orders
@@ -54,11 +56,11 @@ class ItemsController < ApplicationController
 
   def sales
     if current_user.god? or current_user.admin?
-      @search_items = Item.where(status_item_id: [StatusItem.find_by_key('vendido').id, StatusItem.find_by_key('pendiente_factura').id, StatusItem.find_by_key('facturado').id]).includes(:branch).includes(:department).includes(:status_item).ransack(params[:q])
+      @search_items = Item.where(status_item_id: [StatusItem.find_by_key('vendido').id, StatusItem.find_by_key('pendiente_factura').id, StatusItem.find_by_key('facturado').id, StatusItem.find_by_key('vendido_credito').id]).includes(:branch).includes(:department).includes(:status_item).ransack(params[:q])
     elsif current_user.admin_branch?
-      @search_items = Item.joins(:branch).where('branches.manager_id = ?', current_user.id).where(status_item_id: [StatusItem.find_by_key('vendido').id, StatusItem.find_by_key('pendiente_factura').id, StatusItem.find_by_key('facturado').id]).includes(:branch).includes(:department).includes(:status_item).ransack(params[:q])
+      @search_items = Item.joins(:branch).where('branches.manager_id = ?', current_user.id).where(status_item_id: [StatusItem.find_by_key('vendido').id, StatusItem.find_by_key('pendiente_factura').id, StatusItem.find_by_key('facturado').id, StatusItem.find_by_key('vendido_credito').id]).includes(:branch).includes(:department).includes(:status_item).ransack(params[:q])
     elsif current_user.user_employee?
-      @search_items = Item.where(user_id: current_user.id, status_item_id: [StatusItem.find_by_key('vendido').id, StatusItem.find_by_key('pendiente_factura').id, StatusItem.find_by_key('facturado').id]).includes(:branch).includes(:department).includes(:status_item).ransack(params[:q])
+      @search_items = Item.where(user_id: current_user.id, status_item_id: [StatusItem.find_by_key('vendido').id, StatusItem.find_by_key('pendiente_factura').id, StatusItem.find_by_key('facturado').id, StatusItem.find_by_key('vendido_credito').id]).includes(:branch).includes(:department).includes(:status_item).ransack(params[:q])
     end
 
     @all_models = policy_scope(TrailerType).pluck(:model_part)
@@ -68,6 +70,7 @@ class ItemsController < ApplicationController
     @vendors = User.where(role_id: Role.find_by(key: 'empleado_sin_acceso'))
 
     @items = @search_items.result.order(sort_column + " " + sort_direction).paginate(page: params[:page], per_page: 20)
+
   end
 
   def orders_shipped
@@ -88,7 +91,6 @@ class ItemsController < ApplicationController
   end
 
   def new_report_sales
-
     titulo_reporte = 'Trailers Vendidos'
     nombre_reporte = 'trailers_vendidos'
     trailers = params[:trailers].tr('[]', '').split(',').map(&:to_i)
@@ -157,9 +159,7 @@ class ItemsController < ApplicationController
   # GET /items/1
   # GET /items/1.json
   def show
-    @status_item_vendidos = Array.new()
-    @status_item_vendidos << StatusItem.find_by_key('vendido')
-    @status_item_vendidos << StatusItem.find_by_key('pendiente_factura')
+    @status_item_vendidos = StatusItem.where(key: ['vendido', 'pendiente_factura', 'vendido_credito'])
     audits = @item.audits + @item.associated_audits
     @audits = audits.sort_by { |a| a.created_at }
 
@@ -417,6 +417,25 @@ class ItemsController < ApplicationController
   def get_percentage_value(percentage, price)
     final_percentage = price * (percentage / 100)
     return final_percentage
+  end
+
+  def item_qr
+    @item = Item.find(params[:id])
+    data = "{'id': '#{@item.id}', 'status_shipping': '#{@item.status_shipping_id}'}"
+    qrcode = RQRCode::QRCode.new(data, :size => 5, :level => :h)
+    @svg = qrcode.as_svg(
+        offset: 0,
+        color: '000',
+        shape_rendering: 'crispEdges',
+        module_size: 6,
+        standalone: true
+    )
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "Trailers Vendidos" # Excluding ".pdf" extension.
+      end
+    end
   end
 
 

@@ -8,5 +8,6 @@ json.extract! @item, :id, :name, :description,:code, :model, :branch_id, :access
               :categories_description, :seller_percentage, :planet_percentage, :branch_percentage
 
 json.trailer_type @item.trailer_type.as_json(except: :image) if @item.trailer_type
-json.department_user @item.department
+json.department_user @item.department.as_json(include: :branch)
+json.branch @item.branch
 json.image_url url_for(@item.image) if @item.image.attached?

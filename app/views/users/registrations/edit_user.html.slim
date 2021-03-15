@@ -1,4 +1,4 @@
-section.content ng-controller="userController" ng-init=("accessless = #{@role_accessless}; user_type = #{@user.role.to_json}; roles=#{@roles.to_json}; companies=#{@companies.to_json}; department_selected=#{@department.to_json}; company=#{@company.to_json}; branch_selected=#{@branch.to_json}; set_role(user_type);set_branches(company.id); set_department(branch_selected.id); set_department_boss(department_selected.id)  ")
+section.content ng-controller="userController" ng-init=("accessless = #{@role_accessless}; user_type = #{@user.role.to_json}; roles=#{@roles.to_json}; companies=#{@companies.to_json}; department=#{@department.to_json}; company=#{@company.to_json}; branch_selected=#{@branch.to_json}; set_role(user_type);set_branches(company.id); set_department(branch_selected.id); set_department_boss(department_selected.id)  ")
   .row
     .col-xs-12
       .box.box-primary

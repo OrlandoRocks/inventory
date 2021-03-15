@@ -35,6 +35,7 @@ section.content
                               input [type="checkbox" class="icheck-me" data-skin="square" data-color="blue"]
                           th = t('.name')
                           th = t('.description')
+                          th = t('.key')
                           //th = t('.status')
                           th.actions_header
                             = t('helpers.actions')
@@ -46,6 +47,7 @@ section.content
                                   input [type="checkbox" class="icheck-me" data-skin="square" data-color="blue"]
                               td = status_item.name
                               td = status_item.description
+                              td = status_item.key
                               /td = status_item.status.present?? "ACTIVO": ""
                               td
                                 .actions

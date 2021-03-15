@@ -27,6 +27,45 @@ class Api::V1::UsersManagerController < ActionController::Base
   end
 
 
+
+  def sign_up_guest
+    begin
+
+    num_last_guest = User.where(role_id: Role.where(key:'guest').first.id).last.try(:employee_number)
+
+      user_params = Hash.new
+
+      user_params[:email]       =    params[:email]       if params[:email]
+      user_params[:role_id]    =    Role.where(key:'guest').first.id
+      user_params[:first_name]      =    params[:first_name]      if params[:first_name]
+      user_params[:last_name]     =    params[:last_name]     if params[:last_name]
+      user_params[:password]     =    params[:password]     if params[:password]
+      user_params[:password_confirmation]     =    params[:password_confirmation]     if params[:password_confirmation]
+      user_params[:current_company]   =    Company.first.id
+      user_params[:employee_number]   = num_last_guest.nil? ? 9000 : num_last_guest+1
+
+
+      @new_user = User.new(user_params)
+
+      if @new_user.save
+        p 'se salvo'
+        render json: {status:200, success: true, message:'se creo el usuario correctamente!', user: @new_user}
+      else
+        p 'algo valio shit'
+        render json: {status:400, success: false, error:@new_user.errors.as_json}
+
+      end
+
+    rescue => error
+      p 'error--------'
+      p error
+    end
+
+
+
+
+  end
+
   def save_token
 
 

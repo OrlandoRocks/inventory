@@ -10,8 +10,10 @@ aside.main-sidebar
             a href='/'
               i.fab.fa-superpowers
               span = ' Inicio'
-          li
-            = link_item "<i class='fa fa-list'></i> Inventario ".html_safe, items_path
+          li.treeview
+            a href='/items'
+              i.fa.fa-list
+              span = ' Inventario'
           / li.treeview
             a href='#'
               i.fa.fa-list
@@ -25,7 +27,7 @@ aside.main-sidebar
         li.treeview
           a href='#'
             i.fa.fa-truck
-            span Catalogo
+            span Catálogo
             i.fa.fa-angle-left.pull-right
           ul.treeview-menu
             li
@@ -63,13 +65,9 @@ aside.main-sidebar
                 = link_item "<i class='fa fa-circle'></i> Inventario Local".html_safe, items_path
         - if has_policy(Branch, %w(index))
           li.treeview
-            a href='#'
+            a href='/branches'
               i.fa.fa-store
               span = 'Sucursales'
-              i.fa.fa-angle-left.pull-right
-            ul.treeview-menu
-              li
-                = link_item "<i class='fas fa-angle-right'></i> Sucursales".html_safe, branches_path
         - if has_policy(Item, %w(sales))
           li.treeview
             a href='#'
@@ -93,7 +91,7 @@ aside.main-sidebar
         li.treeview
           a href='#'
             i.fa.fa-truck
-            span Catalogo
+            span Catálogo
             i.fa.fa-angle-left.pull-right
           ul.treeview-menu
             li
@@ -106,8 +104,10 @@ aside.main-sidebar
               = link_item "<i class='fas fa-angle-right'></i> Enviados".html_safe, orders_shipped_path
       - if has_policy_catalogo
         - if has_policy(Branch, %w(index))
-          li
-            = link_item "<i class='fa fa-store'></i> Sucursales".html_safe, branches_path
+          li.treeview
+            a href='/branches'
+              i.fa.fa-store
+              span = 'Sucursales'
           / li.treeview
             a href='#'
               i.fa.fa-store
@@ -120,8 +120,10 @@ aside.main-sidebar
                 = link_item "<i class='fas fa-angle-right'></i> Sucursales".html_safe, branches_path
 
         - if has_policy(Department, %w(index))
-          li
-            = link_item "<i class='fa fa-cubes'></i> #{t '.departments'}".html_safe, departments_path
+          li.treeview
+            a href='/departments'
+              i.fa.fa-cubes
+              span = 'Puntos de Venta'
           / li.treeview
             a href='#'
               i.fa.fa-cubes
@@ -182,12 +184,18 @@ aside.main-sidebar
 
 
         - if has_policy(Item, %w(new index))
-          li
-            = link_to "<i class='fa fa-user'></i> #{t '.users'}".html_safe, user_registrations_path
+
+          li.treeview
+            a href='/users'
+              i.fa.fa-user
+              span = 'Usuarios'
+
                 / = link_to "<i class='fas fa-angle-right'></i> #{t '.new_employee'}".html_safe, new_employee_path
 
-      li
-        = link_to "<i class='fa fa-users'></i> Clientes".html_safe, clients_path
+      li.treeview
+        a href='/clients'
+          i.fa.fa-users
+          span = 'Clientes'
       / li.treeview
         a href='#'
           i.fa.fa-user

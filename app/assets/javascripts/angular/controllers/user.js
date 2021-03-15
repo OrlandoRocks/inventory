@@ -82,7 +82,7 @@ app.controller('userController',["$scope", "$http", function($scope, $http) {
                 method: "GET",
                 url: "/branches/"+branch+".json"
             }).then(function successCallback(response) {
-                $scope.department = response.data;
+                $scope.departments = response.data.departments;
 
             }, function errorCallback(response) {
             });

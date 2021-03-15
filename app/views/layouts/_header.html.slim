@@ -4,17 +4,18 @@ header.main-header ng-controller="homeController" ng-init="init(#{current_user.c
     span.logo-mini
 
       /| TORSACORP
-      = image_tag "logo1.png", alt:"Planet Agrotrailer"
+      = image_tag "logo1.png", alt:"Planet Agrotrailer", width:'100%'
     / logo for regular state and mobile devices
     span.logo-lg
       b
       /| TORSACORP
-      = image_tag "logo1.png", alt:"Planet Agrotrailer", size: "180x36"
+      = image_tag "logo1.png", alt:"Planet Agrotrailer", width:'80%', height: '80%'
   / Header Navbar
   nav.navbar.navbar-static-top role='navigation'
     / Sidebar toggle button
     a.sidebar-toggle href='#' data-toggle='offcanvas' role='button'
-      span.sr-only Toggle navigation
+      i.fas.fa-minus-square
+      span.sr-only
     / Navbar Right Menu
     .navbar-custom-menu
       ul.nav.navbar-nav

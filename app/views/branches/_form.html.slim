@@ -57,6 +57,13 @@
       .col-sm-10
         = f.collection_select(:manager_id, User.all, :id, :full_name,
                 {prompt: t('helpers.select.prompt')}, {class: 'form-control'})
+    - unless branch.name == 'Cuauhtemoc'
+      .row.form-group
+        = f.label "Costo de Flete" , class: 'col-sm-2 control-label'
+        .col-sm-10
+          .input-group
+            = f.number_field :fleet_cost, class: 'form-control text_field', step: 5.0, min:0.0
+            span.input-group-addon %
   .box-footer
     = f.button "<i class='fa fa-floppy-o'></i> #{t('helpers.submit.submit', model: t('.resource'))}".html_safe,
             class: 'btn btn-primary btn-flat', type: 'submit'
