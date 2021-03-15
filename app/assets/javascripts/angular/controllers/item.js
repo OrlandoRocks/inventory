@@ -898,6 +898,11 @@ app.controller('ModalVentaController', ['$scope', 'close', 'Upload', '$http', 'i
                         }
                     });
                     if ($scope.item.payment_type === 4) {
+
+
+                        console.log($scope.item);
+
+
                         $scope.item.image.upload = Upload.upload({
                             url: `/items/${$scope.item.id}.json`,
                             method: 'PUT',
