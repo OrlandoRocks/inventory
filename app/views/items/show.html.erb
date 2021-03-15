@@ -170,15 +170,7 @@
               </li>
               <li class="list-group-item">
                 <b><%= t("items.form.price") %></b>
-                <p class="text-muted"><%= "#{ Money.from_amount(@item.price).format if @item.price.present?}" %></p>
-              </li>
-              <li class="list-group-item">
-                <b><%= t("items.form.sale_price") %></b>
-                <p class="text-muted"><%= "$ #{ Money.from_amount(@item.sale_price).format if @item.sale_price.present?}" %></p>
-              </li>
-              <li class="list-group-item">
-                <b><%= t("items.form.price") %></b>
-                <p class="text-muted"><%= "$ #{ Money.from_amount(@item.price).format if @item.price.present?}" %></p>
+                <p class="text-muted"><%= "#{ Money.from_amount(@item.price_total).format if @item.price_total.present?}" %></p>
               </li>
               <li class="list-group-item">
                 <b><i class="fa fa-percent margin-r-5"></i><%= t("items.form.percentage_planet") %></b>

@@ -155,7 +155,7 @@ section.content ng-controller="itemController"
                       - @items.each do |item|
                         tr.show_actions
                           td = item.model
-                          td = Money.from_amount(item.price).format if item.price.present?
+                          td = Money.from_amount(item.price_total).format if item.price.present?
                           td = "#{item.try(:branch).try(:name)}"
                           td = "#{item.try(:department).try(:name)}"
                           td = item.status_item.name if item.status_item.present?
