@@ -21,7 +21,6 @@ div ng-controller="itemController"
           .col-md-10  
             = text_field_tag 'department','', class: 'form-control', placeholder: 'Departamento', disabled: true, 'ng-model'=> 'department.name'
             input type='hidden' name='item[department_id]' value='{{department.id}}'
-
         .row.form-group
           = f.label :model, class: 'col-sm-2 control-label'
           .col-md-10

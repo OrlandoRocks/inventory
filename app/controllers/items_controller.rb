@@ -34,7 +34,6 @@ class ItemsController < ApplicationController
 
     @income_sales = Item.where(status_item_id: [vendido, facturado, pendiente_factura])
 
-
   end
 
   def orders

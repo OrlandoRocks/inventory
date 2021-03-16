@@ -70,10 +70,11 @@ class Item < ApplicationRecord
   # delegate :name, to: :sub_category, prefix: true, allow_nil: true
   # delegate :name, to: :category, prefix: true, allow_nil: true
   delegate :name, to: :status_item, prefix: true, allow_nil: true
+
   def price_total
     self.price  * ( 1 + self.branch.try(:fleet_cost)/100 )
-
   end
+
   def self.set_without_maintenance
     Item.all.each do |item|
       if Date.today > item.maintenance_date

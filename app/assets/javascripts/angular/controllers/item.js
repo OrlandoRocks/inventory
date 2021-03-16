@@ -3,7 +3,6 @@
  */
 app.controller('itemController', ["$scope", "ModalService", "$http", function ($scope, ModalService, $http) {
 
-
     $('.datepicker').datepicker({
         format: 'dd/mm/yyyy',
         language: "es"

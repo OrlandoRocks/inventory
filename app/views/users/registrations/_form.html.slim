@@ -10,7 +10,6 @@
 
         / = f.collection_select(:role_id, @roles, :id, :name,
                 {prompt: t('helpers.select.prompt')}, {class: 'form-control', "ng-model" => "user_type", "ng-change"=>"set_role(user_type);company=''; branch_selected=''; department_selected=''"})
-
     .row.form-group ng-show="user_type.id!=''"
       = f.label :current_company, class: 'col-sm-2 control-label'
       .col-sm-10

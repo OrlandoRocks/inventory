@@ -98,7 +98,6 @@ Rails.application.routes.draw do
     end
   end
 
-
   devise_for :users,
              controllers: {sessions: 'users/sessions',
                            confirmations: 'users/confirmations',

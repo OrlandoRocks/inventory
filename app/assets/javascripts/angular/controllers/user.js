@@ -12,6 +12,7 @@ app.controller('userController',["$scope", "$http", function($scope, $http) {
     $scope.level = 0;
     $scope.boss = '';
 
+
     $scope.set_role= function(role){
 
         $scope.boss='';

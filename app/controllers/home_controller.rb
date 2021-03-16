@@ -14,7 +14,6 @@ class HomeController < ApplicationController
       end
     end
 
-
     @search_departments = policy_scope(Department).ransack(params[:q])
     @departments = @search_departments.result
 
