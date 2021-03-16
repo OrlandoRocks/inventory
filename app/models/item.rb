@@ -24,7 +24,7 @@ class Item < ApplicationRecord
   belongs_to :suspension_type, optional: true
   belongs_to :turn_type, optional: true
   belongs_to :status_item
-  belongs_to :status_shipping
+  belongs_to :status_shipping, optional: true
   belongs_to :fiscal_voucher, optional: true
   belongs_to :client, optional: true
   belongs_to :direct_branch, class_name: 'Branch', foreign_key: 'branch_id', optional: true
@@ -147,8 +147,6 @@ class Item < ApplicationRecord
     }
     response = fcm_client.send(user_token, options)
 
-    p '.....................................................................ggggg............'
-    p response
 
   end
 

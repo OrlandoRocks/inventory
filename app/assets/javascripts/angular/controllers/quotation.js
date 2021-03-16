@@ -1,7 +1,7 @@
 /**
  * Created by orlando on 11/12/16.
  */
-app.controller('itemController', ["$scope", "ModalService", "$http", function ($scope, ModalService, $http) {
+app.controller('quotationController', ["$scope", "ModalService", "$http", function ($scope, ModalService, $http) {
 
 
     $('.datepicker').datepicker({
@@ -12,40 +12,7 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
     $scope.modelhs = "";
     $scope.category_description = "";
 
-
-    $scope.init = function (branches, categories, item) {
-        $scope.branches = branches;
-        $scope.model_name = '';
-        $scope.get_models();
-        $scope.get_trailers();
-        $scope.get_floors();
-        $scope.get_ramps();
-        $scope.get_redilas();
-        $scope.get_capacities();
-        $scope.get_widths();
-        $scope.get_lengths();
-        $scope.get_brakes();
-        $scope.get_colors();
-        $scope.get_divitions();
-        $scope.get_fenders();
-        $scope.get_hydraulic_jacks();
-        $scope.get_pulls();
-        $scope.get_brands();
-        // $scope.get_reinforcements();
-        $scope.get_roofs();
-        $scope.get_suspensions();
-        $scope.get_turns();
-
-        if (item !== null && item !== undefined) {
-
-            $scope.get_item_json(item);
-
-
-        }
-
-    };
-
-    $scope.init_order = function (item_id, users) {
+    $scope.init_quotation = function (quotation, users) {
         $scope.users = users;
         // $scope.get_branch_user(current_user.id);
         $scope.get_models();
@@ -68,8 +35,30 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
         $scope.get_suspensions();
         $scope.get_turns();
 
-        if (item_id) {
-            $scope.get_orders(item_id);
+        if (quotation) {
+            $scope.user = quotation.user_id;
+            $scope.model_name = quotation.model;
+            $scope.trailer = quotation.trailer_type_id;
+            $scope.brake = quotation.brake_type_id;
+            $scope.width = quotation.trailer_width_id;
+            $scope.color = quotation.color_id;
+            $scope.length = quotation.trailer_length_id;
+            $scope.divition = quotation.divition_type_id;
+            $scope.floor = quotation.floor_type_id;
+            $scope.fender = quotation.fender_type_id;
+            $scope.ramp = quotation.ramp_type_id;
+            $scope.hydraulic_jack = quotation.hydraulic_jack_id;
+            $scope.capacity = quotation.capacity_id;
+            $scope.pull = quotation.pull_type_id;
+            $scope.redila = quotation.redila_type_id;
+            $scope.brand = quotation.brand_id;
+            $scope.roof = quotation.roof_type_id;
+            $scope.suspension = quotation.suspension_type_id;
+            $scope.turn = quotation.turn_type_id;
+            $scope.category_description = quotation.categories_description;
+            $scope.brand = quotation.brand_id;
+            $scope.model = quotation.catalog;
+            $scope.get_branch_user(quotation.user_id);
         }
     };
 

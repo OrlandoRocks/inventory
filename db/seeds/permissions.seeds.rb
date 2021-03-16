@@ -96,5 +96,15 @@ Permission.create!([
   {name: "Actualizar Cliente", description: "Permite actualizar los cliente.", action: "update", controller: "Clients"},
   {name: "Editar Cliente", description: "Permite visualizar la vista editar cliente.", action: "edit", controller: "Clients"},
   {name: "Crear Vendedor para departamento", description: "Permite crear un Vendedor al departamento. ", action: "new_employee_department", controller: "Users::Registrations"},
-  {name: "Mandar correo de trailer vendido", description: "Permite mandar correo de trailer vendido", action: "item_sold", controller: "Items"}
+  {name: "Mandar correo de trailer vendido", description: "Permite mandar correo de trailer vendido", action: "item_sold", controller: "Items"},
+  {name: "Vista para ver cotizaciones", description: "Permite entrar a la vista para ver las cotizaciones", action: "quotations", controller: "Items"},
+  {name: "Vista para crear cotizacion", description: "Permite entrar a la vista para crear las cotizaciones", action: "new_quotations", controller: "Items"},
+  {name: "Vista para ver cotizaciones", description: "Permite entrar a la vista para ver las cotizaciones", action: "index", controller: "Quotations"},
+  {name: "Vista para crear cotizacion", description: "Permite entrar a la vista para crear las cotizaciones", action: "new", controller: "Quotations"},
+  {name: "Vista para editar una cotizacion", description: "Permite entrar a la vista para editar las cotizaciones", action: "edit", controller: "Quotations"},
+  {name: "Permite crear una cotizacion", description: "Permite crear las cotizaciones", action: "create", controller: "Quotations"},
+  {name: "Permite actualizar una cotizacion", description: "Permite actualizar las cotizaciones", action: "update", controller: "Quotations"},
+  {name: "Permite eliminar una cotizacion", description: "Permite eliminar las cotizaciones", action: "delete", controller: "Quotations"},
+  {name: "Permite ver el pdf de una cotizacion", description: "Permite ver pdf de una cotizacion", action: "report_quotation", controller: "Quotations"}
+
                    ])

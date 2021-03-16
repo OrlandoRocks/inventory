@@ -11,6 +11,8 @@ class TrailerTypePolicy < ApplicationPolicy
         scope.all.order(:name)
       elsif @user.admin_department?
         scope.all.order(:name)
+      elsif @user.user_employee?
+        scope.all.order(:name)
       else
         scope.none
       end
