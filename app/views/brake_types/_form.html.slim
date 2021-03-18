@@ -1,28 +1,69 @@
-= form_for(brake_type, brake_type: 'form', html: {class: 'form-horizontal'}, validate: true) do |f|
-  - if brake_type.errors.any?
-    #error_explanation
-      h2 = "#{pluralize(brake_type.errors.count, "error")} prohibited this brake_type from being saved:"
-      ul
-        - brake_type.errors.full_messages.each do |message|
-          li = message
-  .box-body
-    .row.form-group
-      = f.label 'Tipo de Freno', class: 'col-sm-2 control-label'
-      .col-sm-10
-        = f.text_field :name, class: 'form-control', placeholder: 'Tipo de Freno', autofocus: true
-    .row.form-group
-      = f.label 'Modelo', class: 'col-sm-2 control-label'
-      .col-sm-10
-        = f.text_field :model_part, class: 'form-control', placeholder: 'Modelo'
+div ng-controller="brakeTypesController"
+  = form_for(brake_type, brake_type: 'form', html: {class: 'form-horizontal'}, validate: true) do |f|
+    - if brake_type.errors.any?
+      #error_explanation
+        h2 = "#{pluralize(brake_type.errors.count, "error")} prohibited this brake_type from being saved:"
+        ul
+          - brake_type.errors.full_messages.each do |message|
+            li = message
+    .box-body ng-init="init(#{brake_type.id})"
+      .row.form-group
+        = f.label 'Tipo de Freno', class: 'col-sm-2 control-label'
+        .col-sm-10
+          = f.text_field :name, class: 'form-control', placeholder: 'Tipo de Freno', autofocus: true
+      .row.form-group
+        = f.label 'Modelo', class: 'col-sm-2 control-label'
+        .col-sm-10
+          = f.text_field :model_part, class: 'form-control', placeholder: 'Modelo'
+      .row.form-group
+        = f.label 'Estatus', class: 'col-sm-2 control-label'
+        .col-sm-10
+          = f.check_box(:status, checked: true)
 
-    .row.form-group
-      = f.label 'Estatus', class: 'col-sm-2 control-label'
-      .col-sm-10
-        = f.check_box(:status, checked: true)
+      / .row.form-group
+      /   .col-xs-12
+      /     .box.box-primary
+      /       .box-header
+      /         .row
+      /           .col-xs-6.col-md-8.col-lg-8
+      /             h3.box-title
+      /               = 'Trailers'
+      /       .box-body
+      /         .dataTables_wrapper
+      /           .row
+      /             .col-sm-12
+      /               .table-responsive
+      /                 table.table.table-bordered.table-hover.dataTable
+      /                   thead
+      /                     tr
+      /                       th = 'Trailer'
+      /                       th.actions_header
+      /                         = t('helpers.actions')
+      /                     tbody
+      /                         tr.show_actions ng-repeat="trailer_category in trailer_categories track by $index"
+      /                           td
+      /                             = label_tag 'catalogo', '{{trailer_category.trailer_type.name}}', class: 'col-sm-2 control-label'
+      /                             td
+      /                               .actions
+      /                                 a ng-click="" class="btn btn-xs btn-danger btn-flat btn-destroy"
+      /                                   | Eliminar
+      /                                   i.fas.fa-trash
+      /
+      /                         tr.show_actions ng-repeat="trailer_category in trailer_categories track by $index"
+      /                             td
+      /                               select.form-control ng-change="generate_model()" ng-model="trailer" ng-options=('trailer.id as (trailer.category_name + " - " + trailer.name) for trailer in trailers')
+      /                                 option selected="" value=""  No Aplica
+      /                                 input name="brake_type[trailer_category_attributes][{{$index}}][trailer_type_id]" value='{{trailer_category.trailer_type.name}}'
+      /                             td
+      /                               .actions
+      /                                   a ng-click="" class="btn btn-xs btn-danger btn-flat btn-destroy"
+      /                                     | Eliminar
+      /                                     i.fas.fa-trash
 
-  .box-footer
-    = f.button "<i class='fa fa-floppy-o'></i> #{t('helpers.submit.submit', model: 'Frenos')}".html_safe,
-            class: 'btn btn-primary btn-flat', type: 'submit'
-    = link_to brake_types_path, class: 'btn btn-default btn-flat' do
-      i.fa.fa-list
-      =< t('.back')
+
+    .box-footer
+      = f.button "<i class='fa fa-floppy-o'></i> #{t('helpers.submit.submit', model: 'Frenos')}".html_safe,
+              class: 'btn btn-primary btn-flat', type: 'submit'
+      = link_to brake_types_path, class: 'btn btn-default btn-flat' do
+        i.fa.fa-list
+        =< t('.back')

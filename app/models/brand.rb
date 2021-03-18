@@ -1,6 +1,10 @@
 class Brand < ApplicationRecord
 
+  has_many :trailer_category
   has_many :items
+
+  accepts_nested_attributes_for :trailer_category
+
   before_destroy :check_for_items
   private
   def check_for_items

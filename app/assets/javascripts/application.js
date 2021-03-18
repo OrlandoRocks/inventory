@@ -56,6 +56,8 @@
 //= require angular/controllers/departments
 //= require angular/controllers/client
 //= require angular/controllers/trailer
+//= require angular/controllers/brake_types
+//= require angular/controllers/trailer_type
 //= require departments
 //= require permissions
 //= require users

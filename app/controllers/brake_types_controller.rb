@@ -69,6 +69,6 @@ class BrakeTypesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def brake_type_params
-      params.require(:brake_type).permit(:name, :model_part, :status)
+      params.require(:brake_type).permit(:name, :model_part, :status, trailer_category_attributes: [:id,:trailer_type_id])
     end
 end
