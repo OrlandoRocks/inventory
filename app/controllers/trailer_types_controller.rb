@@ -61,6 +61,16 @@ class TrailerTypesController < ApplicationController
     end
   end
 
+  def destroy_category
+
+    @trailer_category = TrailerCategory.find(params[:category_id])
+    @trailer_category.destroy
+    respond_to do |format|
+      format.html { redirect_to edit_trailer_type_path(params[:trailer_type_id]), notice: 'La Categoria del Trailer se ha eliminado.' }
+      format.json { head :no_content }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_trailer_type

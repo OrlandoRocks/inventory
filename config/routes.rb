@@ -40,6 +40,9 @@ Rails.application.routes.draw do
   get '/user_employee_nomber/:employee_nomber', to: 'application#user_employee_nomber'
 
   delete 'departments/:department_id/employee/:id', to: 'departments#destroy_employee', as: :destroy_department_employee
+  delete '/destroy_category/:category_id/:trailer_type_id', to: 'trailer_types#destroy_category'
+
+
 
   mount ActionCable.server, at: '/cable'
 

@@ -58,13 +58,13 @@ div ng-controller="trailerTypeController"
                               tr.show_actions
                                 td = get_title(category.key)
                                 td = get_description(category)
-                                  td
-                                    .actions
-                                      = link_to '<i class="fas fa-trash"></i>'.html_safe, '#', title: t('helpers.destroy'),
-                                              class: 'btn btn-xs btn-danger btn-flat btn-destroy',
-                                              data: {'resource' => :trailer_type, 'resource-id' => category.id,
-                                                      'resource-message' => t('questions.destroy', resource: 'Categoria',
-                                                              name: get_description(category))}
+                                td
+                                  .actions
+                                    = link_to '<i class="fas fa-trash"></i>'.html_safe, "/destroy_category/#{category.id}/#{category.trailer_type_id}", method: :delete, title: t('helpers.destroy'),
+                                            class: 'btn btn-xs btn-danger btn-flat btn-destroy',
+                                            data: {'resource' => :trailer_type, 'resource-id' => category.id,
+                                                    'resource-message' => t('questions.destroy', resource: 'Categoria',
+                                                            name: get_description(category))}
 
                             tr.show_actions ng-repeat="trailer_category in new_trailer_categories track by $index"
                               td
