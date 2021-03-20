@@ -27,7 +27,6 @@ class Api::V1::UsersManagerController < ActionController::Base
   end
 
 
-
   def sign_up_guest
     begin
 

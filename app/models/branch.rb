@@ -14,5 +14,4 @@ class Branch < ApplicationRecord
   has_many :items, through: :departments
 
   # delegate :name, to: :company, prefix: true, allow_nil: true
-
 end

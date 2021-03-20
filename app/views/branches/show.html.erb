@@ -17,10 +17,16 @@
             <li class="list-group-item">
               <b>Estatus</b> <a class="pull-right">Disponible</a>
             </li>
+            <% unless @branch.name == "Cuauhtemoc" %>
+              <li class="list-group-item">
+                <b>Costo de Flete</b> <a class="pull-right"><%= "#{@branch.fleet_cost}%"   %></a>
+              </li>
+            <% end %>
           </ul>
         </div>
       </div>
     </div>
+
     <div class="col-md-12">
       <div class="nav-tabs-custom">
         <ul class="nav nav-tabs">

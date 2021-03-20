@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_11_044737) do
+ActiveRecord::Schema.define(version: 2021_03_09_031136) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(version: 2021_03_11_044737) do
     t.integer "state_id"
     t.string "code"
     t.integer "last_code"
+    t.decimal "fleet_cost", default: "0.0"
     t.index ["city_id"], name: "index_branches_on_city_id"
     t.index ["company_id"], name: "index_branches_on_company_id"
     t.index ["state_id"], name: "index_branches_on_state_id"
@@ -260,9 +261,9 @@ ActiveRecord::Schema.define(version: 2021_03_11_044737) do
     t.string "accessory"
     t.date "acquisition_date"
     t.bigint "trailer_id"
-    t.bigint "client_id"
     t.integer "payment_type"
     t.bigint "fiscal_voucher_id"
+    t.bigint "client_id"
     t.decimal "advance_payment"
     t.bigint "status_shipping_id"
     t.string "color"
@@ -295,7 +296,6 @@ ActiveRecord::Schema.define(version: 2021_03_11_044737) do
     t.index ["brand_id"], name: "index_items_on_brand_id"
     t.index ["capacity_id"], name: "index_items_on_capacity_id"
     t.index ["category_id"], name: "index_items_on_category_id"
-    t.index ["client_id"], name: "index_items_on_client_id"
     t.index ["color_id"], name: "index_items_on_color_id"
     t.index ["department_id"], name: "index_items_on_department_id"
     t.index ["divition_type_id"], name: "index_items_on_divition_type_id"
@@ -718,7 +718,6 @@ ActiveRecord::Schema.define(version: 2021_03_11_044737) do
   add_foreign_key "items", "brands"
   add_foreign_key "items", "capacities"
   add_foreign_key "items", "categories"
-  add_foreign_key "items", "clients"
   add_foreign_key "items", "colors"
   add_foreign_key "items", "departments"
   add_foreign_key "items", "divition_types"

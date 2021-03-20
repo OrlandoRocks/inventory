@@ -1,6 +1,7 @@
 class BranchesController < ApplicationController
   before_action :set_branch, only: [:show, :edit, :update, :destroy]
 
+
   # GET /branches
   # GET /branches.json
   def index
@@ -105,6 +106,6 @@ class BranchesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def branch_params
-    params.require(:branch).permit(:name, :description, :company_id, :manager_id, :city_id, :state_id, :code)
+    params.require(:branch).permit(:name, :description, :company_id, :manager_id, :city_id, :state_id, :code, :fleet_cost)
   end
 end

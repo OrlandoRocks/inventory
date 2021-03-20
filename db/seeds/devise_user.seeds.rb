@@ -4,7 +4,7 @@
 # User.where(email: 'admin_sucursal@example.com').update_all email: 'gerente@example.com'
 # User.where(email: 'admin_departamento@example.com').update_all email: 'coordinador@example.com'
 
-after :departments do
+
   after :roles do
     puts '==> Creating the \'god user\'...'
 
@@ -116,4 +116,4 @@ after :departments do
     User.all.each{|b| b.update(current_company:Company.first.id)}
 
   end
-end
+

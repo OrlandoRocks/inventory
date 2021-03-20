@@ -1,6 +1,8 @@
 class ItemsController < ApplicationController
+  #require 'rqrcode'
   include ActionView::Helpers::NumberHelper
   include ActionView::Helpers::NumberToLetters
+
 
   before_action :set_item, only: [:show, :edit, :update, :destroy, :create_maintenance, :create_file, :change_maintenance_done, :edit_order]
   helper_method :sort_column, :sort_direction, :get_percentage_value, :sort_column_orders
@@ -31,7 +33,6 @@ class ItemsController < ApplicationController
     pendiente_factura = StatusItem.find_by_key('pendiente_factura').id
 
     @income_sales = Item.where(status_item_id: [vendido, facturado, pendiente_factura])
-
 
   end
 
@@ -106,7 +107,6 @@ class ItemsController < ApplicationController
   end
 
   def new_report_sales
-
     titulo_reporte = 'Trailers Vendidos'
     nombre_reporte = 'trailers_vendidos'
     trailers = params[:trailers].tr('[]', '').split(',').map(&:to_i)
@@ -440,6 +440,25 @@ class ItemsController < ApplicationController
   def get_percentage_value(percentage, price)
     final_percentage = price * (percentage / 100)
     return final_percentage
+  end
+
+  def item_qr
+    @item = Item.find(params[:id])
+    data = "{'id': '#{@item.id}', 'status_shipping': '#{@item.status_shipping_id}'}"
+    qrcode = RQRCode::QRCode.new(data, :size => 5, :level => :h)
+    @svg = qrcode.as_svg(
+        offset: 0,
+        color: '000',
+        shape_rendering: 'crispEdges',
+        module_size: 6,
+        standalone: true
+    )
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "Trailers Vendidos" # Excluding ".pdf" extension.
+      end
+    end
   end
 
 

@@ -4,7 +4,6 @@ section.content-header
     | Información general de inventario
     small V 1.0
 
-
 /section.content ng-controller="homeController" ng-init="init(#{current_user.current_company.eql?(0) ? '0' : @current_company.nil? ? 'null' : @current_company.to_json}, #{current_user.god? or current_user.admin?})"
 section.content
     .row

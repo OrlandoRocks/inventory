@@ -3,7 +3,6 @@
  */
 app.controller('itemController', ["$scope", "ModalService", "$http", function ($scope, ModalService, $http) {
 
-
     $('.datepicker').datepicker({
         format: 'dd/mm/yyyy',
         language: "es"
@@ -11,11 +10,28 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
 
     $scope.modelhs = "";
     $scope.category_description = "";
+    $scope.ramps = [];
+    $scope.redilas = [];
+    $scope.capacities = [];
+    $scope.floors = [];
+    $scope.widths = [];
+    $scope.lengths = [];
+    $scope.brakes = [];
+    $scope.colors = [];
+    $scope.divitions = [];
+    $scope.fenders = [];
+    $scope.hydraulic_jacks = [];
+    $scope.pulls = [];
+    $scope.brands = [];
+    $scope.roofs = [];
+    $scope.suspensions = [];
+    $scope.turns = [];
 
 
     $scope.init = function (branches, categories, item) {
         $scope.branches = branches;
         $scope.model_name = '';
+
         $scope.get_models();
         $scope.get_trailers();
         $scope.get_floors();
@@ -230,6 +246,7 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
     };
 
 
+
     $scope.get_item_json = function (id) {
 
         $http({
@@ -242,18 +259,18 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
 
 
                 $scope.set_model($scope.item);
-                $scope.branch = $scope.item.branch_id;
+                $scope.branch = $scope.item.branch;
                 if ($scope.branch !== null) {
                     $scope.get_department();
                 }
                 if ($scope.item.status_shipping_id === 1) {
-                    $scope.branch = $scope.item.department_user.branch_id;
+                    $scope.branch = $scope.item.department_user.branch;
                     $scope.get_department();
                 }
-                // $scope.get_trailer($scope.item.trailer_type_id);
                 $scope.get_fiscal_vouchers();
                 $scope.get_clients();
-
+                $scope.item.price =parseFloat($scope.item.price);
+                $scope.fleet = $scope.item.price * ( 1 + ( $scope.branch.fleet_cost) /100 );
             }
         }, function errorCallback(response) {
             console.log("Algo valio shit!");
@@ -283,12 +300,15 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
 
     $scope.get_department = function () {
         $http({
-            url: '/departments_by_branch/' + $scope.branch + '.json',
+            url: '/departments_by_branch/' + $scope.branch.id + '.json',
             method: 'GET'
         }).then(function (response) {
             $scope.department = response.data;
             $scope.consignee = response.data.manager;
-            $scope.full_name = $scope.consignee.first_name + ' ' + $scope.consignee.last_name;
+            $scope.branch    = response.data.branch;
+            $scope.fleet_cost = $scope.branch.fleet_cost ; 
+            console.log(response);
+            $scope.full_name = $scope.consignee ? $scope.consignee.first_name + ' ' + $scope.consignee.last_name : 'Sin Gerente' ;
         });
     };
 
@@ -311,7 +331,7 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
 
                 delete trailer.image;
                 delete trailer.url;
-            })
+            });
 
             $scope.trailers = response.data;
         }, function errorCallback(response) {
@@ -336,7 +356,7 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
             method: 'GET',
             url: '/ramp_types.json'
         }).then(function successCallback(response) {
-            $scope.ramps = response.data;
+            $scope.ramps_all = response.data;
         }, function errorCallback(response) {
             console.log("Algo valio shit!");
         });
@@ -348,7 +368,7 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
             method: 'GET',
             url: '/redila_types.json'
         }).then(function successCallback(response) {
-            $scope.redilas = response.data;
+            $scope.redilas_all = response.data;
         }, function errorCallback(response) {
             console.log("Algo valio shit!");
         });
@@ -360,7 +380,7 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
             method: 'GET',
             url: '/capacities.json'
         }).then(function successCallback(response) {
-            $scope.capacities = response.data;
+            $scope.capacities_all = response.data;
         }, function errorCallback(response) {
             console.log("Algo valio shit!");
         });
@@ -372,7 +392,7 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
             method: 'GET',
             url: '/floor_types.json'
         }).then(function successCallback(response) {
-            $scope.floors = response.data;
+            $scope.floors_all = response.data;
         }, function errorCallback(response) {
             console.log("Algo valio shit!");
         });
@@ -384,7 +404,7 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
             method: 'GET',
             url: '/trailer_widths.json'
         }).then(function successCallback(response) {
-            $scope.widths = response.data;
+            $scope.widths_all = response.data;
         }, function errorCallback(response) {
             console.log("Algo valio shit!");
         });
@@ -396,7 +416,7 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
             method: 'GET',
             url: '/trailer_lengths.json'
         }).then(function successCallback(response) {
-            $scope.lengths = response.data;
+            $scope.lengths_all = response.data;
         }, function errorCallback(response) {
             console.log("Algo valio shit!");
         });
@@ -407,7 +427,7 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
             method: 'GET',
             url: '/brake_types.json'
         }).then(function successCallback(response) {
-            $scope.brakes = response.data;
+            $scope.brakes_all = response.data;
         }, function errorCallback(response) {
             console.log("Algo valio shit!");
         });
@@ -418,7 +438,7 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
             method: 'GET',
             url: '/colors.json'
         }).then(function successCallback(response) {
-            $scope.colors = response.data;
+            $scope.colors_all = response.data;
         }, function errorCallback(response) {
             console.log("Algo valio shit!");
         });
@@ -429,7 +449,7 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
             method: 'GET',
             url: '/divition_types.json'
         }).then(function successCallback(response) {
-            $scope.divitions = response.data;
+            $scope.divitions_all = response.data;
         }, function errorCallback(response) {
             console.log("Algo valio shit!");
         });
@@ -440,7 +460,7 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
             method: 'GET',
             url: '/fender_types.json'
         }).then(function successCallback(response) {
-            $scope.fenders = response.data;
+            $scope.fenders_all = response.data;
         }, function errorCallback(response) {
             console.log("Algo valio shit!");
         });
@@ -451,7 +471,7 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
             method: 'GET',
             url: '/hydraulic_jacks.json'
         }).then(function successCallback(response) {
-            $scope.hydraulic_jacks = response.data;
+            $scope.hydraulic_jacks_all = response.data;
         }, function errorCallback(response) {
             console.log("Algo valio shit!");
         });
@@ -462,7 +482,7 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
             method: 'GET',
             url: '/pull_types.json'
         }).then(function successCallback(response) {
-            $scope.pulls = response.data;
+            $scope.pulls_all = response.data;
         }, function errorCallback(response) {
             console.log("Algo valio shit!");
         });
@@ -473,7 +493,7 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
             method: 'GET',
             url: '/brands.json'
         }).then(function successCallback(response) {
-            $scope.brands = response.data;
+            $scope.brands_all = response.data;
         }, function errorCallback(response) {
             console.log("Algo valio shit!");
         });
@@ -495,7 +515,7 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
             method: 'GET',
             url: '/roof_types.json'
         }).then(function successCallback(response) {
-            $scope.roofs = response.data;
+            $scope.roofs_all = response.data;
         }, function errorCallback(response) {
             console.log("Algo valio shit!");
         });
@@ -506,7 +526,7 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
             method: 'GET',
             url: '/suspension_types.json'
         }).then(function successCallback(response) {
-            $scope.suspensions = response.data;
+            $scope.suspensions_all = response.data;
         }, function errorCallback(response) {
             console.log("Algo valio shit!");
         });
@@ -517,7 +537,7 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
             method: 'GET',
             url: '/turn_types.json'
         }).then(function successCallback(response) {
-            $scope.turns = response.data;
+            $scope.turns_all = response.data;
         }, function errorCallback(response) {
             console.log("Algo valio shit!");
         });
@@ -529,7 +549,7 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
             method: 'GET',
             url: '/fiscal_vouchers.json'
         }).then(function successCallback(response) {
-            $scope.fiscal_vouchers = response.data;
+            $scope.fiscal_vouchers_all = response.data;
         }, function errorCallback(response) {
             console.log("Algo valio shit!");
         });
@@ -540,7 +560,7 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
             method: 'GET',
             url: '/clients.json'
         }).then(function successCallback(response) {
-            $scope.clients = response.data;
+            $scope.clients_all = response.data;
         }, function errorCallback(response) {
             console.log("Algo valio shit!");
         });
@@ -562,13 +582,111 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
     };
 
     $scope.get_trailer = function (trailer) {
+        $scope.ramps = [];
+        $scope.redilas = [];
+        $scope.capacities = [];
+        $scope.floors = [];
+        $scope.widths = [];
+        $scope.lengths = [];
+        $scope.brakes = [];
+        $scope.colors = [];
+        $scope.divitions = [];
+        $scope.fenders = [];
+        $scope.hydraulic_jacks = [];
+        $scope.pulls = [];
+        $scope.brands = [];
+        $scope.roofs = [];
+        $scope.suspensions = [];
+        $scope.turns = [];
         $http({
             url: '/trailer_types/' + trailer + '.json',
             method: 'GET'
         }).then(function (response) {
             if (response.data != null) {
                 $scope.model_name = response.data.model_part;
-                $scope.trailer = response.data;
+                $scope.trailer_obj = response.data;
+
+                angular.forEach($scope.trailer_obj.trailer_categories, function(cat, catkey) {
+
+                    switch (cat['key']) {
+                        case 'trailer_length_id':
+                            var length = $scope.lengths_all.find(x => x.id === cat[cat.key]);
+                            $scope.lengths.push(length);
+                            break;
+                        case 'ramp_type_id':
+                            var ramp_type = $scope.ramps_all.find(x => x.id === cat[cat.key]);
+                            $scope.ramps.push(ramp_type);
+                            break;
+                        case 'redila_type_id':
+                            var redila = $scope.redilas_all.find(x => x.id === cat[cat.key]);
+                            $scope.redilas.push(redila);
+                            break;
+                        case 'floor_type_id':
+                            var floor = $scope.floors_all.find(x => x['id'] === cat[cat.key]);
+                            $scope.floors.push(floor);
+                            break;
+                        case 'capacity_id':
+                            var capacity = $scope.capacities_all.find(x => x.id === cat[cat.key]);
+                            $scope.capacities.push(capacity);
+                            break;
+                        case 'trailer_width_id':
+                            var width = $scope.widths_all.find(x => x.id === cat[cat.key]);
+                            $scope.widths.push(width);
+                            break;
+                        case 'color_id':
+                            var color = $scope.colors_all.find(x => x.id === cat[cat.key]);
+                            $scope.colors.push(color);
+                            break;
+                        case 'hydraulic_jack_id':
+                            var hydraulic_jack = $scope.hydraulic_jacks_all.find(x => x.id === cat[cat.key]);
+                            $scope.hydraulic_jacks.push(hydraulic_jack);
+                            break;
+                        case 'pull_type_id':
+                            var pull = $scope.pulls_all.find(x => x.id === cat[cat.key]);
+                            $scope.pulls.push(pull);
+                            break;
+                        case 'brake_type_id':
+                            var brake = $scope.brakes_all.find(x => x.id === cat[cat.key]);
+                            $scope.brakes.push(brake);
+                            break;
+                        case 'brand_id':
+                            var brand = $scope.brands_all.find(x => x.id === cat[cat.key]);
+                            $scope.brands.push(brand);
+                            break;
+                        case 'fender_type_id':
+                            var fender = $scope.fenders_all.find(x => x.id === cat[cat.key]);
+                            $scope.fenders.push(fender);
+                            break;
+                        case 'turn_type_id':
+                            var turn = $scope.turns_all.find(x => x.id === cat[cat.key]);
+                            $scope.turns.push(turn);
+                            break;
+                        case 'divition_type_id':
+                            var divition = $scope.divitions_all.find(x => x.id === cat[cat.key]);
+                            $scope.divitions.push(divition);
+                            break;
+                        case 'suspension_type_id':
+                            var suspension = $scope.suspensions_all.find(x => x.id === cat[cat.key]);
+                            $scope.suspensions.push(suspension);
+                            break;
+                        case 'roof_type_id':
+                            var roof = $scope.roofs_all.find(x => x.id === cat[cat.key]);
+                            $scope.roofs.push(roof);
+                            break;
+                        default:
+                            console.log('Lo lamentamos, por el momento no disponemos');
+
+
+                    }
+
+
+                    //
+                    // if(cs.key==cat.category && cs[cs.key]==cat.id){
+                    //     $scope.trailer_categories.splice(catkey, 1);
+                    // }
+
+                });
+
             }
 
         });
@@ -900,6 +1018,11 @@ app.controller('ModalVentaController', ['$scope', 'close', 'Upload', '$http', 'i
                         }
                     });
                     if ($scope.item.payment_type === 4) {
+
+
+                        console.log($scope.item);
+
+
                         $scope.item.image.upload = Upload.upload({
                             url: `/items/${$scope.item.id}.json`,
                             method: 'PUT',

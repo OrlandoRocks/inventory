@@ -20,6 +20,9 @@ class Trailer < ApplicationRecord
   belongs_to :brand, optional: true
 
   has_many :items
+  has_many :trailer_category
+
+  accepts_nested_attributes_for :trailer_category
   has_one_attached :image
   has_one_attached :photo
 end

@@ -71,6 +71,10 @@ class Item < ApplicationRecord
   # delegate :name, to: :category, prefix: true, allow_nil: true
   delegate :name, to: :status_item, prefix: true, allow_nil: true
 
+  def price_total
+    self.price  * ( 1 + self.branch.try(:fleet_cost)/100 )
+  end
+
   def self.set_without_maintenance
     Item.all.each do |item|
       if Date.today > item.maintenance_date
@@ -229,10 +233,6 @@ class Item < ApplicationRecord
     #   product.save!
     # end
   end
-
-
-
-
 
   def price_gt_zero
     if self.price <= 0
