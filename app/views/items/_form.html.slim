@@ -25,12 +25,12 @@ div ng-controller="itemController"
           = f.label :model, class: 'col-sm-2 control-label'
           .col-md-10
             = f.text_field :model, class: 'form-control', placeholder: t('.model'), readonly: true, 'ng-model' => 'model_name'
-        .row.form-group
-          = label_tag 'catalogo', 'Catalogo', class: 'col-sm-2 control-label'
-          .col-md-10
-            select.form-control ng-change="set_model(model); " ng-model="model" ng-options=("model as model.model for model in models")
-              option  selected="" value=""  Modelos...
-            = f.hidden_field :categories_description, value: '{{category_description}}'
+        / .row.form-group
+        /   = label_tag 'catalogo', 'Catalogo', class: 'col-sm-2 control-label'
+        /   .col-md-10
+        /     select.form-control ng-change="set_model(model); " ng-model="model" ng-options=("model as model.model for model in models")
+        /       option  selected="" value=""  Modelos...
+
         .row.form-group
           = f.label :trailer_id, class: 'col-sm-2 control-label'
           .col-md-4
@@ -175,6 +175,7 @@ div ng-controller="itemController"
             //input id='director_name' name='boss_id' type='hidden' value="#{@users.first.user.to_json({methods: :full_name})}" class="control-label h2.page-header text-uppercase"
 
             input type='hidden' name="item[status_item_id]" value='2'
+            = f.hidden_field :categories_description, value: '{{category_description}}'
             - if item.new_record?
               input type='hidden' name="item[status_shipping_id]" value='#{StatusShipping.find_by_key('recibido').id}'
             - else

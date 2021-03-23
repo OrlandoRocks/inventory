@@ -51,6 +51,8 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
         $scope.get_roofs();
         $scope.get_suspensions();
         $scope.get_turns();
+        $scope.get_ramps();
+
 
         if (item !== null && item !== undefined) {
 
@@ -258,7 +260,8 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
                 $scope.item = response.data;
 
 
-                $scope.set_model($scope.item);
+
+                $scope.get_trailer($scope.item.trailer_type.id);
                 $scope.branch = $scope.item.branch;
                 if ($scope.branch !== null) {
                     $scope.get_department();
@@ -267,6 +270,8 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
                     $scope.branch = $scope.item.department_user.branch;
                     $scope.get_department();
                 }
+
+
                 $scope.get_fiscal_vouchers();
                 $scope.get_clients();
                 $scope.item.price =parseFloat($scope.item.price);
@@ -306,8 +311,7 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
             $scope.department = response.data;
             $scope.consignee = response.data.manager;
             $scope.branch    = response.data.branch;
-            $scope.fleet_cost = $scope.branch.fleet_cost ; 
-            console.log(response);
+            $scope.fleet_cost = $scope.branch.fleet_cost ;
             $scope.full_name = $scope.consignee ? $scope.consignee.first_name + ' ' + $scope.consignee.last_name : 'Sin Gerente' ;
         });
     };
@@ -582,6 +586,7 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
     };
 
     $scope.get_trailer = function (trailer) {
+
         $scope.ramps = [];
         $scope.redilas = [];
         $scope.capacities = [];
@@ -686,7 +691,7 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
                     // }
 
                 });
-
+                $scope.set_model($scope.item);
             }
 
         });
@@ -1018,10 +1023,6 @@ app.controller('ModalVentaController', ['$scope', 'close', 'Upload', '$http', 'i
                         }
                     });
                     if ($scope.item.payment_type === 4) {
-
-
-                        console.log($scope.item);
-
 
                         $scope.item.image.upload = Upload.upload({
                             url: `/items/${$scope.item.id}.json`,

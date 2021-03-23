@@ -7,11 +7,15 @@ app.controller('trailerTypeController',["$scope", "ModalService", "$http", funct
     $scope.init = function(id){
 
 
+
         $scope.index = -1;
         $scope.remove_cat_count = 0;
         $scope.categories_saved = [];
         $scope.trailer_categories = [];
-        $scope.get_trailers(id);
+
+        if(id !== undefined && id !== null){
+            $scope.get_trailers(id);
+        }
         $scope.get_floors();
         $scope.get_ramps();
         $scope.get_redilas();
