@@ -54,6 +54,7 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
         $scope.get_ramps();
 
 
+
         if (item !== null && item !== undefined) {
 
             $scope.get_item_json(item);
@@ -90,6 +91,48 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
             $scope.get_orders(item_id);
         }
     };
+
+
+
+    $scope.get_item_json = function (id) {
+
+        console.log(id);
+        $http({
+            method: 'GET',
+            url: '/items/' + id + '.json'
+        }).then(function successCallback(response) {
+
+            if (response.data != null) {
+                $scope.item = response.data;
+
+
+                console.log($scope.item);
+
+                $scope.get_trailer($scope.item.trailer_type.id);
+                $scope.branch = $scope.item.branch;
+                if ($scope.branch !== null) {
+                    $scope.get_department();
+                }
+                if ($scope.item.status_shipping_id === 1) {
+                    $scope.branch = $scope.item.department_user.branch;
+                    $scope.get_department();
+                }
+
+
+                $scope.get_fiscal_vouchers();
+                $scope.get_clients();
+                $scope.item.price =parseFloat($scope.item.price);
+                $scope.fleet = $scope.item.price * ( 1 + ( $scope.branch.fleet_cost) /100 );
+
+                $scope.set_model($scope.item);
+
+            }
+        }, function errorCallback(response) {
+            console.log("Algo valio shit!");
+        });
+
+    };
+
 
 
     $scope.generate_model = function () {
@@ -147,6 +190,7 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
     $scope.set_model = function (model) {
         $scope.model = model;
 
+        console.log(model);
 
         $scope.length = '';
         $scope.trailer = '';
@@ -248,40 +292,6 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
     };
 
 
-
-    $scope.get_item_json = function (id) {
-
-        $http({
-            method: 'GET',
-            url: '/items/' + id + '.json'
-        }).then(function successCallback(response) {
-
-            if (response.data != null) {
-                $scope.item = response.data;
-
-
-
-                $scope.get_trailer($scope.item.trailer_type.id);
-                $scope.branch = $scope.item.branch;
-                if ($scope.branch !== null) {
-                    $scope.get_department();
-                }
-                if ($scope.item.status_shipping_id === 1) {
-                    $scope.branch = $scope.item.department_user.branch;
-                    $scope.get_department();
-                }
-
-
-                $scope.get_fiscal_vouchers();
-                $scope.get_clients();
-                $scope.item.price =parseFloat($scope.item.price);
-                $scope.fleet = $scope.item.price * ( 1 + ( $scope.branch.fleet_cost) /100 );
-            }
-        }, function errorCallback(response) {
-            console.log("Algo valio shit!");
-        });
-
-    };
 
 
     $scope.get_orders = function (id) {
@@ -587,6 +597,8 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
 
     $scope.get_trailer = function (trailer) {
 
+
+
         $scope.ramps = [];
         $scope.redilas = [];
         $scope.capacities = [];
@@ -610,6 +622,8 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
             if (response.data != null) {
                 $scope.model_name = response.data.model_part;
                 $scope.trailer_obj = response.data;
+
+
 
                 angular.forEach($scope.trailer_obj.trailer_categories, function(cat, catkey) {
 
@@ -685,13 +699,8 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
                     }
 
 
-                    //
-                    // if(cs.key==cat.category && cs[cs.key]==cat.id){
-                    //     $scope.trailer_categories.splice(catkey, 1);
-                    // }
-
                 });
-                $scope.set_model($scope.item);
+
             }
 
         });
