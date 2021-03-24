@@ -115,6 +115,10 @@ class DepartmentsController < ApplicationController
     @department = Department.find_by(branch_id: params[:id])
   end
 
+  def get_all_departments_by_branch
+    @departments = Department.where(branch_id: params[:id])
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.

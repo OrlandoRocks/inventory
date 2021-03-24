@@ -63,9 +63,12 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
 
     };
 
-    $scope.init_order = function (item_id, users) {
+    $scope.init_order = function (item_id, users, branches, categories) {
         $scope.users = users;
         // $scope.get_branch_user(current_user.id);
+        $scope.branches = branches;
+        $scope.model_name = '';
+
         $scope.get_models();
         $scope.get_trailers();
         $scope.get_floors();
@@ -85,6 +88,7 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
         $scope.get_roofs();
         $scope.get_suspensions();
         $scope.get_turns();
+        $scope.get_ramps();
 
         if (item_id) {
             $scope.get_orders(item_id);
@@ -98,46 +102,46 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
         $scope.modelhs = '';
         $scope.category_description = '';
 
-        if ($scope.trailer && $scope.trailers) $scope.modelhs += $scope.trailers.find(elem => elem.id === $scope.trailer).model_part;
-        if ($scope.width && $scope.widths) $scope.modelhs += $scope.widths.find(elem => elem.id === $scope.width).model_part;
-        if ($scope.length && $scope.lengths) $scope.modelhs += $scope.lengths.find(elem => elem.id === $scope.length).model_part;
-        if ($scope.height && $scope.heights) $scope.modelhs += $scope.heights.find(elem => elem.id === $scope.height).model_part;
-        if ($scope.floor && $scope.floors) $scope.modelhs += $scope.floors.find(elem => elem.id === $scope.floor).model_part;
-        if ($scope.ramp && $scope.ramps) $scope.modelhs += $scope.ramps.find(elem => elem.id === $scope.ramp).model_part;
-        if ($scope.capacity && $scope.capacities) $scope.modelhs += $scope.capacities.find(elem => elem.id === $scope.capacity).model_part;
-        if ($scope.redila && $scope.redilas) $scope.modelhs += $scope.redilas.find(elem => elem.id === $scope.redila).model_part;
-        if ($scope.roof && $scope.roofs) $scope.modelhs += $scope.roofs.find(elem => elem.id === $scope.roof).model_part;
-        if ($scope.turn && $scope.turns) $scope.modelhs += $scope.turns.find(elem => elem.id === $scope.turn).model_part;
-        if ($scope.brake && $scope.brakes) $scope.modelhs += $scope.brakes.find(elem => elem.id === $scope.brake).model_part;
-        if ($scope.color && $scope.colors) $scope.modelhs += $scope.colors.find(elem => elem.id === $scope.color).model_part;
-        if ($scope.divition && $scope.divitions) $scope.modelhs += $scope.divitions.find(elem => elem.id === $scope.divition).model_part;
-        if ($scope.fender && $scope.fenders) $scope.modelhs += $scope.fenders.find(elem => elem.id === $scope.fender).model_part;
-        if ($scope.hydraulic_jack && $scope.hydraulic_jacks) $scope.modelhs += $scope.hydraulic_jacks.find(elem => elem.id === $scope.hydraulic_jack).model_part;
-        if ($scope.pull && $scope.pulls) $scope.modelhs += $scope.pulls.find(elem => elem.id === $scope.pull).model_part;
-        if ($scope.brand && $scope.brands) $scope.modelhs += $scope.brands.find(elem => elem.id === $scope.brand).model_part;
+        if ($scope.trailer && $scope.trailers.length !== 0) $scope.modelhs += $scope.trailers.find(elem => elem.id === $scope.trailer).model_part;
+        if ($scope.width && $scope.widths.length !== 0) $scope.modelhs += $scope.widths.find(elem => elem.id === $scope.width).model_part;
+        if ($scope.length && $scope.lengths.length !== 0) $scope.modelhs += $scope.lengths.find(elem => elem.id === $scope.length).model_part;
+        if ($scope.height && $scope.heights.length !== 0) $scope.modelhs += $scope.heights.find(elem => elem.id === $scope.height).model_part;
+        if ($scope.floor && $scope.floors.length !== 0) $scope.modelhs += $scope.floors.find(elem => elem.id === $scope.floor).model_part;
+        if ($scope.ramp && $scope.ramps.length !== 0) $scope.modelhs += $scope.ramps.find(elem => elem.id === $scope.ramp).model_part;
+        if ($scope.capacity && $scope.capacities.length !== 0) $scope.modelhs += $scope.capacities.find(elem => elem.id === $scope.capacity).model_part;
+        if ($scope.redila && $scope.redilas.length !== 0) $scope.modelhs += $scope.redilas.find(elem => elem.id === $scope.redila).model_part;
+        if ($scope.roof && $scope.roofs.length !== 0) $scope.modelhs += $scope.roofs.find(elem => elem.id === $scope.roof).model_part;
+        if ($scope.turn && $scope.turns.length !== 0) $scope.modelhs += $scope.turns.find(elem => elem.id === $scope.turn).model_part;
+        if ($scope.brake && $scope.brakes.length !== 0) $scope.modelhs += $scope.brakes.find(elem => elem.id === $scope.brake).model_part;
+        if ($scope.color && $scope.colors.length !== 0) $scope.modelhs += $scope.colors.find(elem => elem.id === $scope.color).model_part;
+        if ($scope.divition && $scope.divitions.length !== 0) $scope.modelhs += $scope.divitions.find(elem => elem.id === $scope.divition).model_part;
+        if ($scope.fender && $scope.fenders.length !== 0) $scope.modelhs += $scope.fenders.find(elem => elem.id === $scope.fender).model_part;
+        if ($scope.hydraulic_jack && $scope.hydraulic_jacks.length !== 0) $scope.modelhs += $scope.hydraulic_jacks.find(elem => elem.id === $scope.hydraulic_jack).model_part;
+        if ($scope.pull && $scope.pulls.length !== 0) $scope.modelhs += $scope.pulls.find(elem => elem.id === $scope.pull).model_part;
+        if ($scope.brand && $scope.brands.length !== 0) $scope.modelhs += $scope.brands.find(elem => elem.id === $scope.brand).model_part;
         // if ($scope.reinforcement && $scope.reinforcements)      $scope.modelhs   +=     $scope.reinforcements.find( elem => elem.id ===   $scope.reinforcement).model_part;
-        if ($scope.suspension && $scope.suspensions) $scope.modelhs += $scope.suspensions.find(elem => elem.id === $scope.suspension).model_part;
+        if ($scope.suspension && $scope.suspensions.length !== 0) $scope.modelhs += $scope.suspensions.find(elem => elem.id === $scope.suspension).model_part;
 
 
-        if ($scope.trailer && $scope.trailers) $scope.category_description += `TRAILER: ${$scope.trailers.find(elem => elem.id === $scope.trailer).name}. `;
-        if ($scope.width && $scope.widths) $scope.category_description += `ANCHO: ${$scope.widths.find(elem => elem.id === $scope.width).name}. `;
-        if ($scope.length && $scope.lengths) $scope.category_description += `LARGO: ${$scope.lengths.find(elem => elem.id === $scope.length).name}. `;
-        if ($scope.height && $scope.heights) $scope.category_description += `ALTURA: ${$scope.heights.find(elem => elem.id === $scope.height).name}. `;
-        if ($scope.floor && $scope.floors) $scope.category_description += `PISO: ${$scope.floors.find(elem => elem.id === $scope.floor).name}. `;
-        if ($scope.ramp && $scope.ramps) $scope.category_description += `RAMPA: ${$scope.ramps.find(elem => elem.id === $scope.ramp).name}. `;
-        if ($scope.capacity && $scope.capacities) $scope.category_description += `CAPACIDAD: ${$scope.capacities.find(elem => elem.id === $scope.capacity).name}. `;
-        if ($scope.redila && $scope.redilas) $scope.category_description += `REDILA: ${$scope.redilas.find(elem => elem.id === $scope.redila).name}. `;
-        if ($scope.roof && $scope.roofs) $scope.category_description += `TECHO: ${$scope.roofs.find(elem => elem.id === $scope.roof).name}. `;
-        if ($scope.turn && $scope.turns) $scope.category_description += `VOLTEO: ${$scope.turns.find(elem => elem.id === $scope.turn).name}. `;
-        if ($scope.brake && $scope.brakes) $scope.category_description += `FRENO: ${$scope.brakes.find(elem => elem.id === $scope.brake).name}. `;
-        if ($scope.color && $scope.colors) $scope.category_description += `COLOR: ${$scope.colors.find(elem => elem.id === $scope.color).name}. `;
-        if ($scope.divition && $scope.divitions) $scope.category_description += `DIVISION: ${$scope.divitions.find(elem => elem.id === $scope.divition).name}. `;
-        if ($scope.fender && $scope.fenders) $scope.category_description += `FENDER: ${$scope.fenders.find(elem => elem.id === $scope.fender).name}. `;
-        if ($scope.hydraulic_jack && $scope.hydraulic_jacks) $scope.category_description += `GATO HIDRAULICO: ${$scope.hydraulic_jacks.find(elem => elem.id === $scope.hydraulic_jack).name}. `;
-        if ($scope.pull && $scope.pulls) $scope.category_description += `JALON: ${$scope.pulls.find(elem => elem.id === $scope.pull).name}. `;
-        if ($scope.brand && $scope.brands) $scope.category_description += `MARCA: ${$scope.brands.find(elem => elem.id === $scope.brand).name}. `;
+        if ($scope.trailer && $scope.trailers.length !== 0) $scope.category_description += `TRAILER: ${$scope.trailers.find(elem => elem.id === $scope.trailer).name}. `;
+        if ($scope.width && $scope.widths.length !== 0) $scope.category_description += `ANCHO: ${$scope.widths.find(elem => elem.id === $scope.width).name}. `;
+        if ($scope.length && $scope.lengths.length !== 0) $scope.category_description += `LARGO: ${$scope.lengths.find(elem => elem.id === $scope.length).name}. `;
+        if ($scope.height && $scope.heights.length !== 0) $scope.category_description += `ALTURA: ${$scope.heights.find(elem => elem.id === $scope.height).name}. `;
+        if ($scope.floor && $scope.floors.length !== 0) $scope.category_description += `PISO: ${$scope.floors.find(elem => elem.id === $scope.floor).name}. `;
+        if ($scope.ramp && $scope.ramps.length !== 0) $scope.category_description += `RAMPA: ${$scope.ramps.find(elem => elem.id === $scope.ramp).name}. `;
+        if ($scope.capacity && $scope.capacities.length !== 0) $scope.category_description += `CAPACIDAD: ${$scope.capacities.find(elem => elem.id === $scope.capacity).name}. `;
+        if ($scope.redila && $scope.redilas.length !== 0) $scope.category_description += `REDILA: ${$scope.redilas.find(elem => elem.id === $scope.redila).name}. `;
+        if ($scope.roof && $scope.roofs.length !== 0) $scope.category_description += `TECHO: ${$scope.roofs.find(elem => elem.id === $scope.roof).name}. `;
+        if ($scope.turn && $scope.turns.length !== 0) $scope.category_description += `VOLTEO: ${$scope.turns.find(elem => elem.id === $scope.turn).name}. `;
+        if ($scope.brake && $scope.brakes.length !== 0) $scope.category_description += `FRENO: ${$scope.brakes.find(elem => elem.id === $scope.brake).name}. `;
+        if ($scope.color && $scope.colors.length !== 0) $scope.category_description += `COLOR: ${$scope.colors.find(elem => elem.id === $scope.color).name}. `;
+        if ($scope.divition && $scope.divitions.length !== 0) $scope.category_description += `DIVISION: ${$scope.divitions.find(elem => elem.id === $scope.divition).name}. `;
+        if ($scope.fender && $scope.fenders.length !== 0) $scope.category_description += `FENDER: ${$scope.fenders.find(elem => elem.id === $scope.fender).name}. `;
+        if ($scope.hydraulic_jack && $scope.hydraulic_jacks.length !== 0) $scope.category_description += `GATO HIDRAULICO: ${$scope.hydraulic_jacks.find(elem => elem.id === $scope.hydraulic_jack).name}. `;
+        if ($scope.pull && $scope.pulls.length !== 0) $scope.category_description += `JALON: ${$scope.pulls.find(elem => elem.id === $scope.pull).name}. `;
+        if ($scope.brand && $scope.brands.length !== 0) $scope.category_description += `MARCA: ${$scope.brands.find(elem => elem.id === $scope.brand).name}. `;
         // if ($scope.reinforcement && $scope.reinforcements)      $scope.category_description   +=     `REFUERZO: ${$scope.reinforcements.find( elem => elem.id ===   $scope.reinforcement).name}.`;
-        if ($scope.suspension && $scope.suspensions) $scope.category_description += `SUSPENSION: ${$scope.suspensions.find(elem => elem.id === $scope.suspension).name}. `;
+        if ($scope.suspension && $scope.suspensions.length !== 0) $scope.category_description += `SUSPENSION: ${$scope.suspensions.find(elem => elem.id === $scope.suspension).name}. `;
 
 
         $scope.model_name = $scope.modelhs;
@@ -260,15 +264,41 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
                 $scope.item = response.data;
 
 
+                $scope.trailer = $scope.item.trailer_type.id;
+                $scope.brake = $scope.item.brake_type !== null && $scope.item.brake_type !== undefined ? $scope.item.brake_type.id : null;
+                $scope.width = $scope.item.trailer_width !== null && $scope.item.trailer_width !== undefined ? $scope.item.trailer_width.id : null;
+                $scope.color = $scope.item.color !== null && $scope.item.color !== undefined ? $scope.item.color.id : null;
+                $scope.length = $scope.item.trailer_length !== null && $scope.item.trailer_length !== undefined ? $scope.item.trailer_length.id : null;
+                $scope.divition = $scope.item.divition_type !== null && $scope.item.divition_type !== undefined ? $scope.item.divition_type.id : null;
+                $scope.floor = $scope.item.floor_type !== null && $scope.item.floor_type !== undefined ? $scope.item.floor_type.id : null;
+                $scope.fender = $scope.item.fender_type !== null && $scope.item.fender_type !== undefined ? $scope.item.fender_type.id : null;
+                $scope.ramp = $scope.item.ramp_type !== null && $scope.item.ramp_type !== undefined ? $scope.item.ramp_type.id : null;
+                $scope.hydraulic_jack = $scope.item.hydraulic_jack !== null && $scope.item.hydraulic_jack !== undefined ?  $scope.item.hydraulic_jack.id : null;
+                $scope.capacity = $scope.item.capacity !== null && $scope.item.capacity !== undefined ? $scope.item.capacity.id : null;
+                $scope.pull = $scope.item.pull_type !== null && $scope.item.pull_type !== undefined ? $scope.item.pull_type.id : null;
+                $scope.redila = $scope.item.redila_type !== null && $scope.item.redila_type !== undefined ? $scope.item.redila_type.id : null;
+                $scope.roof = $scope.item.roof_type !== null && $scope.item.roof_type !== undefined ? $scope.item.roof_type.id : null;
+                $scope.suspension = $scope.item.suspension_type !== null && $scope.item.suspension_type !== undefined ? $scope.item.suspension_type.id : null;
+                $scope.turn = $scope.item.turn_type !== null && $scope.item.turn_type !== undefined ? $scope.item.turn_type.id : null;
+                $scope.brand = $scope.item.brand !== null && $scope.item.brand !== undefined ? $scope.item.brand.id : null;
 
-                $scope.get_trailer($scope.item.trailer_type.id);
+
+
+
+                if ($scope.get_trailer($scope.trailer)){
+                    $scope.set_model($scope.item);
+                };
                 $scope.branch = $scope.item.branch;
                 if ($scope.branch !== null) {
-                    $scope.get_department();
+                    $scope.get_all_department($scope.trailer);
+                    $scope.department = $scope.item.department_user.id;
+
                 }
                 if ($scope.item.status_shipping_id === 1) {
                     $scope.branch = $scope.item.department_user.branch;
-                    $scope.get_department();
+                    $scope.department = $scope.item.department_user.id;
+                    $scope.get_all_department($scope.item.branch.id);
+                    $scope.department = $scope.item.department_user.id;
                 }
 
 
@@ -291,10 +321,33 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
         }).then(function successCallback(response) {
 
             if (response.data != null) {
-                $scope.item = response.data;
-                $scope.set_model($scope.item);
+                $scope.item = response.data
                 $scope.user = $scope.item.user_id;
                 $scope.get_branch_user($scope.item.user_id);
+                $scope.trailer = $scope.item.trailer_type.id;
+                $scope.brake = $scope.item.brake_type !== null && $scope.item.brake_type !== undefined ? $scope.item.brake_type.id : null;
+                $scope.width = $scope.item.trailer_width !== null && $scope.item.trailer_width !== undefined ? $scope.item.trailer_width.id : null;
+                $scope.color = $scope.item.color !== null && $scope.item.color !== undefined ? $scope.item.color.id : null;
+                $scope.length = $scope.item.trailer_length !== null && $scope.item.trailer_length !== undefined ? $scope.item.trailer_length.id : null;
+                $scope.divition = $scope.item.divition_type !== null && $scope.item.divition_type !== undefined ? $scope.item.divition_type.id : null;
+                $scope.floor = $scope.item.floor_type !== null && $scope.item.floor_type !== undefined ? $scope.item.floor_type.id : null;
+                $scope.fender = $scope.item.fender_type !== null && $scope.item.fender_type !== undefined ? $scope.item.fender_type.id : null;
+                $scope.ramp = $scope.item.ramp_type !== null && $scope.item.ramp_type !== undefined ? $scope.item.ramp_type.id : null;
+                $scope.hydraulic_jack = $scope.item.hydraulic_jack !== null && $scope.item.hydraulic_jack !== undefined ?  $scope.item.hydraulic_jack.id : null;
+                $scope.capacity = $scope.item.capacity !== null && $scope.item.capacity !== undefined ? $scope.item.capacity.id : null;
+                $scope.pull = $scope.item.pull_type !== null && $scope.item.pull_type !== undefined ? $scope.item.pull_type.id : null;
+                $scope.redila = $scope.item.redila_type !== null && $scope.item.redila_type !== undefined ? $scope.item.redila_type.id : null;
+                $scope.roof = $scope.item.roof_type !== null && $scope.item.roof_type !== undefined ? $scope.item.roof_type.id : null;
+                $scope.suspension = $scope.item.suspension_type !== null && $scope.item.suspension_type !== undefined ? $scope.item.suspension_type.id : null;
+                $scope.turn = $scope.item.turn_type !== null && $scope.item.turn_type !== undefined ? $scope.item.turn_type.id : null;
+                $scope.brand = $scope.item.brand !== null && $scope.item.brand !== undefined ? $scope.item.brand.id : null;
+
+
+
+
+                if ($scope.get_trailer($scope.trailer)){
+                    $scope.set_model($scope.item);
+                };
 
             }
         }, function errorCallback(response) {
@@ -308,9 +361,22 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
             url: '/departments_by_branch/' + $scope.branch.id + '.json',
             method: 'GET'
         }).then(function (response) {
-            $scope.department = response.data;
+            $scope.departments = response.data;
             $scope.consignee = response.data.manager;
             $scope.branch    = response.data.branch;
+            $scope.fleet_cost = $scope.branch.fleet_cost ;
+            $scope.full_name = $scope.consignee ? $scope.consignee.first_name + ' ' + $scope.consignee.last_name : 'Sin Gerente' ;
+        });
+
+    };
+
+    $scope.get_all_department = function () {
+        $http({
+            url: '/all_departments_by_branch/' + $scope.branch.id + '.json',
+            method: 'GET'
+        }).then(function (response) {
+            $scope.departments = response.data;
+            $scope.consignee = response.data.manager;
             $scope.fleet_cost = $scope.branch.fleet_cost ;
             $scope.full_name = $scope.consignee ? $scope.consignee.first_name + ' ' + $scope.consignee.last_name : 'Sin Gerente' ;
         });
@@ -685,13 +751,14 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
                     }
 
 
+
                     //
                     // if(cs.key==cat.category && cs[cs.key]==cat.id){
                     //     $scope.trailer_categories.splice(catkey, 1);
                     // }
 
                 });
-                $scope.set_model($scope.item);
+                    $scope.generate_model();
             }
 
         });
@@ -838,8 +905,8 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
             controller: "ModalVentaController as modal",
             inputs: {
                 item: $scope.item,
-                fiscal_vouchers: $scope.fiscal_vouchers,
-                clients: $scope.clients
+                fiscal_vouchers: $scope.fiscal_vouchers_all,
+                clients: $scope.clients_all
             }
         }).then(function (modal) {
             modal.element.modal();
@@ -1426,21 +1493,21 @@ app.controller('ModalPercentageController', ['$scope', 'close', 'Upload', '$http
             });
         });
 
-        $scope.init = function () {
-            $scope.disable_percentages = true;
-            $http({
-                url: '/items/' + id + '.json',
-                method: 'GET'
-            }).then(function (response) {
-                $scope.seller_percentage = parseFloat(response.data.seller_percentage);
-                $scope.planet_percentage = parseFloat(response.data.planet_percentage);
-                $scope.branch_percentage = parseFloat(response.data.branch_percentage);
-                $scope.is_same_branch = response.data.department_user.branch_id === response.data.branch_id ? true : false;
-                $scope.validate_inputs_values();
-            });
-        };
-
-        $scope.init();
+        // $scope.init = function () {
+        //     $scope.disable_percentages = true;
+        //     $http({
+        //         url: '/items/' + id + '.json',
+        //         method: 'GET'
+        //     }).then(function (response) {
+        //         $scope.seller_percentage = parseFloat(response.data.seller_percentage);
+        //         $scope.planet_percentage = parseFloat(response.data.planet_percentage);
+        //         $scope.branch_percentage = parseFloat(response.data.branch_percentage);
+        //         $scope.is_same_branch = response.data.department_user.branch_id === response.data.branch_id ? true : false;
+        //         $scope.validate_inputs_values();
+        //     });
+        // };
+        //
+        // $scope.init();
 
         $scope.close = function (result) {
 

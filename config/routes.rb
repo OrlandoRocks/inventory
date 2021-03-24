@@ -239,6 +239,8 @@ Rails.application.routes.draw do
       #Rutas extras para Departamentos
       get '/departments/:id/items/:employee_id' => 'departments#employee_items', as: :departments_employee_items
       get 'departments_by_branch/:id' => 'departments#get_departments_by_branch'
+      get 'all_departments_by_branch/:id' => 'departments#get_all_departments_by_branch'
+
 
       #Rutas extras para subcategorias
       get 'subcategory_by_category/:id' => 'sub_categories#get_subcategory_by_category'

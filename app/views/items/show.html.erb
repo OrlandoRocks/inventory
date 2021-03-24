@@ -1,6 +1,6 @@
 <section class="content" ng-controller="itemController">
 
-  <div class="row" ng-init="get_item_json(<%= @item.id %>)">
+  <div class="row" ng-init="init(<%= @branches.to_json %>,<%= @categories.to_json %>,<%= @item.id %>)">
     <div class="col-md-6">
       <!-- Profile Image -->
       <div class="box box-primary">
