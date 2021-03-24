@@ -1,8 +1,7 @@
 class Api::V1::InventoryManagerController < ActionController::Base
 
   protect_from_forgery with: :null_session
-
-
+  before_action :authenticate_user!
   def get_clients
     render json: Client.all
   end
