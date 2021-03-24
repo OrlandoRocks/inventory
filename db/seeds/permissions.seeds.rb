@@ -96,5 +96,32 @@ Permission.create!([
   {name: "Actualizar Cliente", description: "Permite actualizar los cliente.", action: "update", controller: "Clients"},
   {name: "Editar Cliente", description: "Permite visualizar la vista editar cliente.", action: "edit", controller: "Clients"},
   {name: "Crear Vendedor para departamento", description: "Permite crear un Vendedor al departamento. ", action: "new_employee_department", controller: "Users::Registrations"},
-  {name: "Mandar correo de trailer vendido", description: "Permite mandar correo de trailer vendido", action: "item_sold", controller: "Items"}
+  {name: "Mandar correo de trailer vendido", description: "Permite mandar correo de trailer vendido", action: "item_sold", controller: "Items"},
+  {name: "Vista para ver cotizaciones", description: "Permite entrar a la vista para ver las cotizaciones", action: "quotations", controller: "Items"},
+  {name: "Vista para crear cotizacion", description: "Permite entrar a la vista para crear las cotizaciones", action: "new_quotations", controller: "Items"},
+  {name: "Vista para ver cotizaciones", description: "Permite entrar a la vista para ver las cotizaciones", action: "index", controller: "Quotations"},
+  {name: "Vista para crear cotizacion", description: "Permite entrar a la vista para crear las cotizaciones", action: "new", controller: "Quotations"},
+  {name: "Vista para editar una cotizacion", description: "Permite entrar a la vista para editar las cotizaciones", action: "edit", controller: "Quotations"},
+  {name: "Permite crear una cotizacion", description: "Permite crear las cotizaciones", action: "create", controller: "Quotations"},
+  {name: "Permite actualizar una cotizacion", description: "Permite actualizar las cotizaciones", action: "update", controller: "Quotations"},
+  {name: "Permite eliminar una cotizacion", description: "Permite eliminar las cotizaciones", action: "delete", controller: "Quotations"},
+  {name: "Permite ver el pdf de una cotizacion", description: "Permite ver pdf de una cotizacion", action: "report_quotation", controller: "Quotations"},
+  {name: "Vista para ver los trailers", description: "Permite entrar a la vista para ver los trailers types", action: "index", controller: "TrailerType"},
+  {name: "Vista para ver los la categoria de ancho de los trailers", description: "Permite entrar a la vista para ver la categoria de ancho de los trailers", action: "index", controller: "TrailerWidths"},
+  {name: "Vista para ver los la categoria del largo de los trailers", description: "Permite entrar a la vista para ver la categoria del largo de los trailers", action: "index", controller: "TrailerLengths"},
+  {name: "Vista para ver los la categoria de los pisos", description: "Permite entrar a la vista para ver la categoria de los pisos", action: "index", controller: "FloorTypes"},
+  {name: "Vista para ver los la categoria de las capacidades", description: "Permite entrar a la vista para ver la categoria de las capacidades", action: "index", controller: "Capacities"},
+  {name: "Vista para ver los la categoria de las redilas", description: "Permite entrar a la vista para ver la categoria de las redilas", action: "index", controller: "RedilaTypes"},
+  {name: "Vista para ver los la categoria de los techos", description: "Permite entrar a la vista para ver la categoria de los techos", action: "index", controller: "RoofTypes"},
+  {name: "Vista para ver los la categoria de los volteos", description: "Permite entrar a la vista para ver la categoria de los volteos", action: "index", controller: "TurnTypes"},
+  {name: "Vista para ver los la categoria de los frenos", description: "Permite entrar a la vista para ver la categoria de los frenos", action: "index", controller: "BrakeTypes"},
+  {name: "Vista para ver los la categoria de los colores", description: "Permite entrar a la vista para ver la categoria de los colores", action: "index", controller: "Colors"},
+  {name: "Vista para ver las categorias de las divisiones", description: "Permite entrar a la vista para ver la categoria de las divisiones", action: "index", controller: "DivitionTypes"},
+  {name: "Vista para ver las categorias de los fenders", description: "Permite entrar a la vista para ver la categoria de los fenders", action: "index", controller: "FenderTypes"},
+  {name: "Vista para ver las categorias de los gatos hidraylicos", description: "Permite entrar a la vista para ver la categoria de los gatos hidraulicos", action: "index", controller: "HydraulicJacks"},
+  {name: "Vista para ver las categorias de los jalones", description: "Permite entrar a la vista para ver la categoria de los jalones", action: "index", controller: "PullTypes"},
+  {name: "Vista para ver las categorias de las marcas", description: "Permite entrar a la vista para ver la categoria de las marcas", action: "index", controller: "Brands"},
+  {name: "Vista para ver las categorias de las suspensiones", description: "Permite entrar a la vista para ver la categoria de las suspensiones", action: "index", controller: "SuspensionTypes"}
+
+
                    ])

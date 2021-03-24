@@ -1,14 +1,14 @@
-= form_for @item, html: {class: 'form-horizontal', multipart: true} do |f|
-  - if @item.errors.any?
+= form_for @quotation, html: {class: 'form-horizontal', multipart: true} do |f|
+  - if @quotation.errors.any?
     #error_explanation
-      h2 = "#{pluralize(@item.errors.count, "error(es)")}, No se permitio almacenar el artículo debido a:"
+      h2 = "#{pluralize(@quotation.errors.count, "error(es)")}, No se permitio almacenar el artículo debido a:"
       ul
-        - @item.errors.full_messages.each do |message|
+        - @quotation.errors.full_messages.each do |message|
           li = message
 
 
-  = form_for(@item, item: 'form', html: {class: 'form-horizontal'}, validate: true) do |f|
-    .box-body ng-init="init_order(#{@item.try(:id).nil? ? false : @item.try(:id)}, #{@users.to_json}); get_model(#{params[:trailer]});"
+  = form_for(@quotation, item: 'form', html: {class: 'form-horizontal'}, validate: true) do |f|
+    .box-body ng-init="init_quotation(#{@quotation.try(:id).nil? ? false : @quotation.to_json}, #{@users.to_json}, #{current_user.to_json}); get_model(#{params[:trailer]});"
 
       .row.form-group
         = f.label 'Cliente', class: 'col-sm-2 control-label'
@@ -16,23 +16,25 @@
           = f.select :client_id, Client.all.map { |client| [client.full_name, client.id] },
                   {include_blank: t('.select.prompt')}, class: 'form-control'
 
-      .row.form-group
-        = label_tag 'Anticipo', 'Anticipo', class: 'col-sm-2 control-label'
-        .col-md-10
-          = f.number_field :advance_payment, class: 'form-control', placeholder: 'Anticipo'
+      - unless @quotation.new_record?
+        .row.form-group
+          = label_tag 'Precio de Cotizacion', 'Precio de Cotizacion', class: 'col-sm-2 control-label'
+          .col-md-10
+            = f.number_field :price, class: 'form-control', placeholder: 'Precio de Cotizacion'
 
       .row.form-group
         = f.label 'Vendedor', class: 'col-sm-2 control-label'
         .col-md-10
           / = f.text_field :user, class: 'form-control', placeholder: 'Vendedor', readonly: true, value: current_user.full_name
-          select.form-control ng-change="get_branch_user(user)" ng-model="user" ng-options=("user.id as user.first_name for user in users")
+          select.form-control ng-change="get_branch_user(user)" ng-model="user" ng-options=("user.id as user.first_name + ' ' + user.last_name for user in users")
             option disabled="" selected="" value=""  Vendedores...
-          = f.hidden_field :user_id, value: current_user.id
+          = f.hidden_field :user_id, value: '{{user}}'
 
       .row.form-group
         = label_tag 'Sucursal', 'Sucursal', class: 'col-sm-2 control-label'
         .col-md-10
           = text_field_tag :branch, '', class: 'form-control', placeholder: 'Sucursal', 'ng-model'=> 'branch_name', disabled: true
+          = f.hidden_field :branch_id, value: '{{user}}'
 
       .row.form-group
         = label_tag 'Departamento', 'Departamento', class: 'col-sm-2 control-label'
@@ -48,9 +50,9 @@
       .row.form-group
         = label_tag 'catalogo', 'Catalogo', class: 'col-sm-2 control-label'
         .col-md-10
-          select.form-control ng-change="set_model(model); " ng-model="model" ng-options=("model as model.model for model in models")
+          select.form-control ng-change="set_model(model); " ng-model="model" ng-options=("model.id as model.model for model in models")
             option selected="" value=""  Modelos...
-          / = f.hidden_field :categories_description, value: '{{category_description}}'
+      = f.hidden_field :catalog, value: '{{model}}'
 
       .row.form-group
         = f.label :trailer_id, class: 'col-sm-2 control-label'
@@ -150,6 +152,7 @@
             option selected="" value=""  No Aplica
             = f.hidden_field :suspension_type_id, value: '{{suspension}}'
 
+
       .row.form-group
         = f.label 'Volteo', class: 'col-sm-2 control-label'
         .col-md-4
@@ -160,17 +163,15 @@
         .col-sm-4
           = f.text_area :accessory, class: 'form-control', placeholder: t('.accessory')
 
-          input type='hidden' name="item[status_item_id]" value='#{StatusItem.find_by_key('pendiente').id}'
-          input type='hidden' name="item[status_shipping_id]" value='#{StatusShipping.find_by_key('pedido').id}'
-
       .row.form-group
         = f.label 'Descripcion del modelo', class: 'col-sm-2 control-label'
         .col-lg-10
-          = f.text_area :categories_description, class: 'form-control', placeholder: "Descripcion", value: '{{category_description}}', disabled: true
+          = text_area_tag :categories_description,'', class: 'form-control', placeholder: "Descripcion", 'ng-model': 'category_description', disabled: true
+          = f.hidden_field :categories_description, value: '{{category_description}}'
 
     .box-footer
       = f.button "<i class='fa fa-floppy-o'></i> #{t('helpers.submit.submit', model: t('.resource'))}".html_safe,
               class: 'btn btn-primary btn-flat', type: 'submit'
-      = link_to items_path, class: 'btn btn-default btn-flat' do
+      = link_to quotations_path, class: 'btn btn-default btn-flat' do
         i.fa.fa-list
         =< t('helpers.back')

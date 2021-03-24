@@ -4,11 +4,17 @@
     <div class="col-md-6">
       <!-- Profile Image -->
       <div class="box box-primary">
-        <% if @item.try(:status_item).key == 'pendiente' %>
+        <% if @item.try(:status_item).key == 'pendiente' || @item.try(:status_item).key == 'cotizado' %>
           <div class="box-body box-profile">
 
-            <%= link_to edit_item_path(@item.id), :class => "btn btn-block btn-info btn-lg" do %>
-              <i class="fa fa-plus "> Crear y enviar</i>
+            <% if @item.try(:status_item).key == 'cotizado' %>
+              <%= link_to edit_item_path(@item.id), :class => "btn btn-block btn-info btn-lg" do %>
+                <i class="fa fa-plus "> Crear </i>
+              <% end %>
+            <% else %>
+              <%= link_to edit_item_path(@item.id), :class => "btn btn-block btn-info btn-lg" do %>
+                <i class="fa fa-plus "> Crear y enviar</i>
+              <% end %>
             <% end %>
 
             <% unless @item.trailer_type.nil? %>
@@ -64,13 +70,6 @@
                   <%= "#{@item.try(:user).try(:department).try(:name)}" %>
                 </p>
               </li>
-              <li class="list-group-item">
-                <strong><i class="fa fa-user margin-r-5"></i>Vendedor</strong>
-                <p class="text-muted">
-                  <%= "#{@item.user.try("full_name")}" %>
-                </p>
-              </li>
-
               <li class="list-group-item">
                 <strong><i class="fa fa-user margin-r-5"></i>Vendedor</strong>
                 <p class="text-muted">

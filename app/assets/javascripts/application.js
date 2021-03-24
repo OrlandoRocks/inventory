@@ -52,6 +52,7 @@
 //= require angular/controllers/user
 //= require angular/controllers/home
 //= require angular/controllers/item
+//= require angular/controllers/quotation
 //= require angular/controllers/branches
 //= require angular/controllers/departments
 //= require angular/controllers/client
