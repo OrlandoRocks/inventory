@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_09_031136) do
+ActiveRecord::Schema.define(version: 2021_03_16_153643) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -296,6 +296,7 @@ ActiveRecord::Schema.define(version: 2021_03_09_031136) do
     t.index ["brand_id"], name: "index_items_on_brand_id"
     t.index ["capacity_id"], name: "index_items_on_capacity_id"
     t.index ["category_id"], name: "index_items_on_category_id"
+    t.index ["client_id"], name: "index_items_on_client_id"
     t.index ["color_id"], name: "index_items_on_color_id"
     t.index ["department_id"], name: "index_items_on_department_id"
     t.index ["divition_type_id"], name: "index_items_on_divition_type_id"
@@ -505,6 +506,52 @@ ActiveRecord::Schema.define(version: 2021_03_09_031136) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "trailer_categories", force: :cascade do |t|
+    t.bigint "trailer_id"
+    t.bigint "trailer_length_id"
+    t.bigint "trailer_height_id"
+    t.bigint "ramp_type_id"
+    t.bigint "redila_type_id"
+    t.bigint "trailer_type_id"
+    t.bigint "floor_type_id"
+    t.bigint "capacity_id"
+    t.bigint "trailer_width_id"
+    t.bigint "color_id"
+    t.bigint "hydraulic_jack_id"
+    t.bigint "pull_type_id"
+    t.bigint "brake_type_id"
+    t.bigint "reinforcement_type_id"
+    t.bigint "fender_type_id"
+    t.bigint "turn_type_id"
+    t.bigint "divition_type_id"
+    t.bigint "suspension_type_id"
+    t.bigint "roof_type_id"
+    t.bigint "brand_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "key"
+    t.index ["brake_type_id"], name: "index_trailer_categories_on_brake_type_id"
+    t.index ["brand_id"], name: "index_trailer_categories_on_brand_id"
+    t.index ["capacity_id"], name: "index_trailer_categories_on_capacity_id"
+    t.index ["color_id"], name: "index_trailer_categories_on_color_id"
+    t.index ["divition_type_id"], name: "index_trailer_categories_on_divition_type_id"
+    t.index ["fender_type_id"], name: "index_trailer_categories_on_fender_type_id"
+    t.index ["floor_type_id"], name: "index_trailer_categories_on_floor_type_id"
+    t.index ["hydraulic_jack_id"], name: "index_trailer_categories_on_hydraulic_jack_id"
+    t.index ["pull_type_id"], name: "index_trailer_categories_on_pull_type_id"
+    t.index ["ramp_type_id"], name: "index_trailer_categories_on_ramp_type_id"
+    t.index ["redila_type_id"], name: "index_trailer_categories_on_redila_type_id"
+    t.index ["reinforcement_type_id"], name: "index_trailer_categories_on_reinforcement_type_id"
+    t.index ["roof_type_id"], name: "index_trailer_categories_on_roof_type_id"
+    t.index ["suspension_type_id"], name: "index_trailer_categories_on_suspension_type_id"
+    t.index ["trailer_height_id"], name: "index_trailer_categories_on_trailer_height_id"
+    t.index ["trailer_id"], name: "index_trailer_categories_on_trailer_id"
+    t.index ["trailer_length_id"], name: "index_trailer_categories_on_trailer_length_id"
+    t.index ["trailer_type_id"], name: "index_trailer_categories_on_trailer_type_id"
+    t.index ["trailer_width_id"], name: "index_trailer_categories_on_trailer_width_id"
+    t.index ["turn_type_id"], name: "index_trailer_categories_on_turn_type_id"
+  end
+
   create_table "trailer_heights", force: :cascade do |t|
     t.string "name"
     t.string "model_part"
@@ -666,6 +713,7 @@ ActiveRecord::Schema.define(version: 2021_03_09_031136) do
   add_foreign_key "items", "brands"
   add_foreign_key "items", "capacities"
   add_foreign_key "items", "categories"
+  add_foreign_key "items", "clients"
   add_foreign_key "items", "colors"
   add_foreign_key "items", "departments"
   add_foreign_key "items", "divition_types"
@@ -698,6 +746,26 @@ ActiveRecord::Schema.define(version: 2021_03_09_031136) do
   add_foreign_key "permission_roles", "roles"
   add_foreign_key "states", "countries"
   add_foreign_key "sub_categories", "categories"
+  add_foreign_key "trailer_categories", "brake_types"
+  add_foreign_key "trailer_categories", "brands"
+  add_foreign_key "trailer_categories", "capacities"
+  add_foreign_key "trailer_categories", "colors"
+  add_foreign_key "trailer_categories", "divition_types"
+  add_foreign_key "trailer_categories", "fender_types"
+  add_foreign_key "trailer_categories", "floor_types"
+  add_foreign_key "trailer_categories", "hydraulic_jacks"
+  add_foreign_key "trailer_categories", "pull_types"
+  add_foreign_key "trailer_categories", "ramp_types"
+  add_foreign_key "trailer_categories", "redila_types"
+  add_foreign_key "trailer_categories", "reinforcement_types"
+  add_foreign_key "trailer_categories", "roof_types"
+  add_foreign_key "trailer_categories", "suspension_types"
+  add_foreign_key "trailer_categories", "trailer_heights"
+  add_foreign_key "trailer_categories", "trailer_lengths"
+  add_foreign_key "trailer_categories", "trailer_types"
+  add_foreign_key "trailer_categories", "trailer_widths"
+  add_foreign_key "trailer_categories", "trailers"
+  add_foreign_key "trailer_categories", "turn_types"
   add_foreign_key "trailers", "brake_types"
   add_foreign_key "trailers", "brands"
   add_foreign_key "trailers", "capacities"
