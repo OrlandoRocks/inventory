@@ -5,7 +5,7 @@ class ItemsController < ApplicationController
 
 
   before_action :set_item, only: [:show, :edit, :update, :destroy, :create_maintenance, :create_file, :change_maintenance_done, :edit_order]
-  helper_method :sort_column, :sort_direction, :get_percentage_value, :sort_column_orders
+  helper_method :sort_column, :sort_direction, :get_percentage_value, :sort_column_orders, :get_price_to_pay
   # GET /items
   # GET /items.json
   def index
@@ -464,6 +464,11 @@ class ItemsController < ApplicationController
         render pdf: "Trailers Vendidos" # Excluding ".pdf" extension.
       end
     end
+  end
+
+  def get_price_to_pay item
+    total = item.sale_price - item.advance_payment
+    return Money.from_amount(total).format
   end
 
 

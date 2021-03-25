@@ -170,6 +170,16 @@
                 <b><%= t("items.form.price") %></b>
                 <p class="text-muted"><%= "#{ Money.from_amount(@item.price_total).format if @item.price_total.present?}" %></p>
               </li>
+              <% if @item.status_item.key == 'vendido_credito' %>
+                <li class="list-group-item">
+                  <b>Restante a pagar</b>
+                  <p class="text-muted"><%= "#{ get_price_to_pay @item}" %></p>
+                </li>
+                <li class="list-group-item">
+                  <b><%= t("items.form.advance_payment") %></b>
+                  <p class="text-muted"><%= "#{ Money.from_amount(@item.advance_payment).format if @item.advance_payment.present?}" %></p>
+                </li>
+              <% end %>
               <li class="list-group-item">
                 <b><i class="fa fa-percent margin-r-5"></i><%= t("items.form.percentage_planet") %></b>
                 <p class="text-muted"><%= "#{  Money.from_amount(@item.planet_percentage.nil? ? 0 : get_percentage_value(@item.planet_percentage, @item.sale_price - @item.price)).format}" %></p>
