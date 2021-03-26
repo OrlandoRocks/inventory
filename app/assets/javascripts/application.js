@@ -52,10 +52,13 @@
 //= require angular/controllers/user
 //= require angular/controllers/home
 //= require angular/controllers/item
+//= require angular/controllers/quotation
 //= require angular/controllers/branches
 //= require angular/controllers/departments
 //= require angular/controllers/client
 //= require angular/controllers/trailer
+//= require angular/controllers/brake_types
+//= require angular/controllers/trailer_type
 //= require departments
 //= require permissions
 //= require users

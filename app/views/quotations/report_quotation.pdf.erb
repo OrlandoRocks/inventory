@@ -1,0 +1,199 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset='utf-8'/>
+  <%= wicked_pdf_stylesheet_link_tag 'application', media: 'all' %>
+  <section class="content">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="row">
+          <div class="col-xs-4">
+            <%= image_tag wicked_pdf_asset_base64('logoblu.png'), alt: "Planet Agrotrailer", style: 'width: 200px; height: 100px' %>
+          </div>
+          <div class="col-xs-4" style="text-align: center">
+            <p style="font-size: 16px">
+              <strong>
+                Agrotrailer Planet
+              </strong>
+            </p>
+            <p style="font-size: 13px">
+              Km. 7 Carr. Cuauhtemoc-Alvaro Obregón S/N
+              <br>
+              Campo 22, CUAUHTEMOC
+              <br>
+              Cuauhtemoc, Chihuahua CP: 31607
+              <br>
+              GRN030226P48
+              <br>
+              Tel. (625) 58 77200
+              <br>
+              Fax. (625) 58 77203
+            </p>
+            <a href="#" target="_blank">
+              www.trailer.com.mx
+            </a>
+          </div>
+          <div class="col-xs-4">
+            <table class="table table-bordered table-hover dataTable">
+              <thead class="table_header">
+              <tr>
+                <th style="text-align: center; vertical-align: middle">Fecha</th>
+                <th style="text-align: center; vertical-align: middle">Folio</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr class="show_actions">
+                <td style="text-align: center; vertical-align: middle">
+                  <%= @today %>
+                </td>
+                <td style="text-align: center; vertical-align: middle">
+                  98765
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</head>
+<body>
+<section class="content">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box box-primary">
+        <div class="box-header with-border">
+          <div class="row">
+            <div class="col-xs-6 col-md-8 col-lg-9">
+              <h3>
+                Cotización
+              </h3>
+            </div>
+          </div>
+        </div>
+        <div class="box-body">
+          <div class="row">
+            <div class="col-sm-12">
+              <table class="table table-bordered table-hover dataTable">
+                <thead class="table_header">
+                <th style="text-align: center; vertical-align: middle" colspan="2">
+                  Cliente
+                </th>
+                </thead>
+                <tbody>
+                <tr class="show_actions">
+                  <td>
+                    Nombre: <%= @quotation.try(:client).try(:full_name) %>
+                  </td>
+                  <td>
+                    Email: <%= @quotation.try(:client).try(:email) %>
+                  </td>
+                </tr>
+                <tr class="show_actions">
+                  <td>
+                    Dirección: <%= @quotation.try(:client).try(:address) %>
+                  </td>
+                  <td>
+                    Celular: <%= @quotation.try(:client).try(:cellphone) %>
+                  </td>
+                </tr>
+                <tr class="show_actions">
+                  <td rowspan="2">
+                    C.P: <%= @quotation.try(:client).try(:postal_code) %>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="box-body">
+          <div class="row">
+            <div class="col-sm-12">
+              <table class="table table-bordered table-hover dataTable">
+                <thead class="table_header">
+                <th style="text-align: center; vertical-align: middle">
+                  Vendedor
+                </th>
+                <th style="text-align: center; vertical-align: middle">
+                  Sucursal
+                </th>
+                <th style="text-align: center; vertical-align: middle">
+                  Punto de venta
+                </th>
+                <th style="text-align: center; vertical-align: middle">
+                  Catálogo
+                </th>
+                </thead>
+                <tbody>
+                <tr class="show_actions">
+                  <td style="text-align: center; vertical-align: middle">
+                    <%= @quotation.try(:user).try(:full_name) %>
+                  </td>
+                  <td style="text-align: center; vertical-align: middle">
+                    <%= @quotation.try(:branch).try(:name) %>
+                  </td>
+                  <td style="text-align: center; vertical-align: middle">
+                    <%= @quotation.try(:department).try(:name) %>
+                  </td>
+                  <td style="text-align: center; vertical-align: middle">
+                    <%= Trailer.find(@quotation.try(:catalog)).present? ? Trailer.find(@quotation.try(:catalog)).model : '' %>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="box-body">
+          <div class="row">
+            <div class="col-sm-12">
+              <table class="table table-bordered table-hover dataTable">
+                <thead class="table_header">
+                <th style="text-align: center; vertical-align: middle">
+                  Descripción del Modelo (Categorias)
+                </th>
+                </thead>
+                <tbody>
+                <tr class="show_actions">
+                  <td style="text-align: center; vertical-align: middle">
+                    <%= @quotation.try(:categories_description) %>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="box-body">
+          <div class="row">
+            <div class="col-sm-12">
+              <table class="table table-bordered table-hover dataTable">
+                <thead class="table_header">
+                </thead>
+                <tbody>
+                <tr class="show_actions">
+                  <td>
+                    (<%= @number_string.capitalize() %> pesos 00/100 m.n.)
+                  </td>
+                  <td>
+                    Precio:
+                  </td>
+                  <td>
+                    <%= number_to_currency(@quotation.try(:price)) %>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>
+

@@ -1,6 +1,6 @@
 p.flash-notice
   = params[:notice]
-section.content ng-controller="categoriesController"
+section.content
   .row
     .col-xs-12
       .box.box-primary
@@ -36,10 +36,6 @@ section.content ng-controller="categoriesController"
                       tbody
                         - @trailer_types.each do |trailer_type|
                           tr.show_actions
-                            /td.table-checkbox
-                              .checkbox.icheck
-                                input [type="checkbox" class="icheck-me" data-skin="square" data-color="blue"]
-                            / td = trailer_type.try(:company).try(:name)
                             td = trailer_type.name
                             td = trailer_type.model_part
                             - if trailer_type.image.attached?

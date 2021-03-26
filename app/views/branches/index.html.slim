@@ -55,7 +55,7 @@ section.content ng-controller="branchesController"
                                 td = branch.state.name if branch.state.present?
                                 td = branch.city.name if branch.city.present?
                                 td = branch.manager.present?? branch.manager.try(:full_name) : 'SIN ASIGNAR'
-                                td = branch.fleet_cost
+                                td = "#{branch.fleet_cost}%"
                                 td
                                   .actions
                                     - if has_policy(Branch, %w(show))

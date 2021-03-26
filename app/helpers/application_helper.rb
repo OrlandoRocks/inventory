@@ -115,6 +115,13 @@ module ApplicationHelper
     link_to title, {:sort => column, :direction => direction}, {:class => 'link-to-text-color'}
   end
 
+  def sortable_quotation(column, title = nil)
+    title ||= column.titleize
+    # css_class = sort_column_quotation ? "#{sort_direction}" : "current"
+    direction = column == sort_column_quotation && sort_direction == "asc" ? "desc" : "asc"
+    link_to title, {:sort => column, :direction => direction}, {:class => 'link-to-text-color'}
+  end
+
   def sortable_orders(column, title = nil)
     title ||= column.titleize
     css_class = sort_column_orders ? "#{sort_direction}" : "current"

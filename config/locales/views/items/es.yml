@@ -46,7 +46,54 @@ es:
         Client: Cliente
         select:
           prompt: Seleccionar una opción
+      form_quotation:
+        accessory: Accesorios
+        Usuario: Vendedor
+        Client: Cliente
+        select:
+          prompt: Seleccionar una opción
       orders:
+        title: Artículos
+        resource: el artículo
+        code: Folio
+        name: Nombre del trailer
+        description: Descripción
+        model: Modelo
+        serial_number: Numero de Serie
+        acquisition_date: Fecha de Adquisición
+        purchased_date: Fecha de Compra
+        in_service_date: Fecha de entrega
+        time_unit_service: Unidad
+        time_quantity_service: Mantenimiento cada
+        price: Valor de Adquisición
+        time_unit_depreciation: Unidad de tiempo
+        time_quantity_depreciation: Depreciación cada
+        sub_category: Sub Categoría
+        provider: Proveedor
+        branch: Sucursal
+        department: Punto de Venta
+        user: Usuario
+        brand: Marca
+        status_item: Estatus del Artículo
+        one: Artículo
+        other: Articulos
+        permissions: Permisos
+        new_item: Nuevo Artículo
+        next_maintenances: Siguientes mantenimientos
+        f_trailer: Filtro por Trailer
+        trailers: Trailers
+        f_model: Filtro por Modelo
+        models: Modelo
+        f_remissions: Filtro por Rremisión
+        remissions: Remission
+        f_category: Filtro por Categoría
+        category: Categoría
+        f_sub_category: Filtro por Sub Categoría
+        f_orden: Ordenar por
+        search: Buscar...
+        advance_payment: Abono
+        client: Cliente
+      quotations:
         title: Artículos
         resource: el artículo
         code: Folio
@@ -355,6 +402,36 @@ es:
         clients: Clientes
         select:
           prompt: Seleccione una opción
+      new_quotation:
+        title: Articulos
+        resource: el artículo
+        name: Nombre
+        code: Folio
+        branch: Sucursal
+        description: Descripción
+        accessory: Accesorios
+        remission: Remisión
+        model: Modelo
+        serial_number: Numero de Serie
+        acquisition_date: Fecha de Adquisición
+        purchased_date: Fecha de Compra
+        in_service_date: Fecha de Uso
+        time_unit_service: Unidad de tiempo
+        time_quantity_service: Mantenimiento cada
+        price: Valor de Adquisición
+        time_unit_depreciation: Unidad de tiempo
+        time_quantity_depreciation: Depreciación cada
+        category: Categoría
+        sub_category: Sub Categoría
+        provider: Proveedor
+        department: Punto de Venta
+        user_id: Vendedor
+        trailer_id: Nombre del remolque
+        brand: Marca
+        status_item: Estatus del Artículo
+        clients: Clientes
+        select:
+          prompt: Seleccione una opción
 
       new:
         title: Nuevo Artículo
@@ -452,3 +529,75 @@ es:
         other: Otro
   breadcrumbs:
     items: Articulos
+  quotations:
+    index:
+      title: Artículos
+      resource: el artículo
+      code: Folio
+      name: Nombre del artículo
+      description: Descripción
+      model: Modelo
+      serial_number: Numero de Serie
+      acquisition_date: Fecha de Adquisición
+      purchased_date: Fecha de Compra
+      in_service_date: Fecha de entrega
+      time_unit_service: Unidad
+      time_quantity_service: Mantenimiento cada
+      price: Valor de Cotización
+      time_unit_depreciation: Unidad de tiempo
+      time_quantity_depreciation: Depreciación cada
+      sub_category: Sub Categoría
+      provider: Proveedor
+      branch: Sucursal
+      department: Punto de Venta
+      user: Usuario
+      brand: Marca
+      status_item: Estatus del Artículo
+      one: Artículo
+      other: Articulos
+      permissions: Permisos
+      new_item: Nuevo Artículo
+      next_maintenances: Siguientes
+      f_trailer: Filtro por Trailer
+      trailers: Trailers
+      f_model: Filtro por Modelo
+      models: Modelo
+      f_cliente: Filtro por cliente
+      clients: Clientes
+      f_departments: Filtro por Puntos de Ventas
+      departments: Puntos de Ventas
+      f_remissions: Filtro por Rremisión
+      remissions: Remission
+      f_category: Filtro por Categoría
+      category: Categoría
+      f_sub_category: Filtro por Sub Categoría
+      f_orden: Ordenar por
+      search: Buscar...
+      sale_price: Precio de venta
+      client: Cliente
+    form:
+      accessory: Accesorios
+      Usuario: Vendedor
+      Client: Cliente
+      branch: Sucursal
+      department: Departamento
+      catalog: Catalogo
+      trailer: Trailer
+      brake_type: Freno
+      trailer_width: Ancho
+      trailer_length: Largo
+      floor_type: Piso
+      ramp_type: Rampa
+      capacity: Capacidad
+      pull_type: Jalon
+      redila_type: Redila
+      roof_type: Techo
+      turn_type: Volteo
+      color: Color
+      divition_type: División
+      fender_type: Fender
+      hydraulic_jack: Gato hidraulico
+      brand: Marca
+      suspension_type: Suspensión
+      select:
+        prompt: Seleccionar una opción

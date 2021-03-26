@@ -62,7 +62,7 @@
         = f.label "Costo de Flete" , class: 'col-sm-2 control-label'
         .col-sm-10
           .input-group
-            = f.number_field :fleet_cost, class: 'form-control text_field', step: 5.0, min:0.0
+            = f.number_field :fleet_cost, class: 'form-control text_field', step: 5.0, min:0.0, max:100
             span.input-group-addon %
   .box-footer
     = f.button "<i class='fa fa-floppy-o'></i> #{t('helpers.submit.submit', model: t('.resource'))}".html_safe,

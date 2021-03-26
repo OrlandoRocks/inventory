@@ -61,6 +61,16 @@ class TrailerTypesController < ApplicationController
     end
   end
 
+  def destroy_category
+
+    @trailer_category = TrailerCategory.find(params[:category_id])
+    @trailer_category.destroy
+    respond_to do |format|
+      format.html { redirect_to edit_trailer_type_path(params[:trailer_type_id]), notice: 'La Categoria del Trailer se ha eliminado.' }
+      format.json { head :no_content }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_trailer_type
@@ -69,6 +79,8 @@ class TrailerTypesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def trailer_type_params
-      params.require(:trailer_type).permit(:name, :image, :model_part, :status)
+      params.require(:trailer_type).permit(:name, :image, :model_part, :status, trailer_category_attributes: [:id,:trailer_id,:trailer_length_id, :trailer_height_id, :ramp_type_id, :redila_type_id, :trailer_type_id, :floor_type_id, :capacity_id, :trailer_width_id,
+                                                                                                              :color_id, :hydraulic_jack_id, :pull_type_id, :brake_type_id, :reinforcement_type_id, :fender_type_id, :turn_type_id, :divition_type_id, :suspension_type_id,
+                                                                                                              :roof_type_id, :brand_id, :key])
     end
 end

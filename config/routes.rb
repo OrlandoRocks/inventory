@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :quotations
   resources :hydraulic_jacks
   resources :pull_types
   resources :brake_types
@@ -40,6 +41,9 @@ Rails.application.routes.draw do
   get '/user_employee_nomber/:employee_nomber', to: 'application#user_employee_nomber'
 
   delete 'departments/:department_id/employee/:id', to: 'departments#destroy_employee', as: :destroy_department_employee
+  delete '/destroy_category/:category_id/:trailer_type_id', to: 'trailer_types#destroy_category'
+
+
 
   mount ActionCable.server, at: '/cable'
 
@@ -211,6 +215,10 @@ Rails.application.routes.draw do
       get 'report/sales/:trailers' => 'items#new_report_sales' #, :defaults => {:format => 'pdf'}
       get 'report/item_sale/:id' => 'items#report_item_sale' #, :defaults => {:format => 'pdf'}
 
+
+      #add Files to Quotation  from angular
+      get 'report/quotation/:id' => 'quotations#report_quotation' #, :defaults => {:format => 'pdf'}
+
       get 'items_import' => 'items#items_imports'
       resources :items do
         collection { post :import }
@@ -232,6 +240,8 @@ Rails.application.routes.draw do
       #Rutas extras para Departamentos
       get '/departments/:id/items/:employee_id' => 'departments#employee_items', as: :departments_employee_items
       get 'departments_by_branch/:id' => 'departments#get_departments_by_branch'
+      get 'all_departments_by_branch/:id' => 'departments#get_all_departments_by_branch'
+
 
       #Rutas extras para subcategorias
       get 'subcategory_by_category/:id' => 'sub_categories#get_subcategory_by_category'
@@ -241,6 +251,11 @@ Rails.application.routes.draw do
       get 'orders_shipped' => 'items#orders_shipped'
       get 'new_order' => 'items#new_order', as: :new_order
       get 'edit_order/:id' => 'items#edit_order', as: :edit_order
+
+      #Ruta para cotizaciones
+      # get 'quotations' => 'items#quotations'
+      # get 'new_quotation' => 'items#new_quotation', as: :new_quotation
+      # get 'edit_quotation/:id' => 'items#edit_quotation', as: :edit_quotation
 
       #Ruta para ventas
       get 'sales' => 'items#sales'

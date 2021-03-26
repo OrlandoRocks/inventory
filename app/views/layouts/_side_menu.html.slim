@@ -48,6 +48,17 @@ aside.main-sidebar
                 = link_item "<i class='fa fa-dollar-sign'></i> Ventas".html_safe, sales_path
               li
                 = link_item "<i class='fa fa-dollar-sign'></i> Estado de Resultados".html_safe, income_statement_path
+          - if has_policy(Quotation, %w(index))
+            li.treeview
+              a href='#'
+                i.fa.fa-file-invoice-dollar
+                span Cotizaciones
+                i.fa.fa-angle-left.pull-right
+              ul.treeview-menu
+                li
+                  = link_item "<i class='fa fa-file-invoice-dollar'></i> Cotizaciones".html_safe, quotations_path
+                li
+                  = link_item "<i class='fa fa-file-invoice-dollar'></i> Nueva cotizacion".html_safe, new_quotation_path
 
       - if has_policy_employee || has_policy_branch
         li.header MENU
@@ -79,6 +90,19 @@ aside.main-sidebar
                 = link_item "<i class='fa fa-dollar-sign'></i> Ventas".html_safe, sales_path
               li
                 = link_item "<i class='fas fa-dollar-sign'></i> Estado de Resultados".html_safe, income_statement_path
+
+        - if has_policy(Quotation, %w(index))
+          li.treeview
+            a href='#'
+              i.fa.fa-file-invoice-dollar
+              span Cotizaciones
+              i.fa.fa-angle-left.pull-right
+            ul.treeview-menu
+              li
+                = link_item "<i class='fa fa-file-invoice-dollar'></i> Cotizaciones".html_safe, quotations_path
+              li
+                = link_item "<i class='fa fa-file-invoice-dollar'></i> Nueva cotización".html_safe, new_quotation_path
+
           / li.treeview
             a href='#'
               i.fa.fa-dollar-sign

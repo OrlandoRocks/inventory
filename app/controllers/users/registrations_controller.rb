@@ -26,8 +26,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @role_admin = Role.find_by_key("admin").id
     @role_accessless = Role.find_by_key("empleado_sin_acceso").id
 
-
-
     if @user.role_id.eql? @role_accessless
       #@user_department = Department.where(id:@user.department_id)
       #@user_branch = Branch.where(id: @user_department.try(:first).try(:branch_id))

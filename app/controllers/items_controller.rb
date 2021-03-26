@@ -5,7 +5,7 @@ class ItemsController < ApplicationController
 
 
   before_action :set_item, only: [:show, :edit, :update, :destroy, :create_maintenance, :create_file, :change_maintenance_done, :edit_order]
-  helper_method :sort_column, :sort_direction, :get_percentage_value, :sort_column_orders
+  helper_method :sort_column, :sort_direction, :get_percentage_value, :sort_column_orders, :get_price_to_pay
   # GET /items
   # GET /items.json
   def index
@@ -43,6 +43,24 @@ class ItemsController < ApplicationController
       @search_items = Item.joins(:branch).where('branches.manager_id = ? AND items.status_item_id = ?', current_user.id, StatusItem.find_by_key('pendiente')).includes(:user).includes(:client).includes(:user => :department).includes(:user => :branches).ransack(params[:q])
     elsif current_user.user_employee?
       @search_items = Item.where(user_id: current_user.id, status_item_id: StatusItem.find_by_key('pendiente').id).includes(:user).includes(:client).includes(:user => :department).includes(:user => :branches).ransack(params[:q])
+    end
+
+
+    @items = @search_items.result.order(sort_column + " " + sort_direction).paginate(page: params[:page], per_page: 20)
+
+    @all_models = policy_scope(TrailerType).pluck(:model_part)
+
+    @all_remissions = policy_scope(Item).pluck(:remission)
+
+  end
+
+  def quotations
+    if current_user.god? or current_user.admin?
+      @search_items = Item.where(status_item_id: StatusItem.find_by_key('cotizado').id).includes(:user).includes(:client).includes(:user => :department).includes(:user => :branches).ransack(params[:q])
+    elsif current_user.admin_branch?
+      @search_items = Item.joins(:branch).where('branches.manager_id = ? AND items.status_item_id = ?', current_user.id, StatusItem.find_by_key('cotizado')).includes(:user).includes(:client).includes(:user => :department).includes(:user => :branches).ransack(params[:q])
+    elsif current_user.user_employee?
+      @search_items = Item.where(user_id: current_user.id, status_item_id: StatusItem.find_by_key('cotizado').id).includes(:user).includes(:client).includes(:user => :department).includes(:user => :branches).ransack(params[:q])
     end
 
 
@@ -152,6 +170,15 @@ class ItemsController < ApplicationController
     @item = Item.new
     @users = User.all
     @trailers = Trailer.all
+    @branches = Branch.all #current_user.current_company.eql?(0) ? policy_scope(Branch).order(:name) : policy_scope(Branch).where(company_id: @current_company.try(:id)).order(:name)
+    @categories = Category.all
+
+  end
+
+  def new_quotation
+    @item = Item.new
+    @users = User.all
+    @trailers = Trailer.all
 
   end
 
@@ -162,6 +189,8 @@ class ItemsController < ApplicationController
     audits = @item.audits + @item.associated_audits
     @audits = audits.sort_by { |a| a.created_at }
 
+    @branches = Branch.all #current_user.current_company.eql?(0) ? policy_scope(Branch).order(:name) : policy_scope(Branch).where(company_id: @current_company.try(:id)).order(:name)
+    @categories = Category.all
   end
 
   # GET /items/new
@@ -436,6 +465,11 @@ class ItemsController < ApplicationController
         render pdf: "Trailers Vendidos" # Excluding ".pdf" extension.
       end
     end
+  end
+
+  def get_price_to_pay item
+    total = item.sale_price - item.advance_payment
+    return Money.from_amount(total).format
   end
 
 
