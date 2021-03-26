@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset='utf-8'/>
+  <%= wicked_pdf_stylesheet_link_tag 'application', media: 'all' %>
+
+  <section class="content">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="row">
+          <div class="col-xs-4" style="text-align: center">
+            <p style="font-size: 16px">
+              <strong>
+                Serial No. <%= @item.serial_number %>
+                Modelo <%= @item.model %>
+              </strong>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="qr">
+        <%= @svg.html_safe %>
+      </div>
+    </div>
+  </section>
+</head>
+</html>
+

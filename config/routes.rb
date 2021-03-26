@@ -207,6 +207,7 @@ Rails.application.routes.draw do
       post '/item_file/:id' => 'items#create_file'
       post '/item_maintenance/:id' => 'items#create_maintenance'
       get '/items_excel' => 'items#items_excel'
+      get '/item_qr/:id' => 'items#item_qr'
       get 'report/sales/:trailers' => 'items#new_report_sales' #, :defaults => {:format => 'pdf'}
       get 'report/item_sale/:id' => 'items#report_item_sale' #, :defaults => {:format => 'pdf'}
 
