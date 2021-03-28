@@ -13,7 +13,7 @@ div ng-controller="itemController"
           = f.label :branch_id, class: 'col-sm-2 control-label'
           .col-md-10
             / TODO: Hacer un helper
-            select.form-control ng-change="get_all_department()" ng-model="branch.id" ng-options=("branch.id as branch.name for branch in branches") required="true"
+            select.form-control ng-change="get_alxl_department()" ng-model="branch.id" ng-options=("branch.id as branch.name for branch in branches") required="true"
               option disabled="" selected="" value=""  Sucursales...
             = f.hidden_field :branch_id, value: '{{branch.id}}'
         .row.form-group
@@ -26,11 +26,11 @@ div ng-controller="itemController"
           = f.label :model, class: 'col-sm-2 control-label'
           .col-md-10
             = f.text_field :model, class: 'form-control', placeholder: t('.model'), readonly: true, 'ng-model' => 'model_name'
-        / .row.form-group
-        /   = label_tag 'catalogo', 'Catalogo', class: 'col-sm-2 control-label'
-        /   .col-md-10
-        /     select.form-control ng-change="set_model(model); " ng-model="model" ng-options=("model as model.model for model in models")
-        /       option  selected="" value=""  Modelos...
+        .row.form-group
+          = label_tag 'catalogo', 'Catalogo', class: 'col-sm-2 control-label'
+          .col-md-10
+            select.form-control ng-change="get_trailer(model.trailer_type.id);set_model(model); " ng-model="model" ng-options=("model as model.model for model in models")
+              option  selected="" value=""  Modelos...
 
         .row.form-group
           = f.label :trailer_id, class: 'col-sm-2 control-label'
@@ -46,6 +46,7 @@ div ng-controller="itemController"
 
         .row.form-group
           = f.label 'Ancho', class: 'col-sm-2 control-label', 'ng-hide'=>'widths.length==0', 'ng-cloak'=> 'true'
+          | {{width}}
           .col-md-4 ng-hide='widths.length==0' ng-cloak="true"
             select.form-control ng-change="generate_model()" ng-model="width" ng-options=("width.id as width.name for width in widths")
               option  selected="" value=""  No Aplica

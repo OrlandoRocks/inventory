@@ -28,7 +28,7 @@ gem 'redis', '~> 3.0'
 
 gem 'money'
 
-
+gem 'rqrcode'
 # Use jquery as the JavaScript library.
 gem 'jquery-rails', '~> 4.3'
 
@@ -162,6 +162,7 @@ gem 'bootstrap-daterangepicker-rails', '~> 0.1.5'
 gem 'caxlsx'
 gem 'caxlsx_rails'
 
+
 # Double entry accounting system
 gem "plutus", "~> 0.13.0"
 
@@ -169,6 +170,7 @@ gem 'active_model_serializers', '~> 0.10.0'
 
 
 gem 'fcm'
+
 
 
 #Gema que nos sirve para eliminar acentos.
