@@ -162,6 +162,7 @@ gem 'bootstrap-daterangepicker-rails', '~> 0.1.5'
 gem 'caxlsx'
 gem 'caxlsx_rails'
 
+
 # Double entry accounting system
 gem "plutus", "~> 0.13.0"
 
