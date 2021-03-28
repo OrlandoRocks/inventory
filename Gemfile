@@ -28,7 +28,7 @@ gem 'redis', '~> 3.0'
 
 gem 'money'
 
-
+gem 'rqrcode'
 # Use jquery as the JavaScript library.
 gem 'jquery-rails', '~> 4.3'
 
