@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  #require 'rqrcode'
+  require 'rqrcode'
   include ActionView::Helpers::NumberHelper
   include ActionView::Helpers::NumberToLetters
 
@@ -447,25 +447,25 @@ class ItemsController < ApplicationController
     return final_percentage
   end
 
-  #def item_qr
-  #  @item = Item.find(params[:id])
-  #  #@item = Item.find(1)
-  #  data = "{'id': '#{@item.id}', 'status_shipping': '#{@item.status_shipping_id}'}"
-  #  qrcode = RQRCode::QRCode.new(data, :size => 5, :level => :h)
-  #  @svg = qrcode.as_svg(
-  #      offset: 0,
-  #      color: '000',
-  #      shape_rendering: 'crispEdges',
-  #      module_size: 6,
-  #      standalone: true
-  #  )
-  #  respond_to do |format|
-  #    format.html
-  #    format.pdf do
-  #      render pdf: "Trailers Vendidos" # Excluding ".pdf" extension.
-  #    end
-  #  end
-  #end
+  def item_qr
+    @item = Item.find(params[:id])
+    #@item = Item.find(1)
+    data = "{'id': '#{@item.id}', 'status_shipping': '#{@item.status_shipping_id}'}"
+    qrcode = RQRCode::QRCode.new(data, :size => 10, :level => :h)
+    @svg = qrcode.as_svg(
+        offset: 0,
+        color: '000',
+        shape_rendering: 'crispEdges',
+        module_size: 6,
+        standalone: true
+    )
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "Trailers Vendidos" # Excluding ".pdf" extension.
+      end
+    end
+  end
 
   def get_price_to_pay item
     total = item.sale_price - item.advance_payment
