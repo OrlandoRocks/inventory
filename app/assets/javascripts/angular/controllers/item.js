@@ -110,7 +110,6 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
                 $scope.item = response.data;
 
 
-                console.log($scope.item);
 
                 $scope.get_trailer($scope.item.trailer_type.id);
                 $scope.branch = $scope.item.branch;
@@ -140,6 +139,7 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
 
 
     $scope.generate_model = function () {
+
 
         $scope.model_name = '';
         $scope.modelhs = '';
@@ -195,10 +195,6 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
     $scope.set_model = function (model) {
         $scope.model = model;
 
-        $scope.model_name = '';
-        $scope.modelhs = '';
-        $scope.category_description = '';
-
 
 
         $scope.length = '';
@@ -223,104 +219,67 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
 
 
 
+
+
+
         if (model.trailer_type) {
             $scope.trailer = model.trailer_type.id;
-            if ($scope.trailer && $scope.trailers.length !== 0) $scope.modelhs += $scope.trailers.find(elem => elem.id === $scope.trailer).model_part;
-            if ($scope.trailer && $scope.trailers.length !== 0) $scope.category_description += `TRAILER: ${$scope.trailers.find(elem => elem.id === $scope.trailer).name}. `;
 
-            // $scope.get_trailer($scope.trailer);
-            // $scope.category_description += `TRAILER:  ${model.trailer_type.name}. `;
         }
         if (model.trailer_length) {
             $scope.length = model.trailer_length.id;
-            if ($scope.trailer && $scope.trailers.length !== 0) $scope.modelhs += $scope.trailers.find(elem => elem.id === $scope.trailer).model_part;
-            if ($scope.trailer && $scope.trailers.length !== 0) $scope.category_description += `TRAILER: ${$scope.trailers.find(elem => elem.id === $scope.trailer).name}. `;
+
 
             // $scope.category_description += `LARGO:  ${model.trailer_length.name}. `;
         }
         if (model.trailer_width) {
 
-            $scope.width = model.trailer_width.id;
-            if ($scope.width && $scope.widths.length !== 0) $scope.modelhs += $scope.widths.find(elem => elem.id === $scope.width).model_part;
-            if ($scope.width && $scope.widths.length !== 0) $scope.category_description += `ANCHO: ${$scope.widths.find(elem => elem.id === $scope.width).name}. `;
 
+            $scope.width = model.trailer_width.id;
             // $scope.category_description += `ANCHO:  ${model.trailer_width.name}. `;
         }
         if (model.floor_type) {
             $scope.floor = model.floor_type.id;
-            if ($scope.floor && $scope.floors.length !== 0) $scope.modelhs += $scope.floors.find(elem => elem.id === $scope.floor).model_part;
-            if ($scope.floor && $scope.floors.length !== 0) $scope.category_description += `PISO: ${$scope.floors.find(elem => elem.id === $scope.floor).name}. `;
-
             // $scope.category_description += `PISO:  ${model.floor_type.name}. `;
         }
         if (model.ramp_type) {
             $scope.ramp = model.ramp_type.id;
-            if ($scope.ramp && $scope.ramps.length !== 0) $scope.modelhs += $scope.ramps.find(elem => elem.id === $scope.ramp).model_part;
-            if ($scope.ramp && $scope.ramps.length !== 0) $scope.category_description += `RAMPA: ${$scope.ramps.find(elem => elem.id === $scope.ramp).name}. `;
-
             // $scope.category_description += `RAMPA:  ${model.ramp_type.name}. `;
         }
         if (model.capacity) {
             $scope.capacity = model.capacity.id;
-            if ($scope.capacity && $scope.capacities.length !== 0) $scope.modelhs += $scope.capacities.find(elem => elem.id === $scope.capacity).model_part;
-            if ($scope.capacity && $scope.capacities.length !== 0) $scope.category_description += `CAPACIDAD: ${$scope.capacities.find(elem => elem.id === $scope.capacity).name}. `;
-
             // $scope.category_description += `CAPACIDAD:  ${model.capacity.name}. `;
         }
         if (model.redila_type) {
             $scope.redila = model.redila_type.id;
-            if ($scope.redila && $scope.redilas.length !== 0) $scope.modelhs += $scope.redilas.find(elem => elem.id === $scope.redila).model_part;
-            if ($scope.redila && $scope.redilas.length !== 0) $scope.category_description += `REDILA: ${$scope.redilas.find(elem => elem.id === $scope.redila).name}. `;
-
             // $scope.category_description += `REDILA:  ${model.redila_type.name}. `;
         }
         if (model.brake_type) {
             $scope.brake = model.brake_type.id;
-            if ($scope.brake && $scope.brakes.length !== 0) $scope.modelhs += $scope.brakes.find(elem => elem.id === $scope.brake).model_part;
-            if ($scope.brake && $scope.brakes.length !== 0) $scope.category_description += `FRENO: ${$scope.brakes.find(elem => elem.id === $scope.brake).name}. `;
-
             // $scope.category_description += `FRENO:  ${model.brake_type.name}. `;
         }
         if (model.color) {
             $scope.color = model.color.id;
-            if ($scope.color && $scope.colors.length !== 0) $scope.modelhs += $scope.colors.find(elem => elem.id === $scope.color).model_part;
-            if ($scope.color && $scope.colors.length !== 0) $scope.category_description += `COLOR: ${$scope.colors.find(elem => elem.id === $scope.color).name}. `;
-
             // $scope.category_description += `COLOR:  ${model.color.name}. `;
         }
         if (model.divition_type) {
             $scope.divition = model.divition_type.id;
-            if ($scope.divition && $scope.divitions.length !== 0) $scope.modelhs += $scope.divitions.find(elem => elem.id === $scope.divition).model_part;
-            if ($scope.divition && $scope.divitions.length !== 0) $scope.category_description += `DIVISION: ${$scope.divitions.find(elem => elem.id === $scope.divition).name}. `;
-
             // $scope.category_description += `DIVISION:  ${model.divition_type.name}. `;
         }
         if (model.fender_type) {
             $scope.fender = model.fender_type.id;
-            if ($scope.fender && $scope.fenders.length !== 0) $scope.modelhs += $scope.fenders.find(elem => elem.id === $scope.fender).model_part;
-            if ($scope.fender && $scope.fenders.length !== 0) $scope.category_description += `FENDER: ${$scope.fenders.find(elem => elem.id === $scope.fender).name}. `;
-
             // $scope.category_description += `FENDER:  ${model.fender_type.name}. `;
         }
         if (model.pull_type) {
             $scope.pull = model.pull_type.id;
-            if ($scope.pull && $scope.pulls.length !== 0) $scope.modelhs += $scope.pulls.find(elem => elem.id === $scope.pull).model_part;
-            if ($scope.pull && $scope.pulls.length !== 0) $scope.category_description += `JALON: ${$scope.pulls.find(elem => elem.id === $scope.pull).name}. `;
-
             // $scope.category_description += `JALON:  ${model.pull_type.name}. `;
         }
         if (model.hydraulic_jack) {
             $scope.hydraulic_jack = model.hydraulic_jack.id;
-            if ($scope.hydraulic_jack && $scope.hydraulic_jacks.length !== 0) $scope.modelhs += $scope.hydraulic_jacks.find(elem => elem.id === $scope.hydraulic_jack).model_part;
-            if ($scope.hydraulic_jack && $scope.hydraulic_jacks.length !== 0) $scope.category_description += `GATO HIDRAULICO: ${$scope.hydraulic_jacks.find(elem => elem.id === $scope.hydraulic_jack).name}. `;
-
             // $scope.category_description += `GATO HIDRAULICO:  ${model.hydraulic_jack.name}. `;
         }
         if (model.brand) {
             $scope.brand = model.brand.id;
-            if ($scope.brand && $scope.brands.length !== 0) $scope.modelhs += $scope.brands.find(elem => elem.id === $scope.brand).model_part;
-            if ($scope.brand && $scope.brands.length !== 0) $scope.modelhs += $scope.brands.find(elem => elem.id === $scope.brand).model_part;
-
             // $scope.category_description += `REFUERZO:  ${model.reinforcement_type.name}. `;
         }
         // if (model.reinforcement_type)   {
@@ -329,31 +288,28 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
         // }
         if (model.roof_type) {
             $scope.roof = model.roof_type.id;
-            if ($scope.roof && $scope.roofs.length !== 0) $scope.modelhs += $scope.roofs.find(elem => elem.id === $scope.roof).model_part;
-            if ($scope.roof && $scope.roofs.length !== 0) $scope.category_description += `TECHO: ${$scope.roofs.find(elem => elem.id === $scope.roof).name}. `;
-
             // $scope.category_description += `TECHO:  ${model.roof_type.name}. `;
         }
         if (model.suspension_type) {
             $scope.suspension = model.suspension_type.id;
-            if ($scope.suspension && $scope.suspensions.length !== 0) $scope.modelhs += $scope.suspensions.find(elem => elem.id === $scope.suspension).model_part;
-            if ($scope.suspension && $scope.suspensions.length !== 0) $scope.category_description += `SUSPENSION: ${$scope.suspensions.find(elem => elem.id === $scope.suspension).name}. `;
-
             // $scope.category_description += `SUSPENSION:  ${model.suspension_type.name}. `;
         }
         if (model.turn_type) {
             $scope.turn = model.turn_type.id;
-            if ($scope.turn && $scope.turns.length !== 0) $scope.modelhs += $scope.turns.find(elem => elem.id === $scope.turn).model_part;
-            if ($scope.turn && $scope.turns.length !== 0) $scope.category_description += `VOLTEO: ${$scope.turns.find(elem => elem.id === $scope.turn).name}. `;
-
             // $scope.category_description += `VOLTEO:  ${model.turn_type.name}. `;
         }
 
 
-        $scope.model_name = $scope.modelhs;
 
 
-        // $scope.generate_model();
+
+        setTimeout(function (){
+            $scope.generate_model();
+            $scope.$apply();
+        },100);
+
+
+
 
 
     };
@@ -392,9 +348,8 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
 
 
 
-                if ($scope.get_trailer($scope.trailer)){
-                    $scope.set_model($scope.item);
-                };
+                $scope.get_trailer($scope.trailer);
+
                 $scope.branch = $scope.item.branch;
                 if ($scope.branch !== null) {
                     $scope.get_all_department($scope.trailer);
@@ -411,7 +366,6 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
 
                 $scope.get_fiscal_vouchers();
                 $scope.get_clients();
-                console.log($scope.branch);
                 $scope.item.price =parseFloat($scope.item.price);
                 $scope.fleet = $scope.item.price * ( 1 + ( $scope.branch.fleet_cost) /100 );
             }
@@ -453,9 +407,7 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
 
 
 
-                if ($scope.get_trailer($scope.trailer)){
-                    $scope.set_model($scope.item);
-                };
+                $scope.get_trailer($scope.trailer);
 
             }
         }, function errorCallback(response) {
@@ -787,10 +739,13 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
                 $scope.trailer_obj = response.data;
 
 
+                $scope.trailer=$scope.trailer_obj.id;
+
+
+
                 var fill_selects = new Promise((resolve, reject) => {
                     angular.forEach($scope.trailer_obj.trailer_categories, function(cat, catkey) {
 
-                        console.log(cat.key);
                         switch (cat['key']) {
                             case 'trailer_length_id':
                                 var length = $scope.lengths_all.find(x => x.id === cat[cat.key]);
@@ -861,6 +816,7 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
                         }
 
 
+
                         if (catkey === $scope.trailer_obj.trailer_categories.length -1) resolve();
 
 
@@ -868,8 +824,13 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
                     });
                 });
                 fill_selects.then(() => {
-                    console.log('se termino!');
-                    $scope.generate_model();
+                    if(!$scope.model){
+                        $scope.set_model($scope.item);
+                    }else{
+                        $scope.set_model($scope.model);
+                    }
+
+                    // $scope.generate_model();
                 });
 
             }
@@ -886,7 +847,6 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
             }).then(function (response) {
                 if (response.data != null) {
                     $scope.model = response.data;
-                    $scope.set_model($scope.model);
                 }
 
             });
