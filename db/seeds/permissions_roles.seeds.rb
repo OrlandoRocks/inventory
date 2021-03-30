@@ -92,4 +92,3 @@ PermissionRole.create!([
   {role_id: 4, permission_id: 99}
  ])
 # end
-s

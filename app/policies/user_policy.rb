@@ -1,10 +1,11 @@
 class UserPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      scope.all.where.not(id: @user.id)
-      if @user.god? or @user.admin?
+      if @user.god?
+        scope.all
+      elsif @user.admin?
         # if @user.current_company.equal?(0)
-          scope.all.order('users.employee_number asc')
+          scope.where(current_company: 'planet').order('users.employee_number asc')
         # else
         #   ids = [@user.id]
         #   #Usuarios que son los directores de COMPAÑIA - company
@@ -30,9 +31,9 @@ class UserPolicy < ApplicationPolicy
         ids += scope.joins(:company).where(companies: { user_id: @user.id }).pluck(:id)
 
         ids.uniq!
-        scope.where(id: ids).order('users.employee_number asc')
+        scope.where(id: ids, current_company: 'planet').order('users.employee_number asc')
       elsif @user.admin_branch?
-        scope.all.order('users.employee_number asc')
+        scope.where(current_company: 'planet').order('users.employee_number asc')
 
         # ids = [@user.id]
         # @user.branches.each {|b| ids += b.departments.pluck(:manager_id)}
@@ -45,7 +46,9 @@ class UserPolicy < ApplicationPolicy
         ids += scope.joins(:department).where(departments: {manager_id: @user.id}).pluck(:id)
 
         ids.uniq!
-        scope.where(id: ids).order('users.employee_number asc')
+        scope.where(id: ids, current_company: 'planet').order('users.employee_number asc')
+      elsif @user.role_key.eql?('admin_remolques')
+        scope.where(current_company: 'remolques')
       else
         scope.none
       end

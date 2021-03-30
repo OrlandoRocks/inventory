@@ -1,3 +1,38 @@
+# == Schema Information
+#
+# Table name: trailers
+#
+#  id                    :bigint           not null, primary key
+#  name                  :string
+#  model                 :string
+#  photo                 :string
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  category_id           :bigint
+#  sub_category_id       :bigint
+#  image                 :string
+#  status                :boolean
+#  trailer_type_id       :bigint
+#  trailer_length_id     :bigint
+#  trailer_height_id     :bigint
+#  trailer_width_id      :bigint
+#  ramp_type_id          :bigint
+#  redila_type_id        :bigint
+#  floor_type_id         :bigint
+#  capacity_id           :bigint
+#  color_id              :bigint
+#  hydraulic_jack_id     :bigint
+#  pull_type_id          :bigint
+#  brake_type_id         :bigint
+#  reinforcement_type_id :bigint
+#  fender_type_id        :bigint
+#  turn_type_id          :bigint
+#  divition_type_id      :bigint
+#  suspension_type_id    :bigint
+#  roof_type_id          :bigint
+#  brand_id              :bigint
+#
+
 class TrailerSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
 

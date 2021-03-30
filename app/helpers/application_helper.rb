@@ -13,8 +13,16 @@ module ApplicationHelper
 
   def has_policy(record, actions, devise_controller = nil)
     return true if current_user.god?
-    record = record.classify.constantize if record.is_a? String
-    actions.each { |query| return true if policy(record).send('general_policy', record, query, devise_controller) }
+
+    if record.is_a? String and record.split('::').size > 1
+      klass = ActiveSupport::Inflector.deconstantize(record).classify.constantize
+      policy = policy(klass)
+    else
+      record = record.classify.constantize if record.is_a? String
+      policy = policy(record)
+    end
+
+    actions.each { |query| return true if policy.send('general_policy', record, query, devise_controller) }
     false
   end
 
@@ -66,8 +74,9 @@ module ApplicationHelper
     elsif current_user.current_company.equal?(0)
       'TODAS LAS EMPRESAS'
     else
-      @current_company = Company.find(current_user.current_company)
-      @current_company.name.upcase
+      #@current_company = Company.find(current_user.current_company)
+      #@current_company.name.upcase
+      t("activerecord.attributes.user.current_companies.#{current_user.current_company}")
     end
   end
 
@@ -127,5 +136,14 @@ module ApplicationHelper
     css_class = sort_column_orders ? "#{sort_direction}" : "current"
     direction = column == sort_column_orders && sort_direction == "asc" ? "desc" : "asc"
     link_to title, {:sort => column, :direction => direction}, {:class => 'link-to-text-color'}
+  end
+
+  def company_title
+    return t('activerecord.attributes.user.current_companies.planet') if cookies[:company].nil?
+    (current_user&.remolques_current_company? or cookies[:company].eql?('remolques')) ? t('activerecord.attributes.user.current_companies.remolques') : t('activerecord.attributes.user.current_companies.planet')
+  end
+
+  def logo_for_company
+    current_user.remolques_current_company? ? 'logo_remolques_norte.png' : 'logo1.png'
   end
 end

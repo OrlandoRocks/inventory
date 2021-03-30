@@ -146,7 +146,7 @@ end
 # Easy upload management for ActiveRecord
 # gem 'paperclip', '~> 4.3', '>= 4.3.5'
 gem 'mini_magick'
-gem 'mimemagic', '~> 0.3.10'
+gem 'mimemagic', '~> 0.4.3'
 gem 'carrierwave', '~> 2.0'
 #
 

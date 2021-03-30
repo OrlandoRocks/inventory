@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: work_articles
+#
+#  id         :integer          not null, primary key
+#  name       :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 class WorkArticle < ActiveRecord::Base
 
   has_many :users_work_articles
