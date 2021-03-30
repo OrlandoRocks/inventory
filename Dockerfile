@@ -23,8 +23,8 @@ ENV SECRET_KEY_BASE mykey
 
 RUN gem install bundler -v 1.17.3
 RUN gem install puma
-RUN bundle update mimemagic
-RUN bundle install --jobs=4
+#RUN bundle update mimemagic
+RUN bundle install
 
 COPY yarn.lock /app/
 # RUN yarn install --check-files
