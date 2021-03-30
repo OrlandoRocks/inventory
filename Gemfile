@@ -5,7 +5,7 @@ ruby '2.5.1'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'.
-gem 'rails', github: 'rails/rails', branch: '5-2-stable'
+gem 'rails', '~> 5.2.5'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.20.0'
 # Use SCSS for stylesheets.
