@@ -1,9 +1,11 @@
-name: CD
+---
+name: "deploy develop"
+
 on:
   push:
-    branches: [master]
+    branches: [develop]
   pull_request:
-    branches: [master]
+    branches: [develop]
 
 jobs:
   deploy:
@@ -17,6 +19,7 @@ jobs:
       - name: Push to Dokku
         uses: dokku/github-action@master
         with:
-          git_remote_url: ${{ secrets.GIT_REMOTE_URL }}
+          branch: "develop"
+          git_remote_url: "${{ secrets.DEV_GIT_REMOTE_URL }}"
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
           git_push_flags: "--force"
