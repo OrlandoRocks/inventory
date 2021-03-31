@@ -120,15 +120,15 @@ class Api::V1::InventoryManagerController < ActionController::Base
 
     @user = User.find(params[:user_id])
     if @user.god? or @user.admin?
-      @items = Item.where(status_shipping_id: StatusShipping.find_by_key('enviado').try(:id))
+      @items = Item.where(status_shipping_id: StatusShipping.find_by_key('enviado').try(:id), status_item_id: StatusItem.find_by_key('pendiente').try(:id))
     elsif @user.user_employee?
-      @items = Item.where(status_shipping_id: StatusShipping.find_by_key('enviado').try(:id), department_id: @user.department_id, user_id: @user.id)
+      @items = Item.where(status_shipping_id: StatusShipping.find_by_key('enviado').try(:id), department_id: @user.department_id, user_id: @user.id, status_item_id: StatusItem.find_by_key('pendiente').try(:id))
 
     else
-      @items = Item.where(status_shipping_id: StatusShipping.find_by_key('enviado').try(:id), department_id: @user.department_id)
+      @items = Item.where(status_shipping_id: StatusShipping.find_by_key('enviado').try(:id), department_id: @user.department_id, status_item_id: StatusItem.find_by_key('pendiente').try(:id))
     end
 
-    @items = Item.where(status_shipping_id: StatusShipping.find_by_key('enviado').try(:id))
+    @items = Item.where(status_shipping_id: StatusShipping.find_by_key('enviado').try(:id), status_item_id: StatusItem.find_by_key('pendiente').try(:id))
     render json: item_json(@items)
   end
 
