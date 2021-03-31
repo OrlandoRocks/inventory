@@ -26,11 +26,11 @@ div ng-controller="itemController"
           = f.label :model, class: 'col-sm-2 control-label'
           .col-md-10
             = f.text_field :model, class: 'form-control', placeholder: t('.model'), readonly: true, 'ng-model' => 'model_name'
-        / .row.form-group
-        /   = label_tag 'catalogo', 'Catalogo', class: 'col-sm-2 control-label'
-        /   .col-md-10
-        /     select.form-control ng-change="set_model(model); " ng-model="model" ng-options=("model as model.model for model in models")
-        /       option  selected="" value=""  Modelos...
+        .row.form-group
+          = label_tag 'catalogo', 'Catalogo', class: 'col-sm-2 control-label'
+          .col-md-10
+            select.form-control ng-change="get_trailer(model.trailer_type.id)" ng-model="model" ng-options=("model as model.model for model in models")
+              option  selected="" value=""  Modelos...
 
         .row.form-group
           = f.label :trailer_id, class: 'col-sm-2 control-label'

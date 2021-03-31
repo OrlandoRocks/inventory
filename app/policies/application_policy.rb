@@ -59,6 +59,7 @@ class ApplicationPolicy
     else
       permission = Permission.find_by_controller_and_action(record, query.to_s)
     end
+
     user.role.permissions.include?(permission)
   end
 

@@ -24,10 +24,12 @@
 #  last_name              :string
 #  maiden_name            :string
 #  username               :string
-#  avatar_file_name       :string
-#  avatar_content_type    :string
-#  avatar_file_size       :integer
-#  avatar_updated_at      :datetime
+#  avatar                 :string
+#  department_id          :integer
+#  employee_number        :integer
+#  received_file          :string
+#  current_company        :integer
+#  token                  :string
 #
 
 class User < ApplicationRecord
@@ -38,7 +40,8 @@ class User < ApplicationRecord
 
   validates :password, presence: true, on: [:create]
   # validates :employee_number, presence: true
-  validates :first_name, presence: true
+  validates :first_name, :current_company, presence: true
+  validates :employee_number, uniqueness: true
   # validates :current_company,
   #            presence: true,
   #            if: Proc.new { |u| Role.where(key: %w(admin_empresa)).include?(u.role_id) }
@@ -46,6 +49,7 @@ class User < ApplicationRecord
 
   #validates :current_company, presence: true, if: :current_company_nil?
 
+  enum current_company: [:planet, :remolques], _suffix: true
 
   def current_company_nil?
     !Role.where(id: role_id).last.key.exclude?('admin')
@@ -81,7 +85,7 @@ class User < ApplicationRecord
   has_many :users_work_articles
   has_many :work_articles, through: :users_work_articles
 
-  delegate :name, to: :role, prefix: true, allow_nil: true
+  delegate :name, :key, to: :role, prefix: true, allow_nil: true
   delegate :name, to: :department, prefix: true
 
   before_create :set_default_role

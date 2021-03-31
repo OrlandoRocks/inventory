@@ -10,7 +10,7 @@ class ItemPolicy < ApplicationPolicy
       elsif @user.user_employee?
         scope.unsold.includes(:branch).includes(:department)
       else
-        scope.not
+        scope.none
       end
     end
   end

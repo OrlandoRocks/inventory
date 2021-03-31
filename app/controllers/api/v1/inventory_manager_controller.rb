@@ -70,6 +70,7 @@ class Api::V1::InventoryManagerController < ActionController::Base
 
   def get_items_not_sell
     @user = User.find(params[:user_id])
+
     if @user.god? or @user.admin?
       @items = Item.where(status_item_id: StatusItem.find_by_key('no_vendido'))
     else
@@ -119,15 +120,15 @@ class Api::V1::InventoryManagerController < ActionController::Base
 
     @user = User.find(params[:user_id])
     if @user.god? or @user.admin?
-      @items = Item.where(status_shipping_id: StatusShipping.find_by_key('enviado').try(:id))
+      @items = Item.where(status_shipping_id: StatusShipping.find_by_key('enviado').try(:id), status_item_id: StatusItem.find_by_key('pendiente').try(:id))
     elsif @user.user_employee?
-      @items = Item.where(status_shipping_id: StatusShipping.find_by_key('enviado').try(:id), department_id: @user.department_id, user_id: @user.id)
+      @items = Item.where(status_shipping_id: StatusShipping.find_by_key('enviado').try(:id), department_id: @user.department_id, user_id: @user.id, status_item_id: StatusItem.find_by_key('pendiente').try(:id))
 
     else
-      @items = Item.where(status_shipping_id: StatusShipping.find_by_key('enviado').try(:id), department_id: @user.department_id)
+      @items = Item.where(status_shipping_id: StatusShipping.find_by_key('enviado').try(:id), department_id: @user.department_id, status_item_id: StatusItem.find_by_key('pendiente').try(:id))
     end
 
-    @items = Item.where(status_shipping_id: StatusShipping.find_by_key('enviado').try(:id))
+    @items = Item.where(status_shipping_id: StatusShipping.find_by_key('enviado').try(:id), status_item_id: StatusItem.find_by_key('pendiente').try(:id))
     render json: item_json(@items)
   end
 
@@ -237,7 +238,7 @@ class Api::V1::InventoryManagerController < ActionController::Base
       item_params[:price]               =    params[:price]               if params[:price]
       item_params[:department_id]       =    params[:department_id]       if params[:department_id]
       item_params[:status_item_id]      =    params[:status_item_id]      if params[:status_item_id]
-      item_params[:status_shipping_id]  =    params[:department_id] == 1 ? StatusShipping.find_by_key('recibido').try(:id) :  StatusShipping.find_by_key('enviado').try(:id)
+      item_params[:status_shipping_id]  =    params[:status_shipping_id] ? params[:status_shipping_id] : params[:department_id] == 1 ? StatusShipping.find_by_key('recibido').try(:id) :  StatusShipping.find_by_key('enviado').try(:id)
       item_params[:sale_price]          =    params[:sale_price]          if params[:sale_price]
       item_params[:remission]           =    params[:remission]           if params[:remission]
       item_params[:accessory]           =    params[:accessory]           if params[:accessory]

@@ -1,19 +1,16 @@
-FROM ruby:2.5.1-alpine as builder
+FROM ruby:2.5.1 as builder
 
-RUN apk update && apk upgrade
+RUN apt-get update && apt-get dist-upgrade -yy
 
-RUN apk add --update --no-cache \
-      alpine-sdk \
+RUN apt-get install -yy \
       git \
       nodejs \
       yarn \
-      sqlite-dev \
+      sqlite \
       tzdata \
+      build-essential \
       postgresql-client \
-      build-base \
-      postgresql-dev \
-      imagemagick \
-    && rm -rf /var/cache/apk/*
+      imagemagick
 
 WORKDIR /app
 
@@ -29,31 +26,10 @@ RUN gem install puma
 RUN bundle install --jobs=4
 
 COPY yarn.lock /app/
-RUN yarn install --check-files
+# RUN yarn install --check-files
 
 COPY . .
 
-# RUN rm -rf /app/node_modules /app/tmp/*
-
-# FROM ruby:2.5.1-alpine
-# RUN apk update \
-#     && \
-#     apk add --update --no-cache \
-#       sqlite-dev \
-#       tzdata \
-#       postgresql-dev \
-#     && rm -rf /var/cache/apk/*
-
-# WORKDIR /app
-
-# COPY --from=builder /usr/lib /usr/lib
-# COPY --from=builder /usr/local/bundle /usr/local/bundle
-# COPY --from=builder /app /app
-
-# ENV RAILS_ENV=production
-# ENV SECRET_KEY_BASE mykey
-
-# RUN bundle config --local path vendor/bundle
 ENV PORT=5000
 
 EXPOSE 5000

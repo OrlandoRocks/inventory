@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset='utf-8'/>
+  <%= wicked_pdf_stylesheet_link_tag 'application', media: 'all' %>
+
+  <section class="content">
+    <div class="row">
+      <div class="d-flex justify-content-center" style="text-align: center; align-content: center">
+        <%= image_tag wicked_pdf_asset_base64('logoblu.png'), alt: "Planet Agrotrailer", style: 'width: 200px; height: 100px' %>
+
+        <p style="font-size: 16px">
+          <strong>
+            Grupo Remolques del Norte, S.A. de C.V.
+          </strong>
+        </p>
+        <p style="font-size: 13px">
+          Km. 7 Carr. Cuauhtemoc-Alvaro Obregón S/N
+          <br>
+          Campo 22, CUAUHTEMOC
+          <br>
+          Cuauhtemoc, Chihuahua CP: 31607
+          <br>
+          GRN030226P48
+          <br>
+          Tel. (625) 58 77200
+          <br>
+          Fax. (625) 58 77203
+        </p>
+        <a href="#" target="_blank">
+          www.trailer.com.mx
+        </a>
+      </div>
+    </div>
+    <div class="row" style="margin-top: 100px">
+      <div class="col-xs-12">
+        <div class="d-flex flex-row">
+          <div class="qr col-xs-6">
+            <%= @svg.html_safe %>
+          </div>
+          <div>
+            <p style="font-size: 20px">
+              <strong>
+                Serial No: <%= @item.try(:serial_number) %>
+              </strong>
+            </p>
+            <p style="font-size: 20px">
+              <strong>
+                Modelo: <%= @item.try(:model) %>
+              </strong>
+            </p>
+            <hr class="dashed" style="border-top: 3px dashed #bbb;">
+            <p style="font-size: 20px">
+              <strong>
+                Descripción:
+              </strong>
+            </p>
+            <p style="font-size: 16px">
+              <strong>
+                <%= @item.try(:categories_description) %>
+              </strong>
+            </p>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</head>
+</html>
+

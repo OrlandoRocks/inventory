@@ -124,7 +124,7 @@
                   Punto de venta
                 </th>
                 <th style="text-align: center; vertical-align: middle">
-                  Catálogo
+                  Modelo
                 </th>
                 </thead>
                 <tbody>
@@ -139,7 +139,7 @@
                     <%= @quotation.try(:department).try(:name) %>
                   </td>
                   <td style="text-align: center; vertical-align: middle">
-                    <%= Trailer.find(@quotation.try(:catalog)).present? ? Trailer.find(@quotation.try(:catalog)).model : '' %>
+                    <%= @quotation.try(:model) %>
                   </td>
                 </tr>
                 </tbody>

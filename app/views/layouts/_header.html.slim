@@ -3,12 +3,12 @@ header.main-header ng-controller="homeController" ng-init="init(#{current_user.c
   = link_to authenticated_root_path, class: 'logo' do
     span.logo-mini
       /| TORSACORP
-      = image_tag "logo1.png", alt:"Planet Agrotrailer", width:'100%'
+      = image_tag logo_for_company, alt: company_title, width:'100%'
     / logo for regular state and mobile devices
     span.logo-lg
       b
       /| TORSACORP
-      = image_tag "logo1.png", alt:"Planet Agrotrailer", width:'80%', height: '80%'
+      = image_tag logo_for_company, alt: company_title, style: 'height: 50px'
   / Header Navbar
   nav.navbar.navbar-static-top role='navigation'
     / Sidebar toggle button

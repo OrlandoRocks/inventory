@@ -5,7 +5,7 @@ ruby '2.5.1'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'.
-gem 'rails', github: 'rails/rails', branch: '5-2-stable'
+gem 'rails', '~> 5.2.5'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.20.0'
 # Use SCSS for stylesheets.
@@ -28,7 +28,7 @@ gem 'redis', '~> 3.0'
 
 gem 'money'
 
-
+gem 'rqrcode'
 # Use jquery as the JavaScript library.
 gem 'jquery-rails', '~> 4.3'
 
@@ -146,6 +146,7 @@ end
 # Easy upload management for ActiveRecord
 # gem 'paperclip', '~> 4.3', '>= 4.3.5'
 gem 'mini_magick'
+gem 'mimemagic', '~> 0.4.3'
 gem 'carrierwave', '~> 2.0'
 #
 
@@ -162,6 +163,7 @@ gem 'bootstrap-daterangepicker-rails', '~> 0.1.5'
 gem 'caxlsx'
 gem 'caxlsx_rails'
 
+
 # Double entry accounting system
 gem "plutus", "~> 0.13.0"
 
@@ -169,6 +171,7 @@ gem 'active_model_serializers', '~> 0.10.0'
 
 
 gem 'fcm'
+
 
 
 #Gema que nos sirve para eliminar acentos.
@@ -191,3 +194,4 @@ end
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 
+#gem 'rqrcode'
