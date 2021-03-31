@@ -4,7 +4,6 @@ RUN apt-get update && apt-get dist-upgrade -yy
 
 RUN apt-get install -yy \
       git \
-      gzip \
       nodejs \
       yarn \
       sqlite \
