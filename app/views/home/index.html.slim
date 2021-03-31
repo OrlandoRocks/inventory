@@ -55,7 +55,7 @@
               .box-header.with-border
                 .row
                   .col-xs-6
-                    h3.box-title  Reporteador de artículos
+                    h3.box-title  Reporteador de Remolques
                     = @search_save
                   .col-xs-6
                     .box-tools.pull-right
@@ -72,56 +72,7 @@
                         = f.collection_select :trailer_id_in, Trailer.all, :id, :name, {prompt: 'Seleccionar una opción'},
                                 {class: 'form-control select', data: {placeholder: t('.trailers')}}
 
-                  /! Ini Brand
-                  / .col-md-3
-                  /   .box.box-warning.box-solid
-                  /     .box-header.with-border
-                  /       h3.box-title = t('.f_branch')
-                  /       .box-tools.pull-right
-                  /         button.btn.btn-box-tool data-widget="collapse" type="button"
-                  /           i.fa.fa-minus
-                  /     .box-body style=('display: block;')
-                  /       = f.collection_select :branch_id_in, policy_scope(Branch), :id, :name, {prompt: false},
-                  /               {class: 'form-control select',  data: {placeholder: t('.branch')}}
-                  /! End Brand
 
-                  /! Ini Brand
-                  / .col-md-3
-                  /   .box.box-warning.box-solid
-                  /     .box-header.with-border
-                  /       h3.box-title = t('.f_department')
-                  /       .box-tools.pull-right
-                  /         button.btn.btn-box-tool data-widget="collapse" type="button"
-                  /           i.fa.fa-minus
-                  /     .box-body style=('display: block;')
-                  /       = f.collection_select :department_id_in, Department.all, :id, :name, {prompt: false},
-                  /             {class: 'form-control select', data: {placeholder: t('.department')}}
-                  /! End Brand
-
-                  /! Ini Category
-                  / .col-md-3
-                    .box.box-warning.box-solid
-                      .box-header.with-border
-                        h3.box-title = t('.f_category')
-                        .box-tools.pull-right
-                          button.btn.btn-box-tool data-widget="collapse" type="button"
-                            i.fa.fa-minus
-                      .box-body style=('display: block;')
-                        = f.collection_select :sub_category_category_id_in, Category.all.order(:name), :id, :name, {prompt: 'Seleccionar una opción'},
-                                {class: 'form-control', data: {placeholder: t('.category')}}
-                  /! End SubCategory
-
-                  /! Ini SubCategory
-                  / .col-md-3
-                    .box.box-warning.box-solid
-                      .box-header.with-border
-                        h3.box-title = t('.f_sub_category')
-                        .box-tools.pull-right
-                          button.btn.btn-box-tool data-widget="collapse" type="button"
-                            i.fa.fa-minus
-                      .box-body style=('display: block;')
-                        = f.collection_select :sub_category_id_in, SubCategory.all.order(:name), :id, :name, {prompt: 'Seleccionar una opción'},
-                              {class: 'form-control', data: {placeholder: "t('.sub_category')"}}
 
                   .col-md-3
                     .box.box-warning.box-solid
