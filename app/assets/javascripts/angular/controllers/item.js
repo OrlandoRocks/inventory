@@ -100,7 +100,6 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
 
     $scope.get_item_json = function (id) {
 
-        console.log(id);
         $http({
             method: 'GET',
             url: '/items/' + id + '.json'
@@ -1589,6 +1588,7 @@ app.controller('ModalPercentageController', ['$scope', 'close', 'Upload', '$http
 
         $scope.validate_inputs_values = function () {
             if ($scope.is_same_branch) {
+
 
                 $scope.branch_percentage = 100 - parseFloat($scope.planet_percentage);
                 if ($scope.branch_percentage) {

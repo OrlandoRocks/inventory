@@ -70,6 +70,7 @@ class Api::V1::InventoryManagerController < ActionController::Base
 
   def get_items_not_sell
     @user = User.find(params[:user_id])
+
     if @user.god? or @user.admin?
       @items = Item.where(status_item_id: StatusItem.find_by_key('no_vendido'))
     else

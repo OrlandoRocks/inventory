@@ -16,11 +16,10 @@
           = f.select :client_id, Client.all.map { |client| [client.full_name, client.id] },
                   {include_blank: t('.select.prompt')}, class: 'form-control'
 
-      - unless @quotation.new_record?
-        .row.form-group
-          = label_tag 'Precio de Cotizacion', 'Precio de Cotizacion', class: 'col-sm-2 control-label'
-          .col-md-10
-            = f.number_field :price, class: 'form-control', placeholder: 'Precio de Cotizacion'
+      .row.form-group
+        = label_tag 'Precio de Cotizacion', 'Precio de Cotizacion', class: 'col-sm-2 control-label'
+        .col-md-10
+          = f.number_field :price, class: 'form-control', placeholder: 'Precio de Cotizacion'
 
       .row.form-group
         = f.label 'Vendedor', class: 'col-sm-2 control-label'
@@ -166,7 +165,7 @@
       .row.form-group
         = f.label 'Descripcion del modelo', class: 'col-sm-2 control-label'
         .col-lg-10
-          = text_area_tag :categories_description,'', class: 'form-control', placeholder: "Descripcion", 'ng-model': 'category_description', disabled: true
+          = text_area_tag :categories_description,'', class: 'form-control', placeholder: "Descripcion", 'ng-model'=> 'category_description', disabled: true
           = f.hidden_field :categories_description, value: '{{category_description}}'
 
     .box-footer
