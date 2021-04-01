@@ -35,7 +35,7 @@ div ng-controller="itemController"
         .row.form-group
           = f.label :trailer_id, class: 'col-sm-2 control-label'
           .col-md-4
-            select.form-control ng-change="get_trailer(trailer); model=''" ng-model="trailer" ng-options=("trailer.id as trailer.name for trailer in trailers")
+            select.form-control ng-change="get_trailer(trailer);" ng-click="model=''" ng-model="trailer" ng-options=("trailer.id as trailer.name for trailer in trailers")
               option  selected="" value=""  No Aplica
             = f.hidden_field :trailer_type_id, value: '{{trailer}}'
           = f.label 'Freno', class: 'col-sm-2 control-label', 'ng-hide'=>'brakes.length==0', 'ng-cloak'=>"true"

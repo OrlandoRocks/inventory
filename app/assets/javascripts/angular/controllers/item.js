@@ -193,9 +193,6 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
 
     $scope.set_model = function (model) {
         $scope.model = model;
-
-
-
         $scope.length = '';
         $scope.trailer = '';
         $scope.width = '';
