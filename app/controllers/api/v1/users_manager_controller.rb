@@ -5,7 +5,7 @@ class Api::V1::UsersManagerController < ActionController::Base
   
 
   def login_user
-    user = User.find_for_database_authentication(email: params[:email])
+    user = User.find_for_database_authentication(employee_number: params[:employee_number])
     if user && user.valid_password?(params[:password]) 
       sign_in("user", user)
       render :json=> payload(user) 
@@ -94,7 +94,7 @@ class Api::V1::UsersManagerController < ActionController::Base
       department_name: user.try(:department).try(:name),
       branch_name: user.try(:branch).try(:name),
       department_id: user.try(:department_id),
-      branch_id: user.try(:branch_id)
+      branch_id: user.try(:branch).try(:id)
     }
   end
 
