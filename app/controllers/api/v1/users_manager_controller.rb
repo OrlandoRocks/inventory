@@ -86,7 +86,7 @@ class Api::V1::UsersManagerController < ActionController::Base
       status: 200,
       success: true, 
       # auth_token: user.authenticatable_salt, 
-      auth_token: JsonWebToken.encode({user_id: user.id}), 
+      token: JsonWebToken.encode({user_id: user.id}), 
       email: user.email,
       name:"#{user.first_name} #{user.last_name}", 
       role: user.try(:role).try(:key), 
