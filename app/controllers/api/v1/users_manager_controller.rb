@@ -7,7 +7,6 @@ class Api::V1::UsersManagerController < ActionController::Base
   def login_user
     user = User.find_for_database_authentication(employee_number: params[:employee_number])
     if user && user.valid_password?(params[:password]) 
-      sign_in("user", user)
       render :json=> payload(user) 
     else
       render json: {status: 400, success:false ,message: 'User or password are incorrect'}
