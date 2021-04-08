@@ -1,7 +1,6 @@
 Warden::Strategies.add(:api_token) do
     def valid?
-        # request.headers['Authorization'].present?
-        params[:token].present?
+        request.headers['Authorization'].present?
     end
     def authenticate!
         if auth_token && user_token
@@ -12,8 +11,7 @@ Warden::Strategies.add(:api_token) do
     end 
     private
     def auth_token
-        # @auth_token ||= JsonWebToken.decode(request.headers['Authorization'].split(' ').last)
-        @auth_token ||=  JsonWebToken.decode(params[:token])
+        @auth_token ||= JsonWebToken.decode(request.headers['Authorization'].split(' ').last)
     end 
     def user_token
         @user_token ||= User.find(auth_token[:user_id].to_i)
