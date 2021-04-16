@@ -63,6 +63,15 @@ Rails.application.routes.draw do
   resources :work_articles
 
 
+  namespace :api, defaults: {format: 'json'} do
+    namespace :v1 do
+
+      put 'sign_up_guest' => 'users_manager#sign_up_guest'
+      put 'save_token' => 'users_manager#save_token'
+      put 'login_user' => 'users_manager#login_user'
+    end
+  end
+
   devise_for :users,
              controllers: {sessions: 'users/sessions',
                            confirmations: 'users/confirmations',
@@ -81,14 +90,6 @@ Rails.application.routes.draw do
 
     unauthenticated do
       root 'users/sessions#new', as: :unauthenticated_root
-      namespace :api, defaults: {format: 'json'} do
-        namespace :v1 do
-        
-          put 'sign_up_guest' => 'users_manager#sign_up_guest'
-          put 'save_token' => 'users_manager#save_token'
-          put 'login_user' => 'users_manager#login_user'
-        end
-      end
     end
 
     authenticate :user do
