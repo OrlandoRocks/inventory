@@ -235,6 +235,7 @@ Rails.application.routes.draw do
           get 'get_status_item' => 'inventory_manager#get_status_item'
           get 'get_status_shipping' => 'inventory_manager#get_status_shipping'
           get 'get_trailer_types' => 'inventory_manager#get_trailer_types'
+          get 'get_trailer_categories' => 'inventory_manager#get_trailer_categories'
           get 'get_fiscal_vouchers' => 'inventory_manager#get_fiscal_vouchers'
           get 'get_clients' => 'inventory_manager#get_clients'
           get 'get_items_by_branch/:id' => 'inventory_manager#get_items_by_branch'        

@@ -12,6 +12,7 @@ class Branch < ApplicationRecord
   has_many :departments
 
   has_many :items, through: :departments
+  validates :fleet_cost, numericality: { less_than_or_equal_to: 100 }
 
   # delegate :name, to: :company, prefix: true, allow_nil: true
 end
