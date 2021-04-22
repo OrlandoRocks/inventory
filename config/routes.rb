@@ -67,38 +67,9 @@ Rails.application.routes.draw do
   namespace :api, defaults: {format: 'json'} do
     namespace :v1 do
 
-      get 'get_items/:token' => 'inventory_manager#get_items'
-      get 'get_items_not_sell/:user_id/:token' => 'inventory_manager#get_items_not_sell'
-      get 'get_items_sell/:user_id/:token' => 'inventory_manager#get_items_sell'
-      get 'get_items_order/:user_id/:token' => 'inventory_manager#get_items_order'
-      get 'get_orders_shipped/:user_id/:token' => 'inventory_manager#get_orders_shipped'
-      get 'get_branches/:token' => 'inventory_manager#get_branches'
-      get 'get_cities/:token' => 'inventory_manager#get_cities'
-      get 'get_states/:token' => 'inventory_manager#get_states'
-      get 'get_trailers/:token' => 'inventory_manager#get_trailers'
-      get 'get_categories/:token' => 'inventory_manager#get_categories'
-      get 'get_sub_categories/:token' => 'inventory_manager#get_sub_categories'
-      get 'get_status_item/:token' => 'inventory_manager#get_status_item'
-      get 'get_status_shipping/:token' => 'inventory_manager#get_status_shipping'
-      get 'get_trailer_types/:token' => 'inventory_manager#get_trailer_types'
-      get 'get_fiscal_vouchers/:token' => 'inventory_manager#get_fiscal_vouchers'
-      get 'get_clients/:token' => 'inventory_manager#get_clients'
-      get 'get_items_by_branch/:token/:id' => 'inventory_manager#get_items_by_branch'
-
       put 'sign_up_guest' => 'users_manager#sign_up_guest'
-      put 'create_item' => 'inventory_manager#create_item'
-      put 'update_item' => 'inventory_manager#update_item'
-      put 'create_trailer' => 'trailer_manager#create_trailer'
-      put 'update_trailer' => 'trailer_manager#update_trailer'
-      put 'create_client' => 'client_manager#create_client'
-      put 'update_client' => 'client_manager#update_client'
       put 'save_token' => 'users_manager#save_token'
       put 'login_user' => 'users_manager#login_user'
-
-      delete 'destroy_client' => 'client_manager#destroy_client'
-      delete 'destroy_trailer' => 'trailer_manager#destroy_trailer'
-      delete 'destroy_item' => 'inventory_manager#destroy_item'
-
     end
   end
 
@@ -260,7 +231,38 @@ Rails.application.routes.draw do
 
       #Ruta para ventas
       get 'sales' => 'items#sales'
-
+      
+      #api
+      namespace :api, defaults: {format: 'json'} do
+        namespace :v1 do        
+          get 'get_items' => 'inventory_manager#get_items'
+          get 'get_items_not_sell/:user_id' => 'inventory_manager#get_items_not_sell'
+          get 'get_items_sell/:user_id' => 'inventory_manager#get_items_sell'
+          get 'get_items_order/:user_id' => 'inventory_manager#get_items_order'
+          get 'get_orders_shipped/:user_id' => 'inventory_manager#get_orders_shipped'
+          get 'get_branches' => 'inventory_manager#get_branches'
+          get 'get_cities' => 'inventory_manager#get_cities'
+          get 'get_states' => 'inventory_manager#get_states'
+          get 'get_trailers' => 'inventory_manager#get_trailers'
+          get 'get_categories' => 'inventory_manager#get_categories'
+          get 'get_sub_categories' => 'inventory_manager#get_sub_categories'
+          get 'get_status_item' => 'inventory_manager#get_status_item'
+          get 'get_status_shipping' => 'inventory_manager#get_status_shipping'
+          get 'get_trailer_types' => 'inventory_manager#get_trailer_types'
+          get 'get_fiscal_vouchers' => 'inventory_manager#get_fiscal_vouchers'
+          get 'get_clients' => 'inventory_manager#get_clients'
+          get 'get_items_by_branch/:id' => 'inventory_manager#get_items_by_branch'        
+          put 'create_item' => 'inventory_manager#create_item'
+          put 'update_item' => 'inventory_manager#update_item'
+          put 'create_trailer' => 'trailer_manager#create_trailer'
+          put 'update_trailer' => 'trailer_manager#update_trailer'
+          put 'create_client' => 'client_manager#create_client'
+          put 'update_client' => 'client_manager#update_client'
+          delete 'destroy_client' => 'client_manager#destroy_client'
+          delete 'destroy_trailer' => 'trailer_manager#destroy_trailer'
+          delete 'destroy_item' => 'inventory_manager#destroy_item'
+        end
+      end
     end
   end
 
