@@ -40,6 +40,48 @@ class Api::V1::InventoryManagerController < ActionController::Base
     render json: StatusItem.all
   end
 
+  def get_trailer_categories
+    @categories = Array.new
+    TrailerType.find(params[:trailer_id]).trailer_category.each do | category |
+      case (category['key']) 
+        when 'trailer_length_id'
+          @categories << TrailerLength.find(category['trailer_length_id']).as_json
+        when 'ramp_type_id'
+          @categories << RampType.find(category['ramp_type_id']).as_json
+        when 'redila_type_id'
+          @categories << RedilaType.find(category['redila_type_id']).as_json
+        when 'floor_type_id'
+          @categories << FloorType.find(category['floor_type_id']).as_json
+        when 'capacity_id'
+          @categories << Capacity.find(category['capacity_id']).as_json
+        when 'trailer_width_id'
+          @categories << TrailerWidth.find(category['trailer_width_id']).as_json
+        when 'color_id'
+          @categories << Color.find(category['color_id']).as_json
+        when 'hydraulic_jack_id'
+          @categories << HydraulicJack.find(category['hydraulic_jack_id']).as_json
+        when 'pull_type_id'
+          @categories << PullType.find(category['pull_type_id']).as_json
+        when 'brake_type_id'
+          @categories << BrakeType.find(category['brake_type_id']).as_json
+        when 'brand_id'
+          @categories << Brand.find(category['brand_id']).as_json
+        when 'fender_type_id'
+          @categories << FenderType.find(category['fender_type_id']).as_json
+        when 'turn_type_id'
+          @categories << TurnType.find(category['turn_type_id']).as_json
+        when 'divition_type_id'
+          @categories << DivitionType.find(category['divition_type_id']).as_json
+        when 'suspension_type_id'
+          @categories << SuspensionType.find(category['suspension_type_id']).as_json
+        when 'roof_type_id'
+          @categories << RoofType.find(category['roof_type_id']).as_json
+        else
+          nil
+      end        
+    end   
+    render json: { @categories } 
+  end
 
   def get_categories
     render json: {trailers: TrailerType.all.as_json(except: :image), widths: TrailerWidth.all, lengths: TrailerLength.all, floors: FloorType.all, ramps: RampType.all,

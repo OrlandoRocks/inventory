@@ -69,7 +69,7 @@ class ItemSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
 
   attributes :id, :code, :model, :serial_number, :purchased_date, :acquisition_date,
-             :price, :department_id, :user_id, :status_item_id, :branch_id, :branch, :department, :status_item,
+             :price, :price_total, :department_id, :user_id, :status_item_id, :branch_id, :branch, :department, :status_item,
              :accessory, :status_shipping, :remission, :payment_type, :fiscal_voucher, :client, :user,
              :trailer_length, :trailer_height, :ramp_type, :redila_type, :floor_type, :capacity,
              :trailer_width, :brake_type, :color, :divition_type, :fender_type, :hydraulic_jack, :advance_payment,
