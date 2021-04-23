@@ -45,41 +45,75 @@ class Api::V1::InventoryManagerController < ActionController::Base
     TrailerType.find(params[:trailer_id]).trailer_category.each do | category |
       case (category['key']) 
         when 'trailer_length_id'
-          @categories << TrailerLength.find(category['trailer_length_id']).as_json
+          cat = TrailerLength.find(category['trailer_length_id']).as_json
+          cat['key'] = 'trailer_length_id'
+          @categories << cat
         when 'ramp_type_id'
-          @categories << RampType.find(category['ramp_type_id']).as_json
+          cat = RampType.find(category['ramp_type_id']).as_json
+          cat['key'] = 'ramp_type_id'
+          @categories << cat
         when 'redila_type_id'
-          @categories << RedilaType.find(category['redila_type_id']).as_json
+          cat = RedilaType.find(category['redila_type_id']).as_json
+          cat['key'] = 'redila_type_id'
+          @categories << cat
         when 'floor_type_id'
-          @categories << FloorType.find(category['floor_type_id']).as_json
+          cat = FloorType.find(category['floor_type_id']).as_json
+          cat['key'] = 'floor_type_id'
+          @categories << cat
         when 'capacity_id'
-          @categories << Capacity.find(category['capacity_id']).as_json
+          cat = Capacity.find(category['capacity_id']).as_json
+          cat['key'] = 'capacity_id'
+          @categories << cat
         when 'trailer_width_id'
-          @categories << TrailerWidth.find(category['trailer_width_id']).as_json
+          cat = TrailerWidth.find(category['trailer_width_id']).as_json
+          cat['key'] = 'trailer_width_id'
+          @categories << cat
         when 'color_id'
-          @categories << Color.find(category['color_id']).as_json
+          cat = Color.find(category['color_id']).as_json
+          cat['key'] = 'color_id'
+          @categories << cat
         when 'hydraulic_jack_id'
-          @categories << HydraulicJack.find(category['hydraulic_jack_id']).as_json
+          cat = HydraulicJack.find(category['hydraulic_jack_id']).as_json
+          cat['key'] = 'hydraulic_jack_id'
+          @categories << cat
         when 'pull_type_id'
-          @categories << PullType.find(category['pull_type_id']).as_json
+          cat = PullType.find(category['pull_type_id']).as_json
+          cat['key'] = 'pull_type_id'
+          @categories << cat
         when 'brake_type_id'
-          @categories << BrakeType.find(category['brake_type_id']).as_json
+          cat = BrakeType.find(category['brake_type_id']).as_json
+          cat['key'] = 'brake_type_id'
+          @categories << cat
         when 'brand_id'
-          @categories << Brand.find(category['brand_id']).as_json
+          cat = Brand.find(category['brand_id']).as_json
+          cat['key'] = 'brand_id'
+          @categories << cat
         when 'fender_type_id'
-          @categories << FenderType.find(category['fender_type_id']).as_json
+          cat = FenderType.find(category['fender_type_id']).as_json
+          cat['key'] = 'fender_type_id'
+          @categories << cat
         when 'turn_type_id'
-          @categories << TurnType.find(category['turn_type_id']).as_json
+          cat = TurnType.find(category['turn_type_id']).as_json
+          cat['key'] = 'turn_type_id'
+          @categories << cat
         when 'divition_type_id'
-          @categories << DivitionType.find(category['divition_type_id']).as_json
+          cat = DivitionType.find(category['divition_type_id']).as_json
+          cat['key'] = 'divition_type_id'
+          @categories << cat
         when 'suspension_type_id'
-          @categories << SuspensionType.find(category['suspension_type_id']).as_json
+          cat = SuspensionType.find(category['suspension_type_id']).as_json
+          cat['key'] = 'suspension_type_id'
+          @categories << cat
         when 'roof_type_id'
-          @categories << RoofType.find(category['roof_type_id']).as_json
+          cat = RoofType.find(category['roof_type_id']).as_json
+          cat['key'] = 'roof_type_id'
+          @categories << cat
+          
         else
           nil
       end        
     end   
+    
     render json: @categories 
   end
 
