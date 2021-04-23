@@ -80,7 +80,7 @@ class Api::V1::InventoryManagerController < ActionController::Base
           nil
       end        
     end   
-    render json: { @categories } 
+    render json: @categories 
   end
 
   def get_categories
