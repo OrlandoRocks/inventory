@@ -1,0 +1,700 @@
+<section class="content" ng-controller="itemController">
+
+  <div class="row" ng-init="init(<%= @branches.to_json %>,<%= @categories.to_json %>,<%= @item.id %>)">
+    <div class="col-md-6">
+      <!-- Profile Image -->
+      <div class="box box-primary">
+        <% if @item.try(:status_item).key == 'pendiente' || @item.try(:status_item).key == 'cotizado' %>
+          <div class="box-body box-profile">
+
+            <% if @item.try(:status_item).key == 'cotizado' %>
+              <%= link_to edit_item_path(@item.id), :class => "btn btn-block btn-info btn-lg" do %>
+                <i class="fa fa-plus "> Crear </i>
+              <% end %>
+            <% else %>
+              <%= link_to edit_item_path(@item.id), :class => "btn btn-block btn-info btn-lg" do %>
+                <i class="fa fa-plus "> Crear y enviar</i>
+              <% end %>
+            <% end %>
+
+            <% unless @item.trailer_type.nil? %>
+              <% if @item.try(:trailer_type).try(:image).attached? %>
+                <%= link_to image_tag('trailers_default.png', :class => 'profile-user-img img-responsive img-circle', :size => '65x65'), "trailers_default.png", :target => "_blank" %>
+              <% else %>
+                <%= link_to image_tag('trailers_default.png', :class => 'profile-user-img img-responsive img-circle', :size => '65x65'), "trailers_default.png", :target => "_blank" %>
+                <%#= link_to image_tag(@item.trailer.image, :class => 'profile-user-img img-responsive img-circle', :size => '65x65'), "#{url_for(@item.trailer.image)}", :target => "_blank" %>
+              <% end %>
+            <% end %>
+
+            <h3 class="profile-username text-center"><%= @item.name %></h3>
+
+            <p class="text-muted text-center"><%= @item.accessory %></p>
+
+            <ul class="list-group list-group-unbordered">
+              <!--
+              <li class="list-group-item">
+                <b><%= t("items.form.client") %></b>
+                <p class="text-muted">
+                  <a class="text-muted"><%= @item.client.try(:full_name) %></a>
+                </p>
+              </li>
+              <li class="list-group-item">
+                <b><%= t("items.form.advance_payment") %></b>
+                <p class="text-muted"><%= "$ #{ "%.2f" % @item.advance_payment if @item.advance_payment.present?}" %></p>
+              </li>
+              -->
+              <li class="list-group-item">
+                <b><%= t("items.form.model") %></b>
+                <p class="text-muted"><%= @item.try(:model) %></p>
+              </li>
+              <li class="list-group-item">
+                <b>Descripción del Modelo (Categorias)</b>
+                <p class="text-muted">
+                  <%= @item.try(:categories_description) %>
+                </p>
+              </li>
+              <!--<li class="list-group-item">-->
+              <!--<b><%#= t("items.form.provider") %></b> <a class="text-muted"><%#= @item.provider.try("name") %></a>-->
+              <!--</li>-->
+              <li class="list-group-item">
+                <strong><i class="fa fa-store margin-r-5"></i><%= "#{t("items.form.branch")}" %></strong>
+                <p class="text-muted">
+                  <%= "#{@item.try(:user).try(:department).try(:branch).try(:name)}" %>
+                </p>
+              </li>
+              <li class="list-group-item">
+                <strong><i class="fa fa-home margin-r-5"></i><%= "#{t("items.form.department")}" %></strong>
+                <p class="text-muted">
+                  <%= "#{@item.try(:user).try(:department).try(:name)}" %>
+                </p>
+              </li>
+              <li class="list-group-item">
+                <strong><i class="fa fa-user margin-r-5"></i>Vendedor</strong>
+                <p class="text-muted">
+                  <%= "#{@item.user.try("full_name")}" %>
+                </p>
+              </li>
+              <li class="list-group-item">
+                <b><%= t("items.form.status_item") %></b>
+                <p class="text-muted"><%= @item.status_item.try("description") %></p>
+              </li>
+            </ul>
+            <%= link_to edit_order_path(@item.id), :class => "btn btn-block btn-danger btn-lg" do %>
+              <i class="fa fa-pencil "> Editar</i>
+            <% end %>
+          </div>
+        <% else %>
+          <div class="box-body box-profile">
+            <% if @item.status_item.key == 'facturado' %>
+              <a class="btn btn-block btn-success btn-lg" href="/report/item_sale/<%= @item.id %>.pdf" target="_blank">
+                <i class="fa fa-file-pdf "> PDF</i>
+              </a>
+            <% else %>
+              <% if @item.try(:status_shipping)&.key === 'enviado' %>
+                <a class="btn btn-block btn-success btn-lg" ng-click="show_receive()">
+                  <i class="fa fa-handshake "> Recibido</i>
+                </a>
+              <% elsif @item.status_item&.key != 'facturado' %>
+                <% if @item.status_item&.key == 'no_vendido' %>
+                  <a class="btn btn-block btn-success btn-lg" ng-click="show()">
+                    <i class="fa fa-handshake "> Vender</i>
+                  </a>
+                <% else %>
+                  <a class="btn btn-block btn-success btn-lg" ng-click="show_voucher()">
+                    <i class="fa fa-handshake "> Mostrar comprobante</i>
+                  </a>
+                <% end %>
+              <% end %>
+            <% end %>
+
+            <% unless @item.trailer_type.nil? %>
+              <% if @item.try(:trailer_type).try(:image).attached? %>
+                <%= link_to image_tag('trailers_default', :class => 'profile-user-img img-responsive img-circle', :size => '65x65'), "trailers_default.png", :target => "_blank" %>
+              <% else %>
+                <%= link_to image_tag('trailers_default', :class => 'profile-user-img img-responsive img-circle', :size => '65x65'), "trailers_default.png", :target => "_blank" %>
+
+                <%#= link_to image_tag(@item.trailer.image, :class => 'profile-user-img img-responsive img-circle', :size => '65x65'), "#{url_for(@item.trailer.image)}", :target => "_blank" %>
+              <% end %>
+            <% end %>
+
+            <h3 class="profile-username text-center"><%= @item.name %></h3>
+
+            <p class="text-muted text-center"><%= @item.accessory %></p>
+
+            <ul class="list-group list-group-unbordered">
+              <li class="list-group-item">
+                <b><%= t("items.form.model") %></b>
+                <p class="text-muted">
+                  <%= @item.try(:model) %>
+                </p>
+              </li>
+              <li class="list-group-item">
+                <b>Descripción del Modelo (Categorias)</b>
+                <p class="text-muted">
+                  <%= @item.try(:categories_description) %>
+                </p>
+              </li>
+              <li class="list-group-item">
+                <b><%= t("items.form.serial_number") %></b>
+                <p class="text-muted">
+                  <%= @item.serial_number %>
+                </p>
+              </li>
+              <li class="list-group-item">
+                <b><%= t("items.form.acquisition_date") %></b>
+                <p class="text-muted">
+                  <%= @item.acquisition_date %>
+                </p>
+              </li>
+              <li class="list-group-item">
+                <b><%= t("items.form.price") %></b>
+                <p class="text-muted"><%#= "#{ Money.from_amount(@item.price_total).format if @item.price_total.present?}" %></p>
+              </li>
+              <% if @item.status_item.key == 'vendido_credito' %>
+                <li class="list-group-item">
+                  <b>Restante a pagar</b>
+                  <p class="text-muted"><%= "#{ get_price_to_pay @item}" %></p>
+                </li>
+                <li class="list-group-item">
+                  <b><%= t("items.form.advance_payment") %></b>
+                  <p class="text-muted"><%= "#{ Money.from_amount(@item.advance_payment).format if @item.advance_payment.present?}" %></p>
+                </li>
+              <% end %>
+              <li class="list-group-item">
+                <b><i class="fa fa-percent margin-r-5"></i><%= t("items.form.percentage_planet") %></b>
+                <p class="text-muted"><%= "#{  Money.from_amount(@item.planet_percentage.nil? ? 0 : get_percentage_value(@item.planet_percentage, @item.sale_price - @item.price_total)).format}" %></p>
+              </li>
+              <li class="list-group-item">
+                <b><i class="fa fa-percent margin-r-5"></i><%= t("items.form.percentage_branch") %></b>
+                <p class="text-muted"><%= "#{ Money.from_amount(@item.branch_percentage.nil? ? 0 : get_percentage_value(@item.branch_percentage, @item.sale_price - @item.price_total)).format}" %></p>
+              </li>
+              <li class="list-group-item">
+                <b><i class="fa fa-percent margin-r-5"></i><%= t("items.form.percentage_seller") %></b>
+                <p class="text-muted"><%= "#{ Money.from_amount(@item.seller_percentage.nil? ? 0 : get_percentage_value(@item.seller_percentage, @item.sale_price - @item.price_total)).format}" %></p>
+              </li>
+              <!--<li class="list-group-item">-->
+              <!--<b><%#= t("items.form.provider") %></b> <a class="text-muted"><%#= @item.provider.try("name") %></a>-->
+              <!--</li>-->
+              <li class="list-group-item">
+                <strong><i class="fa fa-home margin-r-5"></i><%= "#{t("items.form.branch")}" %></strong>
+                <p class="text-muted">
+                  <%= "#{@item.try(:branch).try(:name)}" %>
+                </p>
+              </li>
+              <li class="list-group-item">
+                <strong><i class="fa fa-home margin-r-5"></i><%= "#{t("items.form.department")}" %></strong>
+                <p class="text-muted">
+                  <%= "#{@item.try(:department).try(:name)}" %>
+                </p>
+              </li>
+              <li class="list-group-item">
+                <strong><i class="fa fa-user margin-r-5"></i><%= "#{t("items.form.user")}" %></strong>
+                <p class="text-muted">
+                  <%= "#{@item.user.try("full_name")}" %>
+                </p>
+              </li>
+
+              <li class="list-group-item">
+                <b><%= t("items.form.brand") %></b>
+                <p class="text-muted"><%= @item.brand.try("name") %></p>
+              </li>
+              <li class="list-group-item">
+                <b><%= t("items.form.status_item") %></b>
+                <p class="text-muted"><%= @item.status_item.try("description") %></p>
+              </li>
+
+
+              <% if @item.image.attached? %>
+                <li class="list-group-item">
+                  <b>Comprobante de Pago</b>
+                  <%= link_to 'Ver Comprobante', "#{url_for(@item.image)}", :target => "_blank", class: 'pull-right' %>
+                </li>
+              <% end %>
+
+              <!-- <li class="list-group-item">
+                 <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
+                 <p class="text-muted">
+                   B.S. in Computer Science from the University of Tennessee at Knoxville
+                 </p>
+               </li>-->
+
+              <!--<li class="list-group-item">-->
+              <!--<strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>-->
+
+              <!--<p class="text-muted">Malibu, California</p>-->
+
+              <!--</li>-->
+
+            </ul>
+            <% if @item.status_item.key == 'facturado' || @item.status_item.key == 'vendido' || @item.status_item.key == 'pendiente_factura' || @item.status_item.key == 'vendido_credito' %>
+              <% if @item.status_item.key == 'vendido' || @item.status_item.key == 'facturado' %>
+                <a ng-click="accept_voucher(<%= @item.id %>)" class="btn btn-block btn-info btn-lg">
+                  Aceptar Comprobante
+                </a>
+              <% end %>
+              <% if current_user.god? or current_user.admin_branch? %>
+                <a class="btn btn-block btn-warning btn-lg" ng-click="show_percentage(<%= params[:id] %>, <%= current_user.to_json %>, <%= current_user.branch.to_json %>)">
+                  <i class="fa fa-percent "> Capturar Porcentajes</i>
+                </a>
+              <% end %>
+            <% else %>
+              <%= link_to remolques_edit_item_path(@item.id), :class => "btn btn-block btn-danger btn-lg" do %>
+                <i class="fa fa-pencil "> Editar</i>
+              <% end %>
+            <% end %>
+
+          </div>
+
+        <% end %>
+        <!-- /.box-body -->
+      </div>
+      <!-- /.box -->
+    </div>
+    <!-- /.col -->
+    <div class="col-md-6">
+      <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+          <!--<li class="active"><a href="#activity" data-toggle="tab">Archivos del artículo:</a></li>-->
+          <li><a href="#timeline" data-toggle="tab">Timeline del artículo</a></li>
+        </ul>
+        <div class="tab-content">
+
+          <%#= render "item_file.html.erb" %>
+
+          <div class="active tab-pane" id="timeline">
+            <ul class="timeline timeline-inverse">
+              <!-- timeline time label -->
+              <% @audits.reverse_each do |audit| %>
+                <% if audit.action == "create" and audit.associated_id.nil? %>
+
+                  <li class="time-label">
+                            <span class="bg-red">
+                              <%= audit.created_at.strftime("%d / %m / %Y") %>
+                            </span>
+                  </li>
+                  <!-- /.timeline-label -->
+                  <!-- timeline item -->
+                  <li>
+                    <i class="fa fa-plus bg-green"></i>
+
+                    <div class="timeline-item">
+                      <span class="time"><i class="fa fa-clock-o"></i> <%= audit.created_at.strftime("%H:%M") %></span>
+
+                      <h3 class="timeline-header"><strong><%= t(".audit.create") %> </strong></h3>
+
+                      <div class="timeline-body">
+                        Se Creó el Remolque
+                      </div>
+                      <!--<div class="timeline-footer">-->
+                      <!--<a class="btn btn-primary btn-xs">Read more</a>-->
+                      <!--<a class="btn btn-danger btn-xs">Delete</a>-->
+                      <!--</div>-->
+                    </div>
+                  </li>
+                <% elsif audit.action == "create" and audit.associated_id %>
+                  <li class="time-label">
+                          <span class="bg-red">
+                            <%= audit.created_at.strftime("%d / %m / %Y") %>
+                          </span>
+                  </li>
+                  <!-- /.timeline-label -->
+                  <!-- timeline item -->
+                  <li>
+                    <i class="fa fa-plus bg-green"></i>
+
+                    <div class="timeline-item">
+                      <span class="time"><i class="fa fa-clock-o"></i> <%= audit.created_at.strftime("%H:%M") %></span>
+
+                      <h3 class="timeline-header">
+                        <strong><%= t(".audit.create") %> <%= t(".audit.by") %>  <%= "#{User.find(audit.user_id).try(:employee_number)} - #{User.find(audit.user_id).try(:full_name)}" if audit.user_id.present? %> </strong>
+                      </h3>
+
+                      <div class="timeline-body">
+                        <%= audit.auditable_type == "ItemFile" ? t(".audit.file_mesage") : t(".audit.maintenance_mesage") %>
+                        :
+                        <br>
+                        <%= audit.auditable_type == "ItemFile" ? t(".file_type.#{audit.audited_changes["file_type"]}") : audit.audited_changes["description"] %>
+                      </div>
+                      <!--<div class="timeline-footer">-->
+                      <!--<a class="btn btn-primary btn-xs">Read more</a>-->
+                      <!--<a class="btn btn-danger btn-xs">Delete</a>-->
+                      <!--</div>-->
+                    </div>
+                  </li>
+                <% elsif audit.action == "delete" and audit.associated_id %>
+                  <li class="time-label">
+                          <span class="bg-red">
+                            <%= audit.created_at.strftime("%d / %m / %Y") %>
+                          </span>
+                  </li>
+                  <!-- /.timeline-label -->
+                  <!-- timeline item -->
+                  <li>
+                    <i class="fa fa-plus bg-green"></i>
+
+                    <div class="timeline-item">
+                      <span class="time"><i class="fa fa-clock-o"></i> <%= audit.created_at.strftime("%H:%M") %></span>
+
+                      <h3 class="timeline-header">
+                        <strong><%= t(".audit.create") %> <%= t(".audit.by") %>  <%= "#{User.find(audit.user_id).try(:employee_number)} - #{User.find(audit.user_id).try(:full_name)}" if audit.user_id.present? %> </strong>
+                      </h3>
+
+                      <div class="timeline-body">
+                        <%= audit.auditable_type == "ItemFile" ? t(".audit.file_mesage") : t(".audit.maintenance_mesage") %>
+                        :
+                        <br>
+                        <%= audit.auditable_type == "ItemFile" ? t(".file_type.#{audit.audited_changes["file_type"]}") : audit.audited_changes["description"] %>
+                      </div>
+                      <!--<div class="timeline-footer">-->
+                      <!--<a class="btn btn-primary btn-xs">Read more</a>-->
+                      <!--<a class="btn btn-danger btn-xs">Delete</a>-->
+                      <!--</div>-->
+                    </div>
+                  </li>
+                <% else %>
+                  <li class="time-label">
+                          <span class="bg-red">
+                            <%= audit.created_at.strftime("%d / %m / %Y") %>
+                          </span>
+                  </li>
+                  <!-- /.timeline-label -->
+                  <!-- timeline item -->
+                  <li>
+                    <i class="fa fa-sync-alt bg-blue"></i>
+
+                    <div class="timeline-item">
+                      <span class="time"><i class="fa fa-clock-o"></i> <%= audit.created_at.strftime("%H:%M") %></span>
+
+                      <!-- TODO: Verificar porque el audit no tiene user_id -->
+                      <h3 class="timeline-header">
+                        <strong>
+                          <%= t(".audit.#{audit.action}") %> <%= t(".audit.by") %>  <%= "#{User.find(audit.user_id).try(:employee_number)} - #{User.find(audit.user_id).try(:full_name)}" if audit.user_id.present? %>
+                        </strong>
+                      </h3>
+
+
+                      <div class="timeline-body">
+                        <% audit.audited_changes.keys.each do |key| %>
+
+                          <% unless key.eql?('user_id') %>
+                            <%= "#{t('.audit.change')}: " %><strong><%= t(".audit.#{key}") %></strong>
+                          <% end %>
+
+                          <% case key %>
+                        <% when "time_unit_service" %>
+                            <%= " #{t('.audit.from')} " %>
+                            <strong><%= audit.audited_changes[key][0].nil? ? "#{t('.audit.nil')}" : t(".time_units.#{audit.audited_changes[key][0].to_s}") %></strong>
+                            <%= " #{t('.audit.to')} " %>
+                            <strong><%= audit.audited_changes[key][1].nil? ? "#{t('.audit.nil')}" : t(".time_units.#{audit.audited_changes[key][1].to_s}") %></strong>
+
+                          <% when "provider_id" %>
+                            <%= " #{t('.audit.from')} " %>
+                            <strong><%= audit.audited_changes[key][0].nil? ? "#{t('.audit.nil')}" : Provider.find_by(id: audit.audited_changes[key][0].to_s).try('name') %></strong>
+                            <%= " #{t('.audit.to')} " %>
+                            <strong><%= audit.audited_changes[key][1].nil? ? "#{t('.audit.nil')}" : Provider.find_by(id: audit.audited_changes[key][1].to_s).try('name') %></strong>
+
+                          <% when "department_id" %>
+                            <%= " #{t('.audit.from')} " %>
+                            <strong><%= audit.audited_changes[key][0].nil? ? "#{t('.audit.nil')}" : Department.find_by(id: audit.audited_changes[key][0].to_s).try('name') %></strong>
+                            <%= " #{t('.audit.to')} " %>
+                            <strong><%= audit.audited_changes[key][1].nil? ? "#{t('.audit.nil')}" : Department.find_by(id: audit.audited_changes[key][1].to_s).try('name') %></strong>
+
+                          <% when "sub_category_id" %>
+                            <%= " #{t('.audit.from')} " %>
+                            <strong><%= audit.audited_changes[key][0].nil? ? "#{t('.audit.nil')}" : SubCategory.find_by(id: audit.audited_changes[key][0].to_s).try('name') %></strong>
+                            <%= " #{t('.audit.to')} " %>
+                            <strong><%= audit.audited_changes[key][1].nil? ? "#{t('.audit.nil')}" : SubCategory.find_by(id: audit.audited_changes[key][1].to_s).try('name') %></strong>
+
+                            <%# when "user_id"  %>
+                            <%#= " #{t('.audit.from')} " %>
+                            <strong><%#= audit.audited_changes[key][0].nil? ? "#{t('.audit.nil')}" : User.find_by(id: audit.audited_changes[key][0].to_s).try('full_name') %></strong>
+                            <%#= " #{t('.audit.to')} " %>
+                            <strong><%#= audit.audited_changes[key][1].nil? ? "#{t('.audit.nil')}" : User.find_by(id: audit.audited_changes[key][1].to_s).try('full_name') %></strong>
+
+                          <% when "brand_id" %>
+                            <%= " #{t('.audit.from')} " %>
+                            <strong><%= audit.audited_changes[key][0].nil? ? "#{t('.audit.nil')}" : Brand.find_by(id: audit.audited_changes[key][0].to_s).try('name') %></strong>
+                            <%= " #{t('.audit.to')} " %>
+                            <strong><%= audit.audited_changes[key][1].nil? ? "#{t('.audit.nil')}" : Brand.find_by(id: audit.audited_changes[key][1].to_s).try('name') %></strong>
+
+                          <% when "status_item_id" %>
+                            <%= " #{t('.audit.from')} " %>
+                            <strong><%= audit.audited_changes[key][0].nil? ? "#{t('.audit.nil')}" : StatusItem.find_by(id: audit.audited_changes[key][0].to_s).try('name') %></strong>
+                            <%= " #{t('.audit.to')} " %>
+                            <strong><%= audit.audited_changes[key][1].nil? ? "#{t('.audit.nil')}" : StatusItem.find_by(id: audit.audited_changes[key][1].to_s).try('name') %></strong>
+
+                          <% else %>
+                            <% unless key.eql?('user_id') %>
+                              <%= " #{t('.audit.from')} " %>
+                              <strong><%= audit.audited_changes[key][0].nil? ? "#{t('.audit.nil')}" : audit.audited_changes[key][0] %></strong>
+                              <%= " #{t('.audit.to')} " %>
+                              <strong><%= audit.audited_changes[key][1].nil? ? "#{t('.audit.nil')}" : audit.audited_changes[key][1] %></strong>
+                            <% end %>
+                          <% end %>
+
+
+                          <br>
+                        <% end %>
+                      </div>
+                    </div>
+                  </li>
+                <% end %>
+
+              <% end %>
+              <li>
+                <i class="fa fa-clock-o bg-gray"></i>
+              </li>
+            </ul>
+
+
+          </div>
+
+        </div>
+        <!-- /.tab-content -->
+      </div>
+      <!-- /.nav-tabs-custom -->
+    </div>
+    <!-- /.col -->
+  </div>
+  <!-- /.row -->
+
+  <script id="modal_venta.html" type='text/ng-template'>
+    <div class="modal modal-fullscreen">
+      <div class="modal-dialog">
+        <div class="modal-content form-horizontal" style="width: 900px">
+          <div class="modal-header">
+            <button class="button close" aria-hidden="true" data-dismiss="modal" type="button">x</button>
+            <h4 class="modal-title">
+              Venta de Remolque
+            </h4>
+          </div>
+          <div class="box-body">
+            <div class="row form-group">
+              <label class="col-md-3 control-label">
+                Froma de Pago:
+              </label>
+              <div class="col-md-6">
+                <select class="form-control" ng-model="item.payment_type" ng-options="payment_type.id as payment_type.type for payment_type in payment_types">
+                  <option disabled="" selected="" value=""> Seleccionar Forma de Pago</option>
+                </select>
+
+              </div>
+            </div>
+
+
+            <div class="row form-group">
+              <label class="col-md-3 control-label">
+                Precio Venta:
+              </label>
+              <div class="col-md-6">
+                <input type="text" ng-model="item.sale_price" format="currency" placeholder="$0.00" class="form-control"/>
+              </div>
+
+            </div>
+
+            <div class="row form-group" ng-show="item.payment_type === 4" ng-cloak>
+              <label class="col-md-3 control-label">
+                Abono:
+              </label>
+              <div class="col-md-6">
+                <input type="text" ng-model="item.advance_payment" format="currency" placeholder="$0.00" class="form-control"/>
+              </div>
+
+            </div>
+
+
+            <div class="row form-group" ng-show="item.payment_type > 1" ng-cloak>
+              <label class="col-md-3 control-label">
+                Comprobante:
+              </label>
+              <div class="col-md-6">
+
+                <!--                <input type='file' ng-model='item.image' base-sixty-four-input>-->
+                <input type="file" ngf-select ng-model="item.image" name="image"
+                       accept="image/*" ngf-max-size="2MB" required
+                       ngf-model-invalid="errorFile">
+              </div>
+            </div>
+
+            <div class="row form-group">
+              <label class="col-md-3 control-label">
+                Vendedor:
+              </label>
+              <div class="col-md-6">
+                <input class="form-control" type="hidden" ng-model="item.user_id" ng-value="item.user_id ='<%= current_user.id %>'">
+                <input class="form-control" disabled ng-model="user_name" ng-value="user_name = '<%= current_user.full_name %>'">
+              </div>
+            </div>
+            <div class="row form-group">
+              <label class="col-md-3 control-label">
+                Cliente:
+              </label>
+              <div class="col-md-6">
+                <select class="form-control" ng-model="item.client_id" ng-options="client.id as client.full_name for client in clients">
+                  <option disabled="" selected="" value=""> Seleccionar Cliente</option>
+                </select>
+
+                <%#= select_tag "client", options_from_collection_for_select(Client.all, "id", "full_name"), class: 'form-control', prompt: "Seleccionar Cliente", 'ng-model' => 'item.client_id' %>
+
+              </div>
+            </div>
+
+            <div class="row form-group">
+              <label class="col-md-3 control-label">
+                Uso de CFDI:
+              </label>
+              <div class="col-md-6">
+                <select class="form-control" ng-model="item.fiscal_voucher_id" ng-options="fiscal_voucher.id as fiscal_voucher.name for fiscal_voucher in fiscal_vouchers">
+                  <option disabled="" selected="" value=""> Seleccionar CFDI</option>
+                </select>
+
+
+                <%#= select_tag "fiscal_voucher", options_from_collection_for_select(FiscalVoucher.all, "id", "name"), class: 'form-control', prompt: "Seleccionar CFDI", 'ng-model' => 'item.fiscal_voucher_id' %>
+
+              </div>
+            </div>
+
+            <div class="row form-group">
+              <label class="col-md-3 control-label">
+                Observaciones:
+              </label>
+              <div class="col-md-6">
+              <textarea class="form-control" placeholder="Observaciones" ng-model="item.description" value="<%= current_user.full_name %>">
+              </textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="uploadSell(<%= @status_item_vendidos.to_json %>)" data-dismiss="modal">
+              Aceptar
+            </button>
+
+          </div>
+
+
+        </div>
+
+
+      </div>
+    </div>
+
+  </script>
+
+  <script id="modal_factura.html" type='text/ng-template'>
+    <div class="modal modal-fullscreen">
+      <div class="modal-dialog">
+        <div class="modal-content form-horizontal" style="width: 900px">
+          <div class="modal-header">
+            <button class="button close" aria-hidden="true" data-dismiss="modal" type="button">x</button>
+            <h4 class="modal-title">
+              Mostrar comprobante
+            </h4>
+          </div>
+
+          <div class="box-body">
+            <div class="row form-group" ng-show="item.image_url !== null && item.image_url !== undefined && item.image_url !== ''">
+              <label class="col-md-3 control-label">
+                Factura:
+              </label>
+              <div class="col-md-6">
+                <%= link_to 'Ver Factura', "#{url_for('{{item.image_url}}')}", :target => "_blank", class: 'pull-left' %>
+              </div>
+            </div>
+
+            <div class="row form-group" ng-show="item.payment_type>1">
+              <label class="col-md-3 control-label">
+                Comprobante:
+              </label>
+              <div class="col-md-6">
+
+                <input type="file" ngf-select ng-model="item.image" name="image"
+                       accept="image/*" ngf-max-size="2MB" required
+                       ngf-model-invalid="errorFile">
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="uploadVoucher(<%= @status_item_vendidos.first.id if @status_item_vendidos.first %>, <%= @status_item_vendidos.last.id if @status_item_vendidos.last %>)" data-dismiss="modal">
+              Aceptar
+            </button>
+
+          </div>
+
+
+        </div>
+
+
+      </div>
+    </div>
+
+  </script>
+  <script id="modal_percentage.html" type='text/ng-template'>
+    <div class="modal modal-fullscreen">
+      <div class="modal-dialog">
+        <div class="modal-content form-horizontal" style="width: 900px">
+          <div class="modal-header">
+            <button class="button close" aria-hidden="true" data-dismiss="modal" type="button">x</button>
+            <h4 class="modal-title">
+              Porcentajes
+            </h4>
+          </div>
+
+          <div class="box-body">
+            <div class="row form-group">
+              <label class="col-md-3 control-label">
+                Porcentaje de Planet:
+              </label>
+              <div class="col-md-3">
+                <div class="input-group">
+                  <input type="number" class="form-control text_field" min="0" ng-change="validate_inputs_values(); validate_planet_percentage(planet_percentage)" ng-model="planet_percentage">
+                  <span class="input-group-addon">
+                    %
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row form-group">
+              <label class="col-md-3 control-label">
+                Porcentaje de la Sucursal:
+              </label>
+              <div class="col-md-3">
+                <div class="input-group">
+                  <input type="number" class="form-control text_field" min="0" ng-change="validate_branch_percentage(branch_percentage)" ng-model="branch_percentage" ng-disabled="disable_percentages">
+                  <span class="input-group-addon">
+                    %
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row form-group" ng-hide="is_same_branch" ng-cloak>
+              <label class="col-md-3 control-label">
+                Porcentaje del vendedor:
+              </label>
+              <div class="col-md-3">
+                <div class="input-group">
+                  <input type="number" class="form-control text_field" min="0" ng-change="validate_seller_percentage(seller_percentage)" ng-model="seller_percentage" ng-disabled="disable_percentages">
+                  <span class="input-group-addon">
+                    %
+                  </span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="uploadPercentage()" data-dismiss="modal">
+              Guardar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </script>
+
+</section>

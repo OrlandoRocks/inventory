@@ -26,6 +26,7 @@ es:
         status_item_id: Estatus del Remolque
         user_id: Usuario
         image: Imágen
+        quantity: Cantidad
         new_order:
           name: Nombre del Remolque
           code: Folio

@@ -1,6 +1,6 @@
 es:
   items:
-      index:
+      index: &index
         title: Remolques
         resource: el Remolque
         code: Folio
@@ -333,7 +333,7 @@ es:
         other: Remolques
         permissions: Permisos
         new_item: Nuevo Remolque
-      form:
+      form: &form
         title: Remolques
         resource: el Remolque
         name: Nombre
@@ -432,12 +432,11 @@ es:
         clients: Clientes
         select:
           prompt: Seleccione una opción
-
-      new:
+      new: &new
         title: Nuevo Remolque
-      edit:
+      edit: &edit
         title: Editar Remolque
-      show:
+      show: &show
         title: Remolques
         resource: el Remolque
         name: Nombre
@@ -521,6 +520,16 @@ es:
         add_maintenance: Agregar mantenimiento
         back: ir a Remolques
         delete_confirmation: ¿Estas seguro que deseas eliminar este Remolque?
+      remolques_index:
+        <<: *index
+      remolques_new:
+        <<: *new
+      remolques_edit:
+        <<: *edit
+      form_remolques:
+        <<: *form
+      remolques_show:
+        <<: *show
       file_type:
         photo: Fotografia
         assignment_signature: Hoja de asignación

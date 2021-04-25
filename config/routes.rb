@@ -214,7 +214,7 @@ Rails.application.routes.draw do
       post '/item_file/:id' => 'items#create_file'
       post '/item_maintenance/:id' => 'items#create_maintenance'
       get '/items_excel' => 'items#items_excel'
-      get '/item_qr/:id' => 'items#item_qr'
+      get '/item_qr/:id' => 'items#item_qr', as: :item_qr
       get 'report/sales/:trailers' => 'items#new_report_sales' #, :defaults => {:format => 'pdf'}
       get 'report/item_sale/:id' => 'items#report_item_sale' #, :defaults => {:format => 'pdf'}
 
@@ -265,5 +265,13 @@ Rails.application.routes.draw do
 
     end
   end
+
+  get '/remolques' => 'items#remolques_index', as: :remolques_items
+  get '/remolques/items/new' => 'items#remolques_new', as: :remolques_new_item
+  post '/remolques/items' => 'items#remolques_create', as: :remolques_create_item
+  get '/remolques/items/:id/edit' => 'items#remolques_edit', as: :remolques_edit_item
+  match '/remolques/items/:id' => 'items#remolques_update', as: :remolques_update_item, via: [:put, :patch]
+  get '/remolques/items/:id' => 'items#remolques_show', as: :remolques_item
+  delete '/remolques/items/:id' => 'items#remolques_destroy', as: :remolques_destroy_item
 
 end

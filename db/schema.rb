@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_16_153643) do
+ActiveRecord::Schema.define(version: 2021_04_22_035459) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -263,6 +263,7 @@ ActiveRecord::Schema.define(version: 2021_03_16_153643) do
     t.bigint "trailer_id"
     t.integer "payment_type"
     t.bigint "fiscal_voucher_id"
+    t.bigint "client_id"
     t.decimal "advance_payment"
     t.bigint "status_shipping_id"
     t.string "color"
@@ -290,11 +291,13 @@ ActiveRecord::Schema.define(version: 2021_03_16_153643) do
     t.decimal "seller_percentage"
     t.decimal "planet_percentage"
     t.decimal "branch_percentage"
+    t.integer "item_type"
     t.index ["brake_type_id"], name: "index_items_on_brake_type_id"
     t.index ["branch_id"], name: "index_items_on_branch_id"
     t.index ["brand_id"], name: "index_items_on_brand_id"
     t.index ["capacity_id"], name: "index_items_on_capacity_id"
     t.index ["category_id"], name: "index_items_on_category_id"
+    t.index ["client_id"], name: "index_items_on_client_id"
     t.index ["color_id"], name: "index_items_on_color_id"
     t.index ["department_id"], name: "index_items_on_department_id"
     t.index ["divition_type_id"], name: "index_items_on_divition_type_id"
@@ -763,6 +766,7 @@ ActiveRecord::Schema.define(version: 2021_03_16_153643) do
   add_foreign_key "items", "brands"
   add_foreign_key "items", "capacities"
   add_foreign_key "items", "categories"
+  add_foreign_key "items", "clients"
   add_foreign_key "items", "colors"
   add_foreign_key "items", "departments"
   add_foreign_key "items", "divition_types"

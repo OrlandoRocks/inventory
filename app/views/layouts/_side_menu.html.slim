@@ -2,6 +2,19 @@ aside.main-sidebar
   section.sidebar
     /! Sidebar Menu
     ul.sidebar-menu
+      - if !has_policy_catalogo
+        li.treeview(class="#{'active' if %w(remolques_index remolques_new remolques_create).include?(params[:action]) and params[:controller].eql?('items')}")
+          a href='#'
+            i.fa.fa-list
+            span = 'Pedidos'
+            i.fa.fa-angle-left.pull-right
+          ul.treeview-menu
+            - if has_policy(Item, %w(remolques_new))
+              li
+                = link_to "<i class='fas fa-angle-right'></i> #{t '.new_item'}".html_safe, remolques_new_item_path
+            - if has_policy(Item, %w(remolques_index))
+              li
+                = link_to "<i class='fas fa-angle-right'></i> Pedidos".html_safe, remolques_items_path
       - if has_policy_catalogo
         li.header MENU
       - if has_policy_catalogo

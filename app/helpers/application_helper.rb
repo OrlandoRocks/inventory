@@ -22,12 +22,12 @@ module ApplicationHelper
       policy = policy(record)
     end
 
-    actions.each { |query| return true if policy.send('general_policy', record, query, devise_controller) }
+    actions.each { |query| return true if policy.general_policy(record, query, devise_controller) }
     false
   end
 
-  def has_policy_catalogo()
-    return true if (current_user.god? or current_user.admin?)
+  def has_policy_catalogo
+    current_user.god? or current_user.admin?
   end
 
   def has_policy_roles()

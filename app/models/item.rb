@@ -36,6 +36,7 @@
 #  trailer_id                 :bigint
 #  payment_type               :integer
 #  fiscal_voucher_id          :bigint
+#  client_id                  :bigint
 #  advance_payment            :decimal(, )
 #  status_shipping_id         :bigint
 #  color                      :string
@@ -95,6 +96,7 @@ class Item < ApplicationRecord
   belongs_to :fiscal_voucher, optional: true
   belongs_to :client, optional: true
   belongs_to :direct_branch, class_name: 'Branch', foreign_key: 'branch_id', optional: true
+
   has_one :direct_company, through: :direct_branch, source: :company
   has_one :branch, through: :department
   has_one :company, through: :branch
@@ -102,17 +104,21 @@ class Item < ApplicationRecord
   has_one :category, through: :sub_category
   has_one :user_department, :through => :user, :source => :department
 
-
-
   has_many :item_files, dependent: :destroy
   has_many :items_maintenances, dependent: :destroy
   accepts_nested_attributes_for :item_files
   accepts_nested_attributes_for :items_maintenances
 
+  # enum payment_type: [:cash, :deposit]
+  enum file_type: [ :photo, :assignment_signature, :invoice, :guarantee_policy, :other]
+  enum time_unit: [ :day, :month, :year]
+  enum item_type: [ :planet, :remolques ]
+
+  audited except: :image
+
   scope :next_maintenances, -> { order('maintenance_date ASC') }
 
   scope :unsold, -> { where(status_item_id: 2) }
-
 
   has_associated_audits
 
@@ -137,6 +143,10 @@ class Item < ApplicationRecord
   # delegate :name, to: :sub_category, prefix: true, allow_nil: true
   # delegate :name, to: :category, prefix: true, allow_nil: true
   delegate :name, to: :status_item, prefix: true, allow_nil: true
+
+  attr_accessor :quantity, :skip_create_copies
+
+  after_create :create_copy_of_items, unless: :skip_create_copies
 
   def price_total
     self.price  * ( 1 + self.branch.try(:fleet_cost)/100 )
@@ -191,18 +201,10 @@ class Item < ApplicationRecord
     end
   end
 
-  # enum payment_type: [:cash, :deposit]
-  enum file_type: [ :photo, :assignment_signature, :invoice, :guarantee_policy, :other]
-  enum time_unit: [ :day, :month, :year]
-
-  audited except: :image
-
   scope :items_assigned, -> {
     joins("LEFT JOIN users ON users.id = items.user_id LEFT JOIN departments ON departments.id = items.department_id")
         .select("items.*")
   }
-
-
 
   def self.fcm_push_notification message, seller_name, user_token
     fcm_client = FCM.new("AAAAPMlsVAc:APA91bGSTjpLnvba_GAVSoAfPLC5xgml5ZpsT-MPYB7YXDGaCW0ObspNUBR_YDdZjpobwhMoMd-_r7UwYCc7WalbH3wXnKeMqu36ktAt2x_12-XH0hJMmWpE554uiV0rhQq41VD1Idrn")
@@ -304,6 +306,17 @@ class Item < ApplicationRecord
   def price_gt_zero
     if self.price <= 0
       self.errors.add(:price, "El Valor de Adquisicion debe ser mayor a cero")
+    end
+  end
+
+  def create_copy_of_items
+    return if self.quantity.nil? or self.quantity.empty?
+    quantity_of_copies = self.quantity.to_i - 1
+    quantity_of_copies.times do
+      attrs = self.attributes.select {|key| !%w(id created_at updated_at).include?(key)}
+      item = Item.new(attrs)
+      item.skip_create_copies = true
+      item.save
     end
   end
 

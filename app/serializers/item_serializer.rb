@@ -36,6 +36,7 @@
 #  trailer_id                 :bigint
 #  payment_type               :integer
 #  fiscal_voucher_id          :bigint
+#  client_id                  :bigint
 #  advance_payment            :decimal(, )
 #  status_shipping_id         :bigint
 #  color                      :string

@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
     query ||= params[:action].to_s
     @_pundit_policy_authorized = true
     policy = policy(record)
-    unless policy.public_send('general_policy', record, query, devise_controller)
+    unless policy.general_policy(record, query, devise_controller)
       raise NotAuthorizedError.new(query: query, record: record, policy: policy)
     end
     true

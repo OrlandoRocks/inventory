@@ -1,5 +1,7 @@
 div ng-controller="itemController"
-  = form_for @item, html: {class: 'form-horizontal' , multipart: true } do |f|
+  = form_for @item,
+          url: (%w(remolques_new remolques_create).include?(params[:action]) ? remolques_create_item_path : remolques_update_item_path(@item)),
+          html: {class: 'form-horizontal' , multipart: true } do |f|
     - if @item.errors.any?
       #error_explanation
         h2 = "#{pluralize(@item.errors.count, "error(es)")}, No se permitio almacenar el artículo debido a:"
@@ -8,13 +10,18 @@ div ng-controller="itemController"
           li = message
     = form_for(item, item: 'form', html: {class: 'form-horizontal'}, validate: true) do |f|
       .box-body ng-init="init(#{@branches.to_json}, #{@categories.to_json}, #{item.id.nil? ? 'nil' :item.id } )"
-
+        - if %w(remolques_new remolques_create).include?(params[:action])
+          .row.form-group
+            = f.label :quantity, class: 'col-sm-2 control-label'
+            .col-md-10
+              = f.number_field :quantity, class: 'form-control', required: true,
+                      placeholder: t('activerecord.attributes.item.quantity')
         .row.form-group
           = f.label :branch_id, class: 'col-sm-2 control-label'
           .col-md-10
             / TODO: Hacer un helper
             select.form-control ng-change="get_all_department()" ng-model="branch.id" ng-options=("branch.id as branch.name for branch in branches") required="true"
-              option disabled="" selected="" value=""  Sucursales...
+              option disabled="" value=""  Sucursales...
             = f.hidden_field :branch_id, value: '{{branch.id}}'
         .row.form-group
           = f.label :department_id, class: 'col-sm-2 control-label'
@@ -29,12 +36,13 @@ div ng-controller="itemController"
         .row.form-group
           = label_tag 'catalogo', 'Catalogo', class: 'col-sm-2 control-label'
           .col-md-10
-            select.form-control ng-change="get_model_trailer(trailer_model.id)" ng-model="trailer_model.id" ng-options=("trailer_model.id as trailer_model.model for trailer_model in trailer_models")
+            select.form-control ng-change="get_trailer(model.trailer_type.id)" ng-model="model" ng-options=("model as model.model for model in models")
               option  selected="" value=""  Modelos...
+
         .row.form-group
           = f.label :trailer_id, class: 'col-sm-2 control-label'
           .col-md-4
-            select.form-control ng-change="item={}; trailer_model = {}; get_trailer(trailer); " ng-model="trailer" ng-options=("trailer.id as trailer.name for trailer in trailers")
+            select.form-control ng-change="get_trailer(trailer)" ng-model="trailer" ng-options=("trailer.id as trailer.name for trailer in trailers")
               option  selected="" value=""  No Aplica
             = f.hidden_field :trailer_type_id, value: '{{trailer}}'
           = f.label 'Freno', class: 'col-sm-2 control-label', 'ng-hide'=>'brakes.length==0', 'ng-cloak'=>"true"
@@ -124,7 +132,7 @@ div ng-controller="itemController"
               option  selected="" value=""  No Aplica
               = f.hidden_field :suspension_type_id, value: '{{suspension}}'
 
-        .row.form-group
+        / .row.form-group
           = f.label 'Volteo', class: 'col-sm-2 control-label', 'ng-hide'=>'turns.length==0', 'ng-cloak'=>"true"
           .col-md-4 ng-hide='turns.length==0' ng-cloak="true"
             select.form-control ng-change="generate_model()" ng-model="turn" ng-options=("turn.id as turn.name for turn in turns")
@@ -136,27 +144,28 @@ div ng-controller="itemController"
               .input-group-addon
                 i.fa.fa-calendar
               = f.text_field :acquisition_date, class: 'form-control pull-right datepicker', type: "text", placeholder: t('.acquisition_date')
-        .row.form-group
+        / .row.form-group
           = f.label :price, class: 'col-md-2 control-label'
           .col-md-4
             .input-group
               span.input-group-addon $
-              = f.number_field :price, value: number_to_currency(f.object.price.to_f, delimiter: '', unit: ''), step: :any, class: 'form-control text_field', placeholder: t('.price') , min:0.0, 'ng-model'=> 'item.price ', 'ng-change' => 'fleet = item.price * ( 1 + ( fleet_cost || "0") /100 )'  
-              span.input-group-addon .00              
+              = f.number_field :price, value: number_to_currency(f.object.price.to_f, delimiter: '', unit: ''), step: :any, class: 'form-control text_field', placeholder: t('.price') , min:0.0, 'ng-model'=> 'item.price ', 'ng-change' => 'fleet = item.price * ( 1 + ( fleet_cost || "0") /100 )'
+              span.input-group-addon .00
           = f.label :serial_number, class: 'col-md-2 control-label'
           .col-md-4
-            = f.text_field :serial_number, class: 'form-control', placeholder: t('.serial_number')                    
-        .row.form-group
+            = f.text_field :serial_number, class: 'form-control', placeholder: t('.serial_number')
+        / .row.form-group
           = f.hidden_field :fleet_cost, value: '{{ fleet_cost || "0"  }}'
           = label_tag "price_lbl", "Precio Total", class: 'col-sm-2 control-label', style: "font-size:20px;"
-          .col-md-8            
-            = label_tag :price_show, '{{ fleet | currency }}',  class: 'control-label h2.page-header',  style: "font-size:20px;"             
-        .row.form-group
+          .col-md-8
+            = label_tag :price_show, '{{ fleet | currency }}',  class: 'control-label h2.page-header',  style: "font-size:20px;"
+        / .row.form-group
           = label_tag "fleet_cost_caption", "(+ {{ fleet_cost || '0'  }}% de Flete)", class: 'col-sm-2 control-label', style: "font-size: 12px; font-style: italic; color: gray; margin-top: -21px;"
         .row.form-group
           = label_tag "accessory", "Accesorios", class: 'col-sm-2 control-label'
           .col-md-10
             = f.text_area :accessory, class: 'form-control', placeholder: "Accesorios"
+          input type='hidden' name="item[status_item_id]" value=StatusItem.find_by(key: 'pendiente')&.id
           / .row.form-group
             = f.label :image, class: 'col-sm-2 control-label'
             .col-md-4
@@ -165,26 +174,26 @@ div ng-controller="itemController"
               /= image_tag @item.image_url(:thumb).to_s  if @item.image?
               - if @item.image.attached?
                  = link_to image_tag(@item.image, :class => 'download_icon', :size => '65x65'), "#{url_for(f.object.image)}", :target => "_blank"
-        .row.form-group
+        / .row.form-group
           = label_tag 'consignatario','Consignatario', class: 'col-sm-2 control-label'
           .col-md-8
-            = label_tag 'consignee','{{full_name}}',class: 'control-label h3.page-header text-uppercase',id: 'immediate_boss' 
+            = label_tag 'consignee','{{full_name}}',class: 'control-label h3.page-header text-uppercase',id: 'immediate_boss'
             /h3 id='immediate_boss'
              .control-label.h2.page-header.text-uppercase
             input id='immediate_boss_id' name='boss_id' type='hidden'
             //input id='director_name' name='boss_id' type='hidden' value="#{@users.first.user.to_json({methods: :full_name})}" class="control-label h2.page-header text-uppercase"
 
-            input type='hidden' name="item[status_item_id]" value='2'
+
             = f.hidden_field :categories_description, value: '{{category_description}}'
             - if item.new_record?
               input type='hidden' name="item[status_shipping_id]" value='#{StatusShipping.find_by_key('recibido').id}'
             - else
-              - unless item.status_shipping_id == StatusShipping.find_by_key('recibido').id
-                input type='hidden' name="item[status_shipping_id]" ng-if="branch === 1" value='#{StatusShipping.find_by_key('recibido').id}'
-                input type='hidden' name="item[status_shipping_id]" ng-if="branch !== 1" value='#{StatusShipping.find_by_key('enviado').id}'
+             - unless item.status_shipping_id == StatusShipping.find_by_key('recibido').id
+              input type='hidden' name="item[status_shipping_id]" ng-if="branch === 1" value='#{StatusShipping.find_by_key('recibido').id}'
+              input type='hidden' name="item[status_shipping_id]" ng-if="branch !== 1" value='#{StatusShipping.find_by_key('enviado').id}'
       .box-footer
         = f.button "<i class='fa fa-floppy-o'></i> #{t('helpers.submit.submit', model: t('.resource'))}".html_safe,
                 class: 'btn btn-primary btn-flat', type: 'submit'
-        = link_to items_path, class: 'btn btn-default btn-flat' do
+        = link_to remolques_items_path, class: 'btn btn-default btn-flat' do
           i.fa.fa-list
           =< t('helpers.back')

@@ -13,6 +13,7 @@
 #  state_id    :integer
 #  code        :string
 #  last_code   :integer
+#  fleet_cost  :decimal(, )      default(0.0)
 #
 
 class BranchSerializer < ActiveModel::Serializer
