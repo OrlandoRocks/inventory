@@ -264,6 +264,7 @@ ActiveRecord::Schema.define(version: 2021_04_22_035459) do
     t.bigint "client_id"
     t.integer "payment_type"
     t.bigint "fiscal_voucher_id"
+    t.bigint "client_id"
     t.decimal "advance_payment"
     t.bigint "status_shipping_id"
     t.string "color"

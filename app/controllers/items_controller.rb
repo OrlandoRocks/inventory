@@ -437,7 +437,6 @@ class ItemsController < ApplicationController
     end
   end
 
-
   def get_maintenances
     @item_maintenances = ItemsMaintenance.where(item_id: params[:id])
   end
