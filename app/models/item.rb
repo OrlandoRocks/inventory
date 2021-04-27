@@ -176,6 +176,18 @@ class Item < ApplicationRecord
     end
   end
 
+
+  def self.to_csv
+    attributes = %w{id name description}
+    CSV.generate(headers: false) do |csv|
+      # csv << attributes
+
+      all.each do |item|
+        csv << attributes.map{ |attr| item.send(attr) }
+      end
+    end
+  end
+
   private
   def image_size_validation
     errors[:image] << "Debe de ser de tamaño menor a 5 MB" if image.size > 5.megabytes

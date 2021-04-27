@@ -31,6 +31,9 @@ permissions = [
     { name: "Eliminar remolque para Remolques del Norte",
       description: "Permite eliminar remolque para Remolques del Norte",
       action: "remolques_destroy", controller: "Items"},
+    { name: "Exportar formato Microsip para Remolques del Norte",
+      description: "Permite exportar Microsip para Remolques del Norte",
+      action: "remolques_export_microsip", controller: "Items"},
 ]
 
 permissions.each do |attrs|

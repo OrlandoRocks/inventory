@@ -274,4 +274,6 @@ Rails.application.routes.draw do
   get '/remolques/items/:id' => 'items#remolques_show', as: :remolques_item
   delete '/remolques/items/:id' => 'items#remolques_destroy', as: :remolques_destroy_item
 
+  get "/remolques/export_microsip" => 'items#remolques_export_microsip', as: :remolques_export_microsip
+
 end

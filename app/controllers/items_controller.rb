@@ -18,6 +18,9 @@ class ItemsController < ApplicationController
     @all_models = policy_scope(TrailerType).pluck(:model_part)
 
     @all_remissions = policy_scope(Item).pluck(:remission)
+
+
+
   end
 
   def next_maintenances
@@ -427,6 +430,14 @@ class ItemsController < ApplicationController
     end
   end
 
+  def remolques_export_microsip
+    respond_to do |format|
+      format.html
+      format.csv {send_data Item.to_csv, filename: "pedidos-#{Date.today}.csv"}
+    end
+  end
+
+
   def get_maintenances
     @item_maintenances = ItemsMaintenance.where(item_id: params[:id])
   end
@@ -546,6 +557,8 @@ class ItemsController < ApplicationController
     total = item.sale_price - item.advance_payment
     return Money.from_amount(total).format
   end
+
+
 
 
   private
