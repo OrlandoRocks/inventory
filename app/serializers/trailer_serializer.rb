@@ -36,11 +36,11 @@
 class TrailerSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
 
-  attributes :id, :name,:photo, :image, :model, :trailer_type, :status, :trailer_length,
-             :trailer_height, :ramp_type, :redila_type, :trailer_type, :floor_type, :capacity,
-             :trailer_width, :brake_type, :color, :divition_type, :fender_type, :hydraulic_jack,
-             :pull_type, :reinforcement_type, :roof_type, :suspension_type, :turn_type, :brand
-
+  attributes :id, :name,:photo, :image, :model, 
+              :trailer_type_id, :trailer_length_id, :trailer_height_id, :trailer_width_id, :ramp_type_id, 
+              :redila_type_id, :floor_type_id, :capacity_id, :color_id, :hydraulic_jack_id, :pull_type_id, 
+              :brake_type_id, :reinforcement_type_id, :fender_type_id, :turn_type_id, :divition_type_id, 
+              :suspension_type_id, :roof_type_id, :brand_id
   def image
     rails_blob_path(object.image, only_path: true) if object.image.attached?
   end
