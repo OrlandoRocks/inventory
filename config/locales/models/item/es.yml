@@ -73,6 +73,10 @@ es:
               required: Obligatorio
             direct_branch:
               required: Obligatorio
+        sub_category:
+          attributes:
+            category:
+              required: Obligatorio
   time_units:
       day: Día(s)
       month: Mes(es)

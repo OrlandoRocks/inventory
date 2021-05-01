@@ -427,6 +427,7 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
     };
 
     $scope.get_all_department = function () {
+
         $http({
             url: '/all_departments_by_branch/' + $scope.branch.id + '.json',
             method: 'GET'
