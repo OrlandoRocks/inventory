@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :spare_part_solds
+  resources :spare_parts
   resources :quotations
   resources :hydraulic_jacks
   resources :pull_types

@@ -1,0 +1,33 @@
+= form_for @spare_part_sold do |f|
+  - if @spare_part_sold.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@spare_part_sold.errors.count, "error")} prohibited this spare_part_sold from being saved:"
+      ul
+        - @spare_part_sold.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :client
+    = f.text_field :client
+  .field
+    = f.label :user
+    = f.text_field :user
+  .field
+    = f.label :spare_part
+    = f.text_field :spare_part
+  .field
+    = f.label :quantity
+    = f.text_field :quantity
+  .field
+    = f.label :unit_sale_price
+    = f.text_field :unit_sale_price
+  .field
+    = f.label :payment_type
+    = f.number_field :payment_type
+  .field
+    = f.label :fiscal_voucher
+    = f.text_field :fiscal_voucher
+  .field
+    = f.label :advance_payment
+    = f.text_field :advance_payment
+  .actions = f.submit

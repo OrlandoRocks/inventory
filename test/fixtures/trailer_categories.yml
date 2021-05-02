@@ -1,0 +1,45 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  trailer: one
+  trailer_length: one
+  trailer_height: one
+  ramp_type: one
+  redila_type: one
+  trailer_type: one
+  floor_type: one
+  capacity: one
+  trailer_width: one
+  color: one
+  hydraulic_jack: one
+  pull_type: one
+  brake_type: one
+  reinforcement_type: one
+  fender_type: one
+  turn_type: one
+  divition_type: one
+  suspension_type: one
+  roof_type: one
+  brand: one
+
+two:
+  trailer: two
+  trailer_length: two
+  trailer_height: two
+  ramp_type: two
+  redila_type: two
+  trailer_type: two
+  floor_type: two
+  capacity: two
+  trailer_width: two
+  color: two
+  hydraulic_jack: two
+  pull_type: two
+  brake_type: two
+  reinforcement_type: two
+  fender_type: two
+  turn_type: two
+  divition_type: two
+  suspension_type: two
+  roof_type: two
+  brand: two

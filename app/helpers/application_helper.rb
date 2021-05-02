@@ -140,7 +140,7 @@ module ApplicationHelper
 
   def company_title
     return t('activerecord.attributes.user.current_companies.planet') if cookies[:company].nil?
-    (current_user&.remolques_current_company? or cookies[:company].eql?('remolques')) ? t('activerecord.attributes.user.current_companies.remolques') : t('activerecord.attributes.user.current_companies.planet')
+    (current_user.remolques_current_company? or cookies[:company].eql?('remolques')) ? t('activerecord.attributes.user.current_companies.remolques') : t('activerecord.attributes.user.current_companies.planet')
   end
 
   def logo_for_company

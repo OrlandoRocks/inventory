@@ -29,13 +29,12 @@ div ng-controller="itemController"
         .row.form-group
           = label_tag 'catalogo', 'Catalogo', class: 'col-sm-2 control-label'
           .col-md-10
-            select.form-control ng-change="get_trailer(model.trailer_type.id)" ng-model="model" ng-options=("model as model.model for model in models")
+            select.form-control ng-change="get_model_trailer(trailer_model.id)" ng-model="trailer_model.id" ng-options=("trailer_model.id as trailer_model.model for trailer_model in trailer_models")
               option  selected="" value=""  Modelos...
-
         .row.form-group
           = f.label :trailer_id, class: 'col-sm-2 control-label'
           .col-md-4
-            select.form-control ng-change="get_trailer(trailer)" ng-model="trailer" ng-options=("trailer.id as trailer.name for trailer in trailers")
+            select.form-control ng-change="item={}; trailer_model = {}; get_trailer(trailer); " ng-model="trailer" ng-options=("trailer.id as trailer.name for trailer in trailers")
               option  selected="" value=""  No Aplica
             = f.hidden_field :trailer_type_id, value: '{{trailer}}'
           = f.label 'Freno', class: 'col-sm-2 control-label', 'ng-hide'=>'brakes.length==0', 'ng-cloak'=>"true"

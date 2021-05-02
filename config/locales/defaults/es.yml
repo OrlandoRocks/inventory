@@ -20,6 +20,13 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 es:
+  activerecord:
+    errors:
+      models:
+        spare_part:
+          attributes:
+            sub_category:
+              required: Obligatorio
   date:
     abbr_day_names:
     - Dom

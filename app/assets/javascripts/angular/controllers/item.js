@@ -98,42 +98,6 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
 
 
 
-    $scope.get_item_json = function (id) {
-
-        $http({
-            method: 'GET',
-            url: '/items/' + id + '.json'
-        }).then(function successCallback(response) {
-
-            if (response.data != null) {
-                $scope.item = response.data;
-
-
-
-                $scope.get_trailer($scope.item.trailer_type.id);
-                $scope.branch = $scope.item.branch;
-                if ($scope.branch !== null) {
-                    $scope.get_department();
-                }
-                if ($scope.item.status_shipping_id === 1) {
-                    $scope.branch = $scope.item.department_user.branch;
-                    $scope.get_department();
-                }
-
-
-                $scope.get_fiscal_vouchers();
-                $scope.get_clients();
-                $scope.item.price =parseFloat($scope.item.price);
-                $scope.fleet = $scope.item.price * ( 1 + ( $scope.branch.fleet_cost) /100 );
-
-                $scope.set_model($scope.item);
-
-            }
-        }, function errorCallback(response) {
-            console.log("Algo valio shit!");
-        });
-
-    };
 
 
 
@@ -191,13 +155,16 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
 
     };
 
+
+
     $scope.set_model = function (model) {
         $scope.model = model;
 
-
+        console.log('$scope.model');
+        console.log($scope.model);
 
         $scope.length = '';
-        $scope.trailer = '';
+        // $scope.trailer = '';
         $scope.width = '';
         $scope.floor = '';
         $scope.ramp = '';
@@ -216,15 +183,10 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
         $scope.turn = '';
 
 
-
-
-
-
-
-        if (model.trailer_type) {
-            $scope.trailer = model.trailer_type.id;
-
-        }
+        // if (model.trailer_type) {
+        //     $scope.trailer = model.trailer_type.id;
+        //
+        // }
         if (model.trailer_length) {
             $scope.length = model.trailer_length.id;
 
@@ -325,7 +287,6 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
             if (response.data != null) {
                 $scope.item = response.data;
 
-
                 $scope.trailer = $scope.item.trailer_type.id;
                 $scope.brake = $scope.item.brake_type !== null && $scope.item.brake_type !== undefined ? $scope.item.brake_type.id : null;
                 $scope.width = $scope.item.trailer_width !== null && $scope.item.trailer_width !== undefined ? $scope.item.trailer_width.id : null;
@@ -363,10 +324,12 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
                 }
 
 
+
                 $scope.get_fiscal_vouchers();
                 $scope.get_clients();
                 $scope.item.price =parseFloat($scope.item.price);
                 $scope.fleet = $scope.item.price * ( 1 + ( $scope.branch.fleet_cost) /100 );
+                // $scope.set_model($scope.item);
             }
         }, function errorCallback(response) {
             console.log("Algo valio shit!");
@@ -474,7 +437,7 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
             method: 'GET',
             url: '/trailers.json'
         }).then(function successCallback(response) {
-            $scope.models = response.data;
+            $scope.trailer_models = response.data;
         }, function errorCallback(response) {
             console.log("Algo valio shit!");
         });
@@ -713,6 +676,7 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
 
     $scope.get_trailer = function (trailer) {
 
+
         $scope.ramps = [];
         $scope.redilas = [];
         $scope.capacities = [];
@@ -736,6 +700,7 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
             if (response.data != null) {
                 $scope.model_name = response.data.model_part;
                 $scope.trailer_obj = response.data;
+
 
 
                 $scope.trailer=$scope.trailer_obj.id;
@@ -820,16 +785,18 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
 
 
 
+
                     });
                 });
                 fill_selects.then(() => {
-                    if(!$scope.model){
-                        $scope.set_model($scope.item);
-                    }else{
-                        $scope.set_model($scope.model);
-                    }
 
-                    // $scope.generate_model();
+
+                    if(!$scope.item || angular.equals($scope.item, {})){
+                        $scope.set_model($scope.trailer_model);
+                    }else{
+                        $scope.set_model($scope.item);
+
+                    }
                 });
 
             }
@@ -838,14 +805,17 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
     };
 
 
-    $scope.get_model = function (trailer) {
+    $scope.get_model_trailer = function (trailer) {
+
         if (trailer) {
             $http({
                 url: '/trailers/' + trailer + '.json',
                 method: 'GET'
             }).then(function (response) {
                 if (response.data != null) {
-                    $scope.model = response.data;
+                    $scope.trailer_model = response.data;
+                    $scope.trailer = $scope.trailer_model.trailer_type.id;
+                    $scope.get_trailer($scope.trailer);
                 }
 
             });
@@ -971,6 +941,9 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
 
 
     $scope.show = function () {
+
+        console.log($scope.fiscal_vouchers_all);
+        console.log($scope.clients_all);
 
         ModalService.showModal({
             templateUrl: 'modal_venta.html',

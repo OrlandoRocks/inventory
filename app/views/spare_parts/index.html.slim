@@ -1,0 +1,130 @@
+p.flash-notice
+  = params[:notice]
+section.content ng-controller="sparePartController"
+  .row
+    .col-xs-12
+      .box.box-primary
+        .box-header.with-border
+          .row
+            .col-xs-6.col-md-8.col-lg-8
+              h3.box-title
+                = 'Lista de Refacciones'
+            .col-xs-6.col-md-4.col-lg-4
+              .box-tools.pull-right
+                = link_to new_spare_part_path, class: 'btn btn-sm btn-flat btn-success', title: 'Nueva Refaccion' do
+                  i.fa.fa-plus
+                  span.hidden-xs
+                    =< 'Nueva Refaccion'
+        .box-body
+          .dataTables_wrapper
+            .row
+              .col-sm-12
+                .table-responsive
+                  table.table.table-bordered.table-hover.dataTable
+                    thead
+                      tr
+                        /th.table-checkbox
+                          .checkbox.icheck
+                            input [type="checkbox" class="icheck-me" data-skin="square" data-color="blue"]
+                        / th = t('.company')
+                        th = 'Refacción'
+                        th = 'Unidad Medida'
+                        th = 'Existencia'
+                        th = 'Costo Unitario'
+                        th = 'Valor Total'
+                        th.actions_header
+                          = t('helpers.actions')
+                      tbody
+                        - @spare_parts.each do |spare_part|
+                          tr.show_actions
+                            td = "#{spare_part.category.name} / #{spare_part.sub_category.name}"
+                            td = spare_part.measurement
+                            td = spare_part.instock
+                            td = spare_part.unit_cost
+                            td = spare_part.unit_cost * spare_part.instock
+                            td
+                              .actions
+                                = link_item '<i class="fa fa-edit"></i>'.html_safe, edit_spare_part_path(spare_part),
+                                        class: 'btn btn-xs btn-primary btn-flat', title: t('helpers.edit')
+                                a ng-click="show(#{spare_part.id})" class="btn btn-xs btn-success btn-flat"
+                                  | Vender
+                                  i.fa.fa-dollar-sign
+                                  /     | Eliminar
+                                  /     i.fas.fa-trash
+                                / - if has_policy(spare_part, %w(destroy))
+                                /   a ng-click="delete_spare_part(#{spare_part.id})" class="btn btn-xs btn-danger btn-flat btn-destroy"
+                                /     | Eliminar
+                                /     i.fas.fa-trash
+        .row
+          .col-sm-5
+            .dataTables_info
+              = pluralize(@spare_parts.count, 'Refacción', 'Refacciones')
+
+  script id='modal.html' type='text/ng-template'
+    .modal.modal-fullscreen.modal-fullscreen-default
+      .modal-dialog
+        .modal-content.form-horizontal
+          .modal-header
+            button.close aria-hidden="true" data-dismiss="modal" ng-click="close(Cancel)" type="button"  ×
+            h4.modal-title
+              | Vender #{t('.spare_part_id').capitalize}:
+              strong
+                | {{spare_part.category.name}} / {{spare_part.sub_category.name}}
+
+          .form-group.floating-label-form-group
+          .form-group.floating-label-form-group
+            label.col-md-3.control-label
+              = t('.client_id')
+              | :
+            .col-md-8
+              select.form-control required="" ng-change="" ng-model="client_id" ng-options=("client.id as client.full_name for client in clients")
+                option selected="" value=""  Seleccionar Cliente...
+          .form-group.floating-label-form-group
+            label.col-md-3.control-label
+              = t('.user_id')
+              | :
+            .col-md-8
+              = hidden_field_tag 'trailer_type_id', 'current_user.id', "ng-model" => "user_id", "ng-value" => "user_id=#{current_user.id}"
+              = text_field_tag 'user_id', '', class: "form-control", placeholder: t('.user_id'), "ng-model" => "user", "ng-value" => "user='#{current_user.full_name}'"
+          .form-group.floating-label-form-group
+            label.col-md-3.control-label
+              = t('.quantity')
+              | :
+            .col-md-8
+              = number_field_tag 'quantity', nil, class: 'form-control', placeholder: t('.quantity'), "ng-model" => 'quantity', "ng-change" => 'get_from_instock(quantity)', min: 0
+          .form-group.floating-label-form-group
+            label.col-md-3.control-label
+              = t('.instock')
+              | :
+            .col-md-8
+              = number_field_tag 'instock', nil, class: 'form-control', placeholder: t('.instock'), "ng-model" => 'spare_part.instock', disabled:'', min: 0
+              span ng-show="spare_part.instock<0" style="color:red"  No puede ser menor que 0
+          .form-group.floating-label-form-group
+            label.col-md-3.control-label
+              = t('.unit_sale_price')
+              | :
+            .col-md-8
+              = text_field_tag 'unit_sale_price', nil, class: 'form-control', placeholder: t('.unit_sale_price'), "ng-model" => 'unit_sale_price'
+          .form-group.floating-label-form-group
+            label.col-md-3.control-label
+              = t('.payment_type')
+              | :
+            .col-md-8
+              select.form-control required="" ng-change="" ng-model="payment_type" ng-options=("payment_type.id as payment_type.type for payment_type in payment_types")
+                option selected="" value=""  Seleccionar Tipo de Pago...
+          .form-group.floating-label-form-group
+            label.col-md-3.control-label
+              = t('.fiscal_voucher_id')
+              | :
+            .col-md-8
+              select.form-control required="" ng-change="" ng-model="fiscal_voucher_id" ng-options=("fiscal_voucher.id as fiscal_voucher.name for fiscal_voucher in fiscal_vouchers")
+                option selected="" value=""  Seleccionar CFDI...
+          / .form-group.floating-label-form-group
+          /   label.col-md-3.control-label
+          /     = t('.advance_payment')
+          /     | :
+          /   .col-md-8
+          /     = text_field_tag 'advance_payment', nil, class: 'form-control', placeholder: t('.advance_payment'), "ng-model" => 'provider'
+
+          .modal-footer
+            button.btn.btn-primary data-dismiss="modal" ng-click="sellSparePart()" type="button"  Vender
