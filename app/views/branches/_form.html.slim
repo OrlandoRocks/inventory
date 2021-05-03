@@ -16,28 +16,14 @@
       .row.form-group
         = f.label :company, class: 'col-sm-2 control-label'
         .col-sm-10
-          /= f.collection_select(:company_id, policy_scope(Company), :id, :name,
-                      {prompt: false,:selected => selected_company}, {class: 'form-control', :disabled => "disabled"} )
-          /= f.button "<i class='fa fa-home'></i> #{t('helpers.submit.submit', model: t('.resource'))}".html_safe,
-                    class: 'btn btn-primary btn-flat disabled'
           = f.label selected_company, class: 'control-label h2.page-header text-uppercase'
-          = f.hidden_field :company_id, value: selected_company_id
+          = f.hidden_field :company_id, value: Company.first.id
 
-    /- else
-      .row.form-group
-        = f.label :company, class: 'col-sm-2 control-label'
-        .col-sm-10
-          = f.collection_select(:company_id, policy_scope(Company), :id, :name,
-                  {prompt: false }, {class: 'form-control',:disabled => "disabled" })
 
     .row.form-group
       = f.label :name, class: 'col-sm-2 control-label'
       .col-sm-10
         = f.text_field :name, class: 'form-control', placeholder: t('.name'), autofocus: true
-    / .row.form-group
-      = f.label :description, class: 'col-sm-2 control-label'
-      .col-sm-10
-        = f.text_field :description, class: 'form-control', placeholder: t('.description')
     .row.form-group
       = f.label :state, class: 'col-sm-2 control-label'
       .col-sm-10
@@ -48,10 +34,6 @@
       .col-sm-10
         = f.collection_select(:city_id, City.all.uniq, :id, :name,
                 {prompt: t('helpers.select.prompt')}, {class: 'form-control', :disabled => "disabled"})
-    .row.form-group
-      = f.label :code, class: 'col-sm-2 control-label'
-      .col-sm-10
-        = f.text_field :code, class: 'form-control', placeholder: t('.code')
     .row.form-group
       = f.label :manager_id, class: 'col-sm-2 control-label'
       .col-sm-10

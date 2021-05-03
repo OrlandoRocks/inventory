@@ -60,6 +60,7 @@
 //= require angular/controllers/brake_types
 //= require angular/controllers/trailer_type
 //= require angular/controllers/spare_parts
+//= require angular/controllers/categories
 //= require departments
 //= require permissions
 //= require users

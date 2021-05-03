@@ -31,12 +31,7 @@ section.content ng-controller="branchesController"
                       table.table.table-bordered.table-hover.dataTable
                         thead
                           tr
-                            /th.table-checkbox
-                              .checkbox.icheck
-                                input [type="checkbox" class="icheck-me" data-skin="square" data-color="blue"]
-                            th = t('.company')
                             th = t('.name')
-                            / th = t('.description')
                             th = t('.state')
                             th = t('.city')
                             th = t('.manager')
@@ -46,12 +41,7 @@ section.content ng-controller="branchesController"
                           tbody
                             - @branches.each do |branch|
                               tr.show_actions
-                                /td.table-checkbox
-                                  .checkbox.icheck
-                                    input [type="checkbox" class="icheck-me" data-skin="square" data-color="blue"]
-                                td = branch.company.name if branch.company.present?
                                 td = branch.name
-                                / td = branch.description
                                 td = branch.state.name if branch.state.present?
                                 td = branch.city.name if branch.city.present?
                                 td = branch.manager.present?? branch.manager.try(:full_name) : 'SIN ASIGNAR'
