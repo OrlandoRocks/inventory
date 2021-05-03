@@ -6,6 +6,7 @@ class CreateSpareParts < ActiveRecord::Migration[5.2]
       t.decimal :unit_cost
       t.string :measurement
 
+
       t.timestamps
     end
   end
