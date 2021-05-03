@@ -28,6 +28,7 @@ section.content ng-controller="itemController"
                     i.fa.fa-cog = t('helpers.actions')
                   ul [class="dropdown-menu dropdown-menu-right" item="menu"]
                     li = link_to "<i class='fa fa-file-excel-o'></i> #{t 'helpers.export_excel'}".html_safe, items_excel_path(format: :xlsx)
+                    li = link_to "<i class='fa fa-file-excel-o'></i> Export to Microsip".html_safe, remolques_export_microsip_path(format: :csv)
 
 
         .box-body
