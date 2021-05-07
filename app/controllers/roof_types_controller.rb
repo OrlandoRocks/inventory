@@ -69,6 +69,6 @@ class RoofTypesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def roof_type_params
-      params.require(:roof_type).permit(:name, :model_part, :status)
+      params.require(:roof_type).permit(:name, :us_name, :model_part, :status)
     end
 end

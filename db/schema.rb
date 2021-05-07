@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_22_035459) do
+ActiveRecord::Schema.define(version: 2021_05_07_175351) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 2021_04_22_035459) do
     t.boolean "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "us_name"
   end
 
   create_table "branches", id: :serial, force: :cascade do |t|
@@ -90,6 +91,7 @@ ActiveRecord::Schema.define(version: 2021_04_22_035459) do
     t.datetime "updated_at", null: false
     t.string "model_part"
     t.boolean "status"
+    t.string "us_name"
   end
 
   create_table "capacities", force: :cascade do |t|
@@ -98,6 +100,7 @@ ActiveRecord::Schema.define(version: 2021_04_22_035459) do
     t.boolean "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "us_name"
   end
 
   create_table "categories", id: :serial, force: :cascade do |t|
@@ -145,6 +148,7 @@ ActiveRecord::Schema.define(version: 2021_04_22_035459) do
     t.boolean "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "us_name"
   end
 
   create_table "companies", id: :serial, force: :cascade do |t|
@@ -186,6 +190,7 @@ ActiveRecord::Schema.define(version: 2021_04_22_035459) do
     t.boolean "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "us_name"
   end
 
   create_table "fender_types", force: :cascade do |t|
@@ -194,6 +199,7 @@ ActiveRecord::Schema.define(version: 2021_04_22_035459) do
     t.boolean "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "us_name"
   end
 
   create_table "fiscal_vouchers", force: :cascade do |t|
@@ -209,6 +215,7 @@ ActiveRecord::Schema.define(version: 2021_04_22_035459) do
     t.boolean "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "us_name"
   end
 
   create_table "hydraulic_jacks", force: :cascade do |t|
@@ -217,6 +224,7 @@ ActiveRecord::Schema.define(version: 2021_04_22_035459) do
     t.boolean "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "us_name"
   end
 
   create_table "item_files", id: :serial, force: :cascade do |t|
@@ -420,6 +428,7 @@ ActiveRecord::Schema.define(version: 2021_04_22_035459) do
     t.boolean "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "us_name"
   end
 
   create_table "quotations", force: :cascade do |t|
@@ -480,6 +489,7 @@ ActiveRecord::Schema.define(version: 2021_04_22_035459) do
     t.boolean "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "us_name"
   end
 
   create_table "redila_types", force: :cascade do |t|
@@ -488,6 +498,7 @@ ActiveRecord::Schema.define(version: 2021_04_22_035459) do
     t.boolean "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "us_name"
   end
 
   create_table "reinforcement_types", force: :cascade do |t|
@@ -513,6 +524,7 @@ ActiveRecord::Schema.define(version: 2021_04_22_035459) do
     t.boolean "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "us_name"
   end
 
   create_table "states", id: :serial, force: :cascade do |t|
@@ -557,6 +569,7 @@ ActiveRecord::Schema.define(version: 2021_04_22_035459) do
     t.boolean "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "us_name"
   end
 
   create_table "trailer_categories", force: :cascade do |t|
@@ -619,6 +632,7 @@ ActiveRecord::Schema.define(version: 2021_04_22_035459) do
     t.boolean "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "us_name"
   end
 
   create_table "trailer_types", force: :cascade do |t|
@@ -628,6 +642,7 @@ ActiveRecord::Schema.define(version: 2021_04_22_035459) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "model_part"
+    t.string "us_name"
   end
 
   create_table "trailer_widths", force: :cascade do |t|
@@ -636,6 +651,7 @@ ActiveRecord::Schema.define(version: 2021_04_22_035459) do
     t.boolean "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "us_name"
   end
 
   create_table "trailers", force: :cascade do |t|
@@ -696,6 +712,7 @@ ActiveRecord::Schema.define(version: 2021_04_22_035459) do
     t.boolean "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "us_name"
   end
 
   create_table "users", id: :serial, force: :cascade do |t|

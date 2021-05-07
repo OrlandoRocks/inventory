@@ -69,6 +69,6 @@ class FenderTypesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def fender_type_params
-      params.require(:fender_type).permit(:name, :model_part, :status)
+      params.require(:fender_type).permit(:name, :us_name, :model_part, :status)
     end
 end

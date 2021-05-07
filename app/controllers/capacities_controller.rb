@@ -69,6 +69,6 @@ class CapacitiesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def capacity_params
-      params.require(:capacity).permit(:name, :model_part, :status)
+      params.require(:capacity).permit(:name, :us_name, :model_part, :status)
     end
 end
