@@ -8,6 +8,11 @@ if role_venedor_remolques.nil?
   role_venedor_remolques = Role.create(name: 'Vendedor de Remolques del Norte', key: 'vendedor_remolques', description: 'Vendedor de Remolques del Norte.', scope: 0)
 end
 
+role_us_remolques = Role.find_by(key: 'us_remolques')
+if role_us_remolques.nil?
+  role_us_remolques = Role.create(name: 'US de Remolques del Norte', key: 'us_remolques', description: 'US de Remolques del Norte.', scope: 0)
+end
+
 User.all.each {|u| u.update_column('current_company', 0)} if User.pluck(:current_company).all?(nil)
 
 permissions = [
@@ -42,6 +47,7 @@ permissions.each do |attrs|
   permission = Permission.create(attrs) if permission.nil?
   PermissionRole.create(permission_id: permission.id, role_id: role_admin_remolques.id) if PermissionRole.find_by(permission_id: permission.id, role_id: role_admin_remolques.id).nil?
   PermissionRole.create(permission_id: permission.id, role_id: role_venedor_remolques.id) if PermissionRole.find_by(permission_id: permission.id, role_id: role_venedor_remolques.id).nil?
+  PermissionRole.create(permission_id: permission.id, role_id: role_us_remolques.id) if PermissionRole.find_by(permission_id: permission.id, role_id: role_us_remolques.id).nil?
 end
 
 permissions_from_other_controllers = [
@@ -97,6 +103,7 @@ permissions_from_other_controllers.each do |attrs|
   permission = Permission.create(attrs) if permission.nil?
   PermissionRole.create(permission_id: permission.id, role_id: role_admin_remolques.id) if PermissionRole.find_by(permission_id: permission.id, role_id: role_admin_remolques.id).nil?
   PermissionRole.create(permission_id: permission.id, role_id: role_venedor_remolques.id) if PermissionRole.find_by(permission_id: permission.id, role_id: role_venedor_remolques.id).nil?
+  PermissionRole.create(permission_id: permission.id, role_id: role_us_remolques.id) if PermissionRole.find_by(permission_id: permission.id, role_id: role_us_remolques.id).nil?
 end
 
 if User.find_by(email: 'admin_remolques@correo.com').nil?
@@ -109,4 +116,10 @@ if User.find_by(email: 'vendedor_remolques@correo.com').nil?
   User.create(email: 'vendedor_remolques@correo.com', password: 'password', first_name: 'Vendedor', last_name: 'Remolques',
               maiden_name: 'Remolques', employee_number: 123456789, current_company: 'remolques',
               role_id: Role.find_by(key: 'vendedor_remolques')&.id)
+end
+
+if User.find_by(email: 'us_remolques@correo.com').nil?
+  User.create(email: 'us_remolques@correo.com', password: 'password', first_name: 'US', last_name: 'Remolques',
+              maiden_name: 'Remolques', employee_number: 12345678, current_company: 'remolques',
+              role_id: Role.find_by(key: 'us_remolques')&.id)
 end

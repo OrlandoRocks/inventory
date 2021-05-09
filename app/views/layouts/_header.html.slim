@@ -62,7 +62,7 @@ header.main-header ng-controller="homeController" ng-init="init(#{current_user.c
             = "#{selected_company}"
           a
             = "#{selected_company}"
-        li.language-btn [title="#{t('.select_lang')}"]
+        / li.language-btn [title="#{t('.select_lang')}"]
           - if I18n.locale == :es
             a.first href="javascript:;"
               i.fa.fa-flag.fa-lg

@@ -4,6 +4,7 @@ class HomeController < ApplicationController
   layout false, only: [:terminos_condiciones]
 
   def index
+    redirect_to '/set_language/english' if current_user.role_key.eql?('us_remolques') and session[:locale].eql?(:es)
 
     unless current_user.nil?
       if current_user.current_company.nil?
