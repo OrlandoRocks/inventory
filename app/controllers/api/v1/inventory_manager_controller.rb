@@ -43,13 +43,6 @@ class Api::V1::InventoryManagerController < ActionController::Base
   def get_trailer_categories
     render json: TrailerType.get_categories(params[:trailer_id]).as_json
   end
-
-  def get_categories
-    render json: {trailers: TrailerType.all.as_json(except: :image), widths: TrailerWidth.all, lengths: TrailerLength.all, floors: FloorType.all, ramps: RampType.all,
-                  capacities: Capacity.all, redilas: RedilaType.all, roofs:RoofType.all, turns:TurnType.all, brakes: BrakeType.all, colors:Color.all,
-                  divitios:DivitionType.all, fenders: FenderType.all, hydraulic_jacks: HydraulicJack.all, pulls: PullType.all, brands: Brand.all,
-                  suspensions:SuspensionType.all}
-  end
   
 
   def get_sub_categories
@@ -198,7 +191,7 @@ class Api::V1::InventoryManagerController < ActionController::Base
 
 
       @new_item = Item.new(item_params)
-      @new_item.image.attach(io: image_io, filename: 'comprobante de pago')     if params[:image]
+      @new_item.image.attach(io: image_io, filename: 'item')     if params[:image]
 
       p 'new item'
       p @new_item
@@ -278,7 +271,7 @@ class Api::V1::InventoryManagerController < ActionController::Base
       item_params[:planet_percentage]    =    params[:planet_percentage]     if params[:planet_percentage]
       item_params[:branch_percentage]    =    params[:branch_percentage]     if params[:branch_percentage]
 
-      item.image.attach(io: image_io, filename: 'Comprobante de Pago') if params[:image]
+      item.image.attach(io: image_io, filename: 'item') if params[:image]
 
       # item_params[:image]               =    params[:image] if params[:image]
       # item_params[:image]               =    image_io(item_params[:image]) if item_params[:image]
@@ -327,10 +320,7 @@ class Api::V1::InventoryManagerController < ActionController::Base
   end
 
   def image_io
-
     decoded_image = Base64.decode64(params[:image])
-
-
     StringIO.new(decoded_image)
   end
 

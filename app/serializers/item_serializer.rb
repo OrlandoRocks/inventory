@@ -74,11 +74,16 @@ class ItemSerializer < ActiveModel::Serializer
              :trailer_length, :trailer_height, :ramp_type, :redila_type, :floor_type, :capacity,
              :trailer_width, :brake_type, :color, :divition_type, :fender_type, :hydraulic_jack, :advance_payment,
              :pull_type, :reinforcement_type, :roof_type, :suspension_type, :turn_type, :trailer_type, :brand, :categories_description,
-             :seller_percentage, :planet_percentage, :branch_percentage
-
+             :seller_percentage, :planet_percentage, :branch_percentage, :image_encoded
   def user
     object.user.as_json(except: [:avatar, :received_file], include: :department) if object.user
-
+  end
+  
+  def image_blob
+    rails_blob_path(object.image, only_path: true) if object.image.attached?
+  end
+  def image_encoded
+    Base64.encode64(rails_blob_path(object.image, only_path: true)) if object.image.attached?
   end
 
   def trailer_type
