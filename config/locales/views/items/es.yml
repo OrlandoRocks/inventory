@@ -362,13 +362,6 @@ es:
         status_item: Estatus del Remolque
         client: Cliente
         advance_payment: Abono
-        color: Color
-        width: Ancho
-        length: Largo
-        floor: Piso
-        ramp: Rampa
-        capacity: Capacidad
-        redila: Redila
         percentage_seller: Porcentaje del Vendedor
         percentage_branch: Porcentaje de la Sucursal
         percentage_planet: Porcentaje de Planet
@@ -377,6 +370,20 @@ es:
         catalog: Catálogo
         models: Modelos...
         accesories: Accesorios
+        brake: Freno
+        width: Ancho
+        color: Color
+        length: Largo
+        floor: Piso
+        ramp: Rampa
+        division: División
+        fender: Fender
+        hydraulic_jack: Gato Hidráulico
+        capacity: Capacidad
+        redila: Redila
+        pull: Jalón
+        roof: Techo
+        suspension: Suspensión
       new_order:
         title: Remolques
         resource: el Remolque

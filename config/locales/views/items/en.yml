@@ -78,6 +78,20 @@ en:
       catalog: Catalog
       models: Models...
       accesories: Accesories
+      brake: Brake
+      width: Width
+      color: Color
+      length: Length
+      floor: Floor
+      ramp: Ramp
+      division: Division
+      fender: Fender
+      hydraulic_jack: Hydraulic jack
+      capacity: Capacity
+      redila: Redila
+      pull: Pull
+      roof: Roof
+      suspension: Suspension
     new: &new
       title: New order
     edit: &edit

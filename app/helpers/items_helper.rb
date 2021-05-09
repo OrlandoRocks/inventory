@@ -26,4 +26,12 @@ module ItemsHelper
       l(item.maintenance_date, format: :long)
     end
   end
+
+  def us_name_if_locale_en(resource_name)
+    if session[:locale].eql?(:en)
+      "(#{resource_name}.us_name || #{resource_name}.name)"
+    else
+      "#{resource_name}.name"
+    end
+  end
 end
