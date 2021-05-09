@@ -17,6 +17,7 @@ es:
       profile: Perfil
       log_out: Cerrar sesión
     side_menu:
+      items: Remolques
       new_role: Nuevo rol
       roles: Roles
       new_permission: Nuevo permiso
@@ -27,7 +28,6 @@ es:
       work_articles: Artículos de trabajo
       new_work_article: Nuevo artículo de trabajo
       new_item: Nuevo artículo
-      items: Articulos
       employees: Vendedores
       employees_asig: Vendedores
       companies: Compañias

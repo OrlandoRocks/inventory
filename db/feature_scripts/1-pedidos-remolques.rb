@@ -7,6 +7,7 @@ role_venedor_remolques = Role.find_by(key: 'vendedor_remolques')
 if role_venedor_remolques.nil?
   role_venedor_remolques = Role.create(name: 'Vendedor de Remolques del Norte', key: 'vendedor_remolques', description: 'Vendedor de Remolques del Norte.', scope: 0)
 end
+
 User.all.each {|u| u.update_column('current_company', 0)} if User.pluck(:current_company).all?(nil)
 
 permissions = [

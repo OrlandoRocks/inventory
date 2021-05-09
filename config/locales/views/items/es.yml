@@ -7,7 +7,7 @@ es:
         name: Nombre del Remolque
         description: Descripción
         model: Modelo
-        serial_number: Numero de Serie
+        serial_number: Número de Serie
         acquisition_date: Fecha de Adquisición
         purchased_date: Fecha de Compra
         in_service_date: Fecha de entrega
@@ -40,6 +40,7 @@ es:
         f_orden: Ordenar por
         search: Buscar...
         sale_price: Precio de venta
+        finder: Buscador de Remolques
       form_order:
         accessory: Accesorios
         Usuario: Vendedor
@@ -372,6 +373,10 @@ es:
         percentage_branch: Porcentaje de la Sucursal
         percentage_planet: Porcentaje de Planet
         sale_price: Precio de venta
+        branches: Sucursales...
+        catalog: Catálogo
+        models: Modelos...
+        accesories: Accesorios
       new_order:
         title: Remolques
         resource: el Remolque

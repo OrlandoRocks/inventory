@@ -269,9 +269,9 @@ ActiveRecord::Schema.define(version: 2021_05_07_175351) do
     t.string "accessory"
     t.date "acquisition_date"
     t.bigint "trailer_id"
-    t.bigint "client_id"
     t.integer "payment_type"
     t.bigint "fiscal_voucher_id"
+    t.bigint "client_id"
     t.decimal "advance_payment"
     t.bigint "status_shipping_id"
     t.string "color"
@@ -525,6 +525,33 @@ ActiveRecord::Schema.define(version: 2021_05_07_175351) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "us_name"
+  end
+
+  create_table "spare_part_solds", force: :cascade do |t|
+    t.bigint "client_id"
+    t.bigint "user_id"
+    t.bigint "spare_part_id"
+    t.decimal "quantity"
+    t.decimal "unit_sale_price"
+    t.integer "payment_type"
+    t.bigint "fiscal_voucher_id"
+    t.decimal "advance_payment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_spare_part_solds_on_client_id"
+    t.index ["fiscal_voucher_id"], name: "index_spare_part_solds_on_fiscal_voucher_id"
+    t.index ["spare_part_id"], name: "index_spare_part_solds_on_spare_part_id"
+    t.index ["user_id"], name: "index_spare_part_solds_on_user_id"
+  end
+
+  create_table "spare_parts", force: :cascade do |t|
+    t.bigint "sub_category_id"
+    t.decimal "instock"
+    t.decimal "unit_cost"
+    t.string "measurement"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["sub_category_id"], name: "index_spare_parts_on_sub_category_id"
   end
 
   create_table "states", id: :serial, force: :cascade do |t|
@@ -835,6 +862,11 @@ ActiveRecord::Schema.define(version: 2021_05_07_175351) do
   add_foreign_key "quotations", "trailer_widths"
   add_foreign_key "quotations", "turn_types"
   add_foreign_key "quotations", "users"
+  add_foreign_key "spare_part_solds", "clients"
+  add_foreign_key "spare_part_solds", "fiscal_vouchers"
+  add_foreign_key "spare_part_solds", "spare_parts"
+  add_foreign_key "spare_part_solds", "users"
+  add_foreign_key "spare_parts", "sub_categories"
   add_foreign_key "states", "countries"
   add_foreign_key "sub_categories", "categories"
   add_foreign_key "trailer_categories", "brake_types"

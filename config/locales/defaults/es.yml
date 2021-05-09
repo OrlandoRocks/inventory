@@ -218,6 +218,7 @@ es:
     restore: Restaurar
     index: Índice
     ssh_key: Llave SSH
+    doesnt_apply: No aplica
     success:
       update_fem: Su %{resource} ha sido actualizada correctamente
       update_masc: Su %{resource} ha sido actualizado correctamente
