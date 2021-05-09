@@ -275,6 +275,4 @@ Rails.application.routes.draw do
   delete '/remolques/items/:id' => 'items#remolques_destroy', as: :remolques_destroy_item
   get "/remolques/export_microsip" => 'items#remolques_export_microsip', as: :remolques_export_microsip
 
-  get "/remolques/export_microsip" => 'items#remolques_export_microsip', as: :remolques_export_microsip
-
 end
