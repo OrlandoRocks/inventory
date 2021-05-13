@@ -90,8 +90,7 @@ class Api::V1::InventoryManagerController < ActionController::Base
       @items = Item.where(status_item_id: StatusItem.where(key:['vendido', 'pendiente_factura', 'facturado']).pluck(:id), department_id: @user.department_id)
     end
 
-    render json: item_json(@items)
-
+    render json: @items
 
   end
 
@@ -314,9 +313,7 @@ class Api::V1::InventoryManagerController < ActionController::Base
   private
 
   def item_json item
-
-    item.as_json(except: :image, include: [{user: {except: [:avatar, :received_file], include: :department}}, :status_item, :branch, :department, :client])
-
+    item.as_json(except: :image, include: [{user: {except: [:avatar, :received_file], include: :department}}, :status_item, :branch, :department, :client], methods:[:image_encoded, :image_path ] )
   end
 
   def image_io

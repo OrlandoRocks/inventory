@@ -137,9 +137,16 @@ class Item < ApplicationRecord
   # delegate :name, to: :sub_category, prefix: true, allow_nil: true
   # delegate :name, to: :category, prefix: true, allow_nil: true
   delegate :name, to: :status_item, prefix: true, allow_nil: true
-
+  include Rails.application.routes.url_helpers
   def price_total
     self.price  * ( 1 + self.branch.try(:fleet_cost)/100 )
+  end
+
+  def image_encoded 
+    Base64.encode64(rails_blob_path(self.image, only_path: true)) if self.image.attached?
+  end
+  def image_path 
+    rails_blob_path(self.image, only_path: true) if self.image.attached?
   end
 
   def self.set_without_maintenance
@@ -153,7 +160,7 @@ class Item < ApplicationRecord
   def responsible
     if self.user
       self.user
-    elsif self.department.try(:manager)
+    elsif self.d  epartment.try(:manager)
       self.department.manager
     elsif self.branch.try(:user)
       self.branch.user
