@@ -16,21 +16,22 @@ WORKDIR /app
 
 COPY Gemfile* /app/
 
-ENV RAILS_ENV=production
-ENV RACK_ENV=production
-ENV PORT=3000
+ENV RAILS_ENV production
+ENV RACK_ENV production
+ENV PORT 3000
 ENV SECRET_KEY_BASE mykey
 
-RUN gem install bundler -v 1.17.3
+RUN gem install bundler -v 1.17.1
 RUN gem install puma
-RUN bundle install --jobs=6
+RUN bundle config git.allow_insecure true
+RUN bundle install --jobs=4
 
 COPY yarn.lock /app/
 # RUN yarn install --check-files
 
 COPY . .
 
-ENV PORT=5000
+ENV PORT 5000
 
 EXPOSE 5000
 
