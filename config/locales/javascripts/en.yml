@@ -18,3 +18,6 @@ en:
     profile_file_size: The maximum allowable size of the image is 5MB.
     add: Add
     remove: Remove
+    question_to_remove_item: Do you want to remove this order?
+    removed: Removed
+    order_removed: Order has been removed
