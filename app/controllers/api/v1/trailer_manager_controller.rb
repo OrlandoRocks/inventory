@@ -33,7 +33,7 @@ class Api::V1::TrailerManagerController < ActionController::Base
 
 
       @new_trailer= Trailer.new(trailer_params)
-      @new_trailer.image.attach(io: image_io, filename: 'comprobante de pago')     if params[:image]
+      @new_trailer.image.attach(io: image_io, filename: 'trailer')     if params[:image]
 
       p 'new trailer'
       p @new_trailer
@@ -86,7 +86,7 @@ class Api::V1::TrailerManagerController < ActionController::Base
       trailer_params[:roof_type_id]              =    params[:roof_type_id]               if params[:roof_type_id]
 
 
-      trailer.image.attach(io: image_io, filename: 'Comprobante de Pago') if params[:image]
+      trailer.image.attach(io: image_io, filename: 'trailer') if params[:image]
 
       # trailer_params[:image]               =    params[:image] if params[:image]
       # trailer_params[:image]               =    image_io(trailer_params[:image]) if trailer_params[:image]
