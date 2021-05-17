@@ -246,7 +246,7 @@ class Api::V1::InventoryManagerController < ActionController::Base
       item_params[:fiscal_voucher_id]   =    params[:fiscal_voucher_id]   if params[:fiscal_voucher_id]
       item_params[:client_id]           =    params[:client_id]           if params[:client_id]
       item_params[:advance_payment]     =    params[:advance_payment]     if params[:advance_payment]
-      item_params[:brand]                     =    params[:brand]                      if params[:brand]
+      item_params[:brand_id]                     =    params[:brand_id]                      if params[:brand_id]
       item_params[:trailer_length_id]         =    params[:trailer_length_id]          if params[:trailer_length_id]
       item_params[:trailer_height_id]         =    params[:trailer_height_id]          if params[:trailer_height_id]
       item_params[:ramp_type_id]              =    params[:ramp_type_id]               if params[:ramp_type_id]
