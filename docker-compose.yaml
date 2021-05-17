@@ -19,7 +19,6 @@ services:
       - postgresql_data:/var/lib/postgresql/data
 
 
-
 volumes:
   postgresql_data:
   postgresql:
