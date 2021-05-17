@@ -402,6 +402,7 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
             $scope.branch = $scope.departments[0].branch;
             $scope.fleet_cost = $scope.branch.fleet_cost ;
             $scope.full_name = $scope.consignee ? $scope.consignee.first_name + ' ' + $scope.consignee.last_name : 'Sin Gerente' ;
+            $scope.fleet = ($scope.item.price || 0) * ( 1 + ( $scope.fleet_cost || 0) /100 );
         });
     };
 

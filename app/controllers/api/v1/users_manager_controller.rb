@@ -2,31 +2,18 @@
 class Api::V1::UsersManagerController < ActionController::Base
 
   protect_from_forgery with: :null_session
-
+  
 
   def login_user
-    user_email = User.find_by(employee_number: params[:employee_number]).try(:email)
-    resource = User.find_for_database_authentication(email: user_email)
-
-    if resource
-      if resource.valid_password?(params[:password])
-        sign_in("user", resource)
-        render :json=> {status: 200,success: true, auth_token: resource.authenticatable_salt, email: resource.email,
-                        name:"#{resource.first_name} #{resource.last_name}", role: resource.try(:role).try(:key), user_id: resource.id,
-                        department_name: resource.try(:department).try(:name), branch_name: resource.try(:branch).try(:name),
-                        department_id: resource.try(:department_id), branch_id: resource.try(:branch_id),
-                        token: resource.try(:token) }
-        return
-      else
-        render json: {status: 400,success: false, message: 'User or password are incorrect'}
-      end
+    user = User.find_for_database_authentication(employee_number: params[:employee_number])
+    if user && user.valid_password?(params[:password]) 
+      render json: {status: 200, success:true , user: payload(user)}
     else
       render json: {status: 400, success:false ,message: 'User or password are incorrect'}
     end
-
   end
 
-
+  
   def sign_up_guest
     begin
 
@@ -91,6 +78,23 @@ class Api::V1::UsersManagerController < ActionController::Base
 
     end
   end
-
+  private
+  def payload(user)
+    return nil unless user and user.id
+    { 
+      status: 200,
+      success: true, 
+      # auth_token: user.authenticatable_salt, 
+      token: JsonWebToken.encode({user_id: user.id}), 
+      email: user.email,
+      name:"#{user.first_name} #{user.last_name}", 
+      role: user.try(:role).try(:key), 
+      user_id: user.id,
+      department_name: user.try(:department).try(:name),
+      branch_name: user.try(:branch).try(:name),
+      department_id: user.try(:department_id),
+      branch_id: user.try(:branch).try(:id)
+    }
+  end
 
 end
