@@ -48,7 +48,7 @@
       .row.form-group
         = label_tag 'catalogo', 'Catalogo', class: 'col-sm-2 control-label'
         .col-md-10
-          select.form-control ng-change="get_trailer(model.trailer_type.id); " ng-model="model" ng-options=("model as model.model for model in models")
+          select.form-control ng-change="get_model_trailer(trailer_model.id)" ng-model="trailer_model.id" ng-options=("trailer_model.id as trailer_model.model for trailer_model in trailer_models")
             option selected="" value=""  Modelos...
 
       .row.form-group

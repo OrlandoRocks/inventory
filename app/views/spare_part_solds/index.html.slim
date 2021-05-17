@@ -20,8 +20,9 @@ section.content ng-controller="sparePartController"
                         th = 'Cliente'
                         th = 'Vendedor'
                         th = 'Cantidad'
+                        th = 'Precio Venta'
                         th = 'Valor Total'
-                        th.actions_header
+                        / th.actions_header
                           = t('helpers.actions')
                       tbody
                         - @spare_part_solds.each do |spare_part_sold|
@@ -30,12 +31,14 @@ section.content ng-controller="sparePartController"
                             td = spare_part_sold.client.full_name
                             td = spare_part_sold.user.full_name
                             td = spare_part_sold.quantity
+                            td = spare_part_sold.unit_sale_price
                             td = spare_part_sold.quantity * spare_part_sold.unit_sale_price
-                            td
+                            / td
                               .actions
                                 = link_item '<i class="fa fa-edit"></i>'.html_safe, edit_spare_part_sold_path(spare_part_sold),
                                         class: 'btn btn-xs btn-primary btn-flat', title: t('helpers.edit')
                         tr.show_actions
+                          td
                           td
                           td
                           td

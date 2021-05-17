@@ -24,7 +24,7 @@
     .row.form-group
       = f.label :status, class: 'col-sm-2 control-label'
       .col-sm-10
-        = = f.check_box(:status, {checked: true})
+        = f.check_box(:status)
 
   .box-footer
     = f.button "<i class='fa fa-floppy-o'></i> #{t('helpers.submit.submit', model: t('.resource'))}".html_safe,

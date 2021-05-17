@@ -328,6 +328,7 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
                 $scope.get_fiscal_vouchers();
                 $scope.get_clients();
                 $scope.item.price =parseFloat($scope.item.price);
+                $scope.sale_price =parseFloat($scope.item.sale_price);
                 $scope.fleet = $scope.item.price * ( 1 + ( $scope.branch.fleet_cost) /100 );
                 // $scope.set_model($scope.item);
             }

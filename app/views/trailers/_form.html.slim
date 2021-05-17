@@ -73,8 +73,8 @@ div ng-controller="trailerController"
             = f.hidden_field :ramp_type_id, value: '{{ramp.id}}'
         = f.label 'Gato Hidraulico', class: 'col-sm-2 control-label'
         .col-md-4
-          select.form-control ng-change="generate_model(hydraulic_jack.model_part)" ng-model="hydraulic_jack" ng-options=("hydraulic_jack as hydraulic_jack.name for hydraulic_jack in hydraulic_jacks track")
-            option disabled="" selected="" value=""  Gato Hidraulicos...
+          select.form-control ng-change="generate_model(hydraulic_jack.model_part)" ng-model="hydraulic_jack" ng-options=("hydraulic_jack as hydraulic_jack.name for hydraulic_jack in hydraulic_jacks")
+            option disabled="" selected="" value=""  Gatos Hidraulicos...
             = f.hidden_field :hydraulic_jack_id, value: '{{hydraulic_jack.id}}'
 
       .row.form-group

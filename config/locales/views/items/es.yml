@@ -40,6 +40,7 @@ es:
         f_orden: Ordenar por
         search: Buscar...
         sale_price: Precio de venta
+        percent_price: Porcentaje de Ganancia
         finder: Buscador de Remolques
       form_order:
         accessory: Accesorios
@@ -219,6 +220,7 @@ es:
         percentage_branch: Porcentaje de la Sucursal
         percentage_planet: Porcentaje de Planet
         sale_price: Precio de venta
+        percent_price: Porcentaje de Ganancia
         sale_date: Fecha de venta
       items_import:
         title: Importar archivo csv para Remolques
@@ -366,6 +368,7 @@ es:
         percentage_branch: Porcentaje de la Sucursal
         percentage_planet: Porcentaje de Planet
         sale_price: Precio de venta
+        percent_price: Porcentaje de Ganancia
         branches: Sucursales...
         catalog: Catálogo
         models: Modelos...
@@ -595,6 +598,7 @@ es:
       f_orden: Ordenar por
       search: Buscar...
       sale_price: Precio de venta
+      percent_price: Porcentaje de Ganancia
       client: Cliente
     form:
       accessory: Accesorios

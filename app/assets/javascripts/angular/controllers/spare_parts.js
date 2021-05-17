@@ -130,6 +130,9 @@ app.controller('ModalSparePartController', ['$scope','close', 'Upload','$http', 
 
     };
 
+    // $scope.unit_sale_price = 0;
+    // $scope.quantity = 0;
+
     $scope.payment_types = {
         0: {id: 1, type: 'Cash'},
         1: {id: 2, type: 'Deposito'},

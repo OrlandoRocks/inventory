@@ -141,22 +141,33 @@ div ng-controller="itemController"
           .col-md-4
             .input-group
               span.input-group-addon $
-              = f.number_field :price, value: number_to_currency(f.object.price.to_f, delimiter: '', unit: ''), step: :any, class: 'form-control text_field', placeholder: t('.price') , min:0.0, 'ng-model'=> 'item.price ', 'ng-change' => 'fleet = item.price * ( 1 + ( fleet_cost || "0") /100 )'  
-              span.input-group-addon .00              
-          = f.label :serial_number, class: 'col-md-2 control-label'
+              = f.number_field :price, value: number_to_currency(f.object.price.to_f, delimiter: '', unit: ''), step: :any, class: 'form-control text_field', placeholder: t('.price') , min:0.0, 'ng-model'=> 'item.price ', 'ng-change' => 'fleet = item.price * ( 1 + ( fleet_cost || "0") /100 )'
+          = label_tag "percent_price", t('.percent_price'), class: 'col-sm-2 control-label'
           .col-md-4
-            = f.text_field :serial_number, class: 'form-control', placeholder: t('.serial_number')                    
+            .input-group
+              span.input-group-addon %
+              = number_field_tag 'percent_price', nil, class: 'form-control text_field', placeholder: t('.percent_price') , 'ng-model'=> 'percent_price ', 'ng-change' => 'sale_price = (percent_price/100 +1 )*( fleet || 0);'
+              / = f.text_field :sale_price, class: 'form-control', placeholder: t('.percent_price')
         .row.form-group
           = f.hidden_field :fleet_cost, value: '{{ fleet_cost || "0"  }}'
           = label_tag "price_lbl", "Precio Total", class: 'col-sm-2 control-label', style: "font-size:20px;"
-          .col-md-8            
-            = label_tag :price_show, '{{ fleet | currency }}',  class: 'control-label h2.page-header',  style: "font-size:20px;"             
+          .col-md-4
+            = label_tag :price_show, '{{ fleet | currency }}',  class: 'control-label h2.page-header',  style: "font-size:20px;"
+          = label_tag "sale_price", t('.sale_price'), class: 'col-sm-2 control-label', style: "font-size:20px;"
+          .col-md-4
+            = label_tag :price_show, '{{ sale_price | currency }}', class: 'control-label h2.page-header', style: "font-size:20px;"
+            = f.hidden_field :sale_price, value: '{{ sale_price || 0 }}'
         .row.form-group
           = label_tag "fleet_cost_caption", "(+ {{ fleet_cost || '0'  }}% de Flete)", class: 'col-sm-2 control-label', style: "font-size: 12px; font-style: italic; color: gray; margin-top: -21px;"
+        .row.form-group
+          = f.label :serial_number, class: 'col-md-2 control-label'
+          .col-md-10
+            = f.text_field :serial_number, class: 'form-control', placeholder: t('.serial_number')
         .row.form-group
           = label_tag "accessory", "Accesorios", class: 'col-sm-2 control-label'
           .col-md-10
             = f.text_area :accessory, class: 'form-control', placeholder: "Accesorios"
+
           / .row.form-group
             = f.label :image, class: 'col-sm-2 control-label'
             .col-md-4

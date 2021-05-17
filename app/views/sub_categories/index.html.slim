@@ -26,9 +26,9 @@ section.content
                             /th.table-checkbox
                               .checkbox.icheck
                                 input [type="checkbox" class="icheck-me" data-skin="square" data-color="blue"]
+                            th = t('.category')
                             th = t('.name')
                             / th = t('.description')
-                            th = t('.category')
                             /th = t('.status')
                             th.actions_header
                               = t('helpers.actions')
@@ -38,9 +38,9 @@ section.content
                                 /td.table-checkbox
                                   .checkbox.icheck
                                     input [type="checkbox" class="icheck-me" data-skin="square" data-color="blue"]
+                                td = sub_category.category.try("name")
                                 td = sub_category.name
                                 / td = sub_category.description
-                                td = sub_category.category.try("name")
                                 / td = sub_category.status ? 'Activo' : 'Inhábil'
                                 td
                                   .actions
