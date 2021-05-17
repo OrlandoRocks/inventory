@@ -1,0 +1,41 @@
+div ng-controller="sparePartController"
+  = form_for(spare_part, spare_part: 'form', html: {class: 'form-horizontal'}, validate: true) do |f|
+    - if spare_part.errors.any?
+      #error_explanation
+        h2 = "#{pluralize(spare_part.errors.count, "error")}:"
+        ul
+          - spare_part.errors.full_messages.each do |message|
+            li = message
+    .box-body ng-init="init( #{spare_part.id.nil? ? 'nil' : spare_part.id } )"
+      .row.form-group
+        = f.label 'Categoria', class: 'col-sm-2 control-label'
+
+        .col-md-10
+          select.form-control required="" ng-change="get_subcategories(category)" ng-model="category" ng-options=("category.id as category.name for category in categories")
+            option selected="" value=""  No Aplica
+      .row.form-group
+        = f.label 'SubCategoria', class: 'col-sm-2 control-label'
+        .col-md-10
+          select.form-control ng-model="sub_category" ng-options=("sub_category.id as sub_category.name for sub_category in sub_categories")
+            option selected="" value=""  No Aplica
+          = f.hidden_field :sub_category_id, value: '{{sub_category}}'
+      .row.form-group
+        = f.label 'Unidad de Medida', class: 'col-sm-2 control-label'
+        .col-sm-10
+          = f.text_field :measurement, class: 'form-control', placeholder: 'Unidad de Medida'
+      .row.form-group
+        = f.label 'Existencia', class: 'col-sm-2 control-label'
+        .col-sm-10
+          = f.text_field :instock, class: 'form-control', placeholder: 'Existencia'
+      .row.form-group
+        = f.label 'Costo Unitario', class: 'col-sm-2 control-label'
+        .col-sm-10
+          = f.number_field :unit_cost, class: 'form-control', placeholder: 'Costo Unitario'
+
+
+    .box-footer
+      = f.button "<i class='fa fa-floppy-o'></i> #{t('helpers.submit.submit', model: 'Refacción')}".html_safe,
+              class: 'btn btn-primary btn-flat', type: 'submit'
+      = link_to spare_parts_path, class: 'btn btn-default btn-flat' do
+        i.fa.fa-list
+        =< t('.back')

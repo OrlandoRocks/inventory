@@ -22,12 +22,12 @@ module ApplicationHelper
       policy = policy(record)
     end
 
-    actions.each { |query| return true if policy.send('general_policy', record, query, devise_controller) }
+    actions.each { |query| return true if policy.general_policy(record, query, devise_controller) }
     false
   end
 
-  def has_policy_catalogo()
-    return true if (current_user.god? or current_user.admin?)
+  def has_policy_catalogo
+    current_user.god? or current_user.admin?
   end
 
   def has_policy_roles()
@@ -140,7 +140,7 @@ module ApplicationHelper
 
   def company_title
     return t('activerecord.attributes.user.current_companies.planet') if cookies[:company].nil?
-    (current_user&.remolques_current_company? or cookies[:company].eql?('remolques')) ? t('activerecord.attributes.user.current_companies.remolques') : t('activerecord.attributes.user.current_companies.planet')
+    (current_user.remolques_current_company? or cookies[:company].eql?('remolques')) ? t('activerecord.attributes.user.current_companies.remolques') : t('activerecord.attributes.user.current_companies.planet')
   end
 
   def logo_for_company

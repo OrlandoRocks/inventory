@@ -36,6 +36,7 @@
 #  trailer_id                 :bigint
 #  payment_type               :integer
 #  fiscal_voucher_id          :bigint
+#  client_id                  :bigint
 #  advance_payment            :decimal(, )
 #  status_shipping_id         :bigint
 #  color                      :string
@@ -69,16 +70,14 @@ class ItemSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
 
   attributes :id, :code, :model, :serial_number, :purchased_date, :acquisition_date,
-             :price, :department_id, :user_id, :status_item_id, :branch_id, :branch, :department, :status_item,
+             :price, :price_total, :department_id, :user_id, :status_item_id, :branch_id, :branch, :department, :status_item,
              :accessory, :status_shipping, :remission, :payment_type, :fiscal_voucher, :client, :user,
              :trailer_length, :trailer_height, :ramp_type, :redila_type, :floor_type, :capacity,
              :trailer_width, :brake_type, :color, :divition_type, :fender_type, :hydraulic_jack, :advance_payment,
              :pull_type, :reinforcement_type, :roof_type, :suspension_type, :turn_type, :trailer_type, :brand, :categories_description,
-             :seller_percentage, :planet_percentage, :branch_percentage
-
-  def user
+             :seller_percentage, :planet_percentage, :branch_percentage, :image_base64, :image_path, 
+  def user  
     object.user.as_json(except: [:avatar, :received_file], include: :department) if object.user
-
   end
 
   def trailer_type
@@ -87,6 +86,9 @@ class ItemSerializer < ActiveModel::Serializer
 
   def image
     rails_blob_path(object.image, only_path: true) if object.image.attached?
+  end
+  def image_path 
+    rails_blob_path(self.image, only_path: true) if self.image.attached?
   end
 
 end

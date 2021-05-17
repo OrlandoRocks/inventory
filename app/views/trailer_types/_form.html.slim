@@ -12,6 +12,10 @@ div ng-controller="trailerTypeController"
         .col-sm-10
           = f.text_field :name, class: 'form-control', placeholder: 'Tipo de trailer', autofocus: true
       .row.form-group
+        = f.label 'Tipo de trailer US', class: 'col-sm-2 control-label'
+        .col-sm-10
+          = f.text_field :us_name, class: 'form-control', placeholder: 'Tipo de trailer US', autofocus: true
+      .row.form-group
         = f.label 'Modelo', class: 'col-sm-2 control-label'
         .col-sm-10
           = f.text_field :model_part, class: 'form-control', placeholder: 'Modelo'

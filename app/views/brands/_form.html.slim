@@ -11,6 +11,10 @@
       .col-sm-10
         = f.text_field :name, class: 'form-control', placeholder: t('.name'), autofocus: true
     .row.form-group
+      = f.label "Name US", class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.text_field :us_name, class: 'form-control', placeholder: "Name US", autofocus: true
+    .row.form-group
       = f.label 'Modelo', class: 'col-sm-2 control-label'
       .col-sm-10
         = f.text_field :model_part, class: 'form-control', placeholder: 'Modelo'

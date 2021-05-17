@@ -111,7 +111,7 @@ gem 'modernizr-rails', '~> 2.7', '>= 2.7.1'
 
 # Flexible authentication solution for Rails with Warden
 gem 'devise', '~> 4.7.2'
-
+gem 'jwt'
 # ClientSideValidations for Ruby on Rails
 gem 'client_side_validations', '~> 12.0.0'
 

@@ -74,13 +74,13 @@ header.main-header ng-controller="homeController" ng-init="init(#{current_user.c
                 =< t('.change_lang')
           - else
             a.first href="javascript:;"
-                i.fa.fa-flag.fa-lg
-                span.hidden-xs
-                  =< t('.language')
+              i.fa.fa-flag.fa-lg
+              span.hidden-xs
+                =< t('.language')
             = link_to set_language_spanish_path do
-                span.flag-icon.flag-icon-es
-                span.hidden-xs
-                  =< t('.change_lang')
+              span.flag-icon.flag-icon-es
+              span.hidden-xs
+                =< t('.change_lang')
         = render 'layouts/account_dropdown'
         /li
           a [href="javascript:;" data-toggle="control-sidebar"]

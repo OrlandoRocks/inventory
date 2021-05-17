@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  client: one
+  user: one
+  spare_part: one
+  quantity: 9.99
+  unit_sale_price: 9.99
+  payment_type: 1
+  fiscal_voucher: one
+  advance_payment: 9.99
+
+two:
+  client: two
+  user: two
+  spare_part: two
+  quantity: 9.99
+  unit_sale_price: 9.99
+  payment_type: 1
+  fiscal_voucher: two
+  advance_payment: 9.99

@@ -1,0 +1,138 @@
+p.flash-notice
+  = params[:notice]
+section.content ng-controller="itemController"
+  .row
+    .col-xs-12
+      .box.box-primary
+        .box-header.with-border
+          .row
+            .col-xs-6.col-md-8.col-lg-9
+              h3.box-title
+                = t('.title')
+            .col-xs-6.col-md-4.col-lg-3
+              .box-tools.pull-right
+                / = search_form_for @search_items, url: remolques_items_path do |f|
+                  .input-group.input-group-sm.search
+                    = f.text_field :code_or_name_or_description_or_model_or_direct_branch_name_or_department_name_cont, class: 'form-control',
+                            placeholder: t('helpers.search')
+                    .input-group-btn
+                      button [class="btn btn-default" type="submit"]
+                        i [class="fa fa-search"]
+                - unless has_policy_employee
+                  = link_to remolques_new_item_path, class: 'btn btn-sm btn-flat btn-success', title: t('.new_item') do
+                    i.fa.fa-plus
+                    span.hidden-xs
+                      =< t('.new_item')
+                .tools
+                  button [type="button" class="btn btn-default btn-box-tool dropdown-toggle" data-toggle="dropdown" aria-expanded="false"]
+                    i.fa.fa-cog = t('helpers.actions')
+                  ul [class="dropdown-menu dropdown-menu-right" item="menu"]
+                    li = link_to "<i class='fa fa-file-excel-o'></i> #{t 'helpers.export_excel'}".html_safe, items_excel_path(format: :xlsx)
+                    li = link_to "<i class='fa fa-file-excel-o'></i> Export to Microsip".html_safe, remolques_export_microsip_path(format: :csv)
+        .box-body
+          .dataTables_wrapper
+            / .row
+              .col-md-12
+                .box
+                  .box-header.with-border
+                    .row.margin-bottom
+                      .col-xs-6
+                        h3.box-title = t('.finder')
+                      .col-xs-6
+                        .box-tools.pull-right
+                    = search_form_for(@search_items, url: remolques_items_path, id: 'item_index') do |f|
+                      .col-md-3
+                        .box.box-warning.box-solid
+                          .box-header.with-border
+                            h3.box-title = t('.f_trailer')
+                            .box-tools.pull-right
+                              button.btn.btn-box-tool data-widget="collapse" type="button"
+                                i.fa.fa-minus
+                          .box-body style=('display: block;')
+                            = f.collection_select :trailer_type_id_in, TrailerType.all, :id, :name, {prompt: 'Seleccionar una opción'},
+                                    {class: 'form-control select', data: {placeholder: t('.trailers')}}
+
+                      .col-md-3
+                        .box.box-warning.box-solid
+                          .box-header.with-border
+                            h3.box-title = t('.f_model')
+                            .box-tools.pull-right
+                              button.btn.btn-box-tool data-widget="collapse" type="button"
+                                i.fa.fa-minus
+                          .box-body style=('display: block;')
+                            = f.select :trailer_type_model_part_eq, @all_models.map { |model| [model, model] }, {prompt: 'Seleccionar una opción'},
+                                    {class: 'form-control', data: {placeholder: "t('.models')"}}
+
+                      .col-md-3
+                        .box.box-warning.box-solid
+                          .box-header.with-border
+                            h3.box-title = t('.f_remissions')
+                            .box-tools.pull-right
+                              button.btn.btn-box-tool data-widget="collapse" type="button"
+                                i.fa.fa-minus
+                          .box-body style=('display: block;')
+                            = f.select :remission_eq, @all_remissions.map { |remission| [remission, remission] }, {prompt: 'Seleccionar una opción'},
+                                    {class: 'form-control', data: {placeholder: "t('.remissions')"}}
+
+                      .col-xs-12.col-md-12
+                        .input-group-btn
+                          button [class="btn btn-block btn-info btn-lg" type="submit"]
+                            i [class="fa fa-search"]
+                              = " #{t('.search')}"
+
+            .row
+              .col-sm-12
+                .table-responsive
+                table.table.table-bordered.table-hover.dataTable
+                  thead
+                    tr
+                      th
+                        = sortable t('.serial_number')
+                        i.fa.fa-sort-down
+                      th
+                        = sortable t('.model')
+                        i.fa.fa-sort-down
+                      th
+                        = sortable t('.description')
+                        i.fa.fa-sort-down
+                      th
+                        = sortable t('.branch')
+                        i.fa.fa-sort-down
+                      th
+                        = sortable t('.department')
+                        i.fa.fa-sort-down
+
+                      th.actions_header
+                        = t('helpers.actions')
+                  tbody
+                    - @items.each do |item|
+                      tr.show_actions
+                        td = item.serial_number
+                        td = item.try(:model)
+                        td = item.categories_description
+                        td = item.direct_branch.present? ? item.direct_branch.name : (item.direct_branch ? item.direct_branch.name : nil)
+                        td = item.department.name if item.department.present?
+                        td
+                          .actions
+                            - if has_policy(Item, %w(item_qr))
+                              = link_to '<i class="fa fa-qrcode"></i>'.html_safe, item_qr_path(item.id, format: :pdf), title: t('helpers.show'),
+                                    class: 'btn btn-xs btn-success btn-flat'
+                            = link_item '<i class="fa fa-search"></i>'.html_safe, remolques_item_path(item), title: t('helpers.show'),
+                                    class: 'btn btn-xs btn-success btn-flat'
+                            = link_item '<i class="fa fa-edit"></i>'.html_safe, remolques_edit_item_path(item),
+                                    class: 'btn btn-xs btn-primary btn-flat', title: t('helpers.edit')
+                            - unless current_user.user_employee?
+                              a ng-click="remolques_delete_item(#{item.id})" class="btn btn-xs btn-danger btn-flat btn-destroy"
+                                i.fas.fa-trash
+
+                              /= link_to '<i class="fa fa-file-pdf-o"></i> PDF'.html_safe, reports_item_path(nombre_reporte: 'item', titulo_reporte: "Ficha técnica del artículo.", format: :pdf, id: item),
+                              /      class: 'btn btn-xs btn-success btn-flat'
+
+                .row
+                  .col-sm-5
+                    .dataTables_info
+                      = pluralize(@items.count, t('.one'), t('.other'))
+                  .col-sm-7
+                    .dataTables_paginate.paging_simple_numbers
+                      = custom_paginator(@items)
+

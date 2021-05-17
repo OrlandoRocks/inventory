@@ -208,6 +208,7 @@ en:
     restore: Restore
     index: Index
     ssh_key: SSH key
+    doesnt_apply: Doesn't apply
     success:
       update_fem: Your %{resource} has been updated successfully
       update_masc: Your %{resource} has been updated successfully

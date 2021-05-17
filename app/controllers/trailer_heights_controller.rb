@@ -69,6 +69,6 @@ class TrailerHeightsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def trailer_height_params
-      params.require(:trailer_height).permit(:name, :model_part, :status)
+      params.require(:trailer_height).permit(:name, :us_name, :model_part, :status)
     end
 end

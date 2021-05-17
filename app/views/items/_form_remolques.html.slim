@@ -1,0 +1,199 @@
+div ng-controller="itemController"
+  = form_for @item,
+          url: (%w(remolques_new remolques_create).include?(params[:action]) ? remolques_create_item_path : remolques_update_item_path(@item)),
+          html: {class: 'form-horizontal' , multipart: true } do |f|
+    - if @item.errors.any?
+      #error_explanation
+        h2 = "#{pluralize(@item.errors.count, "error(es)")}, No se permitio almacenar el artículo debido a:"
+        ul
+        - @item.errors.full_messages.each do |message|
+          li = message
+    = form_for(item, item: 'form', html: {class: 'form-horizontal'}, validate: true) do |f|
+      .box-body ng-init="init(#{@branches.to_json}, #{@categories.to_json}, #{item.id.nil? ? 'nil' :item.id } )"
+        - if %w(remolques_new remolques_create).include?(params[:action])
+          .row.form-group
+            = f.label :quantity, class: 'col-sm-2 control-label'
+            .col-md-10
+              = f.number_field :quantity, class: 'form-control', required: true,
+                      placeholder: t('activerecord.attributes.item.quantity')
+        .row.form-group
+          = f.label :branch_id, class: 'col-sm-2 control-label'
+          .col-md-10
+            / TODO: Hacer un helper
+            select.form-control ng-change="get_all_department()" ng-model="branch.id" ng-options=("branch.id as branch.name for branch in branches") required="true"
+              option disabled="" value="" = t('.branches')
+            = f.hidden_field :branch_id, value: '{{branch.id}}'
+        .row.form-group
+          = f.label :department_id, class: 'col-sm-2 control-label'
+          .col-md-10
+            select.form-control ng-model="department" ng-options=("department.id as department.name for department in departments")
+              option selected="" value="" = t('helpers.doesnt_apply')
+            input type='hidden' name='item[department_id]' value='{{department}}'
+        .row.form-group
+          = f.label :model, class: 'col-sm-2 control-label'
+          .col-md-10
+            = f.text_field :model, class: 'form-control', placeholder: t('.model'), readonly: true, 'ng-model' => 'model_name'
+        .row.form-group
+          = label_tag 'catalogo', t('.catalog'), class: 'col-sm-2 control-label'
+          .col-md-10
+            select.form-control ng-change="get_trailer(model.trailer_type.id)" ng-model="model" ng-options=("model as model.model for model in models")
+              option  selected="" value="" = t('.models')
+
+        .row.form-group
+          = f.label :trailer_id, class: 'col-sm-2 control-label'
+          .col-md-4
+            select.form-control ng-change="get_trailer(trailer)" ng-model="trailer" ng-options=("trailer.id as #{us_name_if_locale_en('trailer')} for trailer in trailers")
+              option  selected="" value="" = t('helpers.doesnt_apply')
+            = f.hidden_field :trailer_type_id, value: '{{trailer}}'
+          = f.label t('.brake'), class: 'col-sm-2 control-label', 'ng-hide'=>'brakes.length==0', 'ng-cloak'=>"true"
+          .col-md-4 ng-hide='brakes.length==0' ng-cloak="true"
+            select.form-control ng-change="generate_model()" ng-model="brake" ng-options=("brake.id as #{us_name_if_locale_en('brake')} for brake in brakes")
+              option  selected="" value="" = t('helpers.doesnt_apply')
+              = f.hidden_field :brake_type_id, value: '{{brake}}'
+
+        .row.form-group
+          = f.label t('.width'), class: 'col-sm-2 control-label', 'ng-hide'=>'widths.length==0', 'ng-cloak'=> 'true'
+          .col-md-4 ng-hide='widths.length==0' ng-cloak="true"
+            select.form-control ng-change="generate_model()" ng-model="width" ng-options=("width.id as #{us_name_if_locale_en('width')} for width in widths")
+              option  selected="" value="" = t('helpers.doesnt_apply')
+              = f.hidden_field :trailer_width_id, value: '{{width}}'
+          = f.label t('.color'), class: 'col-sm-2 control-label', 'ng-hide'=>'colors.length==0', 'ng-cloak'=> 'true'
+          .col-md-4 ng-hide='colors.length==0' ng-cloak="true"
+            select.form-control ng-change="generate_model()" ng-model="color" ng-options=("color.id as #{us_name_if_locale_en('color')} for color in colors")
+              option  selected="" value="" = t('helpers.doesnt_apply')
+              = f.hidden_field :color_id, value: '{{color}}'
+        .row.form-group
+          = f.label t('.length'), class: 'col-sm-2 control-label', 'ng-hide'=>'lengths.length==0', 'ng-cloak'=>'true'
+          .col-md-4 ng-hide='lengths.length==0' ng-cloak="true"
+            select.form-control ng-change="generate_model()" ng-model="length" ng-options=("length.id as #{us_name_if_locale_en('length')} for length in lengths")
+              option  selected="" value="" = t('helpers.doesnt_apply')
+              = f.hidden_field :trailer_length_id, value: '{{length}}'
+          = f.label t('.division'), class: 'col-sm-2 control-label', 'ng-hide'=>'divitions.length==0', 'ng-cloak'=>"true"
+          .col-md-4 ng-hide='divitions.length==0' ng-cloak="true"
+            select.form-control ng-change="generate_model()" ng-model="divition" ng-options=("divition.id as #{us_name_if_locale_en('divition')} for divition in divitions")
+              option  selected="" value="" = t('helpers.doesnt_apply')
+              = f.hidden_field :divition_type_id, value: '{{divition}}'
+        .row.form-group
+          = f.label t('.floor'), class: 'col-sm-2 control-label', 'ng-hide'=>'floors.length==0',  'ng-cloak'=>"true"
+          .col-md-4 ng-hide='floors.length==0' ng-cloak="true"
+            select.form-control ng-change="generate_model()" ng-model="floor" ng-options=("floor.id as #{us_name_if_locale_en('floor')} for floor in floors")
+              option  selected="" value="" = t('helpers.doesnt_apply')
+              = f.hidden_field :floor_type_id, value: '{{floor}}'
+          = f.label t('.fender'), class: 'col-sm-2 control-label', 'ng-hide'=>'fenders.length==0',  'ng-cloak'=>"true"
+          .col-md-4 ng-hide='fenders.length==0' ng-cloak="true"
+            select.form-control ng-change="generate_model()" ng-model="fender" ng-options=("fender.id as #{us_name_if_locale_en('fender')} for fender in fenders")
+              option  selected="" value="" = t('helpers.doesnt_apply')
+              = f.hidden_field :fender_type_id, value: '{{fender}}'
+
+        .row.form-group
+          = f.label t('.ramp'), class: 'col-sm-2 control-label', 'ng-hide'=>'ramps.length==0', 'ng-cloak'=>"true"
+          .col-md-4 ng-hide='ramps.length==0' ng-cloak="true"
+            select.form-control ng-change="generate_model()" ng-model="ramp" ng-options=("ramp.id as #{us_name_if_locale_en('ramp')} for ramp in ramps")
+              option  selected="" value="" = t('helpers.doesnt_apply')
+              = f.hidden_field :ramp_type_id, value: '{{ramp}}'
+          = f.label t('.hydraulic_jack'), class: 'col-sm-2 control-label', 'ng-hide'=>'hydraulic_jacks.length==0', 'ng-cloak'=>"true"
+          .col-md-4 ng-hide='hydraulic_jacks.length==0' ng-cloak="true"
+            select.form-control ng-change="generate_model()" ng-model="hydraulic_jack" ng-options=("hydraulic_jack.id as #{us_name_if_locale_en('hydraulic_jack')} for hydraulic_jack in hydraulic_jacks")
+              option  selected="" value="" = t('helpers.doesnt_apply')
+              = f.hidden_field :hydraulic_jack_id, value: '{{hydraulic_jack}}'
+
+        .row.form-group
+          = f.label t('.capacity'), class: 'col-sm-2 control-label', 'ng-hide'=>'capacities.length==0', 'ng-cloak'=>"true"
+          .col-md-4 ng-hide='capacities.length==0' ng-cloak="true"
+            select.form-control ng-change="generate_model()" ng-model="capacity" ng-options=("capacity.id as #{us_name_if_locale_en('capacity')} for capacity in capacities")
+              option  selected="" value="" = t('helpers.doesnt_apply')
+              = f.hidden_field :capacity_id, value: '{{capacity}}'
+          = f.label t('.pull'), class: 'col-sm-2 control-label', 'ng-hide'=>'pulls.length==0', 'ng-cloak'=>"true"
+          .col-md-4 ng-hide='pulls.length==0' ng-cloak="true"
+            select.form-control ng-change="generate_model()" ng-model="pull" ng-options=("pull.id as #{us_name_if_locale_en('pull')} for pull in pulls")
+              option  selected="" value="" = t('helpers.doesnt_apply')
+              = f.hidden_field :pull_type_id, value: '{{pull}}'
+
+        .row.form-group
+          = f.label t('.redila'), class: 'col-sm-2 control-label', 'ng-hide'=>'redilas.length==0', 'ng-cloak'=>"true"
+          .col-md-4 ng-hide='redilas.length==0' ng-cloak="true"
+            select.form-control ng-change="generate_model()" ng-model="redila" ng-options=("redila.id as #{us_name_if_locale_en('redila')} for redila in redilas")
+              option  selected="" value="" = t('helpers.doesnt_apply')
+              = f.hidden_field :redila_type_id, value: '{{redila}}'
+          = f.label t('.brand'), class: 'col-sm-2 control-label', 'ng-hide'=>'brands.length==0', 'ng-cloak'=>"true"
+          .col-md-4 ng-hide='brands.length==0' ng-cloak="true"
+            select.form-control ng-change="generate_model()" ng-model="brand" ng-options=("brand.id as #{us_name_if_locale_en('brand')} for brand in brands")
+              option  selected="" value="" = t('helpers.doesnt_apply')
+              = f.hidden_field :brand_id, value: '{{brand}}'
+        .row.form-group
+          = f.label t('.roof'), class: 'col-sm-2 control-label', 'ng-hide'=>'roofs.length==0', 'ng-cloak'=>"true"
+          .col-md-4 ng-hide='roofs.length==0' ng-cloak="true"
+            select.form-control ng-change="generate_model()" ng-model="roof" ng-options=("roof.id as #{us_name_if_locale_en('roof')} for roof in roofs")
+              option  selected="" value="" = t('helpers.doesnt_apply')
+              = f.hidden_field :roof_type_id, value: '{{roof}}'
+          = f.label t('.suspension'), class: 'col-sm-2 control-label', 'ng-hide'=>'suspensions.length==0', 'ng-cloak'=>"true"
+          .col-md-4 ng-hide='suspensions.length==0' ng-cloak="true"
+            select.form-control ng-change="generate_model()" ng-model="suspension" ng-options=("suspension.id as #{us_name_if_locale_en('suspension')} for suspension in suspensions")
+              option  selected="" value="" = t('helpers.doesnt_apply')
+              = f.hidden_field :suspension_type_id, value: '{{suspension}}'
+
+        / .row.form-group
+          = f.label 'Volteo', class: 'col-sm-2 control-label', 'ng-hide'=>'turns.length==0', 'ng-cloak'=>"true"
+          .col-md-4 ng-hide='turns.length==0' ng-cloak="true"
+            select.form-control ng-change="generate_model()" ng-model="turn" ng-options=("turn.id as turn.name for turn in turns")
+              option  selected="" value="" = t('helpers.doesnt_apply')
+              = f.hidden_field :turn_type_id, value: '{{turn}}'
+          = f.label :acquisition_date, class: 'col-sm-2 control-label'
+          .col-md-4
+            .input-group.date
+              .input-group-addon
+                i.fa.fa-calendar
+              = f.text_field :acquisition_date, class: 'form-control pull-right datepicker', type: "text", placeholder: t('.acquisition_date')
+        / .row.form-group
+          = f.label :price, class: 'col-md-2 control-label'
+          .col-md-4
+            .input-group
+              span.input-group-addon $
+              = f.number_field :price, value: number_to_currency(f.object.price.to_f, delimiter: '', unit: ''), step: :any, class: 'form-control text_field', placeholder: t('.price') , min:0.0, 'ng-model'=> 'item.price ', 'ng-change' => 'fleet = item.price * ( 1 + ( fleet_cost || "0") /100 )'
+              span.input-group-addon .00
+          = f.label :serial_number, class: 'col-md-2 control-label'
+          .col-md-4
+            = f.text_field :serial_number, class: 'form-control', placeholder: t('.serial_number')
+        / .row.form-group
+          = f.hidden_field :fleet_cost, value: '{{ fleet_cost || "0"  }}'
+          = label_tag "price_lbl", "Precio Total", class: 'col-sm-2 control-label', style: "font-size:20px;"
+          .col-md-8
+            = label_tag :price_show, '{{ fleet | currency }}',  class: 'control-label h2.page-header',  style: "font-size:20px;"
+        / .row.form-group
+          = label_tag "fleet_cost_caption", "(+ {{ fleet_cost || '0'  }}% de Flete)", class: 'col-sm-2 control-label', style: "font-size: 12px; font-style: italic; color: gray; margin-top: -21px;"
+        .row.form-group
+          = label_tag "accessory", t('.accesories'), class: 'col-sm-2 control-label'
+          .col-md-10
+            = f.text_area :accessory, class: 'form-control', placeholder: t('.accesories')
+          input type='hidden' name="item[status_item_id]" value=StatusItem.find_by(key: 'pendiente')&.id
+          / .row.form-group
+            = f.label :image, class: 'col-sm-2 control-label'
+            .col-md-4
+              = f.hidden_field(:image, class: 'form-control')
+              = f.file_field(:image, class: 'form-control')
+              /= image_tag @item.image_url(:thumb).to_s  if @item.image?
+              - if @item.image.attached?
+                 = link_to image_tag(@item.image, :class => 'download_icon', :size => '65x65'), "#{url_for(f.object.image)}", :target => "_blank"
+        / .row.form-group
+          = label_tag 'consignatario','Consignatario', class: 'col-sm-2 control-label'
+          .col-md-8
+            = label_tag 'consignee','{{full_name}}',class: 'control-label h3.page-header text-uppercase',id: 'immediate_boss'
+            /h3 id='immediate_boss'
+             .control-label.h2.page-header.text-uppercase
+            input id='immediate_boss_id' name='boss_id' type='hidden'
+            //input id='director_name' name='boss_id' type='hidden' value="#{@users.first.user.to_json({methods: :full_name})}" class="control-label h2.page-header text-uppercase"
+
+
+            = f.hidden_field :categories_description, value: '{{category_description}}'
+            - if item.new_record?
+              input type='hidden' name="item[status_shipping_id]" value='#{StatusShipping.find_by_key('recibido').id}'
+            - else
+             - unless item.status_shipping_id == StatusShipping.find_by_key('recibido').id
+              input type='hidden' name="item[status_shipping_id]" ng-if="branch === 1" value='#{StatusShipping.find_by_key('recibido').id}'
+              input type='hidden' name="item[status_shipping_id]" ng-if="branch !== 1" value='#{StatusShipping.find_by_key('enviado').id}'
+      .box-footer
+        = f.button "<i class='fa fa-floppy-o'></i> #{t('helpers.submit.submit', model: t('.resource'))}".html_safe,
+                class: 'btn btn-primary btn-flat', type: 'submit'
+        = link_to remolques_items_path, class: 'btn btn-default btn-flat' do
+          i.fa.fa-list
+          =< t('helpers.back')

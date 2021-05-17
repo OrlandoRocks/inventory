@@ -16,10 +16,10 @@
       .col-sm-10
         = f.text_field :name, class: 'form-control', placeholder: t('.name'), autofocus: true
         = f.hidden_field :company_id, value: @current_company.id
-    .row.form-group
-      = f.label 'Codigo', class: 'col-sm-2 control-label'
-      .col-sm-10
-        = f.text_field :description, class: 'form-control', placeholder: 'codigo'
+    / .row.form-group
+    /   = f.label 'Codigo', class: 'col-sm-2 control-label'
+    /   .col-sm-10
+    /     = f.text_field :description, class: 'form-control', placeholder: 'codigo'
 
     .row.form-group
       = f.label :status, class: 'col-sm-2 control-label'

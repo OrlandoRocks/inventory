@@ -1,11 +1,11 @@
 div ng-controller="itemController"
-  = form_for @item,html: {class: 'form-horizontal' , multipart: true } do |f|
+  = form_for @item, html: {class: 'form-horizontal' , multipart: true } do |f|
     - if @item.errors.any?
       #error_explanation
         h2 = "#{pluralize(@item.errors.count, "error(es)")}, No se permitio almacenar el artículo debido a:"
         ul
         - @item.errors.full_messages.each do |message|
-            li = message
+          li = message
     = form_for(item, item: 'form', html: {class: 'form-horizontal'}, validate: true) do |f|
       .box-body ng-init="init(#{@branches.to_json}, #{@categories.to_json}, #{item.id.nil? ? 'nil' :item.id } )"
 
@@ -29,13 +29,12 @@ div ng-controller="itemController"
         .row.form-group
           = label_tag 'catalogo', 'Catalogo', class: 'col-sm-2 control-label'
           .col-md-10
-            select.form-control ng-change="get_trailer(model.trailer_type.id)" ng-model="model" ng-options=("model as model.model for model in models")
+            select.form-control ng-change="get_model_trailer(trailer_model.id)" ng-model="trailer_model.id" ng-options=("trailer_model.id as trailer_model.model for trailer_model in trailer_models")
               option  selected="" value=""  Modelos...
-
         .row.form-group
           = f.label :trailer_id, class: 'col-sm-2 control-label'
           .col-md-4
-            select.form-control ng-change="get_trailer(trailer);" ng-click="model=''" ng-model="trailer" ng-options=("trailer.id as trailer.name for trailer in trailers")
+            select.form-control ng-change="item={}; trailer_model = {}; get_trailer(trailer); " ng-model="trailer" ng-options=("trailer.id as trailer.name for trailer in trailers")
               option  selected="" value=""  No Aplica
             = f.hidden_field :trailer_type_id, value: '{{trailer}}'
           = f.label 'Freno', class: 'col-sm-2 control-label', 'ng-hide'=>'brakes.length==0', 'ng-cloak'=>"true"
@@ -142,22 +141,33 @@ div ng-controller="itemController"
           .col-md-4
             .input-group
               span.input-group-addon $
-              = f.number_field :price, value: number_to_currency(f.object.price.to_f, delimiter: '', unit: ''), step: :any, class: 'form-control text_field', placeholder: t('.price') , min:0.0, 'ng-model'=> 'item.price ', 'ng-change' => 'fleet = item.price * ( 1 + ( fleet_cost || "0") /100 )'  
-              span.input-group-addon .00              
-          = f.label :serial_number, class: 'col-md-2 control-label'
+              = f.number_field :price, value: number_to_currency(f.object.price.to_f, delimiter: '', unit: ''), step: :any, class: 'form-control text_field', placeholder: t('.price') , min:0.0, 'ng-model'=> 'item.price ', 'ng-change' => 'fleet = item.price * ( 1 + ( fleet_cost || "0") /100 )'
+          = label_tag "percent_price", t('.percent_price'), class: 'col-sm-2 control-label'
           .col-md-4
-            = f.text_field :serial_number, class: 'form-control', placeholder: t('.serial_number')                    
+            .input-group
+              span.input-group-addon %
+              = number_field_tag 'percent_price', nil, class: 'form-control text_field', placeholder: t('.percent_price') , 'ng-model'=> 'percent_price ', 'ng-change' => 'sale_price = (percent_price/100 +1 )*( fleet || 0);'
+              / = f.text_field :sale_price, class: 'form-control', placeholder: t('.percent_price')
         .row.form-group
           = f.hidden_field :fleet_cost, value: '{{ fleet_cost || "0"  }}'
           = label_tag "price_lbl", "Precio Total", class: 'col-sm-2 control-label', style: "font-size:20px;"
-          .col-md-8            
-            = label_tag :price_show, '{{ fleet | currency }}',  class: 'control-label h2.page-header',  style: "font-size:20px;"             
+          .col-md-4
+            = label_tag :price_show, '{{ fleet | currency }}',  class: 'control-label h2.page-header',  style: "font-size:20px;"
+          = label_tag "sale_price", t('.sale_price'), class: 'col-sm-2 control-label', style: "font-size:20px;"
+          .col-md-4
+            = label_tag :price_show, '{{ sale_price | currency }}', class: 'control-label h2.page-header', style: "font-size:20px;"
+            = f.hidden_field :sale_price, value: '{{ sale_price || 0 }}'
         .row.form-group
           = label_tag "fleet_cost_caption", "(+ {{ fleet_cost || '0'  }}% de Flete)", class: 'col-sm-2 control-label', style: "font-size: 12px; font-style: italic; color: gray; margin-top: -21px;"
+        .row.form-group
+          = f.label :serial_number, class: 'col-md-2 control-label'
+          .col-md-10
+            = f.text_field :serial_number, class: 'form-control', placeholder: t('.serial_number')
         .row.form-group
           = label_tag "accessory", "Accesorios", class: 'col-sm-2 control-label'
           .col-md-10
             = f.text_area :accessory, class: 'form-control', placeholder: "Accesorios"
+
           / .row.form-group
             = f.label :image, class: 'col-sm-2 control-label'
             .col-md-4
@@ -180,9 +190,9 @@ div ng-controller="itemController"
             - if item.new_record?
               input type='hidden' name="item[status_shipping_id]" value='#{StatusShipping.find_by_key('recibido').id}'
             - else
-             - unless item.status_shipping_id == StatusShipping.find_by_key('recibido').id
-              input type='hidden' name="item[status_shipping_id]" ng-if="branch === 1" value='#{StatusShipping.find_by_key('recibido').id}'
-              input type='hidden' name="item[status_shipping_id]" ng-if="branch !== 1" value='#{StatusShipping.find_by_key('enviado').id}'
+              - unless item.status_shipping_id == StatusShipping.find_by_key('recibido').id
+                input type='hidden' name="item[status_shipping_id]" ng-if="branch === 1" value='#{StatusShipping.find_by_key('recibido').id}'
+                input type='hidden' name="item[status_shipping_id]" ng-if="branch !== 1" value='#{StatusShipping.find_by_key('enviado').id}'
       .box-footer
         = f.button "<i class='fa fa-floppy-o'></i> #{t('helpers.submit.submit', model: t('.resource'))}".html_safe,
                 class: 'btn btn-primary btn-flat', type: 'submit'

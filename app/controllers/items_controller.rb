@@ -4,7 +4,9 @@ class ItemsController < ApplicationController
   include ActionView::Helpers::NumberToLetters
 
 
-  before_action :set_item, only: [:show, :edit, :update, :destroy, :create_maintenance, :create_file, :change_maintenance_done, :edit_order]
+  before_action :set_item, only: [:show, :edit, :update, :destroy, :create_maintenance, :create_file,
+                                  :change_maintenance_done, :edit_order, :remolques_show, :remolques_edit,
+                                  :remolques_destroy]
   helper_method :sort_column, :sort_direction, :get_percentage_value, :sort_column_orders, :get_price_to_pay
   # GET /items
   # GET /items.json
@@ -16,6 +18,9 @@ class ItemsController < ApplicationController
     @all_models = policy_scope(TrailerType).pluck(:model_part)
 
     @all_remissions = policy_scope(Item).pluck(:remission)
+
+
+
   end
 
   def next_maintenances
@@ -351,6 +356,86 @@ class ItemsController < ApplicationController
     end
   end
 
+  def remolques_index
+    @search_items = policy_scope(Item).ransack(params[:q])
+    @items = @search_items.result.order(id: :desc).paginate(page: params[:page], per_page: 20)
+
+    @all_models = policy_scope(TrailerType).pluck(:model_part)
+    @all_remissions = policy_scope(Item).pluck(:remission)
+  end
+
+  def remolques_new
+    @item = Item.new
+    @users = Company.where(id: current_user.current_company)
+    @branches = Branch.all #current_user.current_company.eql?(0) ? policy_scope(Branch).order(:name) : policy_scope(Branch).where(company_id: @current_company.try(:id)).order(:name)
+    @categories = Category.all
+  end
+
+  def remolques_edit
+    @users = Company.where(id: current_user.current_company)
+    @branches = Branch.all #current_user.current_company.eql?(0) ? policy_scope(Branch).order(:name) : policy_scope(Branch).where(company_id: @current_company.try(:id)).order(:name)
+    @categories = Category.all
+  end
+
+  def remolques_show
+    @status_item_vendidos = StatusItem.where(key: %w(vendido pendiente_factura vendido_credito))
+    audits = @item.audits + @item.associated_audits
+    @audits = audits.sort_by { |a| a.created_at }
+
+    @branches = Branch.all
+    @categories = Category.all
+  end
+
+  def remolques_create
+    @users = Company.where(id: current_user.current_company)
+    @branches = Branch.all
+    @item = Item.new(item_params)
+    @item.item_type = :remolques
+
+    respond_to do |format|
+      if @item.save
+        format.html { redirect_to remolques_items_path, notice: 'Se creo el artículo correctamente.' }
+        format.json { render :remolques_show, status: :created, location: @item }
+      else
+        format.html { render :new_for_remolques }
+        format.json { render json: @item.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def remolques_update
+    @users = Company.where(id: current_user.current_company)
+    @branches = Branch.all
+    @item = Item.find(params[:id])
+
+    respond_to do |format|
+      if @item.update(item_params)
+        format.html { redirect_to remolques_item_path(@item), notice: 'Se actualizó el artículo correctamente.' }
+        format.json { render :remolques_show, status: :created, location: @item }
+      else
+        format.html { render :new_for_remolques }
+        format.json { render json: @item.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def remolques_destroy
+    respond_to do |format|
+      if @item.destroy
+        format.html { redirect_to items_url, notice: 'Item was successfully destroyed.' }
+        format.json { render json: true }
+      else
+        format.json { render json: false }
+      end
+    end
+  end
+
+  def remolques_export_microsip
+    respond_to do |format|
+      format.html
+      format.csv {send_data Item.to_csv, filename: "pedidos-#{Date.today}.csv"}
+    end
+  end
 
   def get_maintenances
     @item_maintenances = ItemsMaintenance.where(item_id: params[:id])
@@ -471,6 +556,8 @@ class ItemsController < ApplicationController
     total = item.sale_price - item.advance_payment
     return Money.from_amount(total).format
   end
+
+
 
 
   private
@@ -605,7 +692,7 @@ class ItemsController < ApplicationController
                                  :brake_type_id, :color_id, :divition_type_id, :fender_type_id, :hydraulic_jack_id,
                                  :pull_type_id, :reinforcement_type_id, :roof_type_id, :suspension_type_id, :turn_type_id,
                                  :trailer_width_id, :categories_description, :seller_percentage, :planet_percentage,
-                                 :branch_percentage
+                                 :branch_percentage, :quantity
     )
   end
 

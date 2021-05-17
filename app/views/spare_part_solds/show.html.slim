@@ -1,0 +1,30 @@
+p#notice = notice
+
+p
+  strong Client:
+  = @spare_part_sold.client
+p
+  strong User:
+  = @spare_part_sold.user
+p
+  strong Spare part:
+  = @spare_part_sold.spare_part
+p
+  strong Quantity:
+  = @spare_part_sold.quantity
+p
+  strong Unit sale price:
+  = @spare_part_sold.unit_sale_price
+p
+  strong Payment type:
+  = @spare_part_sold.payment_type
+p
+  strong Fiscal voucher:
+  = @spare_part_sold.fiscal_voucher
+p
+  strong Advance payment:
+  = @spare_part_sold.advance_payment
+
+=> link_to 'Edit', edit_spare_part_sold_path(@spare_part_sold)
+'|
+=< link_to 'Back', spare_part_solds_path

@@ -1,8 +1,7 @@
 class Api::V1::InventoryManagerController < ActionController::Base
 
   protect_from_forgery with: :null_session
-
-
+  
   def get_clients
     render json: Client.all
   end
@@ -41,14 +40,10 @@ class Api::V1::InventoryManagerController < ActionController::Base
     render json: StatusItem.all
   end
 
-
-  def get_categories
-    render json: {trailers: TrailerType.all.as_json(except: :image), widths: TrailerWidth.all, lengths: TrailerLength.all, floors: FloorType.all, ramps: RampType.all,
-                  capacities: Capacity.all, redilas: RedilaType.all, roofs:RoofType.all, turns:TurnType.all, brakes: BrakeType.all, colors:Color.all,
-                  divitios:DivitionType.all, fenders: FenderType.all, hydraulic_jacks: HydraulicJack.all, pulls: PullType.all, brands: Brand.all,
-                  suspensions:SuspensionType.all}
+  def get_trailer_categories
+    render json: TrailerType.get_categories(params[:trailer_id]).as_json
   end
-
+  
 
   def get_sub_categories
     render json: SubCategory.all
@@ -95,8 +90,7 @@ class Api::V1::InventoryManagerController < ActionController::Base
       @items = Item.where(status_item_id: StatusItem.where(key:['vendido', 'pendiente_factura', 'facturado']).pluck(:id), department_id: @user.department_id)
     end
 
-    render json: item_json(@items)
-
+    render json: @items
 
   end
 
@@ -196,7 +190,7 @@ class Api::V1::InventoryManagerController < ActionController::Base
 
 
       @new_item = Item.new(item_params)
-      @new_item.image.attach(io: image_io, filename: 'comprobante de pago')     if params[:image]
+      @new_item.image.attach(io: image_io, filename: 'item')     if params[:image]
 
       p 'new item'
       p @new_item
@@ -252,7 +246,7 @@ class Api::V1::InventoryManagerController < ActionController::Base
       item_params[:fiscal_voucher_id]   =    params[:fiscal_voucher_id]   if params[:fiscal_voucher_id]
       item_params[:client_id]           =    params[:client_id]           if params[:client_id]
       item_params[:advance_payment]     =    params[:advance_payment]     if params[:advance_payment]
-      item_params[:brand]                     =    params[:brand]                      if params[:brand]
+      item_params[:brand_id]                     =    params[:brand_id]                      if params[:brand_id]
       item_params[:trailer_length_id]         =    params[:trailer_length_id]          if params[:trailer_length_id]
       item_params[:trailer_height_id]         =    params[:trailer_height_id]          if params[:trailer_height_id]
       item_params[:ramp_type_id]              =    params[:ramp_type_id]               if params[:ramp_type_id]
@@ -276,7 +270,7 @@ class Api::V1::InventoryManagerController < ActionController::Base
       item_params[:planet_percentage]    =    params[:planet_percentage]     if params[:planet_percentage]
       item_params[:branch_percentage]    =    params[:branch_percentage]     if params[:branch_percentage]
 
-      item.image.attach(io: image_io, filename: 'Comprobante de Pago') if params[:image]
+      item.image.attach(io: image_io, filename: 'item') if params[:image]
 
       # item_params[:image]               =    params[:image] if params[:image]
       # item_params[:image]               =    image_io(item_params[:image]) if item_params[:image]
@@ -319,16 +313,11 @@ class Api::V1::InventoryManagerController < ActionController::Base
   private
 
   def item_json item
-
-    item.as_json(except: :image, include: [{user: {except: [:avatar, :received_file], include: :department}}, :status_item, :branch, :department, :client])
-
+    item.as_json(except: :image, include: [{user: {except: [:avatar, :received_file], include: :department}}, :status_item, :branch, :department, :client], methods:[:image_base64, :image_path ] )
   end
 
   def image_io
-
     decoded_image = Base64.decode64(params[:image])
-
-
     StringIO.new(decoded_image)
   end
 

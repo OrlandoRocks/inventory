@@ -1,13 +1,13 @@
 es:
   items:
-      index:
-        title: Artículos
-        resource: el artículo
+      index: &index
+        title: Remolques
+        resource: el Remolque
         code: Folio
-        name: Nombre del artículo
+        name: Nombre del Remolque
         description: Descripción
         model: Modelo
-        serial_number: Numero de Serie
+        serial_number: Número de Serie
         acquisition_date: Fecha de Adquisición
         purchased_date: Fecha de Compra
         in_service_date: Fecha de entrega
@@ -22,11 +22,11 @@ es:
         department: Punto de Venta
         user: Usuario
         brand: Marca
-        status_item: Estatus del Artículo
-        one: Artículo
-        other: Articulos
+        status_item: Estatus del Remolque
+        one: Remolque
+        other: Remolques
         permissions: Permisos
-        new_item: Nuevo Artículo
+        new_item: Nuevo Remolque
         next_maintenances: Siguientes
         f_trailer: Filtro por Trailer
         trailers: Trailers
@@ -40,6 +40,8 @@ es:
         f_orden: Ordenar por
         search: Buscar...
         sale_price: Precio de venta
+        percent_price: Porcentaje de Ganancia
+        finder: Buscador de Remolques
       form_order:
         accessory: Accesorios
         Usuario: Vendedor
@@ -53,8 +55,8 @@ es:
         select:
           prompt: Seleccionar una opción
       orders:
-        title: Artículos
-        resource: el artículo
+        title: Remolques
+        resource: el Remolque
         code: Folio
         name: Nombre del trailer
         description: Descripción
@@ -74,11 +76,11 @@ es:
         department: Punto de Venta
         user: Usuario
         brand: Marca
-        status_item: Estatus del Artículo
-        one: Artículo
-        other: Articulos
+        status_item: Estatus del Remolque
+        one: Remolque
+        other: Remolques
         permissions: Permisos
-        new_item: Nuevo Artículo
+        new_item: Nuevo Remolque
         next_maintenances: Siguientes mantenimientos
         f_trailer: Filtro por Trailer
         trailers: Trailers
@@ -94,8 +96,8 @@ es:
         advance_payment: Abono
         client: Cliente
       quotations:
-        title: Artículos
-        resource: el artículo
+        title: Remolques
+        resource: el Remolque
         code: Folio
         name: Nombre del trailer
         description: Descripción
@@ -115,11 +117,11 @@ es:
         department: Punto de Venta
         user: Usuario
         brand: Marca
-        status_item: Estatus del Artículo
-        one: Artículo
-        other: Articulos
+        status_item: Estatus del Remolque
+        one: Remolque
+        other: Remolques
         permissions: Permisos
-        new_item: Nuevo Artículo
+        new_item: Nuevo Remolque
         next_maintenances: Siguientes mantenimientos
         f_trailer: Filtro por Trailer
         trailers: Trailers
@@ -135,8 +137,8 @@ es:
         advance_payment: Abono
         client: Cliente
       orders_shipped:
-        title: Artículos
-        resource: el artículo
+        title: Remolques
+        resource: el Remolque
         code: Folio
         name: Nombre del trailer
         description: Descripción
@@ -158,11 +160,11 @@ es:
         department: Punto de Venta
         user: Usuario
         brand: Marca
-        status_item: Estatus del Artículo
-        one: Artículo
-        other: Articulos
+        status_item: Estatus del Remolque
+        one: Remolque
+        other: Remolques
         permissions: Permisos
-        new_item: Nuevo Artículo
+        new_item: Nuevo Remolque
         next_maintenances: Siguientes mantenimientos
         f_trailer: Filtro por Trailer
         trailers: Trailers
@@ -176,8 +178,8 @@ es:
         f_orden: Ordenar por
         search: Buscar...
       sales:
-        title: Artículos
-        resource: el artículo
+        title: Remolques
+        resource: el Remolque
         code: Código
         name: Nombre del trailer
         description: Descripción
@@ -197,11 +199,11 @@ es:
         department: Punto de Venta
         user: Usuario
         brand: Marca
-        status_item: Estatus del Artículo
-        one: Artículo
-        other: Articulos
+        status_item: Estatus del Remolque
+        one: Remolque
+        other: Remolques
         permissions: Permisos
-        new_item: Nuevo Artículo
+        new_item: Nuevo Remolque
         next_maintenances: Siguientes mantenimientos
         f_trailer: Filtro por Trailer
         trailers: Trailers
@@ -218,9 +220,10 @@ es:
         percentage_branch: Porcentaje de la Sucursal
         percentage_planet: Porcentaje de Planet
         sale_price: Precio de venta
+        percent_price: Porcentaje de Ganancia
         sale_date: Fecha de venta
       items_import:
-        title: Importar archivo csv para artículos
+        title: Importar archivo csv para Remolques
         code: Folio
         name: Nombre
         description: Descripcion
@@ -229,8 +232,8 @@ es:
         branch: Sucursal
         department: Punto de Venta
       reporter:
-        title: Reporteador de artículos
-        resource: el artículo
+        title: Reporteador de Remolques
+        resource: el Remolque
         name: Nombre
         description: Descripción
         model: Modelo
@@ -258,18 +261,18 @@ es:
         brand: Marca
         code: Folio
         f_status_item: Filtro por Estatus
-        status_item: Estatus del Artículo
+        status_item: Estatus del Remolque
         f_responsible: Filtro por Responsable
         responsible: Responsable
-        one: Artículo
-        other: Articulos
+        one: Remolque
+        other: Remolques
         permissions: Permisos
-        new_item: Nuevo Artículo
+        new_item: Nuevo Remolque
         next_maintenances: Siguientes mantenimientos
         search: Buscar...
       list_items_reporter:
-        title: Reporteador de artículos
-        resource: el artículo
+        title: Reporteador de Remolques
+        resource: el Remolque
         name: Nombre
         description: Descripción
         model: Modelo
@@ -297,18 +300,18 @@ es:
         brand: Marca
         code: Folio
         f_status_item: Filtro por Estatus
-        status_item: Estatus del Artículo
-        one: Artículo
-        other: Articulos
+        status_item: Estatus del Remolque
+        one: Remolque
+        other: Remolques
         permissions: Permisos
-        new_item: Nuevo Artículo
+        new_item: Nuevo Remolque
         next_maintenances: Siguientes mantenimientos
         search: Buscar...
         responsible: Responsable
         acquisition_value: Total del Valor de Adquisión
       next_maintenances:
         title: LISTA DE MANTENIMIENTOS PROXIMOS A REALIZAR
-        resource: el artículo
+        resource: el Remolque
         name: Nombre
         description: Descripción
         model: Modelo
@@ -326,16 +329,16 @@ es:
         department: Punto de Venta
         user: Usuario
         brand: Marca
-        status_item: Estatus del Artículo
+        status_item: Estatus del Remolque
         maintenance_date: Fecha de siguiente mantenimiento
         maintenance_date_in_words: 'Siguiente mantenimiento en:'
-        one: Artículo
-        other: Articulos
+        one: Remolque
+        other: Remolques
         permissions: Permisos
-        new_item: Nuevo Artículo
-      form:
-        title: Articulos
-        resource: el artículo
+        new_item: Nuevo Remolque
+      form: &form
+        title: Remolques
+        resource: el Remolque
         name: Nombre
         code: Folio
         branch: Sucursal
@@ -358,23 +361,35 @@ es:
         department: Punto de Venta
         user: Usuario responsable
         brand: Marca
-        status_item: Estatus del Artículo
+        status_item: Estatus del Remolque
         client: Cliente
         advance_payment: Abono
-        color: Color
-        width: Ancho
-        length: Largo
-        floor: Piso
-        ramp: Rampa
-        capacity: Capacidad
-        redila: Redila
         percentage_seller: Porcentaje del Vendedor
         percentage_branch: Porcentaje de la Sucursal
         percentage_planet: Porcentaje de Planet
         sale_price: Precio de venta
+        percent_price: Porcentaje de Ganancia
+        branches: Sucursales...
+        catalog: Catálogo
+        models: Modelos...
+        accesories: Accesorios
+        brake: Freno
+        width: Ancho
+        color: Color
+        length: Largo
+        floor: Piso
+        ramp: Rampa
+        division: División
+        fender: Fender
+        hydraulic_jack: Gato Hidráulico
+        capacity: Capacidad
+        redila: Redila
+        pull: Jalón
+        roof: Techo
+        suspension: Suspensión
       new_order:
-        title: Articulos
-        resource: el artículo
+        title: Remolques
+        resource: el Remolque
         name: Nombre
         code: Folio
         branch: Sucursal
@@ -398,13 +413,13 @@ es:
         user_id: Vendedor
         trailer_id: Nombre del remolque
         brand: Marca
-        status_item: Estatus del Artículo
+        status_item: Estatus del Remolque
         clients: Clientes
         select:
           prompt: Seleccione una opción
       new_quotation:
-        title: Articulos
-        resource: el artículo
+        title: Remolques
+        resource: el Remolque
         name: Nombre
         code: Folio
         branch: Sucursal
@@ -428,18 +443,17 @@ es:
         user_id: Vendedor
         trailer_id: Nombre del remolque
         brand: Marca
-        status_item: Estatus del Artículo
+        status_item: Estatus del Remolque
         clients: Clientes
         select:
           prompt: Seleccione una opción
-
-      new:
-        title: Nuevo Artículo
-      edit:
-        title: Editar Artículo
-      show:
-        title: Articulos
-        resource: el artículo
+      new: &new
+        title: Nuevo Remolque
+      edit: &edit
+        title: Editar Remolque
+      show: &show
+        title: Remolques
+        resource: el Remolque
         name: Nombre
         code: Folio
         description: Descripción
@@ -463,7 +477,7 @@ es:
         files:
           file: Archivo
           description: Descripción
-          item: Artículo
+          item: Remolque
           file_type: Tipo de Archivo
           date_file: Fecha del archivo
           photo: Fotografia
@@ -475,7 +489,7 @@ es:
         maintenance: Mantenimiento
         maintenance_done: Mantenimiento realizado
         maintenances:
-          item: Artículo
+          item: Remolque
           file: Archivo
           maintenance: Tipo de Mantenimiento
           description: Descripción
@@ -486,7 +500,7 @@ es:
           create: Creación
           update: Actualización
           by: por
-          create_mesage: Se Creó el Artículo
+          create_mesage: Se Creó el Remolque
           maintenance_mesage: A maintenance was uploaded
           file_mesage: A file was uploaded
           change: Se cambio
@@ -519,8 +533,18 @@ es:
           4: Otro
         add_file: Agrega archivo
         add_maintenance: Agregar mantenimiento
-        back: ir a Articulos
-        delete_confirmation: ¿Estas seguro que deseas eliminar este artículo?
+        back: ir a Remolques
+        delete_confirmation: ¿Estas seguro que deseas eliminar este Remolque?
+      remolques_index:
+        <<: *index
+      remolques_new:
+        <<: *new
+      remolques_edit:
+        <<: *edit
+      form_remolques:
+        <<: *form
+      remolques_show:
+        <<: *show
       file_type:
         photo: Fotografia
         assignment_signature: Hoja de asignación
@@ -528,13 +552,13 @@ es:
         guarantee_policy: Poliza de garantia
         other: Otro
   breadcrumbs:
-    items: Articulos
+    items: Remolques
   quotations:
     index:
-      title: Artículos
-      resource: el artículo
+      title: Remolques
+      resource: el Remolque
       code: Folio
-      name: Nombre del artículo
+      name: Nombre del Remolque
       description: Descripción
       model: Modelo
       serial_number: Numero de Serie
@@ -552,11 +576,11 @@ es:
       department: Punto de Venta
       user: Usuario
       brand: Marca
-      status_item: Estatus del Artículo
-      one: Artículo
-      other: Articulos
+      status_item: Estatus del Remolque
+      one: Remolque
+      other: Remolques
       permissions: Permisos
-      new_item: Nuevo Artículo
+      new_item: Nuevo Remolque
       next_maintenances: Siguientes
       f_trailer: Filtro por Trailer
       trailers: Trailers
@@ -574,6 +598,7 @@ es:
       f_orden: Ordenar por
       search: Buscar...
       sale_price: Precio de venta
+      percent_price: Porcentaje de Ganancia
       client: Cliente
     form:
       accessory: Accesorios
