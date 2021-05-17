@@ -142,9 +142,10 @@ class Item < ApplicationRecord
     self.price  * ( 1 + self.branch.try(:fleet_cost)/100 )
   end
 
-  def image_encoded 
-    Base64.encode64(rails_blob_path(self.image, only_path: true)) if self.image.attached?
+  def image_base64
+    Base64.encode64(File.read(ActiveStorage::Blob.service.path_for(self.image.key))) if self.image.attached?
   end
+
   def image_path 
     rails_blob_path(self.image, only_path: true) if self.image.attached?
   end

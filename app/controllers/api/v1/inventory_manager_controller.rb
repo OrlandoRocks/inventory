@@ -313,7 +313,7 @@ class Api::V1::InventoryManagerController < ActionController::Base
   private
 
   def item_json item
-    item.as_json(except: :image, include: [{user: {except: [:avatar, :received_file], include: :department}}, :status_item, :branch, :department, :client], methods:[:image_encoded, :image_path ] )
+    item.as_json(except: :image, include: [{user: {except: [:avatar, :received_file], include: :department}}, :status_item, :branch, :department, :client], methods:[:image_base64, :image_path ] )
   end
 
   def image_io

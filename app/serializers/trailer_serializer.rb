@@ -36,27 +36,24 @@
 class TrailerSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
 
-  attributes :id, :name,:photo_encoded, :photo_path, :image_encoded, :image_path, :model, 
+  attributes :id, :name,:photo_base64, :photo_path, :image_base64, :image_path, :model, 
               :trailer_type_id, :trailer_length_id, :trailer_height_id, :trailer_width_id, :ramp_type_id, 
               :redila_type_id, :floor_type_id, :capacity_id, :color_id, :hydraulic_jack_id, :pull_type_id, 
               :brake_type_id, :reinforcement_type_id, :fender_type_id, :turn_type_id, :divition_type_id, 
               :suspension_type_id, :roof_type_id, :brand_id
-  def image
-    rails_blob_path(object.image, only_path: true) if object.image.attached?
-  end
 
   def trailer_type
     object.trailer_type.as_json(except: :image) if object.trailer_type
   end
 
-  def image_encoded 
-    Base64.encode64(rails_blob_path(object.image, only_path: true)) if object.image.attached?
+  def image_base64
+    Base64.encode64(File.read(ActiveStorage::Blob.service.path_for(object.image.key))) if object.image.attached?
   end
-  def image_path 
+  def image_path     
     rails_blob_path(object.image, only_path: true) if object.image.attached?
   end
-  def photo_encoded
-    Base64.encode64(rails_blob_path(object.photo, only_path: true)) if object.photo.attached?
+  def photo_base64
+    Base64.encode64(File.read(ActiveStorage::Blob.service.path_for(object.photo.key))) if object.photo.attached?
   end
   def photo_path
     rails_blob_path(object.photo, only_path: true) if object.photo.attached?
