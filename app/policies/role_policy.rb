@@ -15,7 +15,7 @@ class RolePolicy < ApplicationPolicy
       elsif @user.admin_branch?
         scope.where(key: %w(empleado_sin_acceso))
       elsif @user.role_key.eql?('admin_remolques')
-        scope.where(key: %w(admin_remolques vendedor_remolques))
+        scope.where(key: %w(admin_remolques vendedor_remolques us_remolques))
       else
         scope.none
       end

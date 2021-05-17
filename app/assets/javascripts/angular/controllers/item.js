@@ -901,8 +901,8 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
 
     $scope.remolques_delete_item = function (id) {
         swal({
-            title: 'Eliminar',
-            text: '¿Estas seguro de eliminar este artículo?',
+            title: I18n.remove,
+            text: I18n.question_to_remove_item, //'¿Estas seguro de eliminar este artículo?',
             type: 'question',
             showCancelButton: true
         }).then(function (isConfirm) {
@@ -913,8 +913,8 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
                 }).then(function (response) {
                     if (response.data) {
                         swal({
-                            title: 'Eliminado',
-                            text: 'El artículo ha sido eliminado',
+                            title: I18n.removed,
+                            text: I18n.order_removed,
                             type: 'success',
                             showCancelButton: false
                         }).then(function (isConfirm) {
