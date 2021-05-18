@@ -5,7 +5,7 @@ class Api::V1::UsersManagerController < ActionController::Base
   
 
   def login_user
-    user = User.find_for_database_authentication(employee_number: params[:employee_number], current_company:0)
+    user = User.find_for_database_authentication(employee_number: params[:employee_number], current_company:'planet')
     if user && user.valid_password?(params[:password]) 
       render json: {status: 200, success:true , user: payload(user)}
     else
@@ -48,7 +48,7 @@ class Api::V1::UsersManagerController < ActionController::Base
   end
 
   def save_token
-    user = User.where(current_company:0).find(params[:id])
+    user = User.where(current_company:'planet').find(params[:id])
     # status_item_id          =    StatusItem.find_by_key('no_vendido').try(:id)  #params[:status_item_id]
     # status_shipping_id      =    params[:department_id] == 1 ? StatusShipping.find_by_key('recibido').try(:id) :  StatusShipping.find_by_key('enviado').try(:id)  # params[:status_shipping_id]
     user_params = Hash.new

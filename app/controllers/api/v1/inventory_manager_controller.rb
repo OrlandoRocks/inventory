@@ -61,7 +61,7 @@ class Api::V1::InventoryManagerController < ActionController::Base
   end
 
   def get_items_not_sell
-    @user = User.where(current_company:0).find(params[:user_id])
+    @user = User.where(current_company:'planet').find(params[:user_id])
 
     if @user.god? or @user.admin?
       @items = Item.where(status_item_id: StatusItem.find_by_key('no_vendido'), item_type:0)
@@ -77,7 +77,7 @@ class Api::V1::InventoryManagerController < ActionController::Base
 
   def get_items_sell
 
-    @user = User.where(current_company:0).find(params[:user_id])
+    @user = User.where(current_company:'planet').find(params[:user_id])
     if @user.god? or @user.admin?
 
       @items = Item.where(status_item_id: StatusItem.where(key:['vendido', 'pendiente_factura', 'facturado']).pluck(:id), item_type:0)
@@ -92,7 +92,7 @@ class Api::V1::InventoryManagerController < ActionController::Base
   end
 
   def get_items_order
-    @user = User.where(current_company:0).find(params[:user_id])
+    @user = User.where(current_company:'planet').find(params[:user_id])
     if @user.god? or @user.admin?
       @items = Item.where(status_item_id: StatusItem.find_by_key('pendiente'), item_type:0)
 
@@ -109,7 +109,7 @@ class Api::V1::InventoryManagerController < ActionController::Base
 
   def get_orders_shipped
 
-    @user = User.where(current_company:0).find(params[:user_id])
+    @user = User.where(current_company:'planet').find(params[:user_id])
     if @user.god? or @user.admin?
       @items = Item.where(status_shipping_id: StatusShipping.find_by_key('enviado').try(:id), status_item_id: StatusItem.find_by_key('pendiente').try(:id), item_type:0)
     elsif @user.user_employee?
