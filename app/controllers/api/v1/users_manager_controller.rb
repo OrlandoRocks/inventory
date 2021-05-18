@@ -5,12 +5,16 @@ class Api::V1::UsersManagerController < ActionController::Base
   
 
   def login_user
-    user = User.find_for_database_authentication(employee_number: params[:employee_number], current_company:'planet')
-    if user && user.valid_password?(params[:password]) 
-      render json: {status: 200, success:true , user: payload(user)}
-    else
-      render json: {status: 400, success:false ,message: 'User or password are incorrect'}
-    end
+    user = User.find_for_database_authentication(employee_number: params[:employee_number])
+      if user && user.valid_password?(params[:password])
+        if user.current_company == 'planet'
+          render json: {status: 200, success:true , user: payload(user)}
+        else
+          render json: {status: 400, success:false ,message: 'El usuario no cuenta con acceso.'}
+        end
+      else
+        render json: {status: 400, success:false ,message: 'Usuario o contraseña incorrectos.'}
+      end
   end
   
   def sign_up_guest
