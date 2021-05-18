@@ -22,9 +22,6 @@ class Api::V1::InventoryManagerController < ActionController::Base
     render json: State.all
   end
 
-
-
-
   def get_branches
     @branches = Branch.all
     render json: @branches
@@ -59,17 +56,17 @@ class Api::V1::InventoryManagerController < ActionController::Base
   end
 
   def get_items
-    @items = Item.all
+    @items =Item.where(item_type:0)
     render json: @items
   end
 
   def get_items_not_sell
-    @user = User.find(params[:user_id])
+    @user = User.where(current_company:0).find(params[:user_id])
 
     if @user.god? or @user.admin?
-      @items = Item.where(status_item_id: StatusItem.find_by_key('no_vendido'))
+      @items = Item.where(status_item_id: StatusItem.find_by_key('no_vendido'), item_type:0)
     else
-      @items = Item.where(status_item_id: StatusItem.find_by_key('no_vendido'), department_id: @user.department_id)
+      @items = Item.where(status_item_id: StatusItem.find_by_key('no_vendido'), department_id: @user.department_id, item_type:0)
     end
 
     render json: item_json(@items)
@@ -80,14 +77,14 @@ class Api::V1::InventoryManagerController < ActionController::Base
 
   def get_items_sell
 
-    @user = User.find(params[:user_id])
+    @user = User.where(current_company:0).find(params[:user_id])
     if @user.god? or @user.admin?
 
-      @items = Item.where(status_item_id: StatusItem.where(key:['vendido', 'pendiente_factura', 'facturado']).pluck(:id))
+      @items = Item.where(status_item_id: StatusItem.where(key:['vendido', 'pendiente_factura', 'facturado']).pluck(:id), item_type:0)
     elsif @user.user_employee?
-      @items = Item.where(status_item_id: StatusItem.where(key:['vendido', 'pendiente_factura', 'facturado']).pluck(:id), department_id: @user.department_id, user_id: @user.id)
+      @items = Item.where(status_item_id: StatusItem.where(key:['vendido', 'pendiente_factura', 'facturado']).pluck(:id), department_id: @user.department_id, user_id: @user.id, item_type:0)
     else
-      @items = Item.where(status_item_id: StatusItem.where(key:['vendido', 'pendiente_factura', 'facturado']).pluck(:id), department_id: @user.department_id)
+      @items = Item.where(status_item_id: StatusItem.where(key:['vendido', 'pendiente_factura', 'facturado']).pluck(:id), department_id: @user.department_id, item_type:0)
     end
 
     render json: @items
@@ -95,15 +92,15 @@ class Api::V1::InventoryManagerController < ActionController::Base
   end
 
   def get_items_order
-    @user = User.find(params[:user_id])
+    @user = User.where(current_company:0).find(params[:user_id])
     if @user.god? or @user.admin?
-      @items = Item.where(status_item_id: StatusItem.find_by_key('pendiente'))
+      @items = Item.where(status_item_id: StatusItem.find_by_key('pendiente'), item_type:0)
 
     elsif @user.user_employee?
-      @items = Item.where(status_item_id: StatusItem.find_by_key('pendiente'), department_id: @user.department_id, user_id: @user.id)
+      @items = Item.where(status_item_id: StatusItem.find_by_key('pendiente'), department_id: @user.department_id, user_id: @user.id, item_type:0)
 
     else
-      @items = Item.where(status_item_id: StatusItem.find_by_key('pendiente'), department_id: @user.department_id)
+      @items = Item.where(status_item_id: StatusItem.find_by_key('pendiente'), department_id: @user.department_id, item_type:0)
     end
 
     render json: item_json(@items)
@@ -112,23 +109,22 @@ class Api::V1::InventoryManagerController < ActionController::Base
 
   def get_orders_shipped
 
-    @user = User.find(params[:user_id])
+    @user = User.where(current_company:0).find(params[:user_id])
     if @user.god? or @user.admin?
-      @items = Item.where(status_shipping_id: StatusShipping.find_by_key('enviado').try(:id), status_item_id: StatusItem.find_by_key('pendiente').try(:id))
+      @items = Item.where(status_shipping_id: StatusShipping.find_by_key('enviado').try(:id), status_item_id: StatusItem.find_by_key('pendiente').try(:id), item_type:0)
     elsif @user.user_employee?
-      @items = Item.where(status_shipping_id: StatusShipping.find_by_key('enviado').try(:id), department_id: @user.department_id, user_id: @user.id, status_item_id: StatusItem.find_by_key('pendiente').try(:id))
+      @items = Item.where(status_shipping_id: StatusShipping.find_by_key('enviado').try(:id), department_id: @user.department_id, user_id: @user.id, status_item_id: StatusItem.find_by_key('pendiente').try(:id), item_type:0)
 
     else
-      @items = Item.where(status_shipping_id: StatusShipping.find_by_key('enviado').try(:id), department_id: @user.department_id, status_item_id: StatusItem.find_by_key('pendiente').try(:id))
+      @items = Item.where(status_shipping_id: StatusShipping.find_by_key('enviado').try(:id), department_id: @user.department_id, status_item_id: StatusItem.find_by_key('pendiente').try(:id), item_type:0)
     end
 
-    @items = Item.where(status_shipping_id: StatusShipping.find_by_key('enviado').try(:id), status_item_id: StatusItem.find_by_key('pendiente').try(:id))
+    @items = Item.where(status_shipping_id: StatusShipping.find_by_key('enviado').try(:id), status_item_id: StatusItem.find_by_key('pendiente').try(:id), item_type:0)
     render json: item_json(@items)
   end
 
 
   def get_items_by_branch
-
     items = Branch.find(params[:id]).items
     render json: items.as_json(except: :image)
   end
@@ -185,6 +181,7 @@ class Api::V1::InventoryManagerController < ActionController::Base
       item_params[:seller_percentage]    =    params[:seller_percentage]     if params[:seller_percentage]
       item_params[:planet_percentage]    =    params[:planet_percentage]     if params[:planet_percentage]
       item_params[:branch_percentage]    =    params[:branch_percentage]     if params[:branch_percentage]
+      item_params[:item_type]    =    0
 
 
 
@@ -215,7 +212,7 @@ class Api::V1::InventoryManagerController < ActionController::Base
   def update_item
     begin
 
-      item = Item.find(params[:id])
+      item = Item.where(item_type:0).find(params[:id])
 
       # status_item_id          =    StatusItem.find_by_key('no_vendido').try(:id)  #params[:status_item_id]
       # status_shipping_id      =    params[:department_id] == 1 ? StatusShipping.find_by_key('recibido').try(:id) :  StatusShipping.find_by_key('enviado').try(:id)  # params[:status_shipping_id]
@@ -303,7 +300,7 @@ class Api::V1::InventoryManagerController < ActionController::Base
 
 
   def destroy_item
-    item = Item.find(params[:id])
+    item = Item.where(item_type:0).find(params[:id])
     item.destroy
     render json: {status:200, success: true, message:'se elimino el Articulo correctamente!'}
 
