@@ -87,8 +87,4 @@ class ItemSerializer < ActiveModel::Serializer
   def image
     rails_blob_path(object.image, only_path: true) if object.image.attached?
   end
-  def image_path 
-    rails_blob_path(self.image, only_path: true) if self.image.attached?
-  end
-
 end
