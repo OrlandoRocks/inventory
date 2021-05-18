@@ -159,6 +159,7 @@
         .col-sm-4
           = f.text_area :accessory, class: 'form-control', placeholder: t('.accessory')
 
+          = f.hidden_field :item_type, value: 'planet'
           input type='hidden' name="item[status_item_id]" value='#{StatusItem.find_by_key('pendiente').id}'
           input type='hidden' name="item[status_shipping_id]" value='#{StatusShipping.find_by_key('pedido').id}'
 

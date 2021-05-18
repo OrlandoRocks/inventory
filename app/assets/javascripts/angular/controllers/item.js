@@ -116,9 +116,9 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
         if ($scope.floor && $scope.floors.length !== 0) $scope.modelhs += $scope.floors.find(elem => elem.id === $scope.floor).model_part;
         if ($scope.ramp && $scope.ramps.length !== 0) $scope.modelhs += $scope.ramps.find(elem => elem.id === $scope.ramp).model_part;
         if ($scope.capacity && $scope.capacities.length !== 0) $scope.modelhs += $scope.capacities.find(elem => elem.id === $scope.capacity).model_part;
+        if ($scope.turn && $scope.turns.length !== 0) $scope.modelhs += $scope.turns.find(elem => elem.id === $scope.turn).model_part;
         if ($scope.redila && $scope.redilas.length !== 0) $scope.modelhs += $scope.redilas.find(elem => elem.id === $scope.redila).model_part;
         if ($scope.roof && $scope.roofs.length !== 0) $scope.modelhs += $scope.roofs.find(elem => elem.id === $scope.roof).model_part;
-        if ($scope.turn && $scope.turns.length !== 0) $scope.modelhs += $scope.turns.find(elem => elem.id === $scope.turn).model_part;
         if ($scope.brake && $scope.brakes.length !== 0) $scope.modelhs += $scope.brakes.find(elem => elem.id === $scope.brake).model_part;
         if ($scope.color && $scope.colors.length !== 0) $scope.modelhs += $scope.colors.find(elem => elem.id === $scope.color).model_part;
         if ($scope.divition && $scope.divitions.length !== 0) $scope.modelhs += $scope.divitions.find(elem => elem.id === $scope.divition).model_part;
@@ -137,9 +137,9 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
         if ($scope.floor && $scope.floors.length !== 0) $scope.category_description += `PISO: ${$scope.floors.find(elem => elem.id === $scope.floor).name}. `;
         if ($scope.ramp && $scope.ramps.length !== 0) $scope.category_description += `RAMPA: ${$scope.ramps.find(elem => elem.id === $scope.ramp).name}. `;
         if ($scope.capacity && $scope.capacities.length !== 0) $scope.category_description += `CAPACIDAD: ${$scope.capacities.find(elem => elem.id === $scope.capacity).name}. `;
+        if ($scope.turn && $scope.turns.length !== 0) $scope.category_description += `VOLTEO: ${$scope.turns.find(elem => elem.id === $scope.turn).name}. `;
         if ($scope.redila && $scope.redilas.length !== 0) $scope.category_description += `REDILA: ${$scope.redilas.find(elem => elem.id === $scope.redila).name}. `;
         if ($scope.roof && $scope.roofs.length !== 0) $scope.category_description += `TECHO: ${$scope.roofs.find(elem => elem.id === $scope.roof).name}. `;
-        if ($scope.turn && $scope.turns.length !== 0) $scope.category_description += `VOLTEO: ${$scope.turns.find(elem => elem.id === $scope.turn).name}. `;
         if ($scope.brake && $scope.brakes.length !== 0) $scope.category_description += `FRENO: ${$scope.brakes.find(elem => elem.id === $scope.brake).name}. `;
         if ($scope.color && $scope.colors.length !== 0) $scope.category_description += `COLOR: ${$scope.colors.find(elem => elem.id === $scope.color).name}. `;
         if ($scope.divition && $scope.divitions.length !== 0) $scope.category_description += `DIVISION: ${$scope.divitions.find(elem => elem.id === $scope.divition).name}. `;
