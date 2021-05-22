@@ -67,7 +67,7 @@ section.content ng-controller="sparePartController"
           .modal-header
             button.close aria-hidden="true" data-dismiss="modal" ng-click="close(Cancel)" type="button"  ×
             h4.modal-title
-              | Vender #{t('.spare_part_id').capitalize}:
+              =  "Vender: "
               strong
                 | {{spare_part.category.name}} / {{spare_part.sub_category.name}}
 
@@ -97,8 +97,16 @@ section.content ng-controller="sparePartController"
               = t('.instock')
               | :
             .col-md-8
-              = number_field_tag 'instock', nil, class: 'form-control', placeholder: t('.instock'), "ng-model" => 'spare_part.instock', disabled:'', min: 0
-              span ng-show="spare_part.instock<0" style="color:red"  No puede ser menor que 0
+              label.control-label
+                | {{spare_part.instock}}
+                span ng-show="spare_part.instock<0" style="color:red"  No puede ser menor que 0
+          .form-group.floating-label-form-group
+            label.col-md-3.control-label
+              = "Costo Unitario"
+              | :
+            .col-md-8
+              label.control-label
+                | {{spare_part.unit_cost | currency:"$"}}
           .form-group.floating-label-form-group
             label.col-md-3.control-label
               = t('.unit_sale_price')

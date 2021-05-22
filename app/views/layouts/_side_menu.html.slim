@@ -34,26 +34,13 @@ aside.main-sidebar
               i.fas.fa-angle-left.pull-right
             ul.treeview-menu
               li
-                = link_item "<i class='fas fa-angle-right'></i> Catálogo".html_safe, spare_parts_path
+                = link_item "<i class='fas fa-wrench'></i> Catálogo".html_safe, spare_parts_path
               li
-                = link_item "<i class='fas fa-angle-right'></i> Categorias".html_safe, categories_path
+                = link_item "<i class='fas fa-wrench'></i> Categorias".html_safe, categories_path
               li
-                = link_item "<i class='fas fa-angle-right'></i> Subcategorias".html_safe, sub_categories_path
+                = link_item "<i class='fas fa-wrench'></i> Subcategorias".html_safe, sub_categories_path
 
-        li.treeview
-          a href='#'
-            i.fa.fa-truck
-            span Trailers
-            i.fa.fa-angle-left.pull-right
-          ul.treeview-menu
-            li
-              = link_item "<i class='fas fa-angle-right'></i> Catálogo".html_safe, trailers_path
-            li
-              = link_item "<i class='fas fa-angle-right'></i> Nuevo Pedido".html_safe, new_order_path
-            li
-              = link_item "<i class='fas fa-angle-right'></i> Pedidos".html_safe, orders_path
-            li
-              = link_item "<i class='fas fa-angle-right'></i> Pedidos Enviados".html_safe, orders_shipped_path
+
           li.treeview
             a href='#'
               i.fa.fa-dollar-sign
@@ -61,22 +48,40 @@ aside.main-sidebar
               i.fa.fa-angle-left.pull-right
             ul.treeview-menu
               li
-                = link_item "<i class='fas fa-angle-right'></i> Ventas (Remolques)".html_safe, sales_path
+                = link_item "<i class='fa fa-dollar-sign'></i> Remolques".html_safe, sales_path
               li
-                = link_item "<i class='fas fa-angle-right'></i> Ventas (Refacciones)".html_safe, spare_part_solds_path
+                = link_item "<i class='fa fa-dollar-sign'></i> Refacciones".html_safe, spare_part_solds_path
               li
-                = link_item "<i class='fas fa-angle-right'></i> Estado de Resultados".html_safe, income_statement_path
-          - if has_policy(Quotation, %w(index))
-            li.treeview
-              a href='#'
-                i.fa.fa-file-invoice-dollar
-                span Cotizaciones
-                i.fa.fa-angle-left.pull-right
-              ul.treeview-menu
-                li
-                  = link_item "<i class='fas fa-angle-right'></i> Cotizaciones".html_safe, quotations_path
-                li
-                  = link_item "<i class='fas fa-angle-right'></i> Nueva cotizacion".html_safe, new_quotation_path
+                = link_item "<i class='fa fa-dollar-sign'></i> Estado de Resultados".html_safe, income_statement_path
+
+          li.treeview
+            a href='#'
+              i.fa.fa-truck
+              span Trailers
+              i.fa.fa-angle-left.pull-right
+            ul.treeview-menu
+              li
+                = link_item "<i class='fa fa-truck'></i> Catálogo".html_safe, trailers_path
+              li
+                = link_item "<i class='fa fa-truck'></i> Nuevo Pedido".html_safe, new_order_path
+              li
+                = link_item "<i class='fa fa-truck'></i> Pedidos".html_safe, orders_path
+              li
+                = link_item "<i class='fa fa-truck'></i> Pedidos Enviados".html_safe, orders_shipped_path
+
+
+
+        - if has_policy(Quotation, %w(index))
+          li.treeview
+            a href='#'
+              i.fa.fa-file-invoice-dollar
+              span Cotizaciones
+              i.fa.fa-angle-left.pull-right
+            ul.treeview-menu
+              li
+                = link_item "<i class='fa fa-file-invoice-dollar'></i> Cotizaciones".html_safe, quotations_path
+              li
+                = link_item "<i class='fa fa-file-invoice-dollar'></i> Nueva cotizacion".html_safe, new_quotation_path
 
       - if has_policy_employee || has_policy_branch
         li.header MENU
@@ -89,9 +94,9 @@ aside.main-sidebar
             ul.treeview-menu
               - if has_policy(Item, %w(new))
                 li
-                  = link_item "<i class='fa fa-circle'></i> #{t '.new_item'}".html_safe, new_item_path
+                  = link_item "<i class='fa fa-list'></i> #{t '.new_item'}".html_safe, new_item_path
               li
-                = link_item "<i class='fa fa-circle'></i> Inventario Local".html_safe, items_path
+                = link_item "<i class='fa fa-list'></i> Inventario Local".html_safe, items_path
           li.treeview
             a href='#'
               i.fas.fa-wrench
@@ -99,7 +104,7 @@ aside.main-sidebar
               i.fas.fa-angle-left.pull-right
             ul.treeview-menu
               li
-                = link_item "<i class='fas fa-angle-right'></i> Lista de Refacciones".html_safe, spare_parts_path
+                = link_item "<i class='fas fa-wrench'></i> Lista de Refacciones".html_safe, spare_parts_path
 
         - if has_policy(Branch, %w(index))
           li.treeview
@@ -114,11 +119,11 @@ aside.main-sidebar
               i.fa.fa-angle-left.pull-right
             ul.treeview-menu
               li
-                = link_item "<i class='fas fa-angle-right'></i> Ventas (Remolques)".html_safe, sales_path
+                = link_item "<i class='fa fa-dollar-sign'></i> Ventas (Remolques)".html_safe, sales_path
               li
-                = link_item "<i class='fas fa-angle-right'></i> Ventas (Refacciones)".html_safe, spare_part_solds_path
+                = link_item "<i class='fa fa-dollar-sign'></i> Ventas (Refacciones)".html_safe, spare_part_solds_path
               li
-                = link_item "<i class='fas fa-angle-right'></i> Estado de Resultados".html_safe, income_statement_path
+                = link_item "<i class='fa fa-dollar-sign'></i> Estado de Resultados".html_safe, income_statement_path
 
         - if has_policy(Quotation, %w(index))
           li.treeview
