@@ -34,9 +34,7 @@ aside.main-sidebar
               i.fas.fa-angle-left.pull-right
             ul.treeview-menu
               li
-                = link_item "<i class='fas fa-angle-right'></i> Refacciones".html_safe, spare_parts_path
-              li
-                = link_item "<i class='fas fa-angle-right'></i> Ventas".html_safe, spare_part_solds_path
+                = link_item "<i class='fas fa-angle-right'></i> Catálogo".html_safe, spare_parts_path
               li
                 = link_item "<i class='fas fa-angle-right'></i> Categorias".html_safe, categories_path
               li
@@ -45,11 +43,11 @@ aside.main-sidebar
         li.treeview
           a href='#'
             i.fa.fa-truck
-            span Catálogo
+            span Trailers
             i.fa.fa-angle-left.pull-right
           ul.treeview-menu
             li
-              = link_item "<i class='fas fa-angle-right'></i> Trailers".html_safe, trailers_path
+              = link_item "<i class='fas fa-angle-right'></i> Catálogo".html_safe, trailers_path
             li
               = link_item "<i class='fas fa-angle-right'></i> Nuevo Pedido".html_safe, new_order_path
             li
@@ -63,9 +61,11 @@ aside.main-sidebar
               i.fa.fa-angle-left.pull-right
             ul.treeview-menu
               li
-                = link_item "<i class='fa fa-dollar-sign'></i> Ventas".html_safe, sales_path
+                = link_item "<i class='fas fa-angle-right'></i> Ventas (Remolques)".html_safe, sales_path
               li
-                = link_item "<i class='fa fa-dollar-sign'></i> Estado de Resultados".html_safe, income_statement_path
+                = link_item "<i class='fas fa-angle-right'></i> Ventas (Refacciones)".html_safe, spare_part_solds_path
+              li
+                = link_item "<i class='fas fa-angle-right'></i> Estado de Resultados".html_safe, income_statement_path
           - if has_policy(Quotation, %w(index))
             li.treeview
               a href='#'
@@ -74,9 +74,9 @@ aside.main-sidebar
                 i.fa.fa-angle-left.pull-right
               ul.treeview-menu
                 li
-                  = link_item "<i class='fa fa-file-invoice-dollar'></i> Cotizaciones".html_safe, quotations_path
+                  = link_item "<i class='fas fa-angle-right'></i> Cotizaciones".html_safe, quotations_path
                 li
-                  = link_item "<i class='fa fa-file-invoice-dollar'></i> Nueva cotizacion".html_safe, new_quotation_path
+                  = link_item "<i class='fas fa-angle-right'></i> Nueva cotizacion".html_safe, new_quotation_path
 
       - if has_policy_employee || has_policy_branch
         li.header MENU
@@ -114,9 +114,11 @@ aside.main-sidebar
               i.fa.fa-angle-left.pull-right
             ul.treeview-menu
               li
-                = link_item "<i class='fa fa-dollar-sign'></i> Ventas".html_safe, sales_path
+                = link_item "<i class='fas fa-angle-right'></i> Ventas (Remolques)".html_safe, sales_path
               li
-                = link_item "<i class='fas fa-dollar-sign'></i> Estado de Resultados".html_safe, income_statement_path
+                = link_item "<i class='fas fa-angle-right'></i> Ventas (Refacciones)".html_safe, spare_part_solds_path
+              li
+                = link_item "<i class='fas fa-angle-right'></i> Estado de Resultados".html_safe, income_statement_path
 
         - if has_policy(Quotation, %w(index))
           li.treeview
@@ -133,11 +135,11 @@ aside.main-sidebar
         li.treeview
           a href='#'
             i.fa.fa-truck
-            span Catálogo
+            span Trailers
             i.fa.fa-angle-left.pull-right
           ul.treeview-menu
             li
-              = link_item "<i class='fas fa-angle-right'></i> Trailers".html_safe, trailer_types_path
+              = link_item "<i class='fas fa-angle-right'></i> Catálogo".html_safe, trailer_types_path
             li
               = link_item "<i class='fas fa-angle-right'></i> Nuevo Pedido".html_safe, new_order_path
             li
