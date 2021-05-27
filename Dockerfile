@@ -24,7 +24,7 @@ RUN gem install bundler -v 1.17.1
 RUN gem install puma
 
 RUN bundle config git.allow_insecure true
-RUN bundle install --without development test --jobs=10 --retry=3 \
+RUN bundle install --jobs=10 --retry=3 \
       && bundle clean --force 
 # RUN yarn install --check-files && yarn cache clean
 
