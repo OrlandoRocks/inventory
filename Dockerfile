@@ -1,7 +1,8 @@
 FROM ruby:2.5.1 AS builder
 
 RUN apt-get update \
-      && apt-get install -yy \
+      && apt-get dist-upgrade -yy --no-install-recommends \
+      && apt-get install -yy --no-install-recommends \
       git \
       nodejs \
       yarn \
@@ -20,11 +21,10 @@ WORKDIR /app
 COPY Gemfile* /app/
 COPY yarn.lock /app/
 
-RUN gem install bundler -v 1.17.1
-RUN gem install puma
+RUN gem install bundler:1.17.1 puma
 
-RUN bundle config git.allow_insecure true
-RUN bundle install --jobs=10 --retry=3 \
+RUN bundle config git.allow_insecure true \
+      && bundle install -j ${BUNDLE_JOBS} --retry ${BUNDLE_RETRY} \
       && bundle clean --force 
 # RUN yarn install --check-files && yarn cache clean
 
