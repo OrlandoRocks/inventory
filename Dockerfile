@@ -36,7 +36,8 @@ RUN apt-get update \
       tzdata \
       postgresql-client \
       imagemagick \
-      libssl-dev
+      libssl-dev \
+      nodejs
 
 WORKDIR /app
 
@@ -47,7 +48,6 @@ ENV RAILS_ENV production
 ENV RACK_ENV production
 ENV PORT 3000
 ENV SECRET_KEY_BASE mykey
-ENV EXECJS_RUNTIME Disabled
 
 ENV PORT 5000
 
