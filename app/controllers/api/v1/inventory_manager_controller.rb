@@ -80,11 +80,11 @@ class Api::V1::InventoryManagerController < ActionController::Base
     @user = User.find(params[:user_id])
     if @user.god? or @user.admin?
 
-      @items = Item.where(status_item_id: StatusItem.where(key:['vendido', 'pendiente_factura', 'facturado']).pluck(:id), item_type:0)
+      @items = Item.where(status_item_id: StatusItem.where(key:['vendido', 'pendiente_factura', 'facturado', 'vendido_credito']).pluck(:id), item_type:0)
     elsif @user.user_employee?
-      @items = Item.where(status_item_id: StatusItem.where(key:['vendido', 'pendiente_factura', 'facturado']).pluck(:id), department_id: @user.department_id, user_id: @user.id, item_type:0)
+      @items = Item.where(status_item_id: StatusItem.where(key:['vendido', 'pendiente_factura', 'facturado', 'vendido_credito']).pluck(:id), department_id: @user.department_id, user_id: @user.id, item_type:0)
     else
-      @items = Item.where(status_item_id: StatusItem.where(key:['vendido', 'pendiente_factura', 'facturado']).pluck(:id), department_id: @user.department_id, item_type:0)
+      @items = Item.where(status_item_id: StatusItem.where(key:['vendido', 'pendiente_factura', 'facturado', 'vendido_credito']).pluck(:id), department_id: @user.department_id, item_type:0)
     end
 
     render json: @items
