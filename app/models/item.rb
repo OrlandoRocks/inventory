@@ -151,7 +151,7 @@ class Item < ApplicationRecord
   include Rails.application.routes.url_helpers
 
   def price_total
-    self.price  * ( 1 + self.branch.try(:fleet_cost)/100 )
+    self.price  * ( 1 + (self.branch.nil? ? 1 : self.branch.try(:fleet_cost)) /100 ) if self.price
   end
 
   def image_base64
