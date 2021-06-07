@@ -80,6 +80,14 @@ class ItemSerializer < ActiveModel::Serializer
     object.user.as_json(except: [:avatar, :received_file], include: :department) if object.user
   end
 
+  def image_base64
+    Base64.encode64(File.read(ActiveStorage::Blob.service.path_for(object.image.key))) if object.image.attached?
+  end
+
+  def image_path
+    rails_blob_path(object.image, only_path: true) if object.image.attached?
+  end
+
   def trailer_type
     object.trailer_type.as_json(except: :image) if object.trailer_type
   end
