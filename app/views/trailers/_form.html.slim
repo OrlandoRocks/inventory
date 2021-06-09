@@ -26,7 +26,6 @@ div ng-controller="trailerController"
           select.form-control ng-change="generate_model()" ng-model="brake" ng-disabled="brakes.length==0" ng-options=("brake.id as brake.name for brake in brakes")
             option disabled="" selected="" value=""  No Aplica
             = f.hidden_field :brake_type_id, value: '{{brake}}'
-
       .row.form-group
         = f.label 'Ancho', class: 'col-sm-2 control-label'
         .col-md-4
