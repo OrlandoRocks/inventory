@@ -128,4 +128,13 @@ module ApplicationHelper
     direction = column == sort_column_orders && sort_direction == "asc" ? "desc" : "asc"
     link_to title, {:sort => column, :direction => direction}, {:class => 'link-to-text-color'}
   end
+
+  def company_title
+    return t('activerecord.attributes.user.current_companies.planet') if cookies[:company].nil?
+    (current_user.current_company? or cookies[:company].eql?('remolques')) ? t('activerecord.attributes.user.current_companies.remolques') : t('activerecord.attributes.user.current_companies.planet')
+  end
+
+  def logo_for_company
+    current_user.current_company? ? 'logo_remolques_norte.png' : 'logo1.png'
+  end
 end

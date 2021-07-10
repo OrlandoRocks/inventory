@@ -213,6 +213,7 @@ Rails.application.routes.draw do
       get '/items_excel' => 'items#items_excel'
       get 'report/sales/:trailers' => 'items#new_report_sales' #, :defaults => {:format => 'pdf'}
       get 'report/item_sale/:id' => 'items#report_item_sale' #, :defaults => {:format => 'pdf'}
+      get 'download_bill/:id' => 'items#download_bill' #, :defaults => {:format => 'pdf'}
 
 
       #add Files to Quotation  from angular

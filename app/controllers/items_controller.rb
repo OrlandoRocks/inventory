@@ -1,3 +1,6 @@
+require 'net/http'
+require 'uri'
+
 class ItemsController < ApplicationController
   #require 'rqrcode'
   include ActionView::Helpers::NumberHelper
@@ -51,14 +54,13 @@ class ItemsController < ApplicationController
     @all_models = policy_scope(TrailerType).pluck(:model_part)
 
     @all_remissions = policy_scope(Item).pluck(:remission)
-
   end
 
   def quotations
     if current_user.god? or current_user.admin?
       @search_items = Item.where(status_item_id: StatusItem.find_by_key('cotizado').id).includes(:user).includes(:client).includes(:user => :department).includes(:user => :branches).ransack(params[:q])
     elsif current_user.admin_branch?
-      @search_items = Item.joins(:branch).where('branches.manager_id = ? AND items.status_item_id = ?', current_user.id, StatusItem.find_by_key('cotizado')).includes(:user).includes(:client).includes(:user => :department).includes(:user => :branches).ransack(params[:q])
+      @search_items = Item.joins(:branch).where('branches.manager_id = ? AND items.status_item_id = ?', current_user.id, StatusItem.find_by_key('pendiente')).includes(:user).includes(:client).includes(:user => :department).includes(:user => :branches).ransack(params[:q])
     elsif current_user.user_employee?
       @search_items = Item.where(user_id: current_user.id, status_item_id: StatusItem.find_by_key('cotizado').id).includes(:user).includes(:client).includes(:user => :department).includes(:user => :branches).ransack(params[:q])
     end
@@ -351,6 +353,86 @@ class ItemsController < ApplicationController
     end
   end
 
+  def remolques_index
+    @search_items = policy_scope(Item).ransack(params[:q])
+    @items = @search_items.result.order(id: :desc).paginate(page: params[:page], per_page: 20)
+
+    @all_models = policy_scope(TrailerType).pluck(:model_part)
+    @all_remissions = policy_scope(Item).pluck(:remission)
+  end
+
+  def remolques_new
+    @item = Item.new
+    @users = Company.where(id: current_user.current_company)
+    @branches = Branch.all #current_user.current_company.eql?(0) ? policy_scope(Branch).order(:name) : policy_scope(Branch).where(company_id: @current_company.try(:id)).order(:name)
+    @categories = Category.all
+  end
+
+  def remolques_edit
+    @users = Company.where(id: current_user.current_company)
+    @branches = Branch.all #current_user.current_company.eql?(0) ? policy_scope(Branch).order(:name) : policy_scope(Branch).where(company_id: @current_company.try(:id)).order(:name)
+    @categories = Category.all
+  end
+
+  def remolques_show
+    @status_item_vendidos = StatusItem.where(key: %w(vendido pendiente_factura vendido_credito))
+    audits = @item.audits + @item.associated_audits
+    @audits = audits.sort_by { |a| a.created_at }
+
+    @branches = Branch.all
+    @categories = Category.all
+  end
+
+  def remolques_create
+    @users = Company.where(id: current_user.current_company)
+    @branches = Branch.all
+    @item = Item.new(item_params)
+    @item.item_type = :remolques
+
+    respond_to do |format|
+      if @item.save
+        format.html { redirect_to remolques_items_path, notice: 'Se creo el artículo correctamente.' }
+        format.json { render :remolques_show, status: :created, location: @item }
+      else
+        format.html { render :new_for_remolques }
+        format.json { render json: @item.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def remolques_update
+    @users = Company.where(id: current_user.current_company)
+    @branches = Branch.all
+    @item = Item.find(params[:id])
+
+    respond_to do |format|
+      if @item.update(item_params)
+        format.html { redirect_to remolques_item_path(@item), notice: 'Se actualizó el artículo correctamente.' }
+        format.json { render :remolques_show, status: :created, location: @item }
+      else
+        format.html { render :new_for_remolques }
+        format.json { render json: @item.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def remolques_destroy
+    respond_to do |format|
+      if @item.destroy
+        format.html { redirect_to items_url, notice: 'Item was successfully destroyed.' }
+        format.json { render json: true }
+      else
+        format.json { render json: false }
+      end
+    end
+  end
+
+  def remolques_export_microsip
+    respond_to do |format|
+      format.html
+      format.csv { send_data Item.to_csv, filename: "pedidos-#{Date.today}.csv" }
+    end
+  end
 
   def get_maintenances
     @item_maintenances = ItemsMaintenance.where(item_id: params[:id])
@@ -466,6 +548,239 @@ class ItemsController < ApplicationController
     end
   end
 
+  def get_price_to_pay item
+    total = item.sale_price - item.advance_payment
+    return Money.from_amount(total).format
+  end
+
+
+  def download_bill
+
+    item = Item.find(params[:id])
+
+    p "item --------------------------------------------------------"
+    p item
+    if item.facturify_id.present?
+      p " tiene facturify_id --------------------------------------------------------------------------------"
+      facturify_id = item.facturify_id
+    else
+      p "no tiene facturify_id --------------------------------------------------------------------------------"
+      facturify_id = create_facturify_item item
+
+    end
+
+    url_bill = get_url_bill facturify_id
+
+
+    respond_to do |format|
+      format.json { render json: url_bill }
+    end
+
+  end
+
+  def create_facturify_item item
+    token = Facturify.get_token
+
+
+    data = get_data item
+
+    p "under GET data ------------------------------------------"
+
+
+    uri = URI.parse("https://api-sandbox.facturify.com/api/v1/factura")
+    request = Net::HTTP::Post.new(uri)
+    request.content_type = "application/json"
+    request["Authorization"] = "Bearer #{token}"
+    request["Cache-Control"] = "no-cache"
+    request.body = data.to_json
+
+    req_options = {
+        use_ssl: uri.scheme == "https",
+    }
+
+    response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+      http.request(request)
+    end
+
+    p "response.body ------------------------------"
+    p response.body
+
+    bill_data = JSON.parse(response.body)
+
+    if item.update(facturify_id: bill_data['data']['cfdi_uuid'])
+      bill_request = item.facturify_id
+    else
+      bill_request = false
+    end
+
+    return bill_request
+  end
+
+  def get_url_bill facturify_id
+
+    token = Facturify.get_token
+
+    uri = URI.parse("https://api-sandbox.facturify.com/api/v1/factura/#{facturify_id}/pdf/")
+    request = Net::HTTP::Get.new(uri)
+    request.content_type = "application/json"
+    request["Authorization"] = "Bearer #{token}"
+    request["Cache-Control"] = "no-cache"
+
+    req_options = {
+        use_ssl: uri.scheme == "https",
+    }
+
+    response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+      http.request(request)
+    end
+
+    url_response = JSON.parse(response.body)
+
+    new_url = {url: url_response['url']}
+
+    return new_url
+
+  end
+
+  def get_data item
+
+    p "GET data -----------------------------------"
+    p item.client
+    date = DateTime.now.strftime('%Y-%m-%d %H:%M:%S')
+    iva = (item.sale_price * 0.16).to_f
+
+
+    total = (item.sale_price + iva).to_f
+    sub_total = item.sale_price.to_f
+
+    if item.payment_type == 1
+      pyament_type = "01"
+      method_payment = 'PUE'
+    elsif item.payment_type == 2
+      pyament_type = "03"
+      method_payment = 'PUE'
+    elsif item.payment_type == 3
+      pyament_type = "03"
+      method_payment = 'PUE'
+    elsif item.payment_type == 4
+      pyament_type = "03"
+      method_payment = 'PPD'
+    end
+
+    if item.payment_type == 1
+      data = {
+          "emisor": {
+              "uuid": "a92a6a2c-780d-48c8-92b2-4d371929e481",
+              "razon_social": "AGRO TRAILER PLANET SA DE CV",
+              "rfc": "ATP200908A49"
+          },
+          "receptor": {
+              "uuid": item.client.facturify_id,
+              "razon_social": item.client.try(:name) + ' ' + item.client.try(:last_name) + ' ' + item.client.try(:maiden_name),
+              "rfc": item.client.try(:rfc),
+              "metodo_de_pago": method_payment,
+              "forma_de_pago": pyament_type,
+              uso_cfdi: item.fiscal_voucher.cfdi
+          },
+          "factura": {
+              "tipo_de_cambio": "1.00",
+              "moneda": "MXN",
+              "forma_de_pago": pyament_type,
+              "metodo_de_pago": method_payment,
+              "conceptos": [
+                  {
+                      "clave_producto_servicio": "22101527",
+                      "clave_unidad_de_medida": "E48",
+                      "cantidad": 1,
+                      "descripcion": "Tractor",
+                      "valor_unitario": sub_total,
+                      "total": sub_total,
+                      "impuestos": {
+                          "traslados": {
+                              "traslado": [
+                                  {
+                                      "base": sub_total,
+                                      "impuesto": "002",
+                                      "tipoFactor": "Tasa",
+                                      "tasaOCuota": 0.16,
+                                      "importe": iva,
+                                      "tipo": "Traslado"
+                                  }
+                              ]
+                          }
+                      }
+                  }
+              ],
+              "impuesto_federal": iva,
+              "subtotal": sub_total,
+              "traslados": iva,
+              "retenciones": 0,
+              "total": total,
+              "fecha": date,
+              "generacion_automatica": true,
+              "tipo": "ingreso"
+          }
+      }
+    else
+      data = {
+          "emisor": {
+              "uuid": "a92a6a2c-780d-48c8-92b2-4d371929e481",
+              "razon_social": "AGRO TRAILER PLANET SA DE CV",
+              "rfc": "ATP200908A49"
+          },
+          "receptor": {
+              "uuid": item.client.facturify_id,
+              "razon_social": item.client.try(:name) + ' ' + item.client.try(:last_name) + ' ' + item.client.try(:maiden_name),
+              "rfc": item.client.try(:rfc),
+              "metodo_de_pago": method_payment,
+              "forma_de_pago": pyament_type,
+              "tarjeta_ultimos_4digitos": item.last_digits,
+              uso_cfdi: item.fiscal_voucher.cfdi
+          },
+          "factura": {
+              "tipo_de_cambio": "1.00",
+              "moneda": "MXN",
+              "forma_de_pago": pyament_type,
+              "metodo_de_pago": method_payment,
+              "tarjeta_ultimos_4digitos": item.last_digits,
+              "conceptos": [
+                  {
+                      "clave_producto_servicio": "22101527",
+                      "clave_unidad_de_medida": "E48",
+                      "cantidad": 1,
+                      "descripcion": "Tractor",
+                      "valor_unitario": sub_total,
+                      "total": sub_total,
+                      "impuestos": {
+                          "traslados": {
+                              "traslado": [
+                                  {
+                                      "base": sub_total,
+                                      "impuesto": "002",
+                                      "tipoFactor": "Tasa",
+                                      "tasaOCuota": 0.16,
+                                      "importe": iva,
+                                      "tipo": "Traslado"
+                                  }
+                              ]
+                          }
+                      }
+                  }
+              ],
+              "impuesto_federal": iva,
+              "subtotal": sub_total,
+              "traslados": iva,
+              "retenciones": 0,
+              "total": total,
+              "fecha": date,
+              "generacion_automatica": true,
+              "tipo": "ingreso"
+          }
+      }
+    end
+    return data
+  end
+
 
   private
 
@@ -515,10 +830,11 @@ class ItemsController < ApplicationController
 
   def sortable_columns
     # ["branch", "Punto de Venta","Descripcion","Modelo","Numero de serie","Numero de serie","department", "category", "code", "model", "Responsable", "name", "description", "price", "brand", "sub_category", "serial_number"]
-    ["branches.name", "serial_number", "model", "categories_description", 'departments.name','price', 'status_items.name',
+    ["branches.name", "serial_number", "model", "categories_description", 'departments.name', 'price', 'status_items.name',
      'purchased_date', 'sale_price', 'planet_percentage', 'branch_percentage', 'seller_percentage', 'trailer_types.name',
      'advance_payment', 'clients.name, clients.last_name', 'users.first_name, users.last_name']
   end
+
   def sortable_columns_orders
     ["users.branches.name", "user_departments.name"]
   end
@@ -573,7 +889,7 @@ class ItemsController < ApplicationController
       sort = params[:sort]
     end
     sortable_columns_orders.include?(sort) ? sort : "serial_number"
-    
+
 
   end
 
