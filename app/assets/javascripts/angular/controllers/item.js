@@ -276,7 +276,6 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
     };
 
 
-
     $scope.get_item_json = function (id) {
 
         $http({
@@ -296,7 +295,7 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
                 $scope.floor = $scope.item.floor_type !== null && $scope.item.floor_type !== undefined ? $scope.item.floor_type.id : null;
                 $scope.fender = $scope.item.fender_type !== null && $scope.item.fender_type !== undefined ? $scope.item.fender_type.id : null;
                 $scope.ramp = $scope.item.ramp_type !== null && $scope.item.ramp_type !== undefined ? $scope.item.ramp_type.id : null;
-                $scope.hydraulic_jack = $scope.item.hydraulic_jack !== null && $scope.item.hydraulic_jack !== undefined ?  $scope.item.hydraulic_jack.id : null;
+                $scope.hydraulic_jack = $scope.item.hydraulic_jack !== null && $scope.item.hydraulic_jack !== undefined ? $scope.item.hydraulic_jack.id : null;
                 $scope.capacity = $scope.item.capacity !== null && $scope.item.capacity !== undefined ? $scope.item.capacity.id : null;
                 $scope.pull = $scope.item.pull_type !== null && $scope.item.pull_type !== undefined ? $scope.item.pull_type.id : null;
                 $scope.redila = $scope.item.redila_type !== null && $scope.item.redila_type !== undefined ? $scope.item.redila_type.id : null;
@@ -358,7 +357,7 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
                 $scope.floor = $scope.item.floor_type !== null && $scope.item.floor_type !== undefined ? $scope.item.floor_type.id : null;
                 $scope.fender = $scope.item.fender_type !== null && $scope.item.fender_type !== undefined ? $scope.item.fender_type.id : null;
                 $scope.ramp = $scope.item.ramp_type !== null && $scope.item.ramp_type !== undefined ? $scope.item.ramp_type.id : null;
-                $scope.hydraulic_jack = $scope.item.hydraulic_jack !== null && $scope.item.hydraulic_jack !== undefined ?  $scope.item.hydraulic_jack.id : null;
+                $scope.hydraulic_jack = $scope.item.hydraulic_jack !== null && $scope.item.hydraulic_jack !== undefined ? $scope.item.hydraulic_jack.id : null;
                 $scope.capacity = $scope.item.capacity !== null && $scope.item.capacity !== undefined ? $scope.item.capacity.id : null;
                 $scope.pull = $scope.item.pull_type !== null && $scope.item.pull_type !== undefined ? $scope.item.pull_type.id : null;
                 $scope.redila = $scope.item.redila_type !== null && $scope.item.redila_type !== undefined ? $scope.item.redila_type.id : null;
@@ -386,9 +385,9 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
         }).then(function (response) {
             $scope.departments = response.data;
             $scope.consignee = response.data.manager;
-            $scope.branch    = response.data.branch;
-            $scope.fleet_cost = $scope.branch.fleet_cost ;
-            $scope.full_name = $scope.consignee ? $scope.consignee.first_name + ' ' + $scope.consignee.last_name : 'Sin Gerente' ;
+            $scope.branch = response.data.branch;
+            $scope.fleet_cost = $scope.branch.fleet_cost;
+            $scope.full_name = $scope.consignee ? $scope.consignee.first_name + ' ' + $scope.consignee.last_name : 'Sin Gerente';
         });
 
     };
@@ -1085,6 +1084,40 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
         }, function (iSConfirm) {
 
         });
+    };
+
+    $scope.download_bill = function (id) {
+        swal({
+            title: 'Espere un momento',
+            text: 'Generado la factura',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false,
+            showConfirmButton: false,
+            onOpen: function () {
+                swal.showLoading()
+            }
+        });
+        $http({
+            url: '/download_bill/' + id + '.json',
+            method: 'GET'
+        }).then(function (response) {
+            swal({
+                title: 'Factura lista',
+                text: '',
+                type: 'success',
+                showCancelButton: false,
+                confirmButtonText: 'Decargar'
+            }).then(function (isConfirm) {
+                if (isConfirm) {
+                    window.location.href = response.data.url;
+                }
+
+            }, function (iSConfirm) {
+
+            });
+
+        });
     }
 
 
@@ -1174,6 +1207,7 @@ app.controller('ModalVentaController', ['$scope', 'close', 'Upload', '$http', 'i
                     });
                     if ($scope.item.payment_type === 4) {
 
+
                         $scope.item.image.upload = Upload.upload({
                             url: `/items/${$scope.item.id}.json`,
                             method: 'PUT',
@@ -1186,6 +1220,9 @@ app.controller('ModalVentaController', ['$scope', 'close', 'Upload', '$http', 'i
                                     image: $scope.item.image,
                                     status_item_id: status_credito,
                                     branch_id: $scope.item.branch_id,
+                                    client_id: $scope.item.client_id,
+                                    fiscal_voucher_id: $scope.item.fiscal_voucher_id,
+                                    last_digits: $scope.item.last_digits,
                                     department_id: $scope.item.department_id,
                                     user_id: $scope.item.user_id,
                                     purchased_date: new Date()
@@ -1194,11 +1231,83 @@ app.controller('ModalVentaController', ['$scope', 'close', 'Upload', '$http', 'i
                         });
                         $scope.item.image.upload.then(function (response) {
                             // $timeout(function () {
+                            $scope.item.image.result = response.data;
+                            if (response.data) {
+                                swal({
+                                    title: 'Vendido',
+                                    text: 'El artículo ha sido Vendido correctamente.',
+                                    type: 'success',
+                                    showCancelButton: false
+                                }).then(function (isConfirm) {
+                                    if (isConfirm) {
+                                        location.reload();
+                                    }
+
+                                }, function (iSConfirm) {
+
+                                });
+                                // $http({
+                                //     url: '/send_email/ ' + $scope.item.id + '.json',
+                                //     method: 'GET'
+                                // }).then(function (response) {
+                                //     if (response.data) {
+                                //         swal({
+                                //             title: 'Vendido',
+                                //             text: 'El artículo ha sido Vendido correctamente.',
+                                //             type: 'success',
+                                //             showCancelButton: false
+                                //         }).then(function (isConfirm) {
+                                //             if (isConfirm) {
+                                //                 location.reload();
+                                //             }
+                                //
+                                //         }, function (iSConfirm) {
+                                //
+                                //         });
+                                //     }
+                                // });
+
+                            }
+                            // });
+                        }, function (response) {
+                            if (response.status > 0)
+                                $scope.errorMsg = response.status + ': ' + response.data;
+
+
+                        }, function (evt) {
+                            $scope.item.image.progress = Math.min(100, parseInt(100.0 *
+                                evt.loaded / evt.total));
+                        });
+                    } else {
+                        if ($scope.item.image) {
+
+                            $scope.item.image.upload = Upload.upload({
+                                url: `/items/${$scope.item.id}.json`,
+                                method: 'PUT',
+                                //  data: {file: file}
+                                data: {
+                                    item: {
+                                        sale_price: $scope.item.sale_price,
+                                        payment_type: $scope.item.payment_type,
+                                        image: $scope.item.image,
+                                        status_item_id: status_vendido,
+                                        branch_id: $scope.item.branch_id,
+                                        department_id: $scope.item.department_id,
+                                        client_id: $scope.item.client_id,
+                                        fiscal_voucher_id: $scope.item.fiscal_voucher_id,
+                                        last_digits: $scope.item.last_digits,
+                                        user_id: $scope.item.user_id,
+                                        purchased_date: new Date()
+                                    }
+                                }
+                            });
+                            $scope.item.image.upload.then(function (response) {
+                                // $timeout(function () {
                                 $scope.item.image.result = response.data;
                                 if (response.data) {
                                     swal({
                                         title: 'Vendido',
-                                        text: 'El artículo ha sido Vendido correctamente.',
+                                        text: 'El artículo ha sido Vendido correctamente. La factura esta en proceso',
                                         type: 'success',
                                         showCancelButton: false
                                     }).then(function (isConfirm) {
@@ -1216,7 +1325,7 @@ app.controller('ModalVentaController', ['$scope', 'close', 'Upload', '$http', 'i
                                     //     if (response.data) {
                                     //         swal({
                                     //             title: 'Vendido',
-                                    //             text: 'El artículo ha sido Vendido correctamente.',
+                                    //             text: 'El artículo ha sido Vendido correctamente. La factura esta en proceso',
                                     //             type: 'success',
                                     //             showCancelButton: false
                                     //         }).then(function (isConfirm) {
@@ -1231,75 +1340,6 @@ app.controller('ModalVentaController', ['$scope', 'close', 'Upload', '$http', 'i
                                     // });
 
                                 }
-                            // });
-                        }, function (response) {
-                            if (response.status > 0)
-                                $scope.errorMsg = response.status + ': ' + response.data;
-
-
-                        }, function (evt) {
-                            $scope.item.image.progress = Math.min(100, parseInt(100.0 *
-                                evt.loaded / evt.total));
-                        });
-                    }else{
-                        if ($scope.item.image) {
-
-                            $scope.item.image.upload = Upload.upload({
-                                url: `/items/${$scope.item.id}.json`,
-                                method: 'PUT',
-                                //  data: {file: file}
-                                data: {
-                                    item: {
-                                        sale_price: $scope.item.sale_price,
-                                        payment_type: $scope.item.payment_type,
-                                        image: $scope.item.image,
-                                        status_item_id: status_vendido,
-                                        branch_id: $scope.item.branch_id,
-                                        department_id: $scope.item.department_id,
-                                        user_id: $scope.item.user_id,
-                                        purchased_date: new Date()
-                                    }
-                                }
-                            });
-                            $scope.item.image.upload.then(function (response) {
-                                // $timeout(function () {
-                                    $scope.item.image.result = response.data;
-                                    if (response.data) {
-                                        swal({
-                                            title: 'Vendido',
-                                            text: 'El artículo ha sido Vendido correctamente. La factura esta en proceso',
-                                            type: 'success',
-                                            showCancelButton: false
-                                        }).then(function (isConfirm) {
-                                            if (isConfirm) {
-                                                location.reload();
-                                            }
-
-                                        }, function (iSConfirm) {
-
-                                        });
-                                        // $http({
-                                        //     url: '/send_email/ ' + $scope.item.id + '.json',
-                                        //     method: 'GET'
-                                        // }).then(function (response) {
-                                        //     if (response.data) {
-                                        //         swal({
-                                        //             title: 'Vendido',
-                                        //             text: 'El artículo ha sido Vendido correctamente. La factura esta en proceso',
-                                        //             type: 'success',
-                                        //             showCancelButton: false
-                                        //         }).then(function (isConfirm) {
-                                        //             if (isConfirm) {
-                                        //                 location.reload();
-                                        //             }
-                                        //
-                                        //         }, function (iSConfirm) {
-                                        //
-                                        //         });
-                                        //     }
-                                        // });
-
-                                    }
                                 // });
                             }, function (response) {
                                 if (response.status > 0)
@@ -1326,6 +1366,7 @@ app.controller('ModalVentaController', ['$scope', 'close', 'Upload', '$http', 'i
                                         user_id: $scope.item.user_id,
                                         client_id: $scope.item.client_id,
                                         fiscal_voucher_id: $scope.item.fiscal_voucher_id,
+                                        last_digits: $scope.item.last_digits,
                                         description: $scope.item.description,
                                         purchased_date: new Date()
                                     }

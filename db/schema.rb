@@ -138,6 +138,7 @@ ActiveRecord::Schema.define(version: 2021_05_07_175351) do
     t.bigint "state_id"
     t.bigint "city_id"
     t.string "company"
+    t.string "facturify_id"
     t.index ["city_id"], name: "index_clients_on_city_id"
     t.index ["state_id"], name: "index_clients_on_state_id"
   end
@@ -207,6 +208,7 @@ ActiveRecord::Schema.define(version: 2021_05_07_175351) do
     t.boolean "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "cfdi"
   end
 
   create_table "floor_types", force: :cascade do |t|
@@ -300,6 +302,8 @@ ActiveRecord::Schema.define(version: 2021_05_07_175351) do
     t.decimal "planet_percentage"
     t.decimal "branch_percentage"
     t.integer "item_type"
+    t.string "facturify_id"
+    t.string "last_digits"
     t.index ["brake_type_id"], name: "index_items_on_brake_type_id"
     t.index ["branch_id"], name: "index_items_on_branch_id"
     t.index ["brand_id"], name: "index_items_on_brand_id"

@@ -31,8 +31,13 @@ class ClientsController < ApplicationController
 
     respond_to do |format|
       if @client.save
-        format.html { redirect_to clients_path, notice: 'Cliente ha sido creado correctamente.' }
-        format.json { render :show, status: :created, location: @client }
+        if post_facturify_client @client
+          format.html { redirect_to clients_path, notice: 'Cliente ha sido creado correctamente.' }
+          format.json { render :show, status: :created, location: @client }
+        else
+          format.html { render :new }
+          format.json { render json: @client.errors, status: :unprocessable_entity }
+        end
       else
         format.html { render :new }
         format.json { render json: @client.errors, status: :unprocessable_entity }
@@ -65,6 +70,51 @@ class ClientsController < ApplicationController
         format.json { render json: false }
       end
     end
+  end
+
+  def post_facturify_client client
+    token = Facturify.get_token
+
+    data = {
+        "razon_social": client.name + ' ' + client.last_name + ' '+client.maiden_name,
+        "rfc": client.rfc,
+        "email": client.email,
+        "forma_de_pago": "99" ,
+        "uso_cfdi": "P01"
+    }.to_json
+
+    uri = URI.parse("https://api-sandbox.facturify.com/api/v1/cliente")
+    request = Net::HTTP::Post.new(uri)
+    request.content_type = "application/json"
+    request["Authorization"] = "Bearer #{token}"
+    request["Cache-Control"] = "no-cache"
+    request.body = data
+
+    req_options = {
+        use_ssl: uri.scheme == "https",
+    }
+
+    response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+      http.request(request)
+    end
+
+
+    response = JSON.parse(response.body)
+
+    p response
+    p response['data']
+    p response['data']['uuid']
+
+    if client.update(facturify_id: response['data']['uuid'])
+      request = true
+    else
+
+      request = false
+    end
+
+    return request
+
+
   end
 
   private
