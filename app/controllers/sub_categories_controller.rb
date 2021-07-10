@@ -4,8 +4,8 @@ class SubCategoriesController < ApplicationController
   # GET /sub_categories
   # GET /sub_categories.json
   def index
-    @search_sub_categories = policy_scope(SubCategory).ransack(params[:q])
-    @sub_categories = @search_sub_categories.result.order(:category_id,:name).paginate(page: params[:page], per_page: 50)
+    # @search_sub_categories = policy_scope(SubCategory).ransack(params[:q])
+    @sub_categories = SubCategory.all
   end
 
   # GET /sub_categories/1

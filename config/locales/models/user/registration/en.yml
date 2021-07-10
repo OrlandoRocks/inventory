@@ -13,6 +13,10 @@ en:
         maiden_name: Mother maiden name
         role_id: Role
         company: Compañia
+        current_company: Compañia
         branch: Sucursal
         department_id: Punto de Venta
         received_file: Received File
+        current_companies:
+          planet: 'Planet Agrotrailer'
+          remolques: 'Remolques del Norte'

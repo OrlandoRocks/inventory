@@ -21,3 +21,6 @@ es:
         received_file: Archivo Recibido
         avatar: Imágen de Perfil
         resource: usuario
+        current_companies:
+          planet: 'Planet Agrotrailer'
+          remolques: 'Remolques del Norte'

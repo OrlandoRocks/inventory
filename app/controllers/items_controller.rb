@@ -2,13 +2,15 @@ require 'net/http'
 require 'uri'
 
 class ItemsController < ApplicationController
-  #require 'rqrcode'
+  require 'rqrcode'
   include ActionView::Helpers::NumberHelper
   include ActionView::Helpers::NumberToLetters
 
 
-  before_action :set_item, only: [:show, :edit, :update, :destroy, :create_maintenance, :create_file, :change_maintenance_done, :edit_order]
-  helper_method :sort_column, :sort_direction, :get_percentage_value, :sort_column_orders
+  before_action :set_item, only: [:show, :edit, :update, :destroy, :create_maintenance, :create_file,
+                                  :change_maintenance_done, :edit_order, :remolques_show, :remolques_edit,
+                                  :remolques_destroy]
+  helper_method :sort_column, :sort_direction, :get_percentage_value, :sort_column_orders, :get_price_to_pay
   # GET /items
   # GET /items.json
   def index
@@ -19,6 +21,9 @@ class ItemsController < ApplicationController
     @all_models = policy_scope(TrailerType).pluck(:model_part)
 
     @all_remissions = policy_scope(Item).pluck(:remission)
+
+
+
   end
 
   def next_maintenances
@@ -430,7 +435,7 @@ class ItemsController < ApplicationController
   def remolques_export_microsip
     respond_to do |format|
       format.html
-      format.csv { send_data Item.to_csv, filename: "pedidos-#{Date.today}.csv" }
+      format.csv {send_data Item.to_csv, filename: "pedidos-#{Date.today}.csv"}
     end
   end
 
@@ -531,8 +536,9 @@ class ItemsController < ApplicationController
 
   def item_qr
     @item = Item.find(params[:id])
+    #@item = Item.find(1)
     data = "{'id': '#{@item.id}', 'status_shipping': '#{@item.status_shipping_id}'}"
-    qrcode = RQRCode::QRCode.new(data, :size => 5, :level => :h)
+    qrcode = RQRCode::QRCode.new(data, :size => 10, :level => :h)
     @svg = qrcode.as_svg(
         offset: 0,
         color: '000',
@@ -552,7 +558,6 @@ class ItemsController < ApplicationController
     total = item.sale_price - item.advance_payment
     return Money.from_amount(total).format
   end
-
 
   def download_bill
 
@@ -915,7 +920,7 @@ class ItemsController < ApplicationController
                                  :brake_type_id, :color_id, :divition_type_id, :fender_type_id, :hydraulic_jack_id,
                                  :pull_type_id, :reinforcement_type_id, :roof_type_id, :suspension_type_id, :turn_type_id,
                                  :trailer_width_id, :categories_description, :seller_percentage, :planet_percentage,
-                                 :branch_percentage
+                                 :branch_percentage, :quantity, :item_type
     )
   end
 

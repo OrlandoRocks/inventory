@@ -45,16 +45,16 @@
         = f.label :model, class: 'col-sm-2 control-label'
         .col-md-10
           = f.text_field :model, class: 'form-control', placeholder: 'Modelo', readonly: true, 'ng-model' => 'model_name'
-      / .row.form-group
-      /   = label_tag 'catalogo', 'Catalogo', class: 'col-sm-2 control-label'
-      /   .col-md-10
-      /     select.form-control ng-change="set_model(model); " ng-model="model" ng-options=("model as model.model for model in models")
-      /       option selected="" value=""  Modelos...
+      .row.form-group
+        = label_tag 'catalogo', 'Catalogo', class: 'col-sm-2 control-label'
+        .col-md-10
+          select.form-control ng-change="get_model_trailer(trailer_model.id)" ng-model="trailer_model.id" ng-options=("trailer_model.id as trailer_model.model for trailer_model in trailer_models")
+            option selected="" value=""  Modelos...
 
       .row.form-group
         = f.label :trailer_id, class: 'col-sm-2 control-label'
         .col-md-4
-          select.form-control ng-change="generate_model(); get_trailer(trailer);" ng-model="trailer" ng-options=("trailer.id as trailer.name for trailer in trailers")
+          select.form-control ng-change="item={}; trailer_model = {}; get_trailer(trailer);" ng-model="trailer" ng-options=("trailer.id as trailer.name for trailer in trailers")
             option selected="" value=""  No Aplica
           = f.hidden_field :trailer_type_id, value: '{{trailer}}'
         = f.label 'Freno', class: 'col-sm-2 control-label', 'ng-hide'=>'brakes.length==0', 'ng-cloak'=>"true"
@@ -159,6 +159,7 @@
         .col-sm-4
           = f.text_area :accessory, class: 'form-control', placeholder: t('.accessory')
 
+          = f.hidden_field :item_type, value: 'planet'
           input type='hidden' name="item[status_item_id]" value='#{StatusItem.find_by_key('pendiente').id}'
           input type='hidden' name="item[status_shipping_id]" value='#{StatusShipping.find_by_key('pedido').id}'
 

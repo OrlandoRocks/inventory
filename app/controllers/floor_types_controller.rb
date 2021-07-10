@@ -69,6 +69,6 @@ class FloorTypesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def floor_type_params
-      params.require(:floor_type).permit(:name, :model_part, :status)
+      params.require(:floor_type).permit(:name, :us_name,:model_part, :status)
     end
 end

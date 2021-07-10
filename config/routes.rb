@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :spare_part_solds
+  resources :spare_parts
   resources :quotations
   resources :hydraulic_jacks
   resources :pull_types
@@ -67,38 +69,9 @@ Rails.application.routes.draw do
   namespace :api, defaults: {format: 'json'} do
     namespace :v1 do
 
-      get 'get_items/:token' => 'inventory_manager#get_items'
-      get 'get_items_not_sell/:user_id/:token' => 'inventory_manager#get_items_not_sell'
-      get 'get_items_sell/:user_id/:token' => 'inventory_manager#get_items_sell'
-      get 'get_items_order/:user_id/:token' => 'inventory_manager#get_items_order'
-      get 'get_orders_shipped/:user_id/:token' => 'inventory_manager#get_orders_shipped'
-      get 'get_branches/:token' => 'inventory_manager#get_branches'
-      get 'get_cities/:token' => 'inventory_manager#get_cities'
-      get 'get_states/:token' => 'inventory_manager#get_states'
-      get 'get_trailers/:token' => 'inventory_manager#get_trailers'
-      get 'get_categories/:token' => 'inventory_manager#get_categories'
-      get 'get_sub_categories/:token' => 'inventory_manager#get_sub_categories'
-      get 'get_status_item/:token' => 'inventory_manager#get_status_item'
-      get 'get_status_shipping/:token' => 'inventory_manager#get_status_shipping'
-      get 'get_trailer_types/:token' => 'inventory_manager#get_trailer_types'
-      get 'get_fiscal_vouchers/:token' => 'inventory_manager#get_fiscal_vouchers'
-      get 'get_clients/:token' => 'inventory_manager#get_clients'
-      get 'get_items_by_branch/:token/:id' => 'inventory_manager#get_items_by_branch'
-
       put 'sign_up_guest' => 'users_manager#sign_up_guest'
-      put 'create_item' => 'inventory_manager#create_item'
-      put 'update_item' => 'inventory_manager#update_item'
-      put 'create_trailer' => 'trailer_manager#create_trailer'
-      put 'update_trailer' => 'trailer_manager#update_trailer'
-      put 'create_client' => 'client_manager#create_client'
-      put 'update_client' => 'client_manager#update_client'
       put 'save_token' => 'users_manager#save_token'
       put 'login_user' => 'users_manager#login_user'
-
-      delete 'destroy_client' => 'client_manager#destroy_client'
-      delete 'destroy_trailer' => 'trailer_manager#destroy_trailer'
-      delete 'destroy_item' => 'inventory_manager#destroy_item'
-
     end
   end
 
@@ -120,6 +93,7 @@ Rails.application.routes.draw do
 
     unauthenticated do
       root 'users/sessions#new', as: :unauthenticated_root
+      get '/users/sessions/remolques_new' => 'users/sessions#remolques_new', as: :login_remolques
     end
 
     authenticate :user do
@@ -211,6 +185,7 @@ Rails.application.routes.draw do
       post '/item_file/:id' => 'items#create_file'
       post '/item_maintenance/:id' => 'items#create_maintenance'
       get '/items_excel' => 'items#items_excel'
+      get '/item_qr/:id' => 'items#item_qr', as: :item_qr
       get 'report/sales/:trailers' => 'items#new_report_sales' #, :defaults => {:format => 'pdf'}
       get 'report/item_sale/:id' => 'items#report_item_sale' #, :defaults => {:format => 'pdf'}
       get 'download_bill/:id' => 'items#download_bill' #, :defaults => {:format => 'pdf'}
@@ -259,8 +234,49 @@ Rails.application.routes.draw do
 
       #Ruta para ventas
       get 'sales' => 'items#sales'
-
+      
+      #api
+      namespace :api, defaults: {format: 'json'} do
+        namespace :v1 do        
+          get 'get_items' => 'inventory_manager#get_items'
+          get 'get_items_not_sell/:user_id' => 'inventory_manager#get_items_not_sell'
+          get 'get_items_sell/:user_id' => 'inventory_manager#get_items_sell'
+          get 'get_items_order/:user_id' => 'inventory_manager#get_items_order'
+          get 'get_orders_shipped/:user_id' => 'inventory_manager#get_orders_shipped'
+          get 'get_branches' => 'inventory_manager#get_branches'
+          get 'get_cities' => 'inventory_manager#get_cities'
+          get 'get_states' => 'inventory_manager#get_states'
+          get 'get_trailers' => 'inventory_manager#get_trailers'
+          get 'get_categories' => 'inventory_manager#get_categories'
+          get 'get_sub_categories' => 'inventory_manager#get_sub_categories'
+          get 'get_status_item' => 'inventory_manager#get_status_item'
+          get 'get_status_shipping' => 'inventory_manager#get_status_shipping'
+          get 'get_trailer_types' => 'inventory_manager#get_trailer_types'
+          get 'get_trailer_categories' => 'inventory_manager#get_trailer_categories'
+          get 'get_fiscal_vouchers' => 'inventory_manager#get_fiscal_vouchers'
+          get 'get_clients' => 'inventory_manager#get_clients'
+          get 'get_items_by_branch/:id' => 'inventory_manager#get_items_by_branch'        
+          put 'create_item' => 'inventory_manager#create_item'
+          put 'update_item' => 'inventory_manager#update_item'
+          put 'create_trailer' => 'trailer_manager#create_trailer'
+          put 'update_trailer' => 'trailer_manager#update_trailer'
+          put 'create_client' => 'client_manager#create_client'
+          put 'update_client' => 'client_manager#update_client'
+          delete 'destroy_client' => 'client_manager#destroy_client'
+          delete 'destroy_trailer' => 'trailer_manager#destroy_trailer'
+          delete 'destroy_item' => 'inventory_manager#destroy_item'
+        end
+      end
     end
   end
+
+  get '/remolques' => 'items#remolques_index', as: :remolques_items
+  get '/remolques/items/new' => 'items#remolques_new', as: :remolques_new_item
+  post '/remolques/items' => 'items#remolques_create', as: :remolques_create_item
+  get '/remolques/items/:id/edit' => 'items#remolques_edit', as: :remolques_edit_item
+  match '/remolques/items/:id' => 'items#remolques_update', as: :remolques_update_item, via: [:put, :patch]
+  get '/remolques/items/:id' => 'items#remolques_show', as: :remolques_item
+  delete '/remolques/items/:id' => 'items#remolques_destroy', as: :remolques_destroy_item
+  get "/remolques/export_microsip" => 'items#remolques_export_microsip', as: :remolques_export_microsip
 
 end

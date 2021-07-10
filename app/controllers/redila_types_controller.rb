@@ -69,6 +69,6 @@ class RedilaTypesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def redila_type_params
-      params.require(:redila_type).permit(:name, :model_part, :status)
+      params.require(:redila_type).permit(:name, :us_name, :model_part, :status)
     end
 end

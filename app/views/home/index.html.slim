@@ -1,192 +1,145 @@
-- if current_user.current_company?
+- if current_user.planet_current_company?
   section.content-header
     h1
       | Información general de inventario
       small V 1.0
 
-/section.content ng-controller="homeController" ng-init="init(#{current_user.current_company.eql?(0) ? '0' : @current_company.nil? ? 'null' : @current_company.to_json}, #{current_user.god? or current_user.admin?})"
-section.content
-    .row
-      /! ./col
-
-      - if has_policy(Item, %w(new index))
-        .col-lg-3.col-xs-6
-          /! small box
-          a.small-box.bg-green href="/items"
-            .inner
-              h3 = @items_count
-              p Inventario
-            .icon
-              i.fa.fa-list
-      - if has_policy(Branch, %w(new index))
-        .col-lg-3.col-xs-6
-          /! small box
-          a.small-box.bg-blue href="/branches"
-            .inner
-              h3 = @branches_count
-              p Sucursales
-            .icon
-              i.fa.fa-store
-
-      - if has_policy(Trailer, %w(new index))
-        .col-lg-3.col-xs-6
-          /! small box
-          a.small-box.bg-aqua href="/trailers"
-            .inner
-              h3 = @trailers_count
-              p Catalogo
-            .icon
-              i.fa.fa-truck
+  /section.content ng-controller="homeController" ng-init="init(#{current_user.current_company.eql?(0) ? '0' : @current_company.nil? ? 'null' : @current_company.to_json}, #{current_user.god? or current_user.admin?})"
+  section.content
+      .row
         /! ./col
 
-      /! ./col
-      - unless current_user.user_employee?
-        .col-lg-3.col-xs-6
-          /! small box
-          a.small-box.bg-yellow href="/sales"
-            .inner
-              h3 = @items_sold_count
-              p Ventas
-            .icon
-              i.fa.fa-dollar-sign
-    .row
-      .col-md-12
-        .box
-            .box-header.with-border
-              .row
-                .col-xs-6
-                  h3.box-title  Reporteador de artículos
-                  = @search_save
-                .col-xs-6
-                  .box-tools.pull-right
-              = search_form_for(@search_items, url: authenticated_root_path, id: 'home_form') do |f|
-                /.row
-                .col-md-3
-                  .box.box-warning.box-solid
-                    .box-header.with-border
-                      h3.box-title = t('.f_trailer')
-                      .box-tools.pull-right
-                        button.btn.btn-box-tool data-widget="collapse" type="button"
-                          i.fa.fa-minus
-                    .box-body style=('display: block;')
-                      = f.collection_select :trailer_id_in, Trailer.all, :id, :name, {prompt: 'Seleccionar una opción'},
-                              {class: 'form-control select', data: {placeholder: t('.trailers')}}
+        - if has_policy(Item, %w(new index))
+          .col-lg-3.col-xs-6
+            /! small box
+            a.small-box.bg-green href="/items"
+              .inner
+                h3 = @items_count
+                p Inventario
+              .icon
+                i.fa.fa-list
+        - if has_policy(Branch, %w(new index))
+          .col-lg-3.col-xs-6
+            /! small box
+            a.small-box.bg-blue href="/branches"
+              .inner
+                h3 = @branches_count
+                p Sucursales
+              .icon
+                i.fa.fa-store
 
-                /! Ini Brand
-                / .col-md-3
-                /   .box.box-warning.box-solid
-                /     .box-header.with-border
-                /       h3.box-title = t('.f_branch')
-                /       .box-tools.pull-right
-                /         button.btn.btn-box-tool data-widget="collapse" type="button"
-                /           i.fa.fa-minus
-                /     .box-body style=('display: block;')
-                /       = f.collection_select :branch_id_in, policy_scope(Branch), :id, :name, {prompt: false},
-                /               {class: 'form-control select',  data: {placeholder: t('.branch')}}
-                /! End Brand
+        - if has_policy(Trailer, %w(new index))
+          .col-lg-3.col-xs-6
+            /! small box
+            a.small-box.bg-aqua href="/trailers"
+              .inner
+                h3 = @trailers_count
+                p Catalogo
+              .icon
+                i.fa.fa-truck
+          /! ./col
 
-                /! Ini Brand
-                / .col-md-3
-                /   .box.box-warning.box-solid
-                /     .box-header.with-border
-                /       h3.box-title = t('.f_department')
-                /       .box-tools.pull-right
-                /         button.btn.btn-box-tool data-widget="collapse" type="button"
-                /           i.fa.fa-minus
-                /     .box-body style=('display: block;')
-                /       = f.collection_select :department_id_in, Department.all, :id, :name, {prompt: false},
-                /             {class: 'form-control select', data: {placeholder: t('.department')}}
-                /! End Brand
-
-                /! Ini Category
-                / .col-md-3
-                  .box.box-warning.box-solid
-                    .box-header.with-border
-                      h3.box-title = t('.f_category')
-                      .box-tools.pull-right
-                        button.btn.btn-box-tool data-widget="collapse" type="button"
-                          i.fa.fa-minus
-                    .box-body style=('display: block;')
-                      = f.collection_select :sub_category_category_id_in, Category.all.order(:name), :id, :name, {prompt: 'Seleccionar una opción'},
-                              {class: 'form-control', data: {placeholder: t('.category')}}
-                /! End SubCategory
-
-                /! Ini SubCategory
-                / .col-md-3
-                  .box.box-warning.box-solid
-                    .box-header.with-border
-                      h3.box-title = t('.f_sub_category')
-                      .box-tools.pull-right
-                        button.btn.btn-box-tool data-widget="collapse" type="button"
-                          i.fa.fa-minus
-                    .box-body style=('display: block;')
-                      = f.collection_select :sub_category_id_in, SubCategory.all.order(:name), :id, :name, {prompt: 'Seleccionar una opción'},
-                            {class: 'form-control', data: {placeholder: "t('.sub_category')"}}
-
-                .col-md-3
-                  .box.box-warning.box-solid
-                    .box-header.with-border
-                      h3.box-title = t('.f_model')
-                      .box-tools.pull-right
-                        button.btn.btn-box-tool data-widget="collapse" type="button"
-                          i.fa.fa-minus
-                    .box-body style=('display: block;')
-                      =f.select :trailer_model_eq, @all_models.map { |model| [model,model] }, {prompt: 'Seleccionar una opción'},
-                              {class: 'form-control', data: {placeholder: "t('.models')"}}
-
-                .col-md-3
-                  .box.box-warning.box-solid
-                    .box-header.with-border
-                      h3.box-title = t('.f_remissions')
-                      .box-tools.pull-right
-                        button.btn.btn-box-tool data-widget="collapse" type="button"
-                          i.fa.fa-minus
-                    .box-body style=('display: block;')
-                      = f.select :remission_eq, @all_remissions.map { |remission| [remission, remission] }, {prompt: 'Seleccionar una opción'},
-                              {class: 'form-control', data: {placeholder: "t('.remissions')"}}
-
-                /! End Responsible Name
-                .col-md-12
-                  .box.box-success.box-solid
-                    .box-header.with-border
-                      h3.box-title = t('.f_orden')
-                      .box-tools.pull-right
-                        button.btn.btn-box-tool data-widget="collapse" type="button"
-                          i.fa.fa-minus
-                    .box-body style=('display: block;')
-                      select name='column' class="form-control select2"
-                        option value=""  Seleccionar orden...
-                        /option value="branch" selected='selected'
-                          = t('.branch')
-                        option value="department"
-                          = t('.department')
-                        option value="category"
-                          = t('.category')
-                        option value="code"
-                          = t('.code')
-                        option value="model"
-                          = t('.model')
-                        /option value="Responsable"  Responsable
-                        /option value="name"
-                        /  = t('.name')
-                        /option value="description"
-                        /  = t('.description')
-                        /option value="price"
-                        /  = t('.price')
-                        /option value="brand"
-                        /  = t('.brand')
-                        /option value="sub_category"
-                        /  = t('.sub_category')
-                        option value="NumEmpleado"
-                          = t('.employee_number')
+        /! ./col
+        - unless current_user.user_employee?
+          .col-lg-3.col-xs-6
+            /! small box
+            a.small-box.bg-yellow href="/sales"
+              .inner
+                h3 = @items_sold_count
+                p Ventas
+              .icon
+                i.fa.fa-dollar-sign
+      .row
+        .col-md-12
+          .box
+              .box-header.with-border
+                .row
+                  .col-xs-6
+                    h3.box-title  Reporteador de Remolques
+                    = @search_save
+                  .col-xs-6
+                    .box-tools.pull-right
+                = search_form_for(@search_items, url: authenticated_root_path, id: 'home_form') do |f|
+                  /.row
+                  .col-md-3
+                    .box.box-warning.box-solid
+                      .box-header.with-border
+                        h3.box-title = t('.f_trailer')
+                        .box-tools.pull-right
+                          button.btn.btn-box-tool data-widget="collapse" type="button"
+                            i.fa.fa-minus
+                      .box-body style=('display: block;')
+                        = f.collection_select :trailer_id_in, Trailer.all, :id, :name, {prompt: 'Seleccionar una opción'},
+                                {class: 'form-control select', data: {placeholder: t('.trailers')}}
 
 
-                .col-xs-12.col-md-12
-                  .input-group-btn
-                    button [class="btn btn-block btn-info btn-lg" type="submit"]
-                      i [class="fa fa-search"]
-                        = " #{t('.search')}"
-            .box-body
-              .dataTables_wrapper
-                .table-responsive#reporter-list
-                  = render 'home/list_items_reporter'
+
+                  .col-md-3
+                    .box.box-warning.box-solid
+                      .box-header.with-border
+                        h3.box-title = t('.f_model')
+                        .box-tools.pull-right
+                          button.btn.btn-box-tool data-widget="collapse" type="button"
+                            i.fa.fa-minus
+                      .box-body style=('display: block;')
+                        =f.select :trailer_model_eq, @all_models.map { |model| [model,model] }, {prompt: 'Seleccionar una opción'},
+                                {class: 'form-control', data: {placeholder: "t('.models')"}}
+
+                  .col-md-3
+                    .box.box-warning.box-solid
+                      .box-header.with-border
+                        h3.box-title = t('.f_remissions')
+                        .box-tools.pull-right
+                          button.btn.btn-box-tool data-widget="collapse" type="button"
+                            i.fa.fa-minus
+                      .box-body style=('display: block;')
+                        = f.select :remission_eq, @all_remissions.map { |remission| [remission, remission] }, {prompt: 'Seleccionar una opción'},
+                                {class: 'form-control', data: {placeholder: "t('.remissions')"}}
+
+                  /! End Responsible Name
+                  .col-md-12
+                    .box.box-success.box-solid
+                      .box-header.with-border
+                        h3.box-title = t('.f_orden')
+                        .box-tools.pull-right
+                          button.btn.btn-box-tool data-widget="collapse" type="button"
+                            i.fa.fa-minus
+                      .box-body style=('display: block;')
+                        select name='column' class="form-control select2"
+                          option value=""  Seleccionar orden...
+                          /option value="branch" selected='selected'
+                            = t('.branch')
+                          option value="department"
+                            = t('.department')
+                          option value="category"
+                            = t('.category')
+                          option value="code"
+                            = t('.code')
+                          option value="model"
+                            = t('.model')
+                          /option value="Responsable"  Responsable
+                          /option value="name"
+                          /  = t('.name')
+                          /option value="description"
+                          /  = t('.description')
+                          /option value="price"
+                          /  = t('.price')
+                          /option value="brand"
+                          /  = t('.brand')
+                          /option value="sub_category"
+                          /  = t('.sub_category')
+                          option value="NumEmpleado"
+                            = t('.employee_number')
+
+
+                  .col-xs-12.col-md-12
+                    .input-group-btn
+                      button [class="btn btn-block btn-info btn-lg" type="submit"]
+                        i [class="fa fa-search"]
+                          = " #{t('.search')}"
+              .box-body
+                .dataTables_wrapper
+                  .table-responsive#reporter-list
+                    = render 'home/list_items_reporter'
+- elsif current_user.remolques_current_company?
+  = render 'remolques_index'

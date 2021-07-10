@@ -26,6 +26,7 @@ app.controller('trailerTypeController',["$scope", "ModalService", "$http", funct
         $scope.get_colors();
         $scope.get_divitions();
         $scope.get_fenders();
+        $scope.get_brands();
         $scope.get_hydraulic_jacks();
         $scope.get_pulls();
         $scope.get_reinforcements();
@@ -97,6 +98,20 @@ app.controller('trailerTypeController',["$scope", "ModalService", "$http", funct
         });
     };
 
+
+    $scope.get_brands = function () {
+        $http({
+            method: 'GET',
+            url: '/brands.json'
+        }).then(function successCallback(response) {
+            $scope.brands = response.data;
+            angular.forEach($scope.brands, function(value, key) {
+                this.push({id: value.id, inx:$scope.index++, name: value.name, category: 'brand_id', category_name: 'Marca'});
+            }, $scope.trailer_categories);
+        }, function errorCallback(response) {
+            console.log("Algo valio shit!");
+        });
+    };
 
     $scope.get_ramps = function () {
         $http({

@@ -38,7 +38,7 @@ section.content ng-controller="itemController"
                   .box-header.with-border
                     .row
                       .col-xs-6
-                        h3.box-title  Buscador de Artículos
+                        h3.box-title  Buscador de Remolques
                       .col-xs-6
                         .box-tools.pull-right
                     = search_form_for(@search_items, url: items_path, id: 'item_index') do |f|
@@ -115,6 +115,8 @@ section.content ng-controller="itemController"
                           td = item.department.name if item.department.present?
                           td
                             .actions
+                              = link_item '<i class="fa fa-qrcode"></i>'.html_safe, "/item_qr/#{item.id}.pdf", title: t('helpers.show'),
+                                      class: 'btn btn-xs btn-success btn-flat'
                               = link_item '<i class="fa fa-search"></i>'.html_safe, item_path(item), title: t('helpers.show'),
                                       class: 'btn btn-xs btn-success btn-flat'
                               = link_item '<i class="fa fa-edit"></i>'.html_safe, edit_item_path(item),

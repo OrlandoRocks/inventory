@@ -11,7 +11,7 @@ class Api::V1::TrailerManagerController < ActionController::Base
       trailer_params[:name]  =   params[:name]           if params[:name]
       trailer_params[:model]  =   params[:model]           if params[:model]
       trailer_params[:status]  =   params[:status]           if params[:status]
-      trailer_params[:brand]                     =    params[:brand]                      if params[:brand]
+      trailer_params[:brand_id]                  =    params[:brand_id]                   if params[:brand_id]
       trailer_params[:trailer_length_id]         =    params[:trailer_length_id]          if params[:trailer_length_id]
       trailer_params[:trailer_height_id]         =    params[:trailer_height_id]          if params[:trailer_height_id]
       trailer_params[:ramp_type_id]              =    params[:ramp_type_id]               if params[:ramp_type_id]
@@ -33,7 +33,7 @@ class Api::V1::TrailerManagerController < ActionController::Base
 
 
       @new_trailer= Trailer.new(trailer_params)
-      @new_trailer.image.attach(io: image_io, filename: 'comprobante de pago')     if params[:image]
+      @new_trailer.image.attach(io: image_io, filename: 'trailer')     if params[:image]
 
       p 'new trailer'
       p @new_trailer
@@ -65,7 +65,7 @@ class Api::V1::TrailerManagerController < ActionController::Base
       trailer_params[:name]  =   params[:name]           if params[:name]
       trailer_params[:model]  =   params[:model]           if params[:model]
       trailer_params[:status]  =   params[:status]           if params[:status]
-      trailer_params[:brand]                     =    params[:brand]                      if params[:brand]
+      trailer_params[:brand_id]                  =    params[:brand_id]                   if params[:brand_id]
       trailer_params[:trailer_length_id]         =    params[:trailer_length_id]          if params[:trailer_length_id]
       trailer_params[:trailer_height_id]         =    params[:trailer_height_id]          if params[:trailer_height_id]
       trailer_params[:ramp_type_id]              =    params[:ramp_type_id]               if params[:ramp_type_id]
@@ -86,7 +86,7 @@ class Api::V1::TrailerManagerController < ActionController::Base
       trailer_params[:roof_type_id]              =    params[:roof_type_id]               if params[:roof_type_id]
 
 
-      trailer.image.attach(io: image_io, filename: 'Comprobante de Pago') if params[:image]
+      trailer.image.attach(io: image_io, filename: 'trailer') if params[:image]
 
       # trailer_params[:image]               =    params[:image] if params[:image]
       # trailer_params[:image]               =    image_io(trailer_params[:image]) if trailer_params[:image]

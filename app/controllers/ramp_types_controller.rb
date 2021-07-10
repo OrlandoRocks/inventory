@@ -69,6 +69,6 @@ class RampTypesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def ramp_type_params
-      params.require(:ramp_type).permit(:name, :model_part, :status)
+      params.require(:ramp_type).permit(:name, :us_name, :model_part, :status)
     end
 end

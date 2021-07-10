@@ -12,7 +12,6 @@ app.controller('categoriesController', ["$scope", "$http", "$window", function (
                     url: '/trailer_types/' + id + '.json',
                     method: 'DELETE'
                 }).then(function (response) {
-                    if (response.data) {
                         swal({
                             title: 'Eliminado',
                             text: 'El Tipo de Trailer ha sido eliminado',
@@ -26,7 +25,7 @@ app.controller('categoriesController', ["$scope", "$http", "$window", function (
                         }, function (iSConfirm) {
 
                         });
-                    }
+
                 });
             }
 
@@ -50,7 +49,6 @@ app.controller('categoriesController', ["$scope", "$http", "$window", function (
                     url: '/trailer_widths/' + id + '.json',
                     method: 'DELETE'
                 }).then(function (response) {
-                    if (response.data) {
                         swal({
                             title: 'Eliminado',
                             text: 'El Tipo de Ancho ha sido eliminado',
@@ -64,7 +62,6 @@ app.controller('categoriesController', ["$scope", "$http", "$window", function (
                         }, function (iSConfirm) {
 
                         });
-                    }
                 });
             }
 
@@ -88,7 +85,6 @@ app.controller('categoriesController', ["$scope", "$http", "$window", function (
                     url: '/trailer_lengths/' + id + '.json',
                     method: 'DELETE'
                 }).then(function (response) {
-                    if (response.data) {
                         swal({
                             title: 'Eliminado',
                             text: 'El Tipo de longitud ha sido eliminado',
@@ -102,7 +98,6 @@ app.controller('categoriesController', ["$scope", "$http", "$window", function (
                         }, function (iSConfirm) {
 
                         });
-                    }
                 });
             }
 
@@ -126,7 +121,7 @@ app.controller('categoriesController', ["$scope", "$http", "$window", function (
                     url: '/capacities/' + id + '.json',
                     method: 'DELETE'
                 }).then(function (response) {
-                    if (response.data) {
+
                         swal({
                             title: 'Eliminado',
                             text: 'El Tipo de capacidad ha sido eliminado',
@@ -140,7 +135,7 @@ app.controller('categoriesController', ["$scope", "$http", "$window", function (
                         }, function (iSConfirm) {
 
                         });
-                    }
+
                 });
             }
 
@@ -164,7 +159,6 @@ app.controller('categoriesController', ["$scope", "$http", "$window", function (
                     url: '/floor_types/' + id + '.json',
                     method: 'DELETE'
                 }).then(function (response) {
-                    if (response.data) {
                         swal({
                             title: 'Eliminado',
                             text: 'El Tipo de Piso ha sido eliminado',
@@ -178,7 +172,6 @@ app.controller('categoriesController', ["$scope", "$http", "$window", function (
                         }, function (iSConfirm) {
 
                         });
-                    }
                 });
             }
 
@@ -202,7 +195,6 @@ app.controller('categoriesController', ["$scope", "$http", "$window", function (
                     url: '/redila_types/' + id + '.json',
                     method: 'DELETE'
                 }).then(function (response) {
-                    if (response.data) {
                         swal({
                             title: 'Eliminado',
                             text: 'El Tipo de Redila ha sido eliminado',
@@ -216,7 +208,6 @@ app.controller('categoriesController', ["$scope", "$http", "$window", function (
                         }, function (iSConfirm) {
 
                         });
-                    }
                 });
             }
 
@@ -240,7 +231,7 @@ app.controller('categoriesController', ["$scope", "$http", "$window", function (
                     url: '/ramp_types/' + id + '.json',
                     method: 'DELETE'
                 }).then(function (response) {
-                    if (response.data) {
+
                         swal({
                             title: 'Eliminado',
                             text: 'El Tipo de Rampa ha sido eliminado',
@@ -254,7 +245,7 @@ app.controller('categoriesController', ["$scope", "$http", "$window", function (
                         }, function (iSConfirm) {
 
                         });
-                    }
+
                 });
             }
 
@@ -278,7 +269,7 @@ app.controller('categoriesController', ["$scope", "$http", "$window", function (
                     url: '/brake_types/' + id + '.json',
                     method: 'DELETE'
                 }).then(function (response) {
-                    if (response.data) {
+
                         swal({
                             title: 'Eliminado',
                             text: 'El Tipo de Freno ha sido eliminado',
@@ -292,7 +283,7 @@ app.controller('categoriesController', ["$scope", "$http", "$window", function (
                         }, function (iSConfirm) {
 
                         });
-                    }
+
                 });
             }
 
@@ -316,7 +307,6 @@ app.controller('categoriesController', ["$scope", "$http", "$window", function (
                     url: '/colors/' + id + '.json',
                     method: 'DELETE'
                 }).then(function (response) {
-                    if (response.data) {
                         swal({
                             title: 'Eliminado',
                             text: 'El Color ha sido eliminado',
@@ -330,7 +320,6 @@ app.controller('categoriesController', ["$scope", "$http", "$window", function (
                         }, function (iSConfirm) {
 
                         });
-                    }
                 });
             }
 
@@ -354,7 +343,6 @@ app.controller('categoriesController', ["$scope", "$http", "$window", function (
                     url: '/divition_types/' + id + '.json',
                     method: 'DELETE'
                 }).then(function (response) {
-                    if (response.data) {
                         swal({
                             title: 'Eliminado',
                             text: 'El Tipo de Division ha sido eliminado',
@@ -368,7 +356,6 @@ app.controller('categoriesController', ["$scope", "$http", "$window", function (
                         }, function (iSConfirm) {
 
                         });
-                    }
                 });
             }
 
@@ -392,7 +379,6 @@ app.controller('categoriesController', ["$scope", "$http", "$window", function (
                     url: '/hydraulic_jacks/' + id + '.json',
                     method: 'DELETE'
                 }).then(function (response) {
-                    if (response.data) {
                         swal({
                             title: 'Eliminado',
                             text: 'El Tipo de Gato Hidraulico ha sido eliminado',
@@ -406,7 +392,6 @@ app.controller('categoriesController', ["$scope", "$http", "$window", function (
                         }, function (iSConfirm) {
 
                         });
-                    }
                 });
             }
 
@@ -430,7 +415,6 @@ app.controller('categoriesController', ["$scope", "$http", "$window", function (
                     url: '/pull_types/' + id + '.json',
                     method: 'DELETE'
                 }).then(function (response) {
-                    if (response.data) {
                         swal({
                             title: 'Eliminado',
                             text: 'El Tipo de Jalon ha sido eliminado',
@@ -444,7 +428,6 @@ app.controller('categoriesController', ["$scope", "$http", "$window", function (
                         }, function (iSConfirm) {
 
                         });
-                    }
                 });
             }
 
@@ -468,7 +451,6 @@ app.controller('categoriesController', ["$scope", "$http", "$window", function (
                     url: '/brands/' + id + '.json',
                     method: 'DELETE'
                 }).then(function (response) {
-                    if (response.data) {
                         swal({
                             title: 'Eliminado',
                             text: 'La Marca ha sido eliminado',
@@ -482,7 +464,6 @@ app.controller('categoriesController', ["$scope", "$http", "$window", function (
                         }, function (iSConfirm) {
 
                         });
-                    }
                 });
             }
 
@@ -506,7 +487,6 @@ app.controller('categoriesController', ["$scope", "$http", "$window", function (
                     url: '/roof_types/' + id + '.json',
                     method: 'DELETE'
                 }).then(function (response) {
-                    if (response.data) {
                         swal({
                             title: 'Eliminado',
                             text: 'El Tipo de Techo ha sido eliminado',
@@ -520,7 +500,6 @@ app.controller('categoriesController', ["$scope", "$http", "$window", function (
                         }, function (iSConfirm) {
 
                         });
-                    }
                 });
             }
 
@@ -544,7 +523,6 @@ app.controller('categoriesController', ["$scope", "$http", "$window", function (
                     url: '/suspension_types/' + id + '.json',
                     method: 'DELETE'
                 }).then(function (response) {
-                    if (response.data) {
                         swal({
                             title: 'Eliminado',
                             text: 'El Tipo de Suspension ha sido eliminado',
@@ -558,7 +536,7 @@ app.controller('categoriesController', ["$scope", "$http", "$window", function (
                         }, function (iSConfirm) {
 
                         });
-                    }
+
                 });
             }
 
@@ -582,7 +560,6 @@ app.controller('categoriesController', ["$scope", "$http", "$window", function (
                     url: '/turn_types/' + id + '.json',
                     method: 'DELETE'
                 }).then(function (response) {
-                    if (response.data) {
                         swal({
                             title: 'Eliminado',
                             text: 'El Tipo de Volteo ha sido eliminado',
@@ -596,7 +573,7 @@ app.controller('categoriesController', ["$scope", "$http", "$window", function (
                         }, function (iSConfirm) {
 
                         });
-                    }
+
                 });
             }
 
@@ -620,7 +597,6 @@ app.controller('categoriesController', ["$scope", "$http", "$window", function (
                     url: '/fender_types/' + id + '.json',
                     method: 'DELETE'
                 }).then(function (response) {
-                    if (response.data) {
                         swal({
                             title: 'Eliminado',
                             text: 'El Tipo de Fender ha sido eliminado',
@@ -634,7 +610,7 @@ app.controller('categoriesController', ["$scope", "$http", "$window", function (
                         }, function (iSConfirm) {
 
                         });
-                    }
+
                 });
             }
 

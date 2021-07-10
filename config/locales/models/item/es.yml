@@ -2,7 +2,7 @@ es:
   activerecord:
     attributes:
       item:
-        name: Nombre del artículo
+        name: Nombre del Remolque
         code: Folio
         description: Descripción
         model: Modelo
@@ -23,11 +23,12 @@ es:
         client: Ciente
         user: Vendedor
         brand_id: Marca
-        status_item_id: Estatus del Articulo
+        status_item_id: Estatus del Remolque
         user_id: Usuario
         image: Imágen
+        quantity: Cantidad
         new_order:
-          name: Nombre del artículo
+          name: Nombre del Remolque
           code: Folio
           description: Descripción
           model: Modelo
@@ -46,7 +47,7 @@ es:
           department_id: Punto de Venta
           user: Usuario
           brand_id: Marca
-          status_item_id: Estatus del Articulo
+          status_item_id: Estatus del Remolque
           user_id: Usuario
           client_id: Cliente
           trailer_id: Nombre del remolque
@@ -72,6 +73,10 @@ es:
             status_item:
               required: Obligatorio
             direct_branch:
+              required: Obligatorio
+        sub_category:
+          attributes:
+            category:
               required: Obligatorio
   time_units:
       day: Día(s)

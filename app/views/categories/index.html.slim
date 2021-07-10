@@ -33,8 +33,7 @@ section.content
                             input [type="checkbox" class="icheck-me" data-skin="square" data-color="blue"]
                         / th = t('.company')
                         th = t('.name')
-                        th = 'Codigo'
-                        th = t('.status')
+                        / th = t('.status')
                         th.actions_header
                           = t('helpers.actions')
                       tbody
@@ -45,14 +44,13 @@ section.content
                                 input [type="checkbox" class="icheck-me" data-skin="square" data-color="blue"]
                             / td = category.try(:company).try(:name)
                             td = category.name
-                            td = category.description
-                            td = category.status ? 'Activo' : 'Inhábil'
+                            / td = category.status ? 'Activo' : 'Inhábil'
                             td
                               .actions
                                 = link_item '<i class="fa fa-edit"></i>'.html_safe, edit_category_path(category),
                                         class: 'btn btn-xs btn-primary btn-flat', title: t('helpers.edit')
                                 - if has_policy(category, %w(destroy))
-                                  = link_to '<i class="fas fa-trash"></i>'.html_safe, '#', title: t('helpers.destroy'),
+                                  = link_to '<i class="fas fa-trash"></i>'.html_safe, category_path(category), method: :delete, title: t('helpers.destroy'),
                                           class: 'btn btn-xs btn-danger btn-flat btn-destroy',
                                           data: {'resource' => :categories, 'resource-id' => category.id,
                                                   'resource-message' => t('questions.destroy', resource: t('.resource'),

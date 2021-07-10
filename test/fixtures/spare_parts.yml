@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sub_category: one
+  instock: 1
+  unit_cost: 9.99
+  measurement: MyString
+
+two:
+  sub_category: two
+  instock: 1
+  unit_cost: 9.99
+  measurement: MyString

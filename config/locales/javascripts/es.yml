@@ -17,7 +17,7 @@ es:
     profile_file_type: Debe subir un archivo con formato de imagen.
     profile_file_size: El tamaño máximo permitido de la imagen es de 5MB.
     add: Asignar
-    remove: Dar de baja
+    remove: Eliminar
     maintenance: Mantenimiento
     date_format: 'DD/MM/YYYY'
     sunday: Do
@@ -39,3 +39,6 @@ es:
     october: Oct
     november: Nov
     december: Dec
+    question_to_remove_item: ¿Estas seguro de eliminar este remolque?
+    removed: Eliminado
+    order_removed: El remolque ha sido eliminado

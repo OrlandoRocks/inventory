@@ -9,13 +9,6 @@ section.content
                 = t('.title')
             .col-xs-6.col-md-4.col-lg-4
               .box-tools.pull-right
-                = search_form_for @search_sub_categories do |f|
-                  .input-group.input-group-sm.search
-                    = f.search_field :name_or_description_cont, class: 'form-control',
-                            placeholder: t('helpers.search')
-                    .input-group-btn
-                      button [class="btn btn-default" type="submit"]
-                        i [class="fa fa-search"]
                 = link_to new_sub_category_path, class: 'btn btn-sm btn-flat btn-success', title: t('.new_sub_category') do
                   i.fa.fa-plus
                   span.hidden-xs
@@ -33,9 +26,9 @@ section.content
                             /th.table-checkbox
                               .checkbox.icheck
                                 input [type="checkbox" class="icheck-me" data-skin="square" data-color="blue"]
-                            th = t('.name')
-                            th = t('.description')
                             th = t('.category')
+                            th = t('.name')
+                            / th = t('.description')
                             /th = t('.status')
                             th.actions_header
                               = t('helpers.actions')
@@ -45,16 +38,16 @@ section.content
                                 /td.table-checkbox
                                   .checkbox.icheck
                                     input [type="checkbox" class="icheck-me" data-skin="square" data-color="blue"]
-                                td = sub_category.name
-                                td = sub_category.description
                                 td = sub_category.category.try("name")
-                                td = sub_category.status ? 'Activo' : 'Inhábil'
+                                td = sub_category.name
+                                / td = sub_category.description
+                                / td = sub_category.status ? 'Activo' : 'Inhábil'
                                 td
                                   .actions
                                     = link_item '<i class="fa fa-edit"></i>'.html_safe, edit_sub_category_path(sub_category),
                                             class: 'btn btn-xs btn-primary btn-flat', title: t('helpers.edit')
                                     - if has_policy(sub_category, %w(destroy))
-                                      = link_to '<i class="fas fa-trash"></i>'.html_safe, '#', title: t('helpers.destroy'),
+                                      = link_to '<i class="fas fa-trash"></i>'.html_safe, sub_category_path(sub_category), method: :delete, title: t('helpers.destroy'),
                                               class: 'btn btn-xs btn-danger btn-flat btn-destroy',
                                               data: {'resource' => :sub_categories, 'resource-id' => sub_category.id,
                                                       'resource-message' => t('questions.destroy', resource: t('.resource'),
@@ -63,7 +56,4 @@ section.content
             .col-sm-5
               .dataTables_info
                 = pluralize(@sub_categories.count, t('.one'), t('.other'))
-            .col-sm-7
-              .dataTables_paginate.paging_simple_numbers
-                = custom_paginator(@sub_categories)
 

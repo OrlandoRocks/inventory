@@ -21,5 +21,7 @@ Role.create(name: 'Administrador General', key: 'admin', description: 'Administr
 Role.create(name: 'Gerente', key: 'admin_sucursal', description: 'Administrador de Sucursal.', scope: 0)
 Role.create(name: 'Vendedor', key: 'empleado_sin_acceso', description: 'Empleado sin acceso al sistema.', scope: 0)
 Role.create(name: 'Guest', key: 'guest', description: 'Invitado.', scope: 0)
+Role.create(name: 'Administrador de Remolques del Norte', key: 'admin_remolques', description: 'Administrador de Remolques del Norte.', scope: 0)
+Role.create(name: 'Vendedor de Remolques del Norte', key: 'vendedor_remolques', description: 'Vendedor de Remolques del Norte.', scope: 0)
 puts ">>>>>>>>>>>>>>>>>>>>> first  role #{Role.find_by_key('god').id}"
 end

@@ -1,7 +1,7 @@
 en:
   items:
-    index:
-      title: Items
+    index: &index
+      title: Orders
       resource: the item
       name: Name
       description: Description
@@ -16,15 +16,18 @@ en:
       time_quantity_depreciation: Time Quantity Depreciation
       sub_category: Sub Category
       provider: Provider
-      department: department
+      branch: Branch office
+      department: Point of sale
       user: User
       brand: Brand
-      status_item: Status Item
-      one: Item
-      other: Items
+      status_item: Status Order
+      one: Order
+      other: Orders
       permissions: Permissions
-      new_item: New item
+      new_item: New order
       next_maintenances: Next maintenances
+      search: Search...
+      finder: Orders finder
     next_maintenances:
       title: Next maintenances Items
       resource: the item
@@ -49,9 +52,9 @@ en:
       other: Items
       permissions: Permissions
       new_item: New item
-    form:
+    form: &form
       title: Item
-      resource: item
+      resource: Order
       back: Go to items
       provider_idname: Name
       code: Code
@@ -71,12 +74,29 @@ en:
       user: User
       brand: Brand
       status_item: Status Item
-
-    new:
-      title: New item
-    edit:
-      title: Edit item
-    show:
+      branches: Branch offices...
+      catalog: Catalog
+      models: Models...
+      accesories: Accesories
+      brake: Brake
+      width: Width
+      color: Color
+      length: Length
+      floor: Floor
+      ramp: Ramp
+      division: Division
+      fender: Fender
+      hydraulic_jack: Hydraulic jack
+      capacity: Capacity
+      redila: Redila
+      pull: Pull
+      roof: Roof
+      suspension: Suspension
+    new: &new
+      title: New order
+    edit: &edit
+      title: Edit order
+    show: &show
       title: Item
       resource: item
       back: Go to items
@@ -137,6 +157,15 @@ en:
       add_maintenance: Agregar Mantenimiento
       new_item: Add Items Documentation
       delete_confirmation: Are you sure you want to delete the item
-
+    remolques_index:
+      <<: *index
+    remolques_new:
+      <<: *new
+    remolques_edit:
+      <<: *edit
+    form_remolques:
+      <<: *form
+    remolques_show:
+      <<: *show
   breadcrumbs:
     items: Items

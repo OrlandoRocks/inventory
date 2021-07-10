@@ -1,3 +1,21 @@
+# == Schema Information
+#
+# Table name: branches
+#
+#  id          :integer          not null, primary key
+#  name        :string
+#  description :string
+#  city_id     :integer
+#  company_id  :integer
+#  manager_id  :integer
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  state_id    :integer
+#  code        :string
+#  last_code   :integer
+#  fleet_cost  :decimal(, )      default(0.0)
+#
+
 class Branch < ApplicationRecord
   belongs_to :company, optional: true
 
@@ -12,6 +30,9 @@ class Branch < ApplicationRecord
   has_many :departments
 
   has_many :items, through: :departments
+  validates :fleet_cost, numericality: { less_than_or_equal_to: 100 }
+
+
 
   # delegate :name, to: :company, prefix: true, allow_nil: true
 end

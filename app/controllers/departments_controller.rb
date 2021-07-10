@@ -45,7 +45,7 @@ class DepartmentsController < ApplicationController
 
 
     new_params = department_params
-    new_params[:last_code] = sprintf('%04d', department_params[:sequence])
+    # new_params[:last_code] = sprintf('%04d', department_params[:sequence])
 
     respond_to do |format|
       if @department.update(new_params)

@@ -1,17 +1,19 @@
+# == Schema Information
+#
+# Table name: brands
+#
+#  id          :integer          not null, primary key
+#  name        :string
+#  description :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  model_part  :string
+#  status      :boolean
+#
+
 class Brand < ApplicationRecord
 
   has_many :trailer_category
-  has_many :items
-
   accepts_nested_attributes_for :trailer_category
 
-  before_destroy :check_for_items
-  private
-  def check_for_items
-    if items.count > 0
-      flash[:notice] = 'No es posible eliminar el estatus ya que existen artículos con este estatus.'
-      render 'brands_path'
-      return false
-    end
-  end
 end

@@ -69,6 +69,6 @@ class DivitionTypesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def divition_type_params
-      params.require(:divition_type).permit(:name, :model_part, :status)
+      params.require(:divition_type).permit(:name, :us_name, :model_part, :status)
     end
 end

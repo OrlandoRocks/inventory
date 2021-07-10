@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: users_work_articles
+#
+#  id               :integer          not null, primary key
+#  user_id          :integer
+#  work_article_id  :integer
+#  reception_status :integer
+#  delivery_status  :integer
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#
+
 class UsersWorkArticle < ActiveRecord::Base
   belongs_to :user
   belongs_to :work_article

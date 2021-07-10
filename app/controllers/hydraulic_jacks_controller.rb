@@ -69,6 +69,6 @@ class HydraulicJacksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def hydraulic_jack_params
-      params.require(:hydraulic_jack).permit(:name, :model_part, :status)
+      params.require(:hydraulic_jack).permit(:name, :us_name, :model_part, :status)
     end
 end

@@ -1,0 +1,18 @@
+p#notice = notice
+
+p
+  strong Sub category:
+  = @spare_part.sub_category
+p
+  strong Instock:
+  = @spare_part.instock
+p
+  strong Unit cost:
+  = @spare_part.unit_cost
+p
+  strong Measurement:
+  = @spare_part.measurement
+
+=> link_to 'Edit', edit_spare_part_path(@spare_part)
+'|
+=< link_to 'Back', spare_parts_path

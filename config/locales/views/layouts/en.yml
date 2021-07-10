@@ -10,6 +10,8 @@ en:
       profile: Profile
       log_out: Log out
     side_menu:
+      items: Orders
+      new_item: New Order
       new_role: New role
       roles: Roles
       new_permission: New permission

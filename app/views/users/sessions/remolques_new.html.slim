@@ -1,0 +1,55 @@
+- @title = t('.sign_in')
+.login-box
+  .login-logo
+    .center
+      /= t('.template')
+      = image_tag "logo_remolques_norte.png", alt:"Remolques del Norte", width:'100%'
+  .login-box-body ng-init="companies = #{Company.all.to_json}"
+    p.login-box-msg
+      = t('.sign_in')
+    = form_for resource, as: resource_name, url: session_path(resource_name), layout: :horizontal do |f|
+      .form-group.has-feedback
+        = render "devise/shared/error_messages", resource: resource
+      .form-group.has-feedback
+        / = f.email_field :email, autofocus: true, class: 'form-control', placeholder: t('.email')
+        input type='hidden' name="user[email]" id="user_email"
+        = f.text_field :employee_number, autofocus: true, class: 'form-control', placeholder: t('.employee_number')
+        span.glyphicon.glyphicon-user.form-control-feedback
+      .form-group.has-feedback
+        = f.password_field :password, autocomplete: 'off', class: 'form-control', placeholder: t('.password')
+        span.glyphicon.glyphicon-lock.form-control-feedback
+      / .form-group.has-feedback
+        = f.select :current_company, options_for_select(Company.all.order(name: :asc).map {|u| [u.name, u.id]}),
+                {include_blank: t('helpers.select.prompt')}, class: 'form-control'
+      .row
+        .col-xs-6
+          .checkbox.icheck
+            label
+              - if devise_mapping.rememberable?
+                = f.check_box :remember_me, class: 'icheck-me', data: {skin: 'square', color: 'red'}
+                =< t('.remember')
+        .col-xs-6
+          = f.submit t('.sign_in'), class: 'btn bg-red btn-block btn-flat', id:'submit_btn'
+
+    p.text-right
+      / = render partial: 'users/shared/links'
+
+
+javascript:
+     $(document).ready(function(){
+         $(':input[type="submit"]').prop('disabled', true);
+         $('#user_employee_number').focusout(function () {
+            employee_number =  $('#user_employee_number').val();
+             $.get("/user_employee_nomber/"+employee_number+".json", function (data) {
+                 if(data.email) {
+                     console.log(data.email);
+                     $(':input[type="submit"]').prop('disabled', false);
+                     $("#user_email").val(data.email);
+                     // alert("Load was performed.");
+                 }else{
+                     $(':input[type="submit"]').prop('disabled', true);
+                 }
+             });
+         });
+
+     });

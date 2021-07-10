@@ -1,4 +1,15 @@
 es:
+  spare_parts:
+    index:
+      client_id: Cliente
+      user_id: Vendedor
+      spare_part_id: Refación
+      quantity: Cantidad
+      instock: Existencia
+      unit_sale_price: Precio de Venta
+      payment_type: Tipo de Pago
+      fiscal_voucher_id: Uso de CFDI
+      advance_payment: Anticipo
   categories:
     index:
       title: Categorías

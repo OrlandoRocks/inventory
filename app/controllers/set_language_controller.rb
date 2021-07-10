@@ -12,8 +12,7 @@ class SetLanguageController < ApplicationController
   private
   def set_session_and_redirect
     session[:locale] = I18n.locale
-    redirect_to :back
-    rescue ActionController::RedirectBackError
-      redirect_to :root
+    redirect_to authenticated_root_url
+    #redirect_back(fallback_location: authenticated_root_url)
   end
 end

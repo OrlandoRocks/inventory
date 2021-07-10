@@ -1,60 +1,55 @@
-FROM ruby:2.5.1-alpine as builder
+FROM ruby:2.5.1 AS builder
 
-RUN apk update && apk upgrade
-
-RUN apk add --update --no-cache \
-      alpine-sdk \
+RUN apt-get update \
+      && apt-get dist-upgrade -yy --no-install-recommends \
+      && apt-get install -yy --no-install-recommends \
       git \
       nodejs \
       yarn \
-      sqlite-dev \
+      sqlite \
       tzdata \
+      build-essential \
       postgresql-client \
-      build-base \
-      postgresql-dev \
-      imagemagick \
-    && rm -rf /var/cache/apk/*
+      imagemagick
+
+ENV LANG C.UTF-8
+ENV BUNDLE_JOBS 4
+ENV BUNDLE_RETRY 3
 
 WORKDIR /app
 
 COPY Gemfile* /app/
-
-ENV RAILS_ENV=production
-ENV RACK_ENV=production
-ENV PORT=3000
-ENV SECRET_KEY_BASE mykey
-
-RUN gem install bundler -v 1.17.3
-RUN gem install puma
-RUN bundle install --jobs=4
-
 COPY yarn.lock /app/
-RUN yarn install --check-files
 
+RUN gem install bundler:1.17.1 puma
+
+RUN bundle config git.allow_insecure true \
+      && bundle install -j ${BUNDLE_JOBS} --retry ${BUNDLE_RETRY} \
+      && bundle clean --force 
+# RUN yarn install --check-files && yarn cache clean
+
+FROM ruby:2.5.1 AS release
+
+RUN apt-get update \
+      && apt-get install -yy \
+      sqlite \
+      tzdata \
+      postgresql-client \
+      imagemagick \
+      libssl-dev \
+      nodejs
+
+WORKDIR /app
+
+COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
 COPY . .
 
-# RUN rm -rf /app/node_modules /app/tmp/*
+ENV RAILS_ENV production
+ENV RACK_ENV production
+ENV PORT 3000
+ENV SECRET_KEY_BASE mykey
 
-# FROM ruby:2.5.1-alpine
-# RUN apk update \
-#     && \
-#     apk add --update --no-cache \
-#       sqlite-dev \
-#       tzdata \
-#       postgresql-dev \
-#     && rm -rf /var/cache/apk/*
-
-# WORKDIR /app
-
-# COPY --from=builder /usr/lib /usr/lib
-# COPY --from=builder /usr/local/bundle /usr/local/bundle
-# COPY --from=builder /app /app
-
-# ENV RAILS_ENV=production
-# ENV SECRET_KEY_BASE mykey
-
-# RUN bundle config --local path vendor/bundle
-ENV PORT=5000
+ENV PORT 5000
 
 EXPOSE 5000
 
