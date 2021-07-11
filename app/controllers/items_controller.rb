@@ -563,15 +563,15 @@ class ItemsController < ApplicationController
 
     item = Item.find(params[:id])
 
-    p "item --------------------------------------------------------"
-    p item
+
+    unless item.client.facturify_id.present?
+      result = create_facturify_client item.client
+    end
+
     if item.facturify_id.present?
-      p " tiene facturify_id --------------------------------------------------------------------------------"
       facturify_id = item.facturify_id
     else
-      p "no tiene facturify_id --------------------------------------------------------------------------------"
       facturify_id = create_facturify_item item
-
     end
 
     url_bill = get_url_bill facturify_id
@@ -583,14 +583,56 @@ class ItemsController < ApplicationController
 
   end
 
+  def create_facturify_client client
+
+    token = Facturify.get_token
+
+    data = {
+        "razon_social": client.name + ' ' + client.last_name + ' '+client.maiden_name,
+        "rfc": client.rfc,
+        "email": client.email,
+        "forma_de_pago": "99" ,
+        "uso_cfdi": "P01"
+    }.to_json
+
+    uri = URI.parse("https://api-sandbox.facturify.com/api/v1/cliente")
+    request = Net::HTTP::Post.new(uri)
+    request.content_type = "application/json"
+    request["Authorization"] = "Bearer #{token}"
+    request["Cache-Control"] = "no-cache"
+    request.body = data
+
+    req_options = {
+        use_ssl: uri.scheme == "https",
+    }
+
+    response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+      http.request(request)
+    end
+
+
+    response = JSON.parse(response.body)
+
+    p response
+    p response['data']
+    p response['data']['uuid']
+
+    if client.update(facturify_id: response['data']['uuid'])
+      request = true
+    else
+
+      request = false
+    end
+
+    return request
+
+  end
+
   def create_facturify_item item
     token = Facturify.get_token
 
 
     data = get_data item
-
-    p "under GET data ------------------------------------------"
-
 
     uri = URI.parse("https://api-sandbox.facturify.com/api/v1/factura")
     request = Net::HTTP::Post.new(uri)
@@ -607,8 +649,6 @@ class ItemsController < ApplicationController
       http.request(request)
     end
 
-    p "response.body ------------------------------"
-    p response.body
 
     bill_data = JSON.parse(response.body)
 
@@ -649,8 +689,6 @@ class ItemsController < ApplicationController
 
   def get_data item
 
-    p "GET data -----------------------------------"
-    p item.client
     date = DateTime.now.strftime('%Y-%m-%d %H:%M:%S')
     iva = (item.sale_price * 0.16).to_f
 

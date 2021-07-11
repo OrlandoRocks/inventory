@@ -1117,6 +1117,18 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
 
             });
 
+        }, function(err){
+            swal({
+                title: '!Error¡',
+                text: 'Favor de volver a intentar',
+                type: 'error',
+                showCancelButton: false
+            }).then(function (isConfirm) {
+
+
+            }, function (iSConfirm) {
+
+            });
         });
     }
 
