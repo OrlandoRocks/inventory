@@ -652,6 +652,9 @@ class ItemsController < ApplicationController
 
     bill_data = JSON.parse(response.body)
 
+    p "bill_data ------------------------------------------------------"
+    p bill_data
+
     if item.update(facturify_id: bill_data['data']['cfdi_uuid'])
       bill_request = item.facturify_id
     else
@@ -690,11 +693,21 @@ class ItemsController < ApplicationController
   def get_data item
 
     date = DateTime.now.strftime('%Y-%m-%d %H:%M:%S')
-    iva = (item.sale_price * 0.16).to_f
+    sub_total = (item.sale_price / 1.16).to_f
+    iva = (sub_total * 0.16).to_f
+    iva_digits = "%.2f" % iva
+    sub_total_digits = "%.2f" % sub_total
 
 
-    total = (item.sale_price + iva).to_f
-    sub_total = item.sale_price.to_f
+    total = item.sale_price.to_f
+
+    p "iva --------------------------------------------------------------------------------------------------"
+    p  iva_digits
+    p "total -----------------------------------------------------------------------------------------------"
+    p total
+
+    p "sub_total ------------------------------------------------------------------------------------------"
+    p sub_total_digits
 
     if item.payment_type == 1
       pyament_type = "01"
@@ -736,17 +749,17 @@ class ItemsController < ApplicationController
                       "clave_unidad_de_medida": "E48",
                       "cantidad": 1,
                       "descripcion": 'Núm. de serie: ' + item.try(:serial_number) + "\n" + 'Modelo: ' + item.try(:model) + "\n" + 'Desc. del modelo: ' + item.try(:categories_description),
-                      "valor_unitario": sub_total,
-                      "total": sub_total,
+                      "valor_unitario": sub_total_digits,
+                      "total": sub_total_digits,
                       "impuestos": {
                           "traslados": {
                               "traslado": [
                                   {
-                                      "base": sub_total,
+                                      "base": sub_total_digits,
                                       "impuesto": "002",
                                       "tipoFactor": "Tasa",
                                       "tasaOCuota": 0.16,
-                                      "importe": iva,
+                                      "importe": iva_digits,
                                       "tipo": "Traslado"
                                   }
                               ]
@@ -754,9 +767,9 @@ class ItemsController < ApplicationController
                       }
                   }
               ],
-              "impuesto_federal": iva,
-              "subtotal": sub_total,
-              "traslados": iva,
+              "impuesto_federal": iva_digits,
+              "subtotal": sub_total_digits,
+              "traslados": iva_digits,
               "retenciones": 0,
               "total": total,
               "fecha": date,
@@ -792,17 +805,17 @@ class ItemsController < ApplicationController
                       "clave_unidad_de_medida": "E48",
                       "cantidad": 1,
                       "descripcion": 'Núm. de serie: ' + item.try(:serial_number) + "\n" + 'Modelo: ' + item.try(:model) + "\n" + 'Desc. del modelo: ' + item.try(:categories_description),
-                      "valor_unitario": sub_total,
-                      "total": sub_total,
+                      "valor_unitario": sub_total_digits,
+                      "total": sub_total_digits,
                       "impuestos": {
                           "traslados": {
                               "traslado": [
                                   {
-                                      "base": sub_total,
+                                      "base": sub_total_digits,
                                       "impuesto": "002",
                                       "tipoFactor": "Tasa",
                                       "tasaOCuota": 0.16,
-                                      "importe": iva,
+                                      "importe": iva_digits,
                                       "tipo": "Traslado"
                                   }
                               ]
@@ -810,9 +823,9 @@ class ItemsController < ApplicationController
                       }
                   }
               ],
-              "impuesto_federal": iva,
-              "subtotal": sub_total,
-              "traslados": iva,
+              "impuesto_federal": iva_digits,
+              "subtotal": sub_total_digits,
+              "traslados": iva_digits,
               "retenciones": 0,
               "total": total,
               "fecha": date,
