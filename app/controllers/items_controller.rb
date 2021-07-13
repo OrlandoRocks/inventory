@@ -735,7 +735,7 @@ class ItemsController < ApplicationController
                       "clave_producto_servicio": "22101527",
                       "clave_unidad_de_medida": "E48",
                       "cantidad": 1,
-                      "descripcion": "Tractor",
+                      "descripcion": 'Núm. de serie: ' + item.try(:serial_number) + "\n" + 'Modelo: ' + item.try(:model) + "\n" + 'Desc. del modelo: ' + item.try(:categories_description),
                       "valor_unitario": sub_total,
                       "total": sub_total,
                       "impuestos": {
@@ -791,7 +791,7 @@ class ItemsController < ApplicationController
                       "clave_producto_servicio": "22101527",
                       "clave_unidad_de_medida": "E48",
                       "cantidad": 1,
-                      "descripcion": "Tractor",
+                      "descripcion": 'Núm. de serie: ' + item.try(:serial_number) + "\n" + 'Modelo: ' + item.try(:model) + "\n" + 'Desc. del modelo: ' + item.try(:categories_description),
                       "valor_unitario": sub_total,
                       "total": sub_total,
                       "impuestos": {
