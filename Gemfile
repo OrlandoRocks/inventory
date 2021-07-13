@@ -193,5 +193,6 @@ end
 #Gema nueva para generar reportes
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
+gem "rest-client"
 
 #gem 'rqrcode'

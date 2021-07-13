@@ -168,6 +168,11 @@ section.content ng-controller="itemController"
                             .actions
                               = link_item '<i class="fa fa-search"></i>'.html_safe, item_path(item), title: t('helpers.show'),
                                       class: 'btn btn-xs btn-success btn-flat'
+                              a.btn.btn-xs.btn-info.btn-flat ng-click="download_bill(#{item.id})" title="Imprimir factura"
+                                i.fa.fa-file-invoice-dollar
+
+
+                              /= link_item '<i class="fa fa-file-pdf"></i>'.html_safe, download_bill(item), title: "Imprimir factura", class: 'btn btn-xs btn-success btn-flat'
                   .row
                     .col-sm-5
                       .dataTables_info
