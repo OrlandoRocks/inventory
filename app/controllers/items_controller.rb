@@ -663,6 +663,7 @@ class ItemsController < ApplicationController
 
     return bill_request
   end
+  end
 
   def get_url_bill facturify_id
 
@@ -693,8 +694,8 @@ class ItemsController < ApplicationController
   def get_data item
 
     date = DateTime.now.strftime('%Y-%m-%d %H:%M:%S')
-    sub_total = (item.sale_price * 0.84).to_f
-    iva = (item.sale_price * 0.16).to_f
+    sub_total = (item.sale_price / 1.16).to_f
+    iva = (item.sale_price - sub_total).to_f
     iva_digits = "%.2f" % iva
     sub_total_digits = "%.2f" % sub_total
 
