@@ -652,8 +652,8 @@ class ItemsController < ApplicationController
 
     bill_data = JSON.parse(response.body)
 
-    p "bill_data ------------------------------------------------------"
-    p bill_data
+    logger.debug "bill_data ------------------------------------------------------"
+    logger.debug bill_data
 
     if item.update(facturify_id: bill_data['data']['cfdi_uuid'])
       bill_request = item.facturify_id
