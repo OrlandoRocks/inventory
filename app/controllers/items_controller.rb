@@ -662,7 +662,7 @@ class ItemsController < ApplicationController
     end
 
     return bill_request
-  end
+  
   end
 
   def get_url_bill facturify_id
