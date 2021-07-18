@@ -15,6 +15,8 @@ RUN apt-get update \
 ENV LANG C.UTF-8
 ENV BUNDLE_JOBS 4
 ENV BUNDLE_RETRY 3
+ENV BUNDLE_DISABLE_EXEC_LOAD true
+
 
 WORKDIR /app
 
@@ -24,24 +26,25 @@ COPY yarn.lock /app/
 RUN gem install bundler:1.17.1 puma
 
 RUN bundle config git.allow_insecure true \
+      && bundle config disable_exec_load true \
       && bundle install -j ${BUNDLE_JOBS} --retry ${BUNDLE_RETRY} \
       && bundle clean --force 
 # RUN yarn install --check-files && yarn cache clean
 
-FROM ruby:2.5.1 AS release
+# FROM ruby:2.5.1 AS release
 
-RUN apt-get update \
-      && apt-get install -yy \
-      sqlite \
-      tzdata \
-      postgresql-client \
-      imagemagick \
-      libssl-dev \
-      nodejs
+# RUN apt-get update \
+#       && apt-get install -yy \
+#       sqlite \
+#       tzdata \
+#       postgresql-client \
+#       imagemagick \
+#       libssl-dev \
+#       nodejs
 
-WORKDIR /app
+# WORKDIR /app
 
-COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
+# COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
 COPY . .
 
 ENV RAILS_ENV production
