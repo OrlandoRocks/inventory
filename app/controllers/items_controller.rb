@@ -756,7 +756,7 @@ class ItemsController < ApplicationController
                           "traslados": {
                               "traslado": [
                                   {
-                                      "base": total,
+                                      "base": sub_total_digits,
                                       "impuesto": "002",
                                       "tipoFactor": "Tasa",
                                       "tasaOCuota": 0.16,
