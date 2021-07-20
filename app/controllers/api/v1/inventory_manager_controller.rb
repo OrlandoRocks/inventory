@@ -69,7 +69,7 @@ class Api::V1::InventoryManagerController < ActionController::Base
       @items = Item.where(status_item_id: StatusItem.find_by_key('no_vendido'), department_id: @user.department_id, item_type:0)
     end
 
-    render json: item_json(@items)
+    render json: @items
 
 
 
@@ -79,7 +79,6 @@ class Api::V1::InventoryManagerController < ActionController::Base
 
     @user = User.find(params[:user_id])
     if @user.god? or @user.admin?
-
       @items = Item.where(status_item_id: StatusItem.where(key:['vendido', 'pendiente_factura', 'facturado', 'vendido_credito']).pluck(:id), item_type:0)
     elsif @user.user_employee?
       @items = Item.where(status_item_id: StatusItem.where(key:['vendido', 'pendiente_factura', 'facturado', 'vendido_credito']).pluck(:id), department_id: @user.department_id, user_id: @user.id, item_type:0)
@@ -125,8 +124,9 @@ class Api::V1::InventoryManagerController < ActionController::Base
 
 
   def get_items_by_branch
-    items = Branch.find(params[:id]).items
-    render json: items.as_json(except: :image)
+
+    items = Item.where(branch_id: params[:id])
+    render json: items
   end
 
 
