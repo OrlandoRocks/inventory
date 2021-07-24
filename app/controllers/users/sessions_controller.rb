@@ -1,9 +1,11 @@
 class Users::SessionsController < Devise::SessionsController
   layout 'out_system'
 # before_filter :configure_sign_in_params, only: [:create]
+  skip_before_action :require_no_authentication, only: :new
 
   # GET /resource/sign_in
   def new
+    reset_session if current_user
     cookies[:company] = 'planet'
     super
   end
