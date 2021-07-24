@@ -9,6 +9,7 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def remolques_new
+    reset_session if current_user
     cookies[:company] = 'remolques'
     self.resource = resource_class.new(sign_in_params)
     clean_up_passwords(resource)
