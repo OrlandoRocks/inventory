@@ -68,12 +68,12 @@
                   <%= "#{@item.try(:department).try(:name)}" %>
                 </p>
               </li>
-              <li class="list-group-item">
-                <strong><i class="fa fa-user margin-r-5"></i>Vendedor</strong>
-                <p class="text-muted">
-                  <%= "#{@item.user.try("full_name")}" %>
-                </p>
-              </li>
+<!--              <li class="list-group-item">-->
+<!--                <strong><i class="fa fa-user margin-r-5"></i>Vendedor</strong>-->
+<!--                <p class="text-muted">-->
+                  <%#= "#{@item.user.try("full_name")}" %>
+<!--                </p>-->
+<!--              </li>-->
               <li class="list-group-item">
                 <b><%= t("items.form.status_item") %></b>
                 <p class="text-muted"><%= @item.status_item.try("description") %></p>
