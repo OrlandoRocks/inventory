@@ -59,13 +59,13 @@
               <li class="list-group-item">
                 <strong><i class="fa fa-store margin-r-5"></i><%= "#{t("items.form.branch")}" %></strong>
                 <p class="text-muted">
-                  <%= "#{@item.try(:user).try(:department).try(:branch).try(:name)}" %>
+                  <%= "#{@item.try(:department).try(:branch).try(:name)}" %>
                 </p>
               </li>
               <li class="list-group-item">
                 <strong><i class="fa fa-home margin-r-5"></i><%= "#{t("items.form.department")}" %></strong>
                 <p class="text-muted">
-                  <%= "#{@item.try(:user).try(:department).try(:name)}" %>
+                  <%= "#{@item.try(:department).try(:name)}" %>
                 </p>
               </li>
               <li class="list-group-item">
