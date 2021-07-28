@@ -129,7 +129,7 @@ class ItemsController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render pdf: "Trailers Vendidos" # Excluding ".pdf" extension.
+        render pdf: "Factura" # Excluding ".pdf" extension.
       end
     end
   end
@@ -148,11 +148,20 @@ class ItemsController < ApplicationController
 
     @today = DateTime.now
 
+    if @trailer.facturify_id.present?
+      facturify_id = @trailer.facturify_id
+    else
+      facturify_id = create_facturify_item @trailer
+    end
+
+    bill_data = get_url_bill facturify_id
+
+    @data = bill_data['Comprobante']
 
     respond_to do |format|
       format.html
       format.pdf do
-        render pdf: "Trailers Vendidos" # Excluding ".pdf" extension.
+        render pdf: "Factura" # Excluding ".pdf" extension.
       end
     end
   end
@@ -613,10 +622,6 @@ class ItemsController < ApplicationController
 
     response = JSON.parse(response.body)
 
-    p response
-    p response['data']
-    p response['data']['uuid']
-
     if client.update(facturify_id: response['data']['uuid'])
       request = true
     else
@@ -669,7 +674,7 @@ class ItemsController < ApplicationController
 
     token = Facturify.get_token
 
-    uri = URI.parse("https://api-sandbox.facturify.com/api/v1/factura/#{facturify_id}/pdf/")
+    uri = URI.parse("https://api-sandbox.facturify.com/api/v1/factura/#{facturify_id}")
     request = Net::HTTP::Get.new(uri)
     request.content_type = "application/json"
     request["Authorization"] = "Bearer #{token}"
@@ -685,9 +690,11 @@ class ItemsController < ApplicationController
 
     url_response = JSON.parse(response.body)
 
-    new_url = {url: url_response['url']}
+    base_64 = Base64.decode64(url_response['data']['xml'])
 
-    return new_url
+    hash_json = Hash.from_xml(base_64)
+
+    return hash_json
 
   end
 
@@ -701,14 +708,6 @@ class ItemsController < ApplicationController
 
 
     total = item.sale_price.to_f
-
-    p "iva --------------------------------------------------------------------------------------------------"
-    p  iva_digits
-    p "total -----------------------------------------------------------------------------------------------"
-    p total
-
-    p "sub_total ------------------------------------------------------------------------------------------"
-    p sub_total_digits
 
     if item.payment_type == 1
       pyament_type = "01"
