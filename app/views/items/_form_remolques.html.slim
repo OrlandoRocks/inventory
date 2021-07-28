@@ -144,9 +144,9 @@ div ng-controller="itemController"
               .input-group-addon
                 i.fa.fa-calendar
               = f.text_field :acquisition_date, class: 'form-control pull-right datepicker', type: "text", placeholder: t('.acquisition_date')
-        / .row.form-group
-          = f.label :price, class: 'col-md-2 control-label'
-          .col-md-4
+        .row.form-group
+          / = f.label :price, class: 'col-md-2 control-label'
+          /.col-md-4
             .input-group
               span.input-group-addon $
               = f.number_field :price, value: number_to_currency(f.object.price.to_f, delimiter: '', unit: ''), step: :any, class: 'form-control text_field', placeholder: t('.price') , min:0.0, 'ng-model'=> 'item.price ', 'ng-change' => 'fleet = item.price * ( 1 + ( fleet_cost || "0") /100 )'
@@ -166,6 +166,7 @@ div ng-controller="itemController"
           .col-md-10
             = f.text_area :accessory, class: 'form-control', placeholder: t('.accesories')
           input type='hidden' name="item[status_item_id]" value=StatusItem.find_by(key: 'pendiente')&.id
+        = f.hidden_field :categories_description, value: '{{category_description}}'
           / .row.form-group
             = f.label :image, class: 'col-sm-2 control-label'
             .col-md-4
@@ -184,7 +185,6 @@ div ng-controller="itemController"
             //input id='director_name' name='boss_id' type='hidden' value="#{@users.first.user.to_json({methods: :full_name})}" class="control-label h2.page-header text-uppercase"
 
 
-            = f.hidden_field :categories_description, value: '{{category_description}}'
             - if item.new_record?
               input type='hidden' name="item[status_shipping_id]" value='#{StatusShipping.find_by_key('recibido').id}'
             - else

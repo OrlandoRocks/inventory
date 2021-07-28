@@ -93,8 +93,8 @@ Rails.application.routes.draw do
 
     unauthenticated do
       root 'users/sessions#new', as: :unauthenticated_root
-      get '/users/sessions/remolques_new' => 'users/sessions#remolques_new', as: :login_remolques
     end
+    get '/users/sessions/remolques_new' => 'users/sessions#remolques_new', as: :login_remolques
 
     authenticate :user do
       put '/users/assign_item' => 'users/registrations#assign_item', as: :users_assign_item
