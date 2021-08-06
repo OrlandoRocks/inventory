@@ -28,13 +28,15 @@
               <br>
               <strong>Fecha de expedición: <%= DateTime.now %></strong>
               <br>
+              <strong>AGRO TRAILER PLANET SA DE CV</strong>
+              <br>
               Km. 7 Carr. Cuauhtemoc-Alvaro Obregón S/N
               <br>
               Campo 22, CUAUHTEMOC
               <br>
               Cuauhtemoc, Chihuahua CP: 31607
               <br>
-              GRN030226P48
+              ATP200908A49
               <br>
               Tel. (625) 58 77200
               <br>
@@ -75,13 +77,16 @@
                 </tr>
                 <tr class="show_actions">
                   <td>
-                    Dirección: <%= @trailer.try(:client).try(:address) %>
+                    RFC: <%= @trailer.try(:client).try(:rfc) %>
                   </td>
                   <td>
-                    Celular: <%= @trailer.try(:client).try(:cellphone) %>
+                    Dirección: <%= @trailer.try(:client).try(:address) %>
                   </td>
                 </tr>
                 <tr class="show_actions">
+                  <td>
+                    Celular: <%= @trailer.try(:client).try(:cellphone) %>
+                  </td>
                   <td rowspan="2">
                     C.P: <%= @trailer.try(:client).try(:postal_code) %>
                   </td>
@@ -283,7 +288,7 @@
             </div>
           </div>
         </div>
-        <div class="box-body" style="font-size: 12px;">
+        <div class="box-body" style="font-size: 10px;">
           <div class="row">
             <div class="col-sm-12">
               <div class="table-responsive" style=" overflow-x: hidden;" >
