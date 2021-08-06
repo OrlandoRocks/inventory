@@ -125,8 +125,9 @@ class Api::V1::InventoryManagerController < ActionController::Base
 
   def get_items_by_branch
 
-    items = Item.where(branch_id: params[:id])
-    render json: items
+    @items = Item.where(branch_id: params[:id], status_item_id: StatusItem.find_by_key('no_vendido'), item_type:0)
+
+    render json: @items
   end
 
 
