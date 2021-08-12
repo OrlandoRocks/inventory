@@ -728,7 +728,7 @@ class ItemsController < ApplicationController
     if item.payment_type == 1
       data = {
           "emisor": {
-              "uuid": "a92a6a2c-780d-48c8-92b2-4d371929e481",
+              "uuid": "a237cddd-e314-46b6-8724-1cdc05495115",
               "razon_social": "AGRO TRAILER PLANET SA DE CV",
               "rfc": "ATP200908A49"
           },
@@ -783,7 +783,7 @@ class ItemsController < ApplicationController
     else
       data = {
           "emisor": {
-              "uuid": "a92a6a2c-780d-48c8-92b2-4d371929e481",
+              "uuid": "a237cddd-e314-46b6-8724-1cdc05495115",
               "razon_social": "AGRO TRAILER PLANET SA DE CV",
               "rfc": "ATP200908A49"
           },
