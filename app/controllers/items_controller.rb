@@ -606,7 +606,7 @@ class ItemsController < ApplicationController
         "uso_cfdi": "P01"
     }.to_json
 
-    uri = URI.parse("https://api-sandbox.facturify.com/api/v1/cliente")
+    uri = URI.parse("https://api.facturify.com/api/v1/cliente")
     request = Net::HTTP::Post.new(uri)
     request.content_type = "application/json"
     request["Authorization"] = "Bearer #{token}"
@@ -641,7 +641,7 @@ class ItemsController < ApplicationController
 
     data = get_data item
 
-    uri = URI.parse("https://api-sandbox.facturify.com/api/v1/factura")
+    uri = URI.parse("https://api.facturify.com/api/v1/factura")
     request = Net::HTTP::Post.new(uri)
     request.content_type = "application/json"
     request["Authorization"] = "Bearer #{token}"
@@ -676,7 +676,7 @@ class ItemsController < ApplicationController
 
     token = Facturify.get_token
 
-    uri = URI.parse("https://api-sandbox.facturify.com/api/v1/factura/#{facturify_id}")
+    uri = URI.parse("https://api.facturify.com/api/v1/factura/#{facturify_id}")
     request = Net::HTTP::Get.new(uri)
     request.content_type = "application/json"
     request["Authorization"] = "Bearer #{token}"
@@ -776,7 +776,8 @@ class ItemsController < ApplicationController
               "total": total,
               "fecha": date,
               "generacion_automatica": true,
-              "tipo": "ingreso"
+              "tipo": "ingreso",
+              "send_pdf_and_xml_by_mail": false
           }
       }
     else
@@ -832,7 +833,8 @@ class ItemsController < ApplicationController
               "total": total,
               "fecha": date,
               "generacion_automatica": true,
-              "tipo": "ingreso"
+              "tipo": "ingreso",
+              "send_pdf_and_xml_by_mail": false
           }
       }
     end
