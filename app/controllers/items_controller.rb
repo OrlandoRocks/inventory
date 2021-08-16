@@ -6,6 +6,9 @@ class ItemsController < ApplicationController
   include ActionView::Helpers::NumberHelper
   include ActionView::Helpers::NumberToLetters
 
+  skip_before_action :authenticate_user!, only: [:report_to_client]
+
+
 
   before_action :set_item, only: [:show, :edit, :update, :destroy, :create_maintenance, :create_file,
                                   :change_maintenance_done, :edit_order, :remolques_show, :remolques_edit,
@@ -152,11 +155,54 @@ class ItemsController < ApplicationController
       facturify_id = @trailer.facturify_id
     else
       facturify_id = create_facturify_item @trailer
+
     end
 
     bill_data = get_url_bill facturify_id
 
     @data = bill_data['Comprobante']
+
+
+
+    ApplicationMailer.bill_to_client(@trailer.client, @trailer).deliver_now
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "Factura" # Excluding ".pdf" extension.
+      end
+    end
+  end
+
+
+  def report_to_client
+    titulo_reporte = 'Trailers Vendidos'
+    nombre_reporte = 'trailers_vendidos'
+
+    @trailer = Item.find(params[:id])
+
+    @tasa = @trailer.price * 0.16
+    @sub_total = @trailer.price - @tasa
+
+
+    @number_string = @trailer.price.a_letras
+
+    @today = DateTime.now
+
+    if @trailer.facturify_id.present?
+      facturify_id = @trailer.facturify_id
+    else
+      facturify_id = create_facturify_item @trailer
+
+    end
+
+    bill_data = get_url_bill facturify_id
+
+    @data = bill_data['Comprobante']
+
+
+
+    # ApplicationMailer.bill_to_client(@trailer.client).deliver_now
 
     respond_to do |format|
       format.html
@@ -776,7 +822,8 @@ class ItemsController < ApplicationController
               "total": total,
               "fecha": date,
               "generacion_automatica": true,
-              "tipo": "ingreso"
+              "tipo": "ingreso",
+              "send_pdf_and_xml_by_mail": false
           }
       }
     else
@@ -832,7 +879,8 @@ class ItemsController < ApplicationController
               "total": total,
               "fecha": date,
               "generacion_automatica": true,
-              "tipo": "ingreso"
+              "tipo": "ingreso",
+              "send_pdf_and_xml_by_mail": false
           }
       }
     end

@@ -93,6 +93,7 @@ Rails.application.routes.draw do
 
     unauthenticated do
       root 'users/sessions#new', as: :unauthenticated_root
+      get '/report_to_client/:id' => 'items#report_to_client', :defaults => {:format => 'pdf'}
     end
     get '/users/sessions/remolques_new' => 'users/sessions#remolques_new', as: :login_remolques
 

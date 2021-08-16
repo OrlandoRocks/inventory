@@ -58,12 +58,12 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
       address: 'mail.planetagrotrailer.com',
       port: 465,
-      domain: 'planetagrotrailer.com',
-      user_name: 'contacto@planetagrotrailer.com',
-      password: 'u&*1gG)AshnX',
+      domain: 'mail.planetagrotrailer.com',
+      user_name: 'info@planetagrotrailer.com',
+      password: 'Pl4net@gro',
       authentication: :plain,
       tls: true,
-      :openssl_verify_mode  => 'none'
+      openssl_verify_mode: 'none'
   }
 
 
