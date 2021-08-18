@@ -13,7 +13,7 @@ class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy, :create_maintenance, :create_file,
                                   :change_maintenance_done, :edit_order, :remolques_show, :remolques_edit,
                                   :remolques_destroy]
-  helper_method :sort_column, :sort_direction, :get_percentage_value, :sort_column_orders, :get_price_to_pay
+  helper_method :sort_column, :sort_direction, :get_percentage_value, :sort_column_orders, :get_price_to_pay, :get_type_payment
   # GET /items
   # GET /items.json
   def index
@@ -147,7 +147,6 @@ class ItemsController < ApplicationController
     @sub_total = @trailer.price - @tasa
 
 
-    @number_string = @trailer.price.a_letras
 
     @today = DateTime.now
 
@@ -158,13 +157,31 @@ class ItemsController < ApplicationController
 
     end
 
+    @payment_type = get_type_payment @trailer.payment_type
+
     bill_data = get_url_bill facturify_id
 
     @data = bill_data['Comprobante']
+    @sat = "||" + @data['Version'] + "|" + @data['Complemento']['TimbreFiscalDigital']['UUID'] + "|" + @data['Fecha'].to_s +
+        "|" + @data['Complemento']['TimbreFiscalDigital']['SelloSAT'] + "|" +  @data['Complemento']['TimbreFiscalDigital']['NoCertificadoSAT']
+
+    @way_to_pay = get_way_to_pay @data['FormaPago']
+
+    @number_string = @data['Total'].to_f.a_letras
+
+    data = "?re=GRN030226P48&rr=#{@trailer.try(:client).try(:rfc)}&id=#{@data['Complemento']['TimbreFiscalDigital']['UUID']}"
+    qrcode = RQRCode::QRCode.new(data, :size => 10, :level => :h)
+    @svg = qrcode.as_svg(
+        offset: 0,
+        color: '000',
+        shape_rendering: 'crispEdges',
+        module_size: 2,
+        standalone: true
+    )
 
 
 
-    ApplicationMailer.bill_to_client(@trailer.client, @trailer).deliver_now
+    # ApplicationMailer.bill_to_client(@trailer.client).deliver_now
 
     respond_to do |format|
       format.html
@@ -199,6 +216,21 @@ class ItemsController < ApplicationController
     bill_data = get_url_bill facturify_id
 
     @data = bill_data['Comprobante']
+    @sat = "||" + @data['Version'] + "|" + @data['Complemento']['TimbreFiscalDigital']['UUID'] + "|" + @data['Fecha'].to_s +
+        "|" + @data['Complemento']['TimbreFiscalDigital']['SelloSAT'] + "|" +  @data['Complemento']['TimbreFiscalDigital']['NoCertificadoSAT']
+
+
+    @number_string = @data['Total'].to_f.a_letras
+
+    data = "?re=GRN030226P48&rr=#{@trailer.try(:client).try(:rfc)}&id=#{@data['Complemento']['TimbreFiscalDigital']['UUID']}"
+    qrcode = RQRCode::QRCode.new(data, :size => 10, :level => :h)
+    @svg = qrcode.as_svg(
+        offset: 0,
+        color: '000',
+        shape_rendering: 'crispEdges',
+        module_size: 2,
+        standalone: true
+    )
 
 
 
@@ -210,6 +242,30 @@ class ItemsController < ApplicationController
         render pdf: "Factura" # Excluding ".pdf" extension.
       end
     end
+  end
+
+  def get_type_payment type
+    if type == 1
+      method_payment = 'Efectivo'
+    elsif type == 2
+      method_payment = 'Deposito'
+    elsif type == 3
+      method_payment = 'Transferencia'
+    elsif type == 4
+      method_payment = 'Crédito'
+    end
+    return method_payment
+  end
+
+  def get_way_to_pay way
+    if way == '03'
+      new_way = 'Transferencia electrónica de fondos'
+    else
+      new_way = 'Efectivo'
+
+    end
+
+    return new_way
   end
 
   def get_total_sales sales
