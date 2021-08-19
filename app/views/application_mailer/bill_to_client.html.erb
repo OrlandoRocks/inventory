@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+    <style type="text/css">/* RESET STYLES */
+    body {
+      background-color: #f6f6ff;
+      font-family: Calibri, Myriad;
+    }
+    #main {
+      width: 780px;
+      padding: 20px;
+      margin: auto;
+    }
+    table.timecard {
+      margin: auto;
+      width: 600px;
+      border-collapse: collapse;
+      border: 1px solid #fff; /*for older IE*/
+      border-style: hidden;
+    }
+    table.timecard caption {
+      background-color: #00004B;
+      color: #fff;
+      font-size: x-large;
+      font-weight: bold;
+      letter-spacing: .3em;
+    }
+    table.timecard thead th {
+      padding: 8px;
+      background-color: #d33724;
+      font-size: large;
+      color: #0c0c0c;
+    }
+    table.timecard thead th#thDay {
+      width: 40%;
+    }
+    table.timecard thead th#thRegular, table.timecard thead th#thOvertime, table.timecard thead th#thTotal {
+      width: 20%;
+    }
+    table.timecard th, table.timecard td {
+      padding: 3px;
+      border-width: 1px;
+      border-style: solid;
+      border-color: #00004B #ccc;
+      color: #0c0c0c;
+    }
+    table.timecard td {
+      text-align: right;
+    }
+    table.timecard tbody th {
+      text-align: left;
+      font-weight: normal;
+    }
+    table.timecard tfoot {
+      font-weight: bold;
+      font-size: large;
+      background-color: #687886;
+      color: #fff;
+    }
+    table.timecard tr.even {
+      background-color: #fde9d9;
+    }
+
+    </style>
+  </head>
+  <body>
+
+  <p>
+    Para ver tu factura darle click en el siguiente enlace
+  </p>
+  <a href="https://localhost:3000/report_to_client/<%= @item.id %>" target="_blank" style="text-decoration:none;border-bottom:1px solid #828282;color:#828282;">
+    ver factura
+  </a>
+
+
+  </body>
+</html>

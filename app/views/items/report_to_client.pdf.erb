@@ -1,112 +1,94 @@
 <!doctype html>
 <html>
-<head >
+<head>
   <meta charset='utf-8'/>
   <%= wicked_pdf_stylesheet_link_tag 'application', media: 'all' %>
 
-<!--  <section class="content" >-->
-<!--    <div class="row">-->
-<!--      <div class="col-xs-12">-->
-<!--        <div class="row">-->
-<!--          <div class="col-xs-3">-->
-            <%#= image_tag wicked_pdf_asset_base64('matchlogo1.png'), alt: "Planet Agrotrailer", style: 'width: 500px; height: 130px' %>
-            <%#= image_tag wicked_pdf_asset_base64('logoblu.png'), alt: "Planet Agrotrailer", style: 'width: 180px; height: 100px' %>
-<!--          </div>-->
-<!--          <div class="col-xs-3">-->
-            <%#= image_tag wicked_pdf_asset_base64('logo_remolques_norte.png'), alt: "Planet Agrotrailer", style: 'width: 180px; height: 100px' %>
-<!--          </div>-->
+  <section class="content">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="row">
+          <div class="col-xs-6">
+            <%= image_tag wicked_pdf_asset_base64('matchlogo1.png'), alt: "Planet Agrotrailer", style: 'width: 500px; height: 130px' %>
+          </div>
 <!--          <div class="col-xs-2">-->
 <!--            <div style="font-size: 15px;">-->
 <!--              Distribuidor autorizado de:-->
 <!--            </div>-->
             <%#= image_tag wicked_pdf_asset_base64('logo_remolques_norte.png'), alt: "Planet Agrotrailer", style: 'width: 200px; height: 100px' %>
 <!--          </div>-->
-<!--          <div class="col-xs-6" style="text-align: right" >-->
+          <div class="col-xs-6" style="text-align: right" >
 <!--            <p style="font-size: 16px; text-align: center">-->
 <!--              <strong>-->
 <!--                Grupo Remolques del Norte, S.A. de C.V.-->
 <!--              </strong>-->
 <!--            </p>-->
-<!--            <p style="font-size: 14px; ">-->
-<!--              <strong>Folio: <%#= @data['Serie'] + '-'+ @data['Folio'] %></strong>-->
-<!--              <br>-->
-<!--              <strong>Fecha de expedición: <%#= DateTime.now %></strong>-->
-<!--            </p>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </section>-->
+            <p style="font-size: 14px; ">
+              <strong>Factura: <%= @data['Serie'] + '-'+ @data['Folio'] %></strong>
+              <br>
+              <strong>Fecha de expedición: <%= DateTime.now %></strong>
+              <br>
+              <strong>AGRO TRAILER PLANET SA DE CV</strong>
+              <br>
+              Km. 7 Carr. Cuauhtemoc-Alvaro Obregón S/N
+              <br>
+              Campo 22, CUAUHTEMOC
+              <br>
+              Cuauhtemoc, Chihuahua CP: 31607
+              <br>
+              ATP200908A49
+              <br>
+              Tel. (625) 58 77200
+              <br>
+              Fax. (625) 58 77203
+            </p>
+            <a href="#" target="_blank">
+              http://planetagrotrailer.com/
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </head>
-<body style="position:absolute; top:0px;">
+<body>
 <section class="content">
   <div class="row">
     <div class="col-xs-12">
       <div class="box box-primary">
-        <div class="box-header ">
-          <div class="row">
-            <div class="col-xs-6">
-              <%= image_tag wicked_pdf_asset_base64('matchlogo1.png'), alt: "Planet Agrotrailer", style: 'width: 477px; height: 100px' %>
-              <%#= image_tag wicked_pdf_asset_base64('matchlogo1.png'), alt: "Planet Agrotrailer", style: 'width: 500px; height: 100px' %>
-              <%#= image_tag wicked_pdf_asset_base64('logoblu.png'), alt: "Planet Agrotrailer", style: 'width: 100%; height: 100px' %>
-            </div>
-<!--            <div class="col-xs-3">-->
-              <%#= image_tag wicked_pdf_asset_base64('logo_remolques_norte.png'), alt: "Planet Agrotrailer", style: 'width: 180px; height: 100px' %>
-<!--            </div>-->
-            <div class="col-xs-6" style="text-align: right" >
-              <p>
-                <strong>Folio: <%= @data['Serie'] + '-'+ @data['Folio'] %></strong>
-              </p>
-              <p>
-                <strong>No. CSD:  <%= @data['NoCertificado'] %></strong>
-              </p>
-              <p>
-                <strong>Fecha  <%= DateTime.now %></strong>
-              </p>
-            </div>
-
-          </div>
-
-        </div>
 
         <div class="box-body" style="font-size: 13px;">
           <div class="row">
-            <div class="col-md-6">
-              <table class="table table-bordered table-hover" style="white-space: nowrap;border-spacing:0;">
+            <div class="col-sm-12">
+              <table class="table table-bordered table-hover dataTable">
                 <thead class="table_header">
-                <th style="text-align: center; vertical-align: middle" width="50%;" colspan="2">
-                  Emisor
-                </th>
-                <th style="text-align: center; vertical-align: middle" width="50%" colspan="2">
+                <th style="text-align: center; vertical-align: middle" colspan="2">
                   Cliente
                 </th>
                 </thead>
                 <tbody>
                 <tr class="show_actions">
-                  <td colspan="2">
-                    <strong >Razon social:</strong> AGRO TRAILER PLANET SA DE CV
-                    <br>
-                    <strong >R.F.C:</strong> ATP200908A49
-                    <br>
-                    <strong >Dirección:</strong> Km. 7 Carr. Cuauhtemoc-Alvaro Obregón #736.
-                    <br>
-                    <strong>Municipio:</strong> Cuauhtemoc
-                    <br>
-                    <strong>Estado:</strong> Chihuahua
+                  <td>
+                    Nombre: <%= @trailer.try(:client).try(:full_name) %>
                   </td>
-
-                  <td colspan="2">
-                    <strong >Nombre:</strong> <%= @trailer.try(:client).try(:name).to_s + ' ' + @trailer.try(:client).try(:last_name).to_s + ' ' +  @trailer.try(:client).try(:midden_name).to_s%>
-                    <br>
-                    <strong >R.F.C:</strong> <%= @trailer.try(:client).try(:rfc) %>
-                    <br>
-                    <strong >Dirección:</strong> <%= @trailer.try(:client).try(:address) %>. <strong>CP:</strong> <%= @trailer.try(:client).try(:postal_code) %>
-                    <br>
-                    <strong>Municipio:</strong> <%= @trailer.try(:client).try(:city).try(:name) %>
-                    <br>
-                    <strong>Estado:</strong> <%= @trailer.try(:client).try(:state).try(:name) %>
-                    <br>
-                    <strong >Uso de CFDI:</strong> <%= @data['Receptor']['UsoCFDI'] %> - <%= FiscalVoucher.find_by(cfdi: @data['Receptor']['UsoCFDI'] ).try(:name) %>
+                  <td>
+                    Email: <%= @trailer.try(:client).try(:email) %>
+                  </td>
+                </tr>
+                <tr class="show_actions">
+                  <td>
+                    RFC: <%= @trailer.try(:client).try(:rfc) %>
+                  </td>
+                  <td>
+                    Dirección: <%= @trailer.try(:client).try(:address) %>
+                  </td>
+                </tr>
+                <tr class="show_actions">
+                  <td>
+                    Celular: <%= @trailer.try(:client).try(:cellphone) %>
+                  </td>
+                  <td rowspan="2">
+                    C.P: <%= @trailer.try(:client).try(:postal_code) %>
                   </td>
                 </tr>
                 </tbody>
@@ -162,10 +144,10 @@
                     Unidad
                   </th>
                   <th style="text-align: center; vertical-align: middle">
-                    Descripción
+                    Descripcion
                   </th>
                   <th style="text-align: center; vertical-align: middle">
-                    Valor Unitario
+                    V. Unitario
                   </th>
                   <th style="text-align: center; vertical-align: middle">
                     Impuestos
@@ -183,7 +165,7 @@
                   <td style=" text-align: center; vertical-align: middle">
                     <%= @data['Conceptos']['Concepto']['ClaveUnidad']  + '-' + @data['Conceptos']['Concepto']['Unidad']%>
                   </td>
-                  <td style=" vertical-align: middle">
+                  <td style="text-align: center; vertical-align: middle">
                     22101527 - Transportes integrados de carga
                     <br>
                     NÚM. DE SERIE: <%= @trailer.try(:serial_number) %>
@@ -241,25 +223,34 @@
                 <tbody>
                 <tr class="show_actions">
                   <td >
-                    (<%= @number_string %> pesos 00/100 m.n.)
-                    <br>
-                    Metodo de pago: <%= @data['MetodoPago'] %> - <%= @data['CondicionesDePago'] %>
-                    <br>
-                    Tipo de pago: <%= get_type_payment @trailer.try(:payment_type) %>
-                    <br>
-                    Forma de pago: <%= @way_to_pay %>
+                    (<%= @number_string.capitalize() %> pesos 00/100 m.n.)
                   </td>
                   <td>
-                    <strong>Subtotal: </strong> <%= number_to_currency @data['SubTotal'] %>
-                    <br>
-                    <strong>Impuestos Trasladados – 16%: </strong> <%= number_to_currency @data['Impuestos']['Traslados']['Traslado']['Importe'] %>
-                    <br>
-                    <strong>Descuento: </strong> $ 0.0
-                    <br>
-                    <strong>Total: </strong> <%= number_to_currency @data['Total']  %>
+                    Subtotal:
+                  </td>
+                  <td>
+                    <%= number_to_currency @data['SubTotal'] %>
                   </td>
                 </tr>
-
+                <tr class="show_actions">
+                  <td rowspan="2">
+                    Texto
+                  </td>
+                  <td>
+                    Tasa:
+                  </td>
+                  <td>
+                    <%= number_to_currency @data['Impuestos']['Traslados']['Traslado']['Importe'] %>
+                  </td>
+                </tr>
+                <tr class="show_actions">
+                  <td>
+                    Total:
+                  </td>
+                  <td>
+                    <%= number_to_currency @data['Total']  %>
+                  </td>
+                </tr>
                 </tbody>
               </table>
             </div>
@@ -273,18 +264,16 @@
                 </thead>
                 <tbody>
                 <tr class="show_actions">
-                  <td colspan="2" width="20%">
-                    <div >
-                      <%= @svg.html_safe %>
-                    </div>
-                  </td>
-                  <td colspan="2" width="80%">
+                  <td colspan="3">
                     Este documento es una representación impreso de un CFDI
                     <br>
                     Efectos fiscales al pago
                     <br>
                     Moneda: MXN
-                    <br>
+                  </td>
+                </tr>
+                <tr class="show_actions">
+                  <td colspan="3">
                     Número de certificado: <%= @data['Complemento']['TimbreFiscalDigital']['NoCertificado'] %>
                     <br>
                     Folio Fiscal: <%= @data['Complemento']['TimbreFiscalDigital']['UUID'] %>
@@ -293,44 +282,27 @@
                     <br>
                     RFC Proveedor de Certificación: <%= @data['Complemento']['TimbreFiscalDigital']['RfcProvCertif'] %>
                   </td>
-
                 </tr>
-<!--                <tr class="show_actions">-->
-<!--                </tr>-->
                 </tbody>
               </table>
             </div>
           </div>
         </div>
-        <div class="box-body" style="font-size: 12px;">
+        <div class="box-body" style="font-size: 10px;">
           <div class="row">
             <div class="col-sm-12">
               <div class="table-responsive" style=" overflow-x: hidden;" >
                 <table class="table table-bordered table-hover dataTable">
                   <thead class="table_header">
+                    <th style="text-align: center; vertical-align: middle">
+                      Sello del SAT
+                    </th>
                   </thead>
                   <tbody>
                   <tr class="show_actions">
                     <td style="max-width:1px;">
                       <div style="white-space: pre;white-space: pre-wrap;white-space: pre-line;white-space: -o-pre-wrap;word-wrap: break-word;">
-                        <strong>Sello del SAT</strong>
                         <%= @data['Complemento']['TimbreFiscalDigital']['SelloSAT'] %>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr class="show_actions">
-                    <td style="max-width:1px;">
-                      <div style="white-space: pre;white-space: pre-wrap;white-space: pre-line;white-space: -o-pre-wrap;white-space: -moz-pre-wrap;word-wrap: break-word;">
-                        <strong>Sello digital del CFDI</strong>
-                        <%= @data['Complemento']['TimbreFiscalDigital']['SelloCFD'] %>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr class="show_actions">
-                    <td style="max-width:1px;">
-                      <div style="white-space: pre;white-space: pre-wrap;white-space: pre-line;white-space: -o-pre-wrap;white-space: -moz-pre-wrap;word-break: break-all; ">
-                        <strong>Cadena original del complemento de certificación digital del SAT</strong>
-                        <%= @sat %>
                       </div>
                     </td>
                   </tr>
@@ -338,8 +310,26 @@
                 </table>
               </div>
             </div>
-
-
+            <div class="col-sm-12">
+              <div class="table-responsive" style=" overflow-x: hidden;" >
+                <table class="table table-bordered table-hover dataTable">
+                  <thead class="table_header">
+                  <th style="text-align: center; vertical-align: middle;">
+                    Sello digital del CFDI
+                  </th>
+                  </thead>
+                  <tbody>
+                  <tr class="show_actions">
+                    <td style="max-width:1px;">
+                      <div style="white-space: pre;white-space: pre-wrap;white-space: pre-line;white-space: -o-pre-wrap;white-space: -moz-pre-wrap;word-wrap: break-word;">
+                        <%= @data['Complemento']['TimbreFiscalDigital']['SelloCFD'] %>
+                      </div>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
       </div>
