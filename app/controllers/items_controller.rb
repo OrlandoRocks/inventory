@@ -726,7 +726,7 @@ class ItemsController < ApplicationController
 
     if item.payment_type == 1
       data = {
-          "emisor": {
+          "emisor":{
               "uuid": "a92a6a2c-780d-48c8-92b2-4d371929e481",
               "razon_social": "AGRO TRAILER PLANET SA DE CV",
               "rfc": "ATP200908A49"
@@ -737,7 +737,7 @@ class ItemsController < ApplicationController
               "rfc": item.client.try(:rfc),
               "metodo_de_pago": method_payment,
               "forma_de_pago": pyament_type,
-              uso_cfdi: item.fiscal_voucher.cfdi
+              "uso_cfdi": item.fiscal_voucher.cfdi
           },
           "factura": {
               "tipo_de_cambio": "1.00",
@@ -792,7 +792,7 @@ class ItemsController < ApplicationController
               "metodo_de_pago": method_payment,
               "forma_de_pago": pyament_type,
               "tarjeta_ultimos_4digitos": item.last_digits,
-              uso_cfdi: item.fiscal_voucher.cfdi
+              "uso_cfdi": item.fiscal_voucher.cfdi
           },
           "factura": {
               "tipo_de_cambio": "1.00",
