@@ -83,7 +83,7 @@ class ClientsController < ApplicationController
         "uso_cfdi": "P01"
     }.to_json
 
-    uri = URI.parse("https://api-sandbox.facturify.com/api/v1/cliente")
+    uri = URI.parse("https://api.facturify.com/api/v1/cliente")
     request = Net::HTTP::Post.new(uri)
     request.content_type = "application/json"
     request["Authorization"] = "Bearer #{token}"

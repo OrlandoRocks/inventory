@@ -6,11 +6,14 @@ class ItemsController < ApplicationController
   include ActionView::Helpers::NumberHelper
   include ActionView::Helpers::NumberToLetters
 
+  skip_before_action :authenticate_user!, only: [:report_to_client]
+
+
 
   before_action :set_item, only: [:show, :edit, :update, :destroy, :create_maintenance, :create_file,
                                   :change_maintenance_done, :edit_order, :remolques_show, :remolques_edit,
                                   :remolques_destroy]
-  helper_method :sort_column, :sort_direction, :get_percentage_value, :sort_column_orders, :get_price_to_pay
+  helper_method :sort_column, :sort_direction, :get_percentage_value, :sort_column_orders, :get_price_to_pay, :get_type_payment
   # GET /items
   # GET /items.json
   def index
@@ -129,7 +132,7 @@ class ItemsController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render pdf: "Trailers Vendidos" # Excluding ".pdf" extension.
+        render pdf: "Factura" # Excluding ".pdf" extension.
       end
     end
   end
@@ -144,17 +147,125 @@ class ItemsController < ApplicationController
     @sub_total = @trailer.price - @tasa
 
 
-    @number_string = @trailer.price.a_letras
 
     @today = DateTime.now
 
+    if @trailer.facturify_id.present?
+      facturify_id = @trailer.facturify_id
+    else
+      facturify_id = create_facturify_item @trailer
+
+    end
+
+    @payment_type = get_type_payment @trailer.payment_type
+
+    bill_data = get_url_bill facturify_id
+
+    @data = bill_data['Comprobante']
+    @sat = "||" + @data['Version'] + "|" + @data['Complemento']['TimbreFiscalDigital']['UUID'] + "|" + @data['Fecha'].to_s +
+        "|" + @data['Complemento']['TimbreFiscalDigital']['SelloSAT'] + "|" +  @data['Complemento']['TimbreFiscalDigital']['NoCertificadoSAT']
+
+    @way_to_pay = get_way_to_pay @data['FormaPago']
+
+    @number_string = @data['Total'].to_f.a_letras
+
+    data = "?re=GRN030226P48&rr=#{@trailer.try(:client).try(:rfc)}&id=#{@data['Complemento']['TimbreFiscalDigital']['UUID']}"
+    qrcode = RQRCode::QRCode.new(data, :size => 10, :level => :h)
+    @svg = qrcode.as_svg(
+        offset: 0,
+        color: '000',
+        shape_rendering: 'crispEdges',
+        module_size: 2,
+        standalone: true
+    )
+
+
+
+    # ApplicationMailer.bill_to_client(@trailer.client).deliver_now
 
     respond_to do |format|
       format.html
       format.pdf do
-        render pdf: "Trailers Vendidos" # Excluding ".pdf" extension.
+        render pdf: "Factura" # Excluding ".pdf" extension.
       end
     end
+  end
+
+
+  def report_to_client
+    titulo_reporte = 'Trailers Vendidos'
+    nombre_reporte = 'trailers_vendidos'
+
+    @trailer = Item.find(params[:id])
+
+    @tasa = @trailer.price * 0.16
+    @sub_total = @trailer.price - @tasa
+
+
+    @number_string = @trailer.price.a_letras
+
+    @today = DateTime.now
+
+    if @trailer.facturify_id.present?
+      facturify_id = @trailer.facturify_id
+    else
+      facturify_id = create_facturify_item @trailer
+
+    end
+
+    bill_data = get_url_bill facturify_id
+
+    @data = bill_data['Comprobante']
+    @sat = "||" + @data['Version'] + "|" + @data['Complemento']['TimbreFiscalDigital']['UUID'] + "|" + @data['Fecha'].to_s +
+        "|" + @data['Complemento']['TimbreFiscalDigital']['SelloSAT'] + "|" +  @data['Complemento']['TimbreFiscalDigital']['NoCertificadoSAT']
+
+
+    @number_string = @data['Total'].to_f.a_letras
+
+    data = "?re=GRN030226P48&rr=#{@trailer.try(:client).try(:rfc)}&id=#{@data['Complemento']['TimbreFiscalDigital']['UUID']}"
+    qrcode = RQRCode::QRCode.new(data, :size => 10, :level => :h)
+    @svg = qrcode.as_svg(
+        offset: 0,
+        color: '000',
+        shape_rendering: 'crispEdges',
+        module_size: 2,
+        standalone: true
+    )
+
+
+
+    # ApplicationMailer.bill_to_client(@trailer.client).deliver_now
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "Factura" # Excluding ".pdf" extension.
+      end
+    end
+  end
+
+  def get_type_payment type
+    if type == 1
+      method_payment = 'Efectivo'
+    elsif type == 2
+      method_payment = 'Deposito'
+    elsif type == 3
+      method_payment = 'Transferencia'
+    elsif type == 4
+      method_payment = 'Crédito'
+    end
+    return method_payment
+  end
+
+  def get_way_to_pay way
+    if way == '03'
+      new_way = 'Transferencia electrónica de fondos'
+    else
+      new_way = 'Efectivo'
+
+    end
+
+    return new_way
   end
 
   def get_total_sales sales
@@ -281,6 +392,8 @@ class ItemsController < ApplicationController
     end
 
     item_selled = @item.status_item_id != params[:status_item_id]
+
+    new_params['sale_price'] = new_params['sale_price'].to_s.gsub(/[$,]/,'').to_f
 
     respond_to do |format|
       if @item.update(new_params)
@@ -595,7 +708,7 @@ class ItemsController < ApplicationController
         "uso_cfdi": "P01"
     }.to_json
 
-    uri = URI.parse("https://api-sandbox.facturify.com/api/v1/cliente")
+    uri = URI.parse("https://api.facturify.com/api/v1/cliente")
     request = Net::HTTP::Post.new(uri)
     request.content_type = "application/json"
     request["Authorization"] = "Bearer #{token}"
@@ -612,10 +725,6 @@ class ItemsController < ApplicationController
 
 
     response = JSON.parse(response.body)
-
-    p response
-    p response['data']
-    p response['data']['uuid']
 
     if client.update(facturify_id: response['data']['uuid'])
       request = true
@@ -634,7 +743,7 @@ class ItemsController < ApplicationController
 
     data = get_data item
 
-    uri = URI.parse("https://api-sandbox.facturify.com/api/v1/factura")
+    uri = URI.parse("https://api.facturify.com/api/v1/factura")
     request = Net::HTTP::Post.new(uri)
     request.content_type = "application/json"
     request["Authorization"] = "Bearer #{token}"
@@ -669,7 +778,7 @@ class ItemsController < ApplicationController
 
     token = Facturify.get_token
 
-    uri = URI.parse("https://api-sandbox.facturify.com/api/v1/factura/#{facturify_id}/pdf/")
+    uri = URI.parse("https://api.facturify.com/api/v1/factura/#{facturify_id}")
     request = Net::HTTP::Get.new(uri)
     request.content_type = "application/json"
     request["Authorization"] = "Bearer #{token}"
@@ -685,9 +794,11 @@ class ItemsController < ApplicationController
 
     url_response = JSON.parse(response.body)
 
-    new_url = {url: url_response['url']}
+    base_64 = Base64.decode64(url_response['data']['xml'])
 
-    return new_url
+    hash_json = Hash.from_xml(base_64)
+
+    return hash_json
 
   end
 
@@ -701,14 +812,6 @@ class ItemsController < ApplicationController
 
 
     total = item.sale_price.to_f
-
-    p "iva --------------------------------------------------------------------------------------------------"
-    p  iva_digits
-    p "total -----------------------------------------------------------------------------------------------"
-    p total
-
-    p "sub_total ------------------------------------------------------------------------------------------"
-    p sub_total_digits
 
     if item.payment_type == 1
       pyament_type = "01"
@@ -726,8 +829,9 @@ class ItemsController < ApplicationController
 
     if item.payment_type == 1
       data = {
-          "emisor":{
-              "uuid": "a92a6a2c-780d-48c8-92b2-4d371929e481",
+
+          "emisor": {
+              "uuid": "a237cddd-e314-46b6-8724-1cdc05495115",
               "razon_social": "AGRO TRAILER PLANET SA DE CV",
               "rfc": "ATP200908A49"
           },
@@ -775,13 +879,14 @@ class ItemsController < ApplicationController
               "total": total,
               "fecha": date,
               "generacion_automatica": true,
-              "tipo": "ingreso"
+              "tipo": "ingreso",
+              "send_pdf_and_xml_by_mail": false
           }
       }
     else
       data = {
           "emisor": {
-              "uuid": "a92a6a2c-780d-48c8-92b2-4d371929e481",
+              "uuid": "a237cddd-e314-46b6-8724-1cdc05495115",
               "razon_social": "AGRO TRAILER PLANET SA DE CV",
               "rfc": "ATP200908A49"
           },
@@ -831,7 +936,8 @@ class ItemsController < ApplicationController
               "total": total,
               "fecha": date,
               "generacion_automatica": true,
-              "tipo": "ingreso"
+              "tipo": "ingreso",
+              "send_pdf_and_xml_by_mail": false
           }
       }
     end

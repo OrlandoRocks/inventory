@@ -93,6 +93,7 @@ Rails.application.routes.draw do
 
     unauthenticated do
       root 'users/sessions#new', as: :unauthenticated_root
+      get '/report_to_client/:id' => 'items#report_to_client', :defaults => {:format => 'pdf'}
     end
     get '/users/sessions/remolques_new' => 'users/sessions#remolques_new', as: :login_remolques
 
@@ -186,8 +187,8 @@ Rails.application.routes.draw do
       post '/item_maintenance/:id' => 'items#create_maintenance'
       get '/items_excel' => 'items#items_excel'
       get '/item_qr/:id' => 'items#item_qr', as: :item_qr
-      get 'report/sales/:trailers' => 'items#new_report_sales' #, :defaults => {:format => 'pdf'}
-      get 'report/item_sale/:id' => 'items#report_item_sale' #, :defaults => {:format => 'pdf'}
+      get 'report/sales/:trailers' => 'items#new_report_sales', :defaults => {:format => 'pdf'}
+      get 'report/item_sale/:id' => 'items#report_item_sale', :defaults => {:format => 'pdf'}
       get 'download_bill/:id' => 'items#download_bill' #, :defaults => {:format => 'pdf'}
 
 

@@ -74,11 +74,13 @@ class ApplicationController < ActionController::Base
     end
 
     unless Rails.configuration.x.controller_exceptions.include? exception
-      return true if current_user.god?
-      if devise_controller
-        authorize_with devise_controller.classify.constantize, params[:action].to_s, controller
-      else
-        authorize_with exception.classify.constantize
+      if current_user
+        return true if current_user.god?
+        if devise_controller
+          authorize_with devise_controller.classify.constantize, params[:action].to_s, controller
+        else
+          authorize_with exception.classify.constantize
+        end
       end
     end
   end
