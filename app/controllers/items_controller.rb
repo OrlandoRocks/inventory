@@ -1078,7 +1078,7 @@ class ItemsController < ApplicationController
                                  :brake_type_id, :color_id, :divition_type_id, :fender_type_id, :hydraulic_jack_id,
                                  :pull_type_id, :reinforcement_type_id, :roof_type_id, :suspension_type_id, :turn_type_id,
                                  :trailer_width_id, :categories_description, :seller_percentage, :planet_percentage,
-                                 :branch_percentage, :quantity, :item_type
+                                 :branch_percentage, :quantity, :item_type, :year_model
     )
   end
 
