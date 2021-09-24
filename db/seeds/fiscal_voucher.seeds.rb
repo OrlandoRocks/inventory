@@ -30,3 +30,33 @@ FiscalVoucher.create(name: 'Otra maquinaria y equipo', status:true, cfdi: 'I08')
 FiscalVoucher.create(name: 'Pagos por servicios educativos (colegiaturas)', status:true, cfdi: 'D10')
 FiscalVoucher.create(name: 'Por definir', status:true, cfdi: 'P01')
 FiscalVoucher.create(name: 'Primas por seguros de gastos médicos', status:true, cfdi: 'D07')
+
+
+
+
+
+
+
+
+FiscalVoucher.find(1).update(cfdi: 'G01')
+FiscalVoucher.find(2).update(cfdi: 'D06')
+FiscalVoucher.find(3).update(cfdi: 'I07')
+FiscalVoucher.find(4).update(cfdi: 'I06')
+FiscalVoucher.find(5).update(cfdi: 'I01')
+FiscalVoucher.find(6).update(cfdi: 'I05')
+FiscalVoucher.find(7).update(cfdi: 'D09')
+FiscalVoucher.find(8).update(cfdi: 'G02')
+FiscalVoucher.find(9).update(cfdi: 'D04')
+FiscalVoucher.find(10).update(cfdi: 'I04')
+FiscalVoucher.find(11).update(cfdi: 'I03')
+FiscalVoucher.find(12).update(cfdi: 'D08')
+FiscalVoucher.find(13).update(cfdi: 'G03')
+FiscalVoucher.find(14).update(cfdi: 'D03')
+FiscalVoucher.find(15).update(cfdi: 'D02')
+FiscalVoucher.find(16).update(cfdi: 'D01')
+FiscalVoucher.find(17).update(cfdi: 'D05')
+FiscalVoucher.find(18).update(cfdi: 'I02')
+FiscalVoucher.find(19).update(cfdi: 'I08')
+FiscalVoucher.find(20).update(cfdi: 'D10')
+FiscalVoucher.find(21).update(cfdi: 'P01')
+FiscalVoucher.find(22).update(cfdi: 'D07')

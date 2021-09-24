@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_09_224526) do
+ActiveRecord::Schema.define(version: 2021_09_13_170211) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -304,6 +304,7 @@ ActiveRecord::Schema.define(version: 2021_07_09_224526) do
     t.integer "item_type"
     t.string "facturify_id"
     t.string "last_digits"
+    t.string "year_model"
     t.index ["brake_type_id"], name: "index_items_on_brake_type_id"
     t.index ["branch_id"], name: "index_items_on_branch_id"
     t.index ["brand_id"], name: "index_items_on_brand_id"
