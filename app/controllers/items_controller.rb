@@ -709,7 +709,7 @@ class ItemsController < ApplicationController
         "uso_cfdi": "P01"
     }.to_json
 
-    uri = URI.parse("https://api-sandbox.facturify.com/api/v1/cliente")
+    uri = URI.parse("https://api.facturify.com/api/v1/cliente")
     request = Net::HTTP::Post.new(uri)
     request.content_type = "application/json"
     request["Authorization"] = "Bearer #{token}"
@@ -744,7 +744,7 @@ class ItemsController < ApplicationController
 
     data = get_data item
 
-    uri = URI.parse("https://api-sandbox.facturify.com/api/v1/factura")
+    uri = URI.parse("https://api.facturify.com/api/v1/factura")
     request = Net::HTTP::Post.new(uri)
     request.content_type = "application/json"
     request["Authorization"] = "Bearer #{token}"
@@ -779,7 +779,7 @@ class ItemsController < ApplicationController
 
     token = Facturify.get_token
 
-    uri = URI.parse("https://api-sandbox.facturify.com/api/v1/factura/#{facturify_id}")
+    uri = URI.parse("https://api.facturify.com/api/v1/factura/#{facturify_id}")
     request = Net::HTTP::Get.new(uri)
     request.content_type = "application/json"
     request["Authorization"] = "Bearer #{token}"
@@ -830,8 +830,9 @@ class ItemsController < ApplicationController
 
     if item.payment_type == 1
       data = {
+
           "emisor": {
-              "uuid": "a92a6a2c-780d-48c8-92b2-4d371929e481",
+              "uuid": "a237cddd-e314-46b6-8724-1cdc05495115",
               "razon_social": "AGRO TRAILER PLANET SA DE CV",
               "rfc": "ATP200908A49"
           },
@@ -841,7 +842,7 @@ class ItemsController < ApplicationController
               "rfc": item.client.try(:rfc),
               "metodo_de_pago": method_payment,
               "forma_de_pago": pyament_type,
-              uso_cfdi: item.fiscal_voucher.cfdi
+              "uso_cfdi": item.fiscal_voucher.cfdi
           },
           "factura": {
               "tipo_de_cambio": "1.00",
@@ -886,7 +887,7 @@ class ItemsController < ApplicationController
     else
       data = {
           "emisor": {
-              "uuid": "a92a6a2c-780d-48c8-92b2-4d371929e481",
+              "uuid": "a237cddd-e314-46b6-8724-1cdc05495115",
               "razon_social": "AGRO TRAILER PLANET SA DE CV",
               "rfc": "ATP200908A49"
           },
@@ -897,7 +898,7 @@ class ItemsController < ApplicationController
               "metodo_de_pago": method_payment,
               "forma_de_pago": pyament_type,
               "tarjeta_ultimos_4digitos": item.last_digits,
-              uso_cfdi: item.fiscal_voucher.cfdi
+              "uso_cfdi": item.fiscal_voucher.cfdi
           },
           "factura": {
               "tipo_de_cambio": "1.00",
@@ -1078,7 +1079,7 @@ class ItemsController < ApplicationController
                                  :brake_type_id, :color_id, :divition_type_id, :fender_type_id, :hydraulic_jack_id,
                                  :pull_type_id, :reinforcement_type_id, :roof_type_id, :suspension_type_id, :turn_type_id,
                                  :trailer_width_id, :categories_description, :seller_percentage, :planet_percentage,
-                                 :branch_percentage, :quantity, :item_type
+                                 :branch_percentage, :quantity, :item_type, :year_model
     )
   end
 

@@ -161,8 +161,11 @@ div ng-controller="itemController"
           = label_tag "fleet_cost_caption", "(+ {{ fleet_cost || '0'  }}% de Flete)", class: 'col-sm-2 control-label', style: "font-size: 12px; font-style: italic; color: gray; margin-top: -21px;"
         .row.form-group
           = f.label :serial_number, class: 'col-md-2 control-label'
-          .col-md-10
-            = f.text_field :serial_number, class: 'form-control', placeholder: t('.serial_number')
+          .col-md-4
+            = f.text_field :serial_number, class: 'form-control', placeholder: 'Numero Serial'
+          = label_tag "year_model_lbl", "Remolque Nuevo Modelo", class: 'col-sm-2 control-label'
+          .col-md-4
+            = f.text_field :year_model, class: 'form-control', placeholder: 'Año Modelo'
         .row.form-group
           = label_tag "accessory", "Accesorios", class: 'col-sm-2 control-label'
           .col-md-10

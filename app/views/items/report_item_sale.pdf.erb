@@ -96,7 +96,7 @@
                   </td>
 
                   <td colspan="2">
-                    <strong >Nombre:</strong> <%= @trailer.try(:client).try(:name).to_s + ' ' + @trailer.try(:client).try(:last_name).to_s + ' ' +  @trailer.try(:client).try(:midden_name).to_s%>
+                    <strong >Nombre:</strong> <%= @trailer.try(:client).try(:name).to_s + ' ' + @trailer.try(:client).try(:last_name).to_s + ' ' +  @trailer.try(:client).try(:maiden_name).to_s%>
                     <br>
                     <strong >R.F.C:</strong> <%= @trailer.try(:client).try(:rfc) %>
                     <br>
@@ -189,6 +189,8 @@
                     NÚM. DE SERIE: <%= @trailer.try(:serial_number) %>
                     <br>
                     Modelo: <%= @trailer.try(:model) %>
+                    <br>
+                    Remolque Nuevo Modelo <%= @trailer.try(:year_model) %>
                     <br>
                     Desc. del modelo: <%= @trailer.try(:categories_description) %>
                   </td>

@@ -188,11 +188,11 @@ class Item < ApplicationRecord
 
 
   def self.to_csv
-    attributes = %w{id name description}
+    attributes = %w{id serial_number model categories_description}
     CSV.generate(headers: false) do |csv|
       # csv << attributes
 
-      all.each do |item|
+      where(item_type:'remolques').each do |item|
         csv << attributes.map{ |attr| item.send(attr) }
       end
     end
