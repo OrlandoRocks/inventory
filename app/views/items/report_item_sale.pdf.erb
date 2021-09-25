@@ -61,7 +61,7 @@
                 <strong>No. CSD:  <%= @data['NoCertificado'] %></strong>
               </p>
               <p>
-                <strong>Fecha  <%= Date.now %></strong>
+                <strong>Fecha  <%= DateTime.now.strftime("%d/%m/%y") %></strong>
               </p>
             </div>
 
