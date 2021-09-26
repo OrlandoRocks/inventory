@@ -591,6 +591,8 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
             $scope.brands_all = response.data;
         }, function errorCallback(response) {
             console.log("Algo valio shit!");
+            console.log($scope.brands_all);
+
         });
     };
     //
@@ -1034,7 +1036,8 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
             inputs: {
                 id: id,
                 current_user: current_user,
-                user_branch: user_branch
+                user_branch: user_branch,
+                sale_price: $scope.sale_price
             }
         }).then(function (modal) {
             modal.element.modal();
@@ -1612,8 +1615,8 @@ app.controller('ModalFileController', ['$scope', 'close', 'Upload', '$http', '$t
 
 }]);
 
-app.controller('ModalPercentageController', ['$scope', 'close', 'Upload', '$http', '$timeout', 'id', 'current_user',
-    'user_branch', function ($scope, close, Upload, $http, $timeout, id, current_user, user_branch) {
+app.controller('ModalPercentageController', ['$scope', 'close', 'Upload', '$http', '$timeout', 'id', 'current_user','sele_price',
+    'user_branch', function ($scope, close, Upload, $http, $timeout, id, current_user,sale_price, user_branch) {
 
 
         $scope.open = function ($event) {
@@ -1628,22 +1631,6 @@ app.controller('ModalPercentageController', ['$scope', 'close', 'Upload', '$http
                 return old.replace() + '%';
             });
         });
-
-        // $scope.init = function () {
-        //     $scope.disable_percentages = true;
-        //     $http({
-        //         url: '/items/' + id + '.json',
-        //         method: 'GET'
-        //     }).then(function (response) {
-        //         $scope.seller_percentage = parseFloat(response.data.seller_percentage);
-        //         $scope.planet_percentage = parseFloat(response.data.planet_percentage);
-        //         $scope.branch_percentage = parseFloat(response.data.branch_percentage);
-        //         $scope.is_same_branch = response.data.department_user.branch_id === response.data.branch_id ? true : false;
-        //         $scope.validate_inputs_values();
-        //     });
-        // };
-        //
-        // $scope.init();
 
         $scope.close = function (result) {
 
@@ -1713,7 +1700,8 @@ app.controller('ModalPercentageController', ['$scope', 'close', 'Upload', '$http
                     item: {
                         seller_percentage: $scope.seller_percentage,
                         planet_percentage: $scope.planet_percentage,
-                        branch_percentage: $scope.branch_percentage
+                        branch_percentage: $scope.branch_percentage,
+                        sale_price: sale_price
                     }
                 }
             }).then(function (response) {

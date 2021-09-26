@@ -380,6 +380,7 @@ class ItemsController < ApplicationController
     new_params = item_params
 
 
+
     if item_params[:user_id].eql?('')
 
       if params[:boss_id].eql?("null")
@@ -394,7 +395,7 @@ class ItemsController < ApplicationController
 
     item_selled = @item.status_item_id != params[:status_item_id]
 
-    new_params['sale_price'] = new_params['sale_price'].to_s.gsub(/[$,]/,'').to_f
+    new_params['sale_price'] = new_params['sale_price'].to_s.gsub(/[$,]/,'').to_f if new_params['sale_price']
 
     respond_to do |format|
       if @item.update(new_params)
