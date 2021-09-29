@@ -166,8 +166,8 @@ class ItemsController < ApplicationController
 
     @number_string = @data['Total'].to_f.a_letras
 
-    data = "?re=GRN030226P48&rr=#{@trailer.try(:client).try(:rfc)}&id=#{@data['Complemento']['TimbreFiscalDigital']['UUID']}"
-    data = "https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx?id=#{@data['Complemento']['TimbreFiscalDigital']['UUID']}&re=#{@trailer.try(:client).try(:rfc)}&rr=GRN030226P48&tt=#{@data['Total']}&fe=#{@data['Complemento']['TimbreFiscalDigital']['SelloSAT'].last(8).to_s}"
+    data = "?re=ATP200908A49&rr=#{@trailer.try(:client).try(:rfc)}&id=#{@data['Complemento']['TimbreFiscalDigital']['UUID']}"
+    data = "https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx?id=#{@data['Complemento']['TimbreFiscalDigital']['UUID']}&re=ATP200908A49&rr=#{@trailer.try(:client).try(:rfc)}&tt=#{@data['Total']}&fe=#{@data['Complemento']['TimbreFiscalDigital']['SelloSAT'].last(8).to_s}"
     qrcode = RQRCode::QRCode.new(data, :size => 20, :level => :h)
     @svg = qrcode.as_svg(
         offset: 0,
@@ -218,9 +218,8 @@ class ItemsController < ApplicationController
 
     @number_string = @data['Total'].to_f.a_letras
 
-    data = "?re=GRN030226P48&rr=#{@trailer.try(:client).try(:rfc)}&id=#{@data['Complemento']['TimbreFiscalDigital']['UUID']}"
-    data = "https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx?id=#{@data['Complemento']['TimbreFiscalDigital']['UUID']}&re=#{@trailer.try(:client).try(:rfc)}&rr=GRN030226P48&tt=#{@data['Total']}&fe=#{@data['Complemento']['TimbreFiscalDigital']['SelloSAT'].last(8).to_s}"
-    qrcode = RQRCode::QRCode.new(data, :size => 20, :level => :h)
+    data = "?re=#{@trailer.try(:client).try(:rfc)}&rr=ATP200908A49&id=#{@data['Complemento']['TimbreFiscalDigital']['UUID']}"
+    qrcode = RQRCode::QRCode.new(data, :size => 10, :level => :h)
     @svg = qrcode.as_svg(
         offset: 0,
         color: '000',
@@ -373,6 +372,7 @@ class ItemsController < ApplicationController
     new_params = item_params
 
 
+
     if item_params[:user_id].eql?('')
 
       if params[:boss_id].eql?("null")
@@ -387,7 +387,7 @@ class ItemsController < ApplicationController
 
     item_selled = @item.status_item_id != params[:status_item_id]
 
-    new_params['sale_price'] = new_params['sale_price'].to_s.gsub(/[$,]/, '').to_f
+    new_params['sale_price'] = new_params['sale_price'].to_s.gsub(/[$,]/,'').to_f if new_params['sale_price']
 
     respond_to do |format|
       if @item.update(new_params)
