@@ -882,7 +882,7 @@ class ItemsController < ApplicationController
               "fecha": date,
               "generacion_automatica": true,
               "tipo": "ingreso",
-              "send_pdf_and_xml_by_mail": true
+              "send_pdf_and_xml_by_mail": false
           }
       }
     else
@@ -939,7 +939,7 @@ class ItemsController < ApplicationController
               "fecha": date,
               "generacion_automatica": true,
               "tipo": "ingreso",
-              "send_pdf_and_xml_by_mail": true
+              "send_pdf_and_xml_by_mail": false
           }
       }
     end
