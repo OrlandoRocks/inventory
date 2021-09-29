@@ -9,7 +9,6 @@ class ItemsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:report_to_client]
 
 
-
   before_action :set_item, only: [:show, :edit, :update, :destroy, :create_maintenance, :create_file,
                                   :change_maintenance_done, :edit_order, :remolques_show, :remolques_edit,
                                   :remolques_destroy]
@@ -24,7 +23,6 @@ class ItemsController < ApplicationController
     @all_models = policy_scope(TrailerType).pluck(:model_part)
 
     @all_remissions = policy_scope(Item).pluck(:remission)
-
 
 
   end
@@ -147,7 +145,6 @@ class ItemsController < ApplicationController
     @sub_total = @trailer.price - @tasa
 
 
-
     @today = DateTime.now
 
     if @trailer.facturify_id.present?
@@ -163,7 +160,7 @@ class ItemsController < ApplicationController
 
     @data = bill_data['Comprobante']
     @sat = "||" + @data['Version'] + "|" + @data['Complemento']['TimbreFiscalDigital']['UUID'] + "|" + @data['Fecha'].to_s +
-        "|" + @data['Complemento']['TimbreFiscalDigital']['SelloSAT'] + "|" +  @data['Complemento']['TimbreFiscalDigital']['NoCertificadoSAT']
+        "|" + @data['Complemento']['TimbreFiscalDigital']['SelloSAT'] + "|" + @data['Complemento']['TimbreFiscalDigital']['NoCertificadoSAT']
 
     @way_to_pay = get_way_to_pay @data['FormaPago']
 
@@ -180,9 +177,6 @@ class ItemsController < ApplicationController
         standalone: true
     )
 
-
-
-    # ApplicationMailer.bill_to_client(@trailer.client).deliver_now
 
     respond_to do |format|
       format.html
@@ -203,8 +197,6 @@ class ItemsController < ApplicationController
     @sub_total = @trailer.price - @tasa
 
 
-    @number_string = @trailer.price.a_letras
-
     @today = DateTime.now
 
     if @trailer.facturify_id.present?
@@ -214,17 +206,21 @@ class ItemsController < ApplicationController
 
     end
 
+    @payment_type = get_type_payment @trailer.payment_type
+
     bill_data = get_url_bill facturify_id
 
     @data = bill_data['Comprobante']
     @sat = "||" + @data['Version'] + "|" + @data['Complemento']['TimbreFiscalDigital']['UUID'] + "|" + @data['Fecha'].to_s +
-        "|" + @data['Complemento']['TimbreFiscalDigital']['SelloSAT'] + "|" +  @data['Complemento']['TimbreFiscalDigital']['NoCertificadoSAT']
+        "|" + @data['Complemento']['TimbreFiscalDigital']['SelloSAT'] + "|" + @data['Complemento']['TimbreFiscalDigital']['NoCertificadoSAT']
 
+    @way_to_pay = get_way_to_pay @data['FormaPago']
 
     @number_string = @data['Total'].to_f.a_letras
 
     data = "?re=GRN030226P48&rr=#{@trailer.try(:client).try(:rfc)}&id=#{@data['Complemento']['TimbreFiscalDigital']['UUID']}"
-    qrcode = RQRCode::QRCode.new(data, :size => 10, :level => :h)
+    data = "https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx?id=#{@data['Complemento']['TimbreFiscalDigital']['UUID']}&re=#{@trailer.try(:client).try(:rfc)}&rr=GRN030226P48&tt=#{@data['Total']}&fe=#{@data['Complemento']['TimbreFiscalDigital']['SelloSAT'].last(8).to_s}"
+    qrcode = RQRCode::QRCode.new(data, :size => 20, :level => :h)
     @svg = qrcode.as_svg(
         offset: 0,
         color: '000',
@@ -233,9 +229,6 @@ class ItemsController < ApplicationController
         standalone: true
     )
 
-
-
-    # ApplicationMailer.bill_to_client(@trailer.client).deliver_now
 
     respond_to do |format|
       format.html
@@ -394,7 +387,7 @@ class ItemsController < ApplicationController
 
     item_selled = @item.status_item_id != params[:status_item_id]
 
-    new_params['sale_price'] = new_params['sale_price'].to_s.gsub(/[$,]/,'').to_f
+    new_params['sale_price'] = new_params['sale_price'].to_s.gsub(/[$,]/, '').to_f
 
     respond_to do |format|
       if @item.update(new_params)
@@ -549,7 +542,7 @@ class ItemsController < ApplicationController
   def remolques_export_microsip
     respond_to do |format|
       format.html
-      format.csv {send_data Item.to_csv, filename: "pedidos-#{Date.today}.csv"}
+      format.csv { send_data Item.to_csv, filename: "pedidos-#{Date.today}.csv" }
     end
   end
 
@@ -702,10 +695,10 @@ class ItemsController < ApplicationController
     token = Facturify.get_token
 
     data = {
-        "razon_social": client.name + ' ' + client.last_name + ' '+client.maiden_name,
+        "razon_social": client.name + ' ' + client.last_name + ' ' + client.maiden_name,
         "rfc": client.rfc,
         "email": client.email,
-        "forma_de_pago": "99" ,
+        "forma_de_pago": "99",
         "uso_cfdi": "P01"
     }.to_json
 
@@ -765,14 +758,19 @@ class ItemsController < ApplicationController
     logger.debug "bill_data ------------------------------------------------------"
     logger.debug bill_data
 
-    if item.update(facturify_id: bill_data['data']['cfdi_uuid'])
-      bill_request = item.facturify_id
+
+    if ApplicationMailer.bill_to_client(item.id).deliver_now
+      if item.update(facturify_id: bill_data['data']['cfdi_uuid'])
+        bill_request = item.facturify_id
+      else
+        bill_request = false
+      end
     else
       bill_request = false
     end
 
     return bill_request
-  
+
   end
 
   def get_url_bill facturify_id

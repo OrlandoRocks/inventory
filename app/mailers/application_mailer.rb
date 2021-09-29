@@ -10,11 +10,11 @@ class ApplicationMailer < ActionMailer::Base
     #mail(to: 'victormponcem@gmail.com', subject: ' Información de prestamos SPAUACH')
   end
 
-  def bill_to_client client, item
+  def bill_to_client item_id
 
-    @item = item
+    @item = Item.find(item_id)
 
 
-    mail to: client.email, subject: "Factura"
+    mail to: @item.client.email, subject: "Factura"
   end
 end
