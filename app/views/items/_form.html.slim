@@ -159,6 +159,7 @@ div ng-controller="itemController"
             = f.hidden_field :sale_price, value: '{{ sale_price || 0 }}'
         .row.form-group
           = label_tag "fleet_cost_caption", "(+ {{ fleet_cost || '0'  }}% de Flete)", class: 'col-sm-2 control-label', style: "font-size: 12px; font-style: italic; color: gray; margin-top: -21px;"
+
         .row.form-group
           = f.label :serial_number, class: 'col-md-2 control-label'
           .col-md-4
@@ -166,6 +167,13 @@ div ng-controller="itemController"
           = label_tag "year_model_lbl", "Remolque Nuevo Modelo", class: 'col-sm-2 control-label'
           .col-md-4
             = f.text_field :year_model, class: 'form-control', placeholder: 'Año Modelo'
+       .row.form-group
+          = f.label :item_weight, class: 'col-md-2 control-label'
+          .col-md-4
+            = f.text_field :item_weight, class: 'form-control', placeholder: 'Peso del Remolque'
+          = label_tag "total_weight", "Peso Total", class: 'col-sm-2 control-label'
+          .col-md-4
+            = f.text_field :total_weight, class: 'form-control', placeholder: 'Peso Total'
         .row.form-group
           = label_tag "accessory", "Accesorios", class: 'col-sm-2 control-label'
           .col-md-10

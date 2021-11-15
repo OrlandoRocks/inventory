@@ -75,7 +75,8 @@ class ItemSerializer < ActiveModel::Serializer
              :trailer_length, :trailer_height, :ramp_type, :redila_type, :floor_type, :capacity,
              :trailer_width, :brake_type, :color, :divition_type, :fender_type, :hydraulic_jack, :advance_payment,
              :pull_type, :reinforcement_type, :roof_type, :suspension_type, :turn_type, :trailer_type, :brand, :categories_description,
-             :seller_percentage, :planet_percentage, :branch_percentage, :image_base64, :image_path, 
+             :seller_percentage, :planet_percentage, :branch_percentage, :image_base64, :image_path, :item_weight, :total_weight
+
   def user  
     object.user.as_json(except: [:avatar, :received_file], include: :department) if object.user
   end
