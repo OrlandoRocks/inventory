@@ -170,7 +170,7 @@ class ItemsController < ApplicationController
     @number_string = @data['Total'].to_f.a_letras
 
     data = "?re=ATP200908A49&rr=#{@trailer.try(:client).try(:rfc)}&id=#{@data['Complemento']['TimbreFiscalDigital']['UUID']}"
-    data = "https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx?id=#{@data['Complemento']['TimbreFiscalDigital']['UUID']}&re=ATP200908A49&rr=#{@trailer.try(:client).try(:rfc)}&tt=#{@data['Total']}&fe=#{@data['Complemento']['TimbreFiscalDigital']['SelloSAT'].last(8).to_s}"
+    data = "https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx?id=#{@data['Complemento']['TimbreFiscalDigital']['UUID']}&re=ATP200908A49&rr=#{@trailer.try(:client).try(:rfc)}&tt=#{@data['Total']}&fe=#{@data['Complemento']['TimbreFiscalDigital']['SelloCFD'].last(8).to_s}"
     qrcode = RQRCode::QRCode.new(data, :size => 20, :level => :h)
     @svg = qrcode.as_svg(
         offset: 0,
@@ -882,7 +882,7 @@ class ItemsController < ApplicationController
               "fecha": date,
               "generacion_automatica": true,
               "tipo": "ingreso",
-              "send_pdf_and_xml_by_mail": true
+              "send_pdf_and_xml_by_mail": false
           }
       }
     else
@@ -939,7 +939,7 @@ class ItemsController < ApplicationController
               "fecha": date,
               "generacion_automatica": true,
               "tipo": "ingreso",
-              "send_pdf_and_xml_by_mail": true
+              "send_pdf_and_xml_by_mail": false
           }
       }
     end
