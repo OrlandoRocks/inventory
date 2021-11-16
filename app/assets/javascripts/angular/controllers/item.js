@@ -981,9 +981,6 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
 
     $scope.show = function () {
 
-        console.log($scope.fiscal_vouchers_all);
-        console.log($scope.clients_all);
-
         ModalService.showModal({
             templateUrl: 'modal_venta.html',
             controller: "ModalVentaController as modal",
@@ -1132,6 +1129,27 @@ app.controller('itemController', ["$scope", "ModalService", "$http", function ($
             }, function (iSConfirm) {
 
             });
+        });
+    }
+
+    $scope.report_redirect = function(id){
+        swal({
+            title: '¿Esta seguro de generar la factura?',
+            text: '',
+            type: 'warning',
+            showCancelButton: true,
+            textCancelButton: 'NO',
+            confirmButtonText: 'SI'
+        }).then(function (isConfirm) {
+            if(isConfirm){
+                window.open('report/item_sale/'+id, '_blank');
+                // window.location.href = 'report/item_sale/' + id;
+            }
+
+            console.log(isConfirm);
+
+        }, function (iSConfirm) {
+
         });
     }
 

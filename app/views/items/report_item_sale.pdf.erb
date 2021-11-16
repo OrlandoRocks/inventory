@@ -69,7 +69,7 @@
 
         </div>
 
-        <div class="box-body" style="font-size: 13px;">
+        <div class="box-body" style="font-size: 11px;">
           <div class="row">
             <div class="col-md-6">
               <table class="table table-bordered table-hover" style="white-space: nowrap;border-spacing:0;">
@@ -149,7 +149,7 @@
 <!--            </div>-->
 <!--          </div>-->
 <!--        </div>-->
-        <div class="box-body" style="font-size: 13px;">
+        <div class="box-body" style="font-size: 11px;">
           <div class="row">
             <div class="col-sm-12">
               <table class="table table-bordered table-hover dataTable">
@@ -193,6 +193,10 @@
                     Remolque Nuevo Modelo <%= @trailer.try(:year_model) %>
                     <br>
                     Desc. del modelo: <%= @trailer.try(:categories_description) %>
+                    <br>
+                    Peso del remolque: <%= @trailer.try(:item_weight) %>
+                    <br>
+                    Peso total: <%= @trailer.try(:total_weight) %>
                   </td>
                   <td style="text-align: center; vertical-align: middle">
                     <%= number_to_currency @data['SubTotal'] %>
@@ -234,7 +238,7 @@
 <!--            </div>-->
 <!--          </div>-->
 <!--        </div>-->
-        <div class="box-body" style="font-size: 13px;">
+        <div class="box-body" style="font-size: 11px;">
           <div class="row">
             <div class="col-sm-12">
               <table class="table table-bordered table-hover dataTable">
@@ -267,7 +271,7 @@
             </div>
           </div>
         </div>
-        <div class="box-body" style="font-size: 13px;">
+        <div class="box-body" style="font-size: 10px;">
           <div class="row">
             <div class="col-sm-12">
               <table class="table table-bordered table-hover dataTable">
@@ -275,12 +279,12 @@
                 </thead>
                 <tbody>
                 <tr class="show_actions">
-                  <td colspan="2" width="20%">
+                  <td colspan="2" width="10%">
                     <div >
                       <%= @svg.html_safe %>
                     </div>
                   </td>
-                  <td colspan="2" width="80%">
+                  <td colspan="2" width="50%">
                     Este documento es una representación impreso de un CFDI
                     <br>
                     Efectos fiscales al pago
@@ -295,6 +299,9 @@
                     <br>
                     RFC Proveedor de Certificación: <%= @data['Complemento']['TimbreFiscalDigital']['RfcProvCertif'] %>
                   </td>
+                  <td colspan="2" width="45%">
+                    <%= image_tag wicked_pdf_asset_base64('sello_planet.png'), alt: "Sello", style: 'width: 300px; height: 150px' %>
+                  </td>
 
                 </tr>
 <!--                <tr class="show_actions">-->
@@ -302,9 +309,10 @@
                 </tbody>
               </table>
             </div>
+
           </div>
         </div>
-        <div class="box-body" style="font-size: 12px;">
+        <div class="box-body" style="font-size: 10px;">
           <div class="row">
             <div class="col-sm-12">
               <div class="table-responsive" style=" overflow-x: hidden;" >
@@ -340,14 +348,17 @@
                 </table>
               </div>
             </div>
-
-
           </div>
         </div>
       </div>
 
     </div>
   </div>
+  <row>
+    <div class="col-sm-12">
+      <hr style="width:70%;height: 1px;text-align:center;margin-top:50px;border-width:2px;border-color: black;">
+    </div>
+  </row>
 </section>
 </body>
 </html>

@@ -171,7 +171,7 @@ class ItemsController < ApplicationController
 
     data = "?re=ATP200908A49&rr=#{@trailer.try(:client).try(:rfc)}&id=#{@data['Complemento']['TimbreFiscalDigital']['UUID']}"
     data = "https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx?id=#{@data['Complemento']['TimbreFiscalDigital']['UUID']}&re=ATP200908A49&rr=#{@trailer.try(:client).try(:rfc)}&tt=#{@data['Total']}&fe=#{@data['Complemento']['TimbreFiscalDigital']['SelloCFD'].last(8).to_s}"
-    qrcode = RQRCode::QRCode.new(data, :size => 20, :level => :h)
+    qrcode = RQRCode::QRCode.new(data, :size => 10, :level => :m)
     @svg = qrcode.as_svg(
         offset: 0,
         color: '000',
@@ -224,7 +224,7 @@ class ItemsController < ApplicationController
     @number_string = @data['Total'].to_f.a_letras
 
     data = "?re=#{@trailer.try(:client).try(:rfc)}&rr=ATP200908A49&id=#{@data['Complemento']['TimbreFiscalDigital']['UUID']}"
-    qrcode = RQRCode::QRCode.new(data, :size => 10, :level => :h)
+    qrcode = RQRCode::QRCode.new(data, :size => 10, :level => :m)
     @svg = qrcode.as_svg(
         offset: 0,
         color: '000',
