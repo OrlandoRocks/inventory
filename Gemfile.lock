@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/activerecord-hackery/ransack.git
+  remote: https://github.com/activerecord-hackery/ransack.git
   revision: 8daa87a0389d380f7c9fd7ea9cb5bda634d5dc7d
   branch: 8daa87a0389d380f7c9fd7ea9cb5bda634d5dc7d
   specs:
@@ -424,7 +424,7 @@ GEM
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
-    tzinfo (1.2.9)
+    tzinfo (1.2.10)
       thread_safe (~> 0.1)
     uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
