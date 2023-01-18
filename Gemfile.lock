@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/activerecord-hackery/ransack.git
+  remote: https://github.com/activerecord-hackery/ransack.git
   revision: 8daa87a0389d380f7c9fd7ea9cb5bda634d5dc7d
   branch: 8daa87a0389d380f7c9fd7ea9cb5bda634d5dc7d
   specs:
@@ -300,7 +300,7 @@ GEM
     pundit (1.1.0)
       activesupport (>= 3.0.0)
     racc (1.5.2)
-    rack (2.2.3)
+    rack (2.2.6.2)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (5.2.6)
