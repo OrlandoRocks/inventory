@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/activerecord-hackery/ransack.git
+  remote: https://github.com/activerecord-hackery/ransack.git
   revision: 8daa87a0389d380f7c9fd7ea9cb5bda634d5dc7d
   branch: 8daa87a0389d380f7c9fd7ea9cb5bda634d5dc7d
   specs:
@@ -140,7 +140,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    concurrent-ruby (1.1.9)
+    concurrent-ruby (1.1.10)
     crass (1.0.6)
     debug_inspector (1.1.0)
     devise (4.7.3)
@@ -181,8 +181,8 @@ GEM
       sass (~> 3.2)
     font-awesome-sass (5.13.1)
       sassc (>= 1.11)
-    globalid (0.4.2)
-      activesupport (>= 4.2.0)
+    globalid (1.0.1)
+      activesupport (>= 5.0)
     haml (4.0.7)
       tilt
     highline (1.7.10)
@@ -194,7 +194,7 @@ GEM
     http-accept (1.7.0)
     http-cookie (1.0.4)
       domain_name (~> 0.5)
-    i18n (1.8.10)
+    i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     icheck-rails (1.0.2.2)
       jquery-rails
@@ -259,7 +259,7 @@ GEM
     mini_magick (4.11.0)
     mini_mime (1.1.0)
     mini_portile2 (2.5.3)
-    minitest (5.14.4)
+    minitest (5.15.0)
     modernizr-rails (2.7.1)
     momentjs-rails (2.11.1)
       railties (>= 3.1)
@@ -424,7 +424,7 @@ GEM
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
-    tzinfo (1.2.9)
+    tzinfo (1.2.10)
       thread_safe (~> 0.1)
     uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
